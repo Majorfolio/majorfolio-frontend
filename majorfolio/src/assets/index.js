@@ -1,0 +1,15 @@
+export { ReactComponent as Mf1 } from "./landing-mf1.svg";
+export { ReactComponent as Mf2 } from "./landing-mf2.svg";
+export { ReactComponent as Mf3 } from "./landing-mf3.svg";
+export { ReactComponent as Mf4 } from "./landing-mf4.svg";
+export { ReactComponent as LandingLogo } from "./landing-logo.svg";
+export { ReactComponent as LandingCurve } from "./landing-curve.svg";
+export { ReactComponent as DollarIcon } from "./landing-dollar.svg";
+export { ReactComponent as ClipBoardIcon } from "./landing-clipboard.svg";
+export { ReactComponent as CalendarIcon } from "./landing-calendar.svg";
+export { ReactComponent as PencilIcon } from "./landing-pencil.svg";
+export { ReactComponent as MfIcon1 } from "./landing-icon1.svg";
+export { ReactComponent as MfIcon2 } from "./landing-icon2.svg";
+export { ReactComponent as MfIcon3 } from "./landing-icon3.svg";
+export { ReactComponent as MfIcon4 } from "./landing-icon4.svg";
+export { ReactComponent as DottedLine } from "./landing-dotline.svg";

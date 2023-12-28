@@ -1,0 +1,30 @@
+<svg width="73" height="302" viewBox="0 0 73 302" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M66.2887 299.46L3.71163 282.198C1.52263 281.594 0.0126357 279.594 0.0308012 277.324L2.47103 -27.7049C2.4916 -30.2764 4.45414 -32.4156 7.01439 -32.6571L63.5244 -37.9882C66.4448 -38.2637 68.9771 -35.9846 69.0096 -33.0514L72.6364 294.571C72.6733 297.906 69.5042 300.347 66.2887 299.46Z" fill="#302DAC"/>
+<path d="M66.2929 299.467L26.3403 288.48C24.1218 287.87 22.6031 285.828 22.6568 283.528L29.9834 -30.2933C30.0426 -32.8303 31.9877 -34.923 34.5135 -35.1675L63.5127 -37.9738C66.4373 -38.2569 68.9774 -35.9762 69.01 -33.0382L72.6367 294.577C72.6736 297.91 69.5074 300.351 66.2929 299.467Z" fill="#4340DB"/>
+<ellipse cx="6.99948" cy="9.62429" rx="6.99948" ry="9.62429" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 37.6094 286.188)" fill="white"/>
+<ellipse cx="6.99948" cy="9.62429" rx="6.99948" ry="9.62429" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 51.6084 286.188)" fill="white"/>
+<mask id="mask0_2485_15010" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="37" y="267" width="15" height="20">
+<ellipse cx="6.99948" cy="9.33264" rx="6.99948" ry="9.33264" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 37.6094 286.188)" fill="white"/>
+</mask>
+<g mask="url(#mask0_2485_15010)">
+<ellipse cx="4.66632" cy="5.8329" rx="4.66632" ry="5.8329" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 37.6094 286.188)" fill="url(#paint0_linear_2485_15010)"/>
+</g>
+<mask id="mask1_2485_15010" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="51" y="267" width="15" height="20">
+<ellipse cx="6.99948" cy="9.33264" rx="6.99948" ry="9.33264" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 51.6084 286.188)" fill="white"/>
+</mask>
+<g mask="url(#mask1_2485_15010)">
+<ellipse cx="4.66632" cy="5.8329" rx="4.66632" ry="5.8329" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 51.6084 286.188)" fill="url(#paint1_linear_2485_15010)"/>
+</g>
+<ellipse cx="2.5" cy="1.5" rx="2.5" ry="1.5" transform="matrix(1 0 0 -1 44 280.232)" fill="white"/>
+<ellipse cx="2.5" cy="1.5" rx="2.5" ry="1.5" transform="matrix(1 0 0 -1 58 280.232)" fill="white"/>
+<defs>
+<linearGradient id="paint0_linear_2485_15010" x1="1.89111" y1="0.956543" x2="7.39111" y2="11.4565" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.5"/>
+</linearGradient>
+<linearGradient id="paint1_linear_2485_15010" x1="2.39209" y1="0.956543" x2="7.39209" y2="11.4565" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.5"/>
+</linearGradient>
+</defs>
+</svg>
