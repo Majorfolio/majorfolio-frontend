@@ -2,10 +2,10 @@ import React from 'react';
 
 import * as S from "./Landing.styles";
 
-import dollarIcon from '../../assets/landing-dollar.png';
-import clipBoardIcon from '../../assets/landing-clipboard.png';
-import calendarIcon from '../../assets/landing-calendar.png';
-import pencilIcon from '../../assets/landing-pencil.png';
+import dollarIcon from '../../assets/images/landing/landing-dollar.png';
+import clipBoardIcon from '../../assets/images/landing/landing-clipboard.png';
+import calendarIcon from '../../assets/images/landing/landing-calendar.png';
+import pencilIcon from '../../assets/images/landing/landing-pencil.png';
 
 const Landing = () => {
   return (
