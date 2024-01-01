@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Mf1, Mf2, Mf3, Mf4, LandingLogo, LandingCurve, MfIcon1, MfIcon2, MfIcon3, MfIcon4, DottedLine } from '../../assets';
+import { Mf1, Mf2, Mf3, Mf4, LandingLogo, LandingCurve, MfIcon1, MfIcon2, MfIcon3, MfIcon4, DottedLine, RightChevron } from '../../assets';
 
 export const Container = styled.div`
   width: 100vw;
@@ -96,9 +96,43 @@ export const Logo = styled(LandingLogo)`
   height: auto;
 `;
 
+export const BtnCheck = styled.div`
+  padding: 3.89vw 0;
+  margin: 51.53vw 5.55vw 0 5.55vw;
+  background: #4340DB;
+  border-radius: 1.67vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 1.11vw;
+`;
+
+export const WhiteRightChevron = styled(RightChevron)`
+  width: 6.67vw;
+  height: auto;
+  & .custom-path {
+    fill: white;
+  }
+`;
+
+export const ChevronWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2.22vw;
+`;
+
+export const GrayDownChevron = styled(RightChevron)`
+  width: 6.67vw;
+  height: auto;
+  transform: rotate(90deg);
+  & .custom-path {
+    fill: #A3ABB3;
+  }
+`;
+
 // 말풍선 화면 (선배들의 과제나 자료 ...)
 export const SpeechBubbleWrapper = styled.div`
-  margin-top: 40vw;
+  margin-top: 14.17vw;
   margin-bottom: 9.7vw;  
   position: relative;
 `;
@@ -284,7 +318,7 @@ export const JuniorDescWrapper = styled.div`
 
 /* 사용자 유형 화면 (여러분은 어떤 사람인가요?) */
 export const RoleWrapper = styled.div`
-  height: 135.83vw;
+  height: 134vw;
 `;
 
 export const WhoAreYouText = styled.div`
@@ -382,6 +416,79 @@ export const RoleDesc = styled.div`
   word-wrap: break-word;
 `;
 
+// 핸드폰 미리보기 화면
+export const PhoneWrapper = styled.div`
+  margin: 9.17vw 0;
+  display: flex;
+  gap: 3.83vw;
+  justify-content: center;
+`;
+
+export const Phone = styled.img`
+  width: 24.78vw;
+  height: auto;
+`;
+
+// 검정 배경
+export const BlackBack = styled.div`
+  width: 100vw;
+  background: #1F2026;
+  padding-bottom: 12.22vw;
+`;
+
+// 혜택 화면
+export const BenefitWrapper = styled.div`
+  padding-top: 13.47vw;
+`;
+
+export const BenefitTitleWrapper = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  gap: 2.22vw;
+`;
+
+export const Benefits = styled.div`
+  padding: 7.64vw 9.72vw 0 9.72vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3.33vw;
+`;
+
+export const Benefit = styled.div`
+  padding: 5vw 0;
+  display: flex;
+  flex-direction: row;
+  gap: 13.33vw;
+  justify-content: center;
+  background: white;
+  border-radius: 2.22vw;
+  align-items: center;
+`;
+
+export const BenefitImg = styled.img`
+  width: 12.22vw;
+  height: auto;
+`;
+
+export const BenefitContextTitle = styled(P)`
+  color: #1F2026;
+  font-size: 3.33vw;
+  font-weight: 700;
+  line-height: 5.33vw;
+  word-wrap: break-word;
+  display: inline;
+  margin-right: 0.83vw;
+`;
+
+export const BenefitContextTitleBlue = styled(BenefitContextTitle)`
+  color: #5166CB;
+`;
+
+export const BenefitContext = styled(Text4)`
+  text-align: left;
+`;
+
 // 설문참여 화면 (지금 바로 설문에 참여하여 ...)
 export const SurveyWrapper = styled.div`
   width: 100vw;
@@ -391,7 +498,6 @@ export const SurveyWrapper = styled.div`
   gap: 6.67vw;
   flex-direction: column;  
   justify-content: center;
-  background: #1F2026;
   text-align: center;
 `;
 
@@ -401,6 +507,12 @@ export const SurveyTitle = styled(P)`
   font-weight: 700;
   line-height: 6.22vw;
   word-wrap: break-word;
+  display: inline;
+`;
+
+export const WhiteSurveyTitle = styled(SurveyTitle)`
+  color: white;
+  display: inline;
 `;
 
 export const SurveyContext = styled.div`
@@ -412,4 +524,22 @@ export const SurveyContext = styled.div`
   display: flex;
   gap: 1.11vw;
   flex-direction: column;
+`;
+
+export const BtnSurvey = styled(BtnCheck)`
+  padding: 3.89vw 19.72vw;
+  margin-top: 0;
+  background: #FFA722;
+`;
+
+export const BtnSurveyText = styled(Text2)`
+  color: #232629;
+`;
+
+export const BlackRightChevron = styled(RightChevron)`
+  width: 6.67vw;
+  height: auto;
+  & .custom-path {
+    fill: #232629;
+  }
 `;
