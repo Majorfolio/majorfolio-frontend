@@ -13,6 +13,9 @@ import phone2 from '../../assets/images/landing/landing-phone2.png';
 import phone3 from '../../assets/images/landing/landing-phone3.png';
 
 const Landing = () => {
+  const handleBtn = () => {
+    window.open("https://han.gl/JktiJy");
+  }
   return (
     <>
       <S.Container>
@@ -26,7 +29,7 @@ const Landing = () => {
         </S.LogoWrapper>
         <S.Text1>지난 학기 잘 만든 과제를 볼 수 있다는<br/>사실을 알고 계셨나요?</S.Text1>
 
-        <S.BtnCheck>
+        <S.BtnCheck onClick={handleBtn}>
           <S.Text2>
             확인하러 가기
           </S.Text2>
@@ -212,7 +215,8 @@ const Landing = () => {
               <S.P>* 사전예약에 입력된 개인정보는 서비스 개선 및 이용 안내 목적 이외에는<br/>사용하지 않고, 설문 종료 후 3개월 내로 폐기합니다.</S.P>
             </S.SurveyContext>
           </S.SurveyWrapper>          
-          <S.BtnSurvey>
+
+          <S.BtnSurvey onClick={handleBtn}>
             <S.BtnSurveyText>
               설문 참여하고 혜택 받기
             </S.BtnSurveyText>

@@ -105,6 +105,9 @@ export const BtnCheck = styled.div`
   display: flex;
   justify-content: center;
   gap: 1.11vw;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const WhiteRightChevron = styled(RightChevron)`
