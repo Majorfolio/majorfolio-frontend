@@ -530,7 +530,6 @@ export const SurveyContext = styled.div`
 `;
 
 export const BtnSurvey = styled(BtnCheck)`
-  padding: 3.89vw 19.72vw;
   margin-top: 0;
   background: #FFA722;
 `;
