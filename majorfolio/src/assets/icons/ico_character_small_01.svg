@@ -1,0 +1,31 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24.002" height="24.002" rx="12.001" fill="#4340DB"/>
+<path d="M18.4025 6.31422L5.54279 7.43246C5.13674 7.46777 4.84091 7.83276 4.89045 8.23733L5.95124 16.9004C6.00602 17.3478 6.45366 17.6354 6.88334 17.4994L18.1648 13.9269C18.4432 13.8388 18.6408 13.5912 18.665 13.3002L19.1824 7.09137C19.2195 6.64658 18.8471 6.27556 18.4025 6.31422Z" fill="#FF7A00"/>
+<path d="M16.0082 6.52185L5.54279 7.43188C5.13674 7.46719 4.84091 7.83219 4.89045 8.23675L5.95117 16.8993C6.00594 17.3466 6.45342 17.6342 6.88306 17.4983L15.8503 14.6617C16.1334 14.5722 16.3325 14.3181 16.3517 14.0219L16.7891 7.28586C16.8177 6.84578 16.4475 6.48365 16.0082 6.52185Z" fill="#FFA722"/>
+<ellipse cx="10.5663" cy="13.0695" rx="1.15828" ry="1.59263" transform="rotate(-180 10.5663 13.0695)" fill="white"/>
+<ellipse cx="7.9882" cy="13.0695" rx="1.15828" ry="1.59263" transform="rotate(-180 7.9882 13.0695)" fill="white"/>
+<mask id="mask0_1876_15025" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="11" width="3" height="4">
+<ellipse cx="10.5663" cy="13.1177" rx="1.15828" ry="1.54437" transform="rotate(-180 10.5663 13.1177)" fill="white"/>
+</mask>
+<g mask="url(#mask0_1876_15025)">
+<ellipse cx="10.9524" cy="13.6969" rx="0.772187" ry="0.965233" transform="rotate(-180 10.9524 13.6969)" fill="url(#paint0_linear_1876_15025)"/>
+</g>
+<mask id="mask1_1876_15025" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="11" width="4" height="4">
+<ellipse cx="7.9882" cy="13.1177" rx="1.15828" ry="1.54437" transform="rotate(-180 7.9882 13.1177)" fill="white"/>
+</mask>
+<g mask="url(#mask1_1876_15025)">
+<ellipse cx="8.3743" cy="13.6969" rx="0.772187" ry="0.965233" transform="rotate(-180 8.3743 13.6969)" fill="url(#paint1_linear_1876_15025)"/>
+</g>
+<ellipse cx="7.9901" cy="13.4086" rx="0.414901" ry="0.207451" fill="white"/>
+<ellipse cx="10.617" cy="13.4086" rx="0.414901" ry="0.207451" fill="white"/>
+<defs>
+<linearGradient id="paint0_linear_1876_15025" x1="10.6737" y1="13.1551" x2="11.5035" y2="14.3998" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.53"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1876_15025" x1="8.06097" y1="13.1551" x2="8.89078" y2="14.3998" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.53"/>
+</linearGradient>
+</defs>
+</svg>
