@@ -1,4 +1,4 @@
-import DetailPost from "./DetailPost";
+import DetailPost from "../components/DetailPost/DetailPost";
 
 export default {
   title: "Home/DetailPost",

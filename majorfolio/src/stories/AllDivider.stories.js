@@ -1,4 +1,4 @@
-import AllDivider from "./AllDivider";
+import AllDivider from "../components/AllDivider/AllDivider";
 
 export default {
   title: "All/AllDivider",

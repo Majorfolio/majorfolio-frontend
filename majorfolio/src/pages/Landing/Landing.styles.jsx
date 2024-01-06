@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Mf1, Mf2, Mf3, Mf4, LandingLogo, LandingCurve, MfIcon1, MfIcon2, MfIcon3, MfIcon4, DottedLine, RightChevron } from '../../assets';
+import { Mf1, Mf2, Mf3, Mf4, LandingLogo, LandingCurve, MfIcon1, MfIcon2, MfIcon3, MfIcon4, DottedLine, RightChevron } from '../../assets/images/landing';
 
 export const Container = styled.div`
   width: 100vw;

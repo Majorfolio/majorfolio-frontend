@@ -1,4 +1,4 @@
-import AllTagSmall from "./AllTagSmall";
+import AllTagSmall from "../components/AllTagSmall/AllTagSmall";
 
 export default {
   title: "All/AllTagSmall",
