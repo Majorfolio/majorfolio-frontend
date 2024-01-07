@@ -2,12 +2,10 @@ import React from 'react';
 import Router from './pages';
 import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <>
-      <Router />
-    </>
+    <Router />
   );
-};
+}
 
 export default App;
