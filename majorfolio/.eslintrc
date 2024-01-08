@@ -17,8 +17,7 @@
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "project": ["tsconfig.json"],
-    "tsconfigRootDir": "majorfolio",
+    "project": ["./tsconfig.json"],
     "sourceType": "module",
     "createDefaultProgram": true
   },
