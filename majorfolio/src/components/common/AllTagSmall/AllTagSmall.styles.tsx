@@ -12,3 +12,5 @@ export const Tag = styled.span`
   word-wrap: break-word;
   flex: 1;
 `;
+
+export default Tag;

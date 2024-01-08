@@ -1,5 +1,5 @@
 import React from 'react';
-import AllDivider from '../components/AllDivider/AllDivider';
+import AllDivider from '../components/common/AllDivider/AllDivider';
 
 export default {
   title: 'All/AllDivider',

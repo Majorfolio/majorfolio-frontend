@@ -1,5 +1,5 @@
 import React from 'react';
-import DetailPost from '../components/DetailPost/DetailPost';
+import DetailPost from '../components/home/DetailPost/DetailPost';
 
 export default {
   title: 'Home/DetailPost',

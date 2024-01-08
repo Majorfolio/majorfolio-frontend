@@ -1,9 +1,9 @@
 import React from 'react'
 
-const DetailProfile = () => {
+function DetailProfile() {
   return (
     <div>DetailProfile</div>
   )
 }
 
-export default DetailProfile
+export default DetailProfile;

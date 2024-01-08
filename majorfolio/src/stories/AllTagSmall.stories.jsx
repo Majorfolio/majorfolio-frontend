@@ -1,5 +1,5 @@
 import React from 'react';
-import AllTagSmall from '../components/AllTagSmall/AllTagSmall';
+import AllTagSmall from '../components/common/AllTagSmall/AllTagSmall';
 
 export default {
   title: 'All/AllTagSmall',
