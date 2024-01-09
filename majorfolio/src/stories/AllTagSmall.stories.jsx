@@ -2,7 +2,7 @@ import React from 'react';
 import AllTagSmall from '../components/common/AllTagSmall/AllTagSmall';
 
 export default {
-  title: 'All/AllTagSmall',
+  title: 'Common/AllTagSmall',
   component: AllTagSmall,
   argTypes: {
     text: { control: 'text' },

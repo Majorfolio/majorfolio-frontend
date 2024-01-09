@@ -3,18 +3,12 @@ import MaterialSellerProfile from '../components/home/MaterialSellerProfile/Mate
 
 export default {
   title: 'Home/MaterialSellerProfile',
-  component: MaterialSellerProfile,
-  argTypes: {
-    
-  },
+  component: MaterialSellerProfile
 };
 
 function Template(args) {
   return <MaterialSellerProfile {...args} />;
 }
 
-export const Post1 = Template.bind({});
+export const Profile1 = Template.bind({});
 
-Post1.args = {
-  
-};

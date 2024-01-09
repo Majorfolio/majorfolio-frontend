@@ -2,7 +2,7 @@ import React from 'react';
 import AllDivider from '../components/common/AllDivider/AllDivider';
 
 export default {
-  title: 'All/AllDivider',
+  title: 'Common/AllDivider',
   component: AllDivider,
   argTypes: {},
 };
