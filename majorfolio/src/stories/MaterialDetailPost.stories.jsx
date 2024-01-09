@@ -1,9 +1,9 @@
 import React from 'react';
-import DetailPost from '../components/DetailPost/DetailPost';
+import MaterialDetailPost from '../components/home/MaterialDetailPost/MaterialDetailPost';
 
 export default {
-  title: 'Home/DetailPost',
-  component: DetailPost,
+  title: 'Home/MaterialDetailPost',
+  component: MaterialDetailPost,
   argTypes: {
     title: { control: 'text' },
     content: { control: 'text' },
@@ -11,7 +11,7 @@ export default {
 };
 
 function Template(args) {
-  return <DetailPost {...args} />;
+  return <MaterialDetailPost {...args} />;
 }
 
 export const Post1 = Template.bind({});
