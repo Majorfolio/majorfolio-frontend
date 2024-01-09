@@ -6,6 +6,7 @@ export { ReactComponent as ArrowDownDefaultIcon } from './ico_arrow_down.svg';
 export { ReactComponent as ArrowRightOutlinedIcon } from './ico_arrow_right-1.svg';
 export { ReactComponent as ArrowRightDefaultIcon } from './ico_arrow_right.svg';
 export { ReactComponent as ArrowUpDefaultIcon } from './ico_arrow_up.svg';
+export { ReactComponent as BookmarkIcon } from './ico_bookmark.svg';
 export { ReactComponent as CancelDefaultIcon } from './ico_cancel.svg';
 export { ReactComponent as CartDefaultIcon } from './ico_cart.svg';
 export { ReactComponent as CharacterSmall1Icon } from './ico_character_small_01.svg';
