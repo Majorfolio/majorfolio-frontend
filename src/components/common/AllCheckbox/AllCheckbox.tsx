@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import * as S from './AllCheckbox.styles';
 import { CheckboxUnselectedIcon, CheckboxFilledIcon } from '../../../assets/icons';
 
-interface AllCheckboxProps {
+export interface AllCheckboxProps {
   checked: boolean
 }
 

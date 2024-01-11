@@ -1,13 +1,14 @@
 import React from "react";
+import { Meta, StoryObj } from '@storybook/react';
 import PaymentSelectAllBar from "../components/home/PaymentSelectAllBar/PaymentSelectAllBar";
 
-export default {
+const meta = {
   title: 'Home/PaymentSelectAllBar',
   component: PaymentSelectAllBar
-}
+} satisfies Meta;
 
-function Template(args) {
-  return <PaymentSelectAllBar {...args} />;
-}
+export default meta;
 
-export const SelectAll = Template.bind({});
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = { };

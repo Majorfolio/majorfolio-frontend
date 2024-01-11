@@ -1,13 +1,14 @@
 import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 import MaterialDetailInfo from '../components/home/MaterialDetailInfo/MaterialDetailInfo';
 
-export default {
+const meta = {
   title: 'Home/MaterialDetailInfo',
   component: MaterialDetailInfo
-}
+} satisfies Meta;
 
-function Template(args) {
-  return <MaterialDetailInfo {...args} />;
-}
+export default meta;
 
-export const Info1 = Template.bind({});
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = { };

@@ -1,20 +1,21 @@
 import React from "react";
+import { Meta, StoryObj } from '@storybook/react';
 import AllCheckbox from "../components/common/AllCheckbox/AllCheckbox";
 
-export default {
+const meta = {
   title: 'Common/AllCheckbox',
   component: AllCheckbox,
   argTypes: {
     checked: { control: 'boolean' }
   }
-};
+} satisfies Meta;
 
-function Templete(args) {
-  return <AllCheckbox {...args} />;
-}
+export default meta;
 
-export const Checkbox = Templete.bind({});
+type Story = StoryObj<typeof meta>;
 
-Checkbox.args = {
-  checked: true
+export const Default: Story = {
+  args: {
+    checked: false
+  },
 };

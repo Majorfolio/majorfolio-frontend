@@ -1,20 +1,21 @@
 import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 import AllTagSmall from '../components/common/AllTagSmall/AllTagSmall';
 
-export default {
+const meta = {
   title: 'Common/AllTagSmall',
   component: AllTagSmall,
   argTypes: {
     text: { control: 'text' },
-  },
-};
+  }
+} satisfies Meta;
 
-function Template(args) {
-  return <AllTagSmall {...args} />;
-}
+export default meta;
 
-export const GrayTag = Template.bind({});
+type Story = StoryObj<typeof meta>;
 
-GrayTag.args = {
-  text: 'PDF',
+export const GrayTag: Story = {
+  args: {
+    text: 'PDF',
+  }
 };
