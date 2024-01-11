@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import AllTagSmall from '../components/common/AllTagSmall/AllTagSmall';
+import AllTagSmall from '../components/common/AllTagSmall';
 
 const meta = {
   title: 'Common/AllTagSmall',

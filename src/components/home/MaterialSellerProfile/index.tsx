@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './MaterialSellerProfile.styles';
+import * as S from './index.styles';
 import { CharacterSmall1Icon } from '../../../assets/icons';
 
 function DetailProfile() {

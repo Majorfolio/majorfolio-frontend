@@ -1,8 +1,8 @@
 import React from 'react'
 
-import * as S from './PaymentPostCard.styles';
+import * as S from './index.styles';
 import { SchoolDefaultIcon, DepartmentOutlinedIcon, SemesterDefaultIcon, ClassDefaultIcon } from '../../../assets/icons';
-import AllCheckbox from '../../common/AllCheckbox/AllCheckbox';
+import AllCheckbox from '../../common/AllCheckbox';
 
 function PaymentPostCard() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import AllDivider from '../components/common/AllDivider/AllDivider';
+import AllDivider from '../components/common/AllDivider';
 
 const meta = {
   title: 'Common/AllDivider',

@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from '@storybook/react';
-import PaymentSelectAllBar from "../components/home/PaymentSelectAllBar/PaymentSelectAllBar";
+import PaymentSelectAllBar from "../components/home/PaymentSelectAllBar";
 
 const meta = {
   title: 'Home/PaymentSelectAllBar',

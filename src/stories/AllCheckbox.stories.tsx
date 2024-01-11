@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from '@storybook/react';
-import AllCheckbox from "../components/common/AllCheckbox/AllCheckbox";
+import AllCheckbox from "../components/common/AllCheckbox";
 
 const meta = {
   title: 'Common/AllCheckbox',

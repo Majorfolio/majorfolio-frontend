@@ -1,7 +1,7 @@
 import React from 'react'
 
-import * as S from './PaymentSelectAllBar.styles';
-import AllCheckbox from '../../common/AllCheckbox/AllCheckbox';
+import * as S from './index.styles';
+import AllCheckbox from '../../common/AllCheckbox';
 
 function PaymentSelectAllBar() {
   return (

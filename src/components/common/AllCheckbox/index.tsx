@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import * as S from './AllCheckbox.styles';
+import * as S from './index.styles';
 import { CheckboxUnselectedIcon, CheckboxFilledIcon } from '../../../assets/icons';
 
 export interface AllCheckboxProps {

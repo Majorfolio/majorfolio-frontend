@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import MaterialDetailPost from '../components/home/MaterialDetailPost/MaterialDetailPost';
+import MaterialDetailPost from '../components/home/MaterialDetailPost';
 
 const meta = {
   title: 'Home/MaterialDetailPost',

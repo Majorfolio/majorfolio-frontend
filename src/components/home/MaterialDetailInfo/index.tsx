@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './MaterialDetailInfo.styles';
+import * as S from './index.styles';
 import { PostTitleDefaultIcon, SchoolDefaultIcon, DepartmentOutlinedIcon, SemesterDefaultIcon, ClassDefaultIcon, ProfessorDefaultIcon, CreditDefaultIcon, ScoreDefaultIcon } from '../../../assets/icons';
 
 function MaterialDetailInfo() {

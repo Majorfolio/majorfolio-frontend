@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import MaterialDetailInfo from '../components/home/MaterialDetailInfo/MaterialDetailInfo';
+import MaterialDetailInfo from '../components/home/MaterialDetailInfo';
 
 const meta = {
   title: 'Home/MaterialDetailInfo',

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './MaterialDetailPreview.styles';
+import * as S from './index.styles';
 
 function MaterialDetailPreview() {
   return (

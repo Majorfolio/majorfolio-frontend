@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './AllTagSmall.styles';
+import * as S from './index.styles';
 
 interface AllTagSmallProps {
   text: string;

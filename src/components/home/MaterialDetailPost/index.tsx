@@ -1,7 +1,7 @@
 import React from 'react'
 
-import * as S from './MaterialDetailPost.styles';
-import Tag from '../../common/AllTagSmall/AllTagSmall';
+import * as S from './index.styles';
+import Tag from '../../common/AllTagSmall';
 
 interface DetailPostProps {
   title: string,

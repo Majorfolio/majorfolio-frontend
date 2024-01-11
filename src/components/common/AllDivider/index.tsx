@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './AllDivider.styles';
+import * as S from './index.styles';
 
 function AllDivider() {
   return (
