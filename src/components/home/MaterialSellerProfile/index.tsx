@@ -8,7 +8,7 @@ function DetailProfile() {
     <S.ProfileWrapper>
       <S.SellerInfoWrapper>
         <S.ProfileImageWrapper><CharacterSmall1Icon /></S.ProfileImageWrapper>
-        <S.ProfileName>엘사네올라프</S.ProfileName>
+        <S.ProfileName>엘사네올라프엘사네올라프</S.ProfileName>
       </S.SellerInfoWrapper>
 
       <S.ReactionWrapper>

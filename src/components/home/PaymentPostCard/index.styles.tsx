@@ -5,6 +5,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const CardTitleWrapper = styled.div`
+  padding-right: 4px;
   display: flex;
   justify-content: space-between;
 `;
