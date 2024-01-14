@@ -9,6 +9,8 @@ export type ColorType =
   | 'gray/gray500'
   | 'gray/gray600'
   | 'gray/gray800'
+  | 'gray/gray900'
+  | 'gray/black'
   | 'main_color/yellow_p'
   | 'main_color/yellow_s'
   | 'main_color/blue_p'
@@ -57,6 +59,8 @@ const theme = {
     'gray/gray500': '#767D86',
     'gray/gray600': '#4B535A',
     'gray/gray800': '#2C2F34',
+    'gray/gray900': '#232629',
+    'gray/black': '#111111',
     'main_color/yellow_p': '#FFA722',
     'main_color/yellow_s': '#FF7A00',
     'main_color/blue_p': '#4340DB',
