@@ -47,6 +47,8 @@ export type WeightType = 'bold' | 'md';
 
 export type LineHeightType = 'sm' | 'md' | 'lg';
 
+export type SizeType = 10 | 12 | 14 | 16 | 18 | 20 | 22;
+
 const theme = {
   color: {
     'gray/white': '#FFFFFF',

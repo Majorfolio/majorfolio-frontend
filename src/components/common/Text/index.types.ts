@@ -1,9 +1,9 @@
-import { ColorType, LineHeightType, WeightType } from '../theme';
+import { ColorType, LineHeightType, SizeType, WeightType } from '../theme';
 
 export interface TextPropsType {
   children: React.ReactNode;
-  color: ColorType;
-  size: number;
-  weight: WeightType;
-  lineHeight: LineHeightType;
+  color?: ColorType;
+  size?: SizeType;
+  weight?: WeightType;
+  lineHeight?: LineHeightType;
 }
