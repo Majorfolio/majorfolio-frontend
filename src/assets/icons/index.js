@@ -1,5 +1,5 @@
-export { ReactComponent as AllSchoolsOutinedIcon } from './ico_all_schools-1.svg';
-export { ReactComponent as AllSchoolsFilledIcon } from './ico_all_schools-2.svg';
+export { ReactComponent as AllSchoolsFilledIcon } from './ico_all_schools-1.svg';
+export { ReactComponent as AllSchoolsOutinedIcon } from './ico_all_schools-2.svg';
 export { ReactComponent as AllSchoolsDefaultIcon } from './ico_all_schools.svg';
 export { ReactComponent as ArrowBackDefaultIcon } from './ico_arrow_back.svg';
 export { ReactComponent as ArrowDownDefaultIcon } from './ico_arrow_down.svg';

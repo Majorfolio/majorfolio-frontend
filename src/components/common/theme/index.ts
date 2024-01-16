@@ -107,12 +107,13 @@ const theme = {
     lg: 1.6,
   },
   buttonWidth: {
-    sm: 134,
+    sm: 92,
     md: 154,
     lg: 320,
+    popup: 134,
   },
 };
 
-export type ButtonWidthType = 'sm' | 'md' | 'lg';
+export type ButtonWidthType = 'sm' | 'md' | 'lg' | 'popup';
 
 export default theme;
