@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
 
 import * as S from './index.styles';
-import { AllSchoolsOutinedIcon, AllSchoolsDefaultIcon, MySchoolFilledIcon, MySchoolDefaultIcon, MyDepartmentFilledIcon, MyDepartmentDefaultIcon, MyClassFilledIcon, MyClassDefaultIcon } from '../../../assets/icons';
+import { 
+  AllSchoolsOutinedIcon, 
+  AllSchoolsDefaultIcon, 
+  MySchoolFilledIcon, 
+  MySchoolDefaultIcon, 
+  MyDepartmentFilledIcon, 
+  MyDepartmentDefaultIcon, 
+  MyClassFilledIcon, 
+  MyClassDefaultIcon 
+} from '../../../assets/icons';
+import Text from '../../common/Text';
 
 const HomeCategoryButtonSection = () => {
-  const [currentCategory, setCurrentCategory] = useState(-1);
+  const [currentCategory, setCurrentCategory] = useState(1);
 
   const handleButtonClick = (category: number) => {
     setCurrentCategory(category);
@@ -21,7 +31,18 @@ const HomeCategoryButtonSection = () => {
           onChange={() => handleButtonClick(0)}
         />
         <S.ButtonText>
-          모든 학교
+          {currentCategory === 0 
+            ? (
+              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
+                모든 학교
+              </Text>
+            ) 
+            : (
+              <Text lineHeight='sm' size={12} color='gray/gray500'>
+                모든 학교
+            </Text>
+            )
+          }
         </S.ButtonText>
         <S.ButtonIconWrapper htmlFor='allSchool'>
           {currentCategory === 0 ? <AllSchoolsOutinedIcon /> : <AllSchoolsDefaultIcon />}
@@ -37,7 +58,18 @@ const HomeCategoryButtonSection = () => {
           onChange={() => handleButtonClick(1)}
         />
         <S.ButtonText>
-          내 학교
+          {currentCategory === 1
+            ? (
+              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
+                내 학교
+              </Text>
+            ) 
+            : (
+              <Text lineHeight='sm' size={12} color='gray/gray500'>
+                내 학교
+            </Text>
+            )
+          }
         </S.ButtonText>
         <S.ButtonIconWrapper htmlFor='mySchool'>
           {currentCategory === 1 ? <MySchoolFilledIcon /> : <MySchoolDefaultIcon />}
@@ -53,7 +85,18 @@ const HomeCategoryButtonSection = () => {
           onChange={() => handleButtonClick(2)}
         />
         <S.ButtonText>
-          내 학과
+          {currentCategory === 2
+            ? (
+              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
+                내 학과
+              </Text>
+            ) 
+            : (
+              <Text lineHeight='sm' size={12} color='gray/gray500'>
+                내 학과
+            </Text>
+            )
+          }
         </S.ButtonText>
         <S.ButtonIconWrapper htmlFor='myDepartment'>
           {currentCategory === 2 ? <MyDepartmentFilledIcon /> : <MyDepartmentDefaultIcon />}
@@ -69,7 +112,18 @@ const HomeCategoryButtonSection = () => {
           onChange={() => handleButtonClick(3)}
         />
         <S.ButtonText>
-          내 수업
+          {currentCategory === 3
+            ? (
+              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
+                내 수업
+              </Text>
+            ) 
+            : (
+              <Text lineHeight='sm' size={12} color='gray/gray500'>
+                내 수업
+            </Text>
+            )
+          }
         </S.ButtonText>
         <S.ButtonIconWrapper htmlFor='myClass'>
           {currentCategory === 3 ? <MyClassFilledIcon /> : <MyClassDefaultIcon />}

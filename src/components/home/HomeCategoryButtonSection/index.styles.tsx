@@ -11,6 +11,9 @@ export const ButtonWrapper = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const CustomRadioInput = styled.input`
@@ -24,10 +27,9 @@ export const CustomRadioInput = styled.input`
   display: flex;
   align-items: center;
   background: ${(props) => (props.checked ? '#4340DB' : '#EBEEF2')};
-
-  /* &:checked {
-    background-color: #4340DB;
-  } */
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ButtonIconWrapper = styled.label`
@@ -35,19 +37,11 @@ export const ButtonIconWrapper = styled.label`
   top: 12px;
   left: 12px;
   display: flex;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-export const ButtonText = styled.label`
+export const ButtonText = styled.span`
   margin-top: 6px;
-  color: #767D86;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 14.40px;
-  word-wrap: break-word;
-  text-align: center;
-
-  /* ${CustomRadioInput}:checked {
-    color: #4340DB;
-    font-weight: 700;
-  } */
 `;
