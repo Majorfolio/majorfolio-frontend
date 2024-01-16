@@ -67,3 +67,4 @@ export { ReactComponent as ShareDefaultIcon } from './ico_share.svg';
 export { ReactComponent as UploadCheckDefaultIcon } from './ico_upload_check.svg';
 export { ReactComponent as VisibilityOffIcon } from './ico_visibility_off.svg';
 export { ReactComponent as VisibilityOnIcon } from './ico_visibility.svg';
+export { ReactComponent as LoadingIcon } from './ico_loading.svg';
