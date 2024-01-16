@@ -36,6 +36,7 @@ export type ColorType =
   | 'sub_color/blue/bg'
   | 'sub_color/indigo/p'
   | 'sub_color/indigo/s'
+  | 'sub_color/indigo/h'
   | 'sub_color/indigo/c'
   | 'sub_color/indigo/bg'
   | 'sub_color/purple/p'
@@ -97,14 +98,21 @@ const theme = {
     'sub_color/purple/bg': '#F5F1FF',
   },
   weight: {
-    bold: 500,
-    md: 700,
+    bold: 700,
+    md: 500,
   },
   lineHeight: {
     sm: 1.2,
     md: 1.4,
     lg: 1.6,
   },
+  buttonWidth: {
+    sm: 134,
+    md: 154,
+    lg: 320,
+  },
 };
+
+export type ButtonWidthType = 'sm' | 'md' | 'lg';
 
 export default theme;
