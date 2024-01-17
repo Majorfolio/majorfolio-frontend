@@ -3,7 +3,7 @@ import { ReactionDefaultIcon, BookmarkIcon } from '../../../assets/icons';
 
 export const ProfileWrapper = styled.div`
   height: 24px;
-  padding: 16px 20px;
+  /* padding: 16px 20px; */
   display: flex;
   justify-content: space-between;
   align-items: center;

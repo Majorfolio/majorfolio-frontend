@@ -4,7 +4,11 @@ import * as S from './index.styles';
 import Text from '../../common/Text';
 import { CharacterSmall1Icon } from '../../../assets/icons';
 
-function DetailProfile() {
+interface DetailProfileProps {
+  hasReaction: boolean;
+}
+
+function DetailProfile({ hasReaction }: DetailProfileProps) {
   return (
     <S.ProfileWrapper>
       <S.SellerInfoWrapper>
@@ -12,17 +16,20 @@ function DetailProfile() {
         <Text size={14} weight='bold' color='gray/gray900'>엘사네올라프엘사네올라프</Text>
       </S.SellerInfoWrapper>
 
-      <S.ReactionWrapper>
-        <S.LikeWrapper>
-          <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
-          <S.Like />
-        </S.LikeWrapper>
-        <S.BookmarkWrapper>
-          <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
-          <S.Bookmark />
-        </S.BookmarkWrapper>
-        
-      </S.ReactionWrapper>
+      {hasReaction ? (
+        <S.ReactionWrapper>
+          <S.LikeWrapper>
+            <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
+            <S.Like />
+          </S.LikeWrapper>
+          <S.BookmarkWrapper>
+            <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
+            <S.Bookmark />
+          </S.BookmarkWrapper>
+          
+        </S.ReactionWrapper>
+        ) : null}
+      
       
     </S.ProfileWrapper>
   )
