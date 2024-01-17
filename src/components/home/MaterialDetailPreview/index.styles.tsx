@@ -19,11 +19,7 @@ export const PreviewButton = styled.div`
   display: flex;
   background: #4B535A; 
   border-radius: 4px;
-  color: white;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 19.20px;
-  word-wrap: break-word;
+  
   &:hover {
     cursor: pointer;
   }

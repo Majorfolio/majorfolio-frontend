@@ -1,6 +1,7 @@
 import React from 'react'
 
 import * as S from './index.styles';
+import Text from '../../common/Text';
 import Tag from '../../common/AllTagSmall';
 
 interface DetailPostProps {
@@ -11,9 +12,9 @@ interface DetailPostProps {
 function DetailPost({ title, content }: DetailPostProps) {
   return (
     <S.PostWrapper>
-      <S.PostTitle>{ title }</S.PostTitle>
-      <S.TagWrapper><Tag text="PDF" /></S.TagWrapper>
-      <S.PostContent>{ content }</S.PostContent>
+      <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'>{ title }</Text>
+      <S.TagWrapper><Tag text="PDF" color="white" /></S.TagWrapper>
+      <Text size={14} lineHeight='lg' color='gray/gray900'>{ content }</Text>
     </S.PostWrapper>
   )
 }

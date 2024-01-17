@@ -19,19 +19,3 @@ export const InfoTitleWrapper = styled.span`
   gap: 4px;
   align-items: center;
 `;
-
-export const InfoTitle = styled.span`
-  color: #767D86;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 16.80px;
-  word-wrap: break-word;
-`;
-
-export const InfoContent = styled.span`
-  color: #232629;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 16.80px;
-  word-wrap: break-word;
-`;

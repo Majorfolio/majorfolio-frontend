@@ -7,6 +7,7 @@ const meta = {
   component: AllTagSmall,
   argTypes: {
     text: { control: 'text' },
+    color: { control: 'text' },
   }
 } satisfies Meta;
 
@@ -17,5 +18,6 @@ type Story = StoryObj<typeof meta>;
 export const GrayTag: Story = {
   args: {
     text: 'PDF',
+    color: 'white',
   }
 };

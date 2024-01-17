@@ -1,6 +1,7 @@
 import React from 'react'
 
 import * as S from './index.styles';
+import Text from '../../common/Text';
 import { CharacterSmall1Icon } from '../../../assets/icons';
 
 function DetailProfile() {
@@ -8,16 +9,16 @@ function DetailProfile() {
     <S.ProfileWrapper>
       <S.SellerInfoWrapper>
         <S.ProfileImageWrapper><CharacterSmall1Icon /></S.ProfileImageWrapper>
-        <S.ProfileName>엘사네올라프엘사네올라프</S.ProfileName>
+        <Text size={14} weight='bold' color='gray/gray900'>엘사네올라프엘사네올라프</Text>
       </S.SellerInfoWrapper>
 
       <S.ReactionWrapper>
         <S.LikeWrapper>
-          <S.LikeCount>00</S.LikeCount>
+          <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
           <S.Like />
         </S.LikeWrapper>
         <S.BookmarkWrapper>
-          <S.BookmarkCount>00</S.BookmarkCount>
+          <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
           <S.Bookmark />
         </S.BookmarkWrapper>
         

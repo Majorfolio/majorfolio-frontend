@@ -57,6 +57,7 @@ export { ReactComponent as TaskboxDefaultIcon } from './ico_navigation_taskbox.s
 export { ReactComponent as UploadFilledIcon } from './ico_navigation_upload-1.svg';
 export { ReactComponent as UploadDefaultIcon } from './ico_navigation_upload.svg';
 export { ReactComponent as NotificationDefaultIcon } from './ico_notifications.svg';
+export { ReactComponent as PageDefaultIcon } from './ico_page.svg';
 export { ReactComponent as PostTitleDefaultIcon } from './ico_post_title.svg';
 export { ReactComponent as ProfessorDefaultIcon } from './ico_professor.svg';
 export { ReactComponent as ReactionDefaultIcon } from './ico_reaction.svg';
