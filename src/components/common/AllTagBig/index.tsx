@@ -4,12 +4,12 @@ import * as S from './index.styles';
 import Text from '../Text';
 import theme, { ColorType } from '../theme';
 
-interface AllTagSmallProps {
+interface AllTagBigProps {
   text: string;
   color?: string;
 }
 
-function AllTagSmall({ text, color }: AllTagSmallProps) {
+function AllTagBig({ text, color }: AllTagBigProps) {
   let backColor: string = theme.color['gray/gray100'];
   let textColor: ColorType = 'gray/gray900';
 
@@ -41,12 +41,12 @@ function AllTagSmall({ text, color }: AllTagSmallProps) {
     default:
       break;
   }
-  
+
   return (
     <S.Tag style={{ backgroundColor: backColor }}>
-      <Text size={10} weight='bold' lineHeight='sm' color={textColor}>{ text }</Text>
+      <Text size={12} weight='bold' lineHeight='sm' color={textColor}>{ text }</Text>
     </S.Tag>
-  );
+  )
 }
 
-export default AllTagSmall;
+export default AllTagBig

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import AllTagSmall from '../components/common/AllTagSmall';
+import AllTagBig from '../components/common/AllTagBig';
 
 const meta = {
-  title: 'Common/AllTagSmall',
-  component: AllTagSmall,
+  title: 'Common/AllTagBig',
+  component: AllTagBig,
   argTypes: {
     text: { control: 'text' },
     color: { control: 'text' },
@@ -17,41 +17,41 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: 'PDF',
+    text: '본 전공 - 컴퓨터공학부',
   }
 };
 
 export const Dark: Story = {
   args: {
-    text: 'PDF',
+    text: '본 전공 - 컴퓨터공학부',
     color: 'dark',
   }
 };
 
 export const Red: Story = {
   args: {
-    text: 'PDF',
+    text: '본 전공 - 컴퓨터공학부',
     color: 'red',
   }
 };
 
 export const Yellow: Story = {
   args: {
-    text: 'PDF',
+    text: '본 전공 - 컴퓨터공학부',
     color: 'yellow',
   }
 };
 
 export const Green: Story = {
   args: {
-    text: 'PDF',
+    text: '본 전공 - 컴퓨터공학부',
     color: 'green',
   }
 };
 
 export const Blue: Story = {
   args: {
-    text: 'PDF',
+    text: '본 전공 - 컴퓨터공학부',
     color: 'blue',
   }
 };
