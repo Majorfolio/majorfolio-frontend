@@ -8,6 +8,12 @@ export const PostWrapper = styled.div`
   gap: 16px;
 `;
 
+export const PostTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 export const TagWrapper = styled.span`
   position: absolute;
   display: flex;

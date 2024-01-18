@@ -12,8 +12,12 @@ interface DetailPostProps {
 function DetailPost({ title, content }: DetailPostProps) {
   return (
     <S.PostWrapper>
-      <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'>{ title }</Text>
-      <S.TagWrapper><Tag text="PDF" color="white" /></S.TagWrapper>
+      <S.PostTitleWrapper>
+        <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'>{ title }</Text>
+        <S.TagWrapper><Tag text="PDF" color="white" /></S.TagWrapper>        
+        <Text size={12} lineHeight='sm' color='gray/gray400'>2024.01.19 14:00</Text>
+      </S.PostTitleWrapper>
+
       <Text size={14} lineHeight='lg' color='gray/gray900'>{ content }</Text>
     </S.PostWrapper>
   )
