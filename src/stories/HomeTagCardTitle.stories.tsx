@@ -7,6 +7,7 @@ const meta = {
   component: HomeTagCardTitle,
   argTypes: {
     tag: { control: 'text' },
+    isViewAll: { control: 'boolean' },
   }
 } satisfies Meta;
 
@@ -19,11 +20,13 @@ export const Default: Story = { };
 export const New: Story = {
   args: {
     tag: 'new',
+    isViewAll: false,
   }
 };
 
 export const Hot: Story = {
   args: {
     tag: 'hot',
+    isViewAll: false,
   }
 };

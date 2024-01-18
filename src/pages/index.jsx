@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Landing from "./Landing/Landing"
 import Home from './Home';
+import HomeViewAll from './HomeViewAll';
 import HomeMaterialDetail from "./HomeMaterialDetail";
 import Cart from './Cart';
 
@@ -22,6 +23,10 @@ const Router = () => {
           path: "/home",
           element: <Home />,
         },
+        {
+          path: "/home-all",
+          element: <HomeViewAll />,
+        },     
         {
           path: "/home/detail",
           element: <HomeMaterialDetail />,

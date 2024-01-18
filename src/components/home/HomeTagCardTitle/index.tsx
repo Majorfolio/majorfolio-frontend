@@ -6,9 +6,10 @@ import AllTagSmall from '../../common/AllTagSmall';
 
 interface HomeTagCardTitleProps {
   tag?: string;
+  isViewAll?: boolean;
 }
 
-function HomeTagCardTitle({ tag }: HomeTagCardTitleProps) {
+function HomeTagCardTitle({ tag, isViewAll=false }: HomeTagCardTitleProps) {
   return (
     <S.TagCardTitleContainer>
       <S.TitleWrapper>
@@ -17,9 +18,8 @@ function HomeTagCardTitle({ tag }: HomeTagCardTitleProps) {
         {tag === 'hot' ? <AllTagSmall text='HOT' color='red' /> : null}
       </S.TitleWrapper>
 
-      <S.ViewAllButton>
-        <Text size={14} lineHeight='sm' color='gray/gray400'>모두보기</Text>
-      </S.ViewAllButton>
+      {isViewAll ? (<span />) : (<S.ViewAllButton><Text size={14} lineHeight='sm' color='gray/gray400'>모두보기</Text></S.ViewAllButton>)}
+      
     </S.TagCardTitleContainer>
   )
 }
