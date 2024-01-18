@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import theme from "../../common/theme";
 
 export const CategoryButtonsWrapper = styled.div`
+  background-color: ${ theme.color['gray/white'] };
   padding: 20px 12px;
   display: flex;
   justify-content: space-around;

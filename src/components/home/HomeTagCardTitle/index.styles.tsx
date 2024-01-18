@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const TagCardTitleContainer = styled.div`
+  margin: 10px 20px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
