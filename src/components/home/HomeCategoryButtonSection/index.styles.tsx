@@ -28,9 +28,10 @@ export const CustomRadioInput = styled.input`
   background: #EBEEF2;
   display: flex;
   align-items: center;
-  background: ${(props) => (props.checked ? '#4340DB' : '#EBEEF2')};
+  background: ${(props) => (props.checked ? theme.color['main_color/blue_p'] : theme.color['gray/gray100'] )};
   &:hover {
     cursor: pointer;
+    background: ${(props) => (props.checked ? theme.color['main_color/blue_p'] : theme.color['gray/gray150'] )};
   }
 `;
 
