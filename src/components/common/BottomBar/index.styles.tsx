@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import theme from "../theme";
 
+export const StickyContainer = styled.div`
+  position: sticky;
+  bottom: 0;
+`;
+
 export const BottomBarContainer = styled.div`
   padding: 0 20px;
   position: relative;
   display: flex;
+  background-color: ${ theme.color['gray/grayBG'] };
 `;
 
 export const RadioNavigationWrapper = styled.div`

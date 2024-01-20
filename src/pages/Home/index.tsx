@@ -6,6 +6,7 @@ import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonS
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
+import BottomBar from '../../components/common/BottomBar';
 
 const Home = () => {
   return (
@@ -37,6 +38,8 @@ const Home = () => {
           <HomeMaterialCard isBig={false} />
         </S.CardWrapper>
       </S.ContentPageContainer>
+
+      <BottomBar />
     </S.HomeContainer>
   )
 }

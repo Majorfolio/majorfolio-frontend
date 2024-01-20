@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { useNavigate } from 'react-router-dom';
 import * as S from './index.styles';
 import Text from '../Text';
 import AllDividerThin from '../AllDividerThin';
@@ -16,15 +17,39 @@ import {
 
 function BottomBar() {
   const [currentPage, setCurrentPage] = useState(0);
+  const navigate = useNavigate();
 
   const handleNavigationClick = (page: number) => {
     setCurrentPage(page);
+
+    switch (page) {
+      case 0:
+        navigate('/home');
+        break;
+      case 1:
+        // navigate('/material-box');
+        break;
+      case 2:
+        // navigate('/upload');
+        break;
+      case 3:
+        // navigate('/my');
+        break;
+      default:
+        break;
+    }
+
+    // 페이지 이동 후 새로고침, 스크롤 위치 맨 위
+    // window.location.reload();
+    // window.scrollTo(0, 0);
   }
 
   return (
-    <div>
+    <S.StickyContainer>
       <AllDividerThin />
+
       <S.BottomBarContainer>
+
         <S.RadioNavigationWrapper>
           <S.CustomRadioNavigation
             type='radio'
@@ -32,6 +57,7 @@ function BottomBar() {
             name='bottomBar'
             checked={currentPage === 0}
             onChange={() => handleNavigationClick(0)}
+            onClick={() => handleNavigationClick(0)}
           />
           <S.CustomRadioNavigation
             type='radio'
@@ -39,6 +65,7 @@ function BottomBar() {
             name='bottomBar'
             checked={currentPage === 1}
             onChange={() => handleNavigationClick(1)}
+            onClick={() => handleNavigationClick(1)}
           />
           <S.CustomRadioNavigation
             type='radio'
@@ -46,6 +73,7 @@ function BottomBar() {
             name='bottomBar'
             checked={currentPage === 2}
             onChange={() => handleNavigationClick(2)}
+            onClick={() => handleNavigationClick(2)}
           />
           <S.CustomRadioNavigation
             type='radio'
@@ -53,6 +81,7 @@ function BottomBar() {
             name='bottomBar'
             checked={currentPage === 3}
             onChange={() => handleNavigationClick(3)}
+            onClick={() => handleNavigationClick(3)}
           />        
         </S.RadioNavigationWrapper>
 
@@ -103,9 +132,8 @@ function BottomBar() {
           )}
         </S.IconsContainer>
 
-        
       </S.BottomBarContainer>      
-    </div>
+    </S.StickyContainer>
 
   )
 }
