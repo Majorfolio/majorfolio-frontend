@@ -44,3 +44,8 @@ export const BookmarkWrapper = styled.span`
 export const Bookmark = styled(BookmarkIcon)`
 
 `;
+
+export const InfoWrapper = styled.span`
+  display: flex;
+  gap: 8px;
+`;

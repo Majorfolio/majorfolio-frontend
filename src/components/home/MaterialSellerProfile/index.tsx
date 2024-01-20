@@ -6,9 +6,11 @@ import { CharacterSmall1Icon } from '../../../assets/icons';
 
 interface DetailProfileProps {
   hasReaction: boolean;
+  infoContent?: string;
+  infoName?: string;
 }
 
-function DetailProfile({ hasReaction }: DetailProfileProps) {
+function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProps) {
   return (
     <S.ProfileWrapper>
       <S.SellerInfoWrapper>
@@ -29,6 +31,13 @@ function DetailProfile({ hasReaction }: DetailProfileProps) {
           
         </S.ReactionWrapper>
         ) : null}
+
+        {infoName ? (
+          <S.InfoWrapper>
+            <Text size={14} color='gray/gray500'>{ infoContent }</Text>
+            <Text size={14} weight='bold' color='gray/gray900'>{ infoName }</Text>
+          </S.InfoWrapper>
+        ): null}
       
       
     </S.ProfileWrapper>
