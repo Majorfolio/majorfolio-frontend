@@ -31,8 +31,12 @@ export const LikeWrapper = styled.span`
   align-items: center;
 `;
 
-export const Like = styled(ReactionDefaultIcon)`
-
+export const ReactionButton = styled.button`
+  border: 0;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const BookmarkWrapper = styled.span`
