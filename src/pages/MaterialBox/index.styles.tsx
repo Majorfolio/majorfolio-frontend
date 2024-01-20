@@ -3,7 +3,7 @@ import theme from "../../components/common/theme";
 
 export const MaterialBoxContainer = styled.div`
   background-color: ${ theme.color['gray/grayBG'] };
-  padding-bottom: 100px;
+  padding-bottom: 200px;
 `;
 
 export const CardTitleWrapper = styled.div`
