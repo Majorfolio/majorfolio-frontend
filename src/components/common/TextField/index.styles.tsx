@@ -1,16 +1,40 @@
 import { styled } from 'styled-components';
-import theme from '../theme';
+import theme, { ColorType } from '../theme';
 import { StyledText } from '../Text/index.styles';
 import { TextPropsType } from '../Text/index.types';
+
+export const StyledContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  box-sizing: content-box;
+`;
 
 const StyledTextField = styled(StyledText).attrs({ as: 'input' })<
   Pick<Required<TextPropsType>, 'color' | 'size' | 'weight' | 'lineHeight'>
 >`
   padding: 13px 16px;
-  border: none;
-  border-radius: 6px;
+  border: 1px solid ${theme.color['gray/gray100']};
+  &&::placeholder {
+    color: ${theme.color['gray/gray400']};
+  }
+  &&:hover {
+    border: 1px solid ${theme.color['gray/gray150']};
+  }
+  &&:focus {
+    border: 1px solid ${theme.color['main_color/blue_p']};
+  }
+  &&:disabled {
+    border: 1px solid ${theme.color['gray/gray150']};
+    background-color: ${theme.color['gray/gray100']};
+  }
+  &&:invalid {
+    border: 1px solid ${theme.color['error/error_color']};
+  }
+  outline: none;
   background-color: ${theme.color['gray/grayBG']};
-  width: 288px;
+  width: 100%;
   border-radius: 6px;
 `;
 
@@ -24,13 +48,6 @@ export const StyledButton = styled.button`
     cursor: pointer;
   }
   right: 0px;
-`;
-
-export const StyledContainer = styled.div`
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-  box-sizing: content-box;
 `;
 
 export default StyledTextField;
