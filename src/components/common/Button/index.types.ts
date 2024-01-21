@@ -4,5 +4,4 @@ export default interface ButtonPropsType {
   children: React.ReactNode;
   backgroundColor?: ColorType;
   isOutlined?: boolean;
-  width?: ButtonWidthType;
 }

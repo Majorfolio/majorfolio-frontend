@@ -9,7 +9,7 @@ export const StyledButton = styled.button<Required<ButtonPropsType>>`
   padding: 16px 0 17px 0;
   border: ${(props) => (props.isOutlined ? `1px #4340DB solid;` : 0)};
   border-radius: 6px;
-  width: ${(props) => `${theme.buttonWidth[props.width]}px`};
+  width: 100%;
 `;
 
 export default StyledButton;
