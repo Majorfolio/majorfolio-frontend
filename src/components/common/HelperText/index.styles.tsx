@@ -6,7 +6,11 @@ const StyledHelperText = styled.span`
   align-items: center;
 `;
 
-export const StyledTextContainer = styled.div`
+export const StyledTextContainer = styled.label`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
   margin-top: 32px;
   margin-bottom: 28px;
 `;
