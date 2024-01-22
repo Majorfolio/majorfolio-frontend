@@ -12,6 +12,7 @@ interface TextFieldPropsType {
   borderColorOnHover: ColorType;
   borderColorOnFocus: ColorType;
   icon: ReactElement;
+  id: string;
 }
 
 export default function TextField({
@@ -68,6 +69,8 @@ export default function TextField({
             weight="md"
             lineHeight="lg"
             disabled={disabled}
+            name="email"
+            value={email}
             onChange={(event) => setEmail(event.target.value)}
             {...props}
           />
