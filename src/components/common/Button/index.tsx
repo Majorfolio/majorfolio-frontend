@@ -7,12 +7,15 @@ export default function Button({
   children,
   backgroundColor = 'main_color/blue_p',
   isOutlined = false,
+  onClick = () => {},
+  ...props
 }: ButtonPropsType) {
   return (
     <StyledButton
-      type="button"
       backgroundColor={backgroundColor}
       isOutlined={isOutlined}
+      onClick={onClick}
+      {...props}
     >
       {children}
     </StyledButton>

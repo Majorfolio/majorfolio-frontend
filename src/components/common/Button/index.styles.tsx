@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import ButtonPropsType from './index.types';
+import ButtonPropsType, { StyledButtonPropsType } from './index.types';
 import theme from '../theme';
 
-export const StyledButton = styled.button<Required<ButtonPropsType>>`
+export const StyledButton = styled.button<Required<StyledButtonPropsType>>`
   display: flex;
   justify-content: center;
   background-color: ${(props) => theme.color[props.backgroundColor]};
