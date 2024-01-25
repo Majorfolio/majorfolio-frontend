@@ -27,4 +27,7 @@ yarn-error.log*
 package-lock.json
 yarn.lock
 
+# storybook
+storybook-static
+
 .env
