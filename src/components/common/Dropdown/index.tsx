@@ -8,23 +8,11 @@ import { ArrowDownDefaultIcon } from '../../../assets/icons';
 import Text from '../Text';
 
 interface DropdownPropsType {
+  category: string;
   options: string[];
-  id: string;
-  htmlFor: string;
 }
 
-const schools = [
-  '건국대학교',
-  '국민대학교',
-  '서울대학교',
-  '연세대학교',
-  '고려대학교',
-  '카이스트',
-  'Sceinces Po Grenoble',
-  'UGA',
-];
-
-export default function Dropdown({ options, id, htmlFor }: DropdownPropsType) {
+export default function Dropdown({ category, options }: DropdownPropsType) {
   const [selectedSchool, setSelectedSchool] = useState<string>('');
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
 
@@ -33,17 +21,17 @@ export default function Dropdown({ options, id, htmlFor }: DropdownPropsType) {
     setListboxToggle((previousListboxToggle) => !previousListboxToggle);
   };
 
-  const dropdownListItem = schools.map((school) => (
+  const dropdownListItem = options.map((option) => (
     <li
       role="option"
       aria-selected="false"
-      onClick={() => onSchoolInputChange(school)}
-      onKeyDown={() => onSchoolInputChange(school)}
+      onClick={() => onSchoolInputChange(option)}
+      onKeyDown={() => onSchoolInputChange(option)}
     >
-      <label htmlFor={school}>
-        <input id={school} type="radio" name="school" />
+      <label htmlFor={option}>
+        <input id={option} type="radio" name="school" />
         <Text size={16} lineHeight="lg" color="gray/gray500">
-          {school}
+          {option}
         </Text>
       </label>
     </li>
@@ -67,7 +55,7 @@ export default function Dropdown({ options, id, htmlFor }: DropdownPropsType) {
           </Text>
         ) : (
           <Text color="gray/gray400" size={16} lineHeight="lg">
-            학교
+            {category}
           </Text>
         )}
 
