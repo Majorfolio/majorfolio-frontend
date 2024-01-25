@@ -5,31 +5,33 @@ import Button from '../Button';
 import { ColorType } from '../theme';
 
 interface TextFieldPropsType {
-  type: 'title' | 'password' | 'email';
+  type: 'text' | 'password' | 'email';
   disabled?: boolean;
   active?: boolean;
   borderColor: ColorType;
   borderColorOnHover: ColorType;
   borderColorOnFocus: ColorType;
+  placeholder: string;
   icon: ReactElement;
   id: string;
 }
 
 export default function TextField({
-  type = 'title',
+  type = 'text',
   disabled = false,
   active = true,
   icon,
+  placeholder,
   ...props
 }: TextFieldPropsType) {
   const [email, setEmail] = useState('');
   switch (type) {
-    case 'title':
+    case 'text':
       return (
         <StyledContainer>
           <StyledTextField
             type="text"
-            placeholder="제목"
+            placeholder={placeholder}
             color="gray/gray900"
             size={16}
             weight="md"
@@ -45,7 +47,7 @@ export default function TextField({
         <StyledContainer>
           <StyledTextField
             type="password"
-            placeholder="비밀번호"
+            placeholder={placeholder}
             color="gray/gray900"
             size={16}
             weight="md"
@@ -63,7 +65,7 @@ export default function TextField({
         <StyledContainer>
           <StyledTextField
             type="email"
-            placeholder="이메일"
+            placeholder={placeholder}
             color="gray/gray900"
             size={16}
             weight="md"

@@ -73,6 +73,7 @@ export default function SignupEmailStep({
         borderColorOnHover="gray/gray150"
         borderColorOnFocus="main_color/blue_p"
         icon={textfieldIcon}
+        placeholder="이메일"
       />
       <HelperText>해당 메일주소로 메일을 보내드립니다.</HelperText>
       <StyledButtonContainer>{transition}</StyledButtonContainer>
