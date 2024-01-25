@@ -21,7 +21,6 @@ export const LargePrimary: Story = {
         버튼
       </Text>
     ),
-    width: 'lg',
   },
 };
 
@@ -33,7 +32,6 @@ export const LargeOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'main_color/blue_s',
-    width: 'lg',
   },
 };
 
@@ -46,14 +44,12 @@ export const LargeOutlined: Story = {
     ),
     backgroundColor: 'gray/white',
     isOutlined: true,
-    width: 'lg',
   },
 };
 
 export const LargeLoading: Story = {
   args: {
     children: <LoadingIcon />,
-    width: 'lg',
   },
 };
 
@@ -65,7 +61,6 @@ export const LargeDisabled: Story = {
       </Text>
     ),
     backgroundColor: 'gray/gray100',
-    width: 'lg',
   },
 };
 
@@ -77,7 +72,6 @@ export const LargeSecondary: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/c',
-    width: 'lg',
   },
 };
 
@@ -89,7 +83,6 @@ export const LargeSecondaryOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/h',
-    width: 'lg',
   },
 };
 
@@ -100,7 +93,6 @@ export const MediumPrimary: Story = {
         버튼
       </Text>
     ),
-    width: 'md',
   },
 };
 
@@ -112,7 +104,6 @@ export const MediumOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'main_color/blue_s',
-    width: 'md',
   },
 };
 
@@ -125,14 +116,12 @@ export const MediumOutlined: Story = {
     ),
     backgroundColor: 'gray/white',
     isOutlined: true,
-    width: 'md',
   },
 };
 
 export const MediumLoading: Story = {
   args: {
     children: <LoadingIcon />,
-    width: 'md',
   },
 };
 
@@ -144,7 +133,6 @@ export const MediumDisabled: Story = {
       </Text>
     ),
     backgroundColor: 'gray/gray100',
-    width: 'md',
   },
 };
 
@@ -156,7 +144,6 @@ export const MediumSecondary: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/c',
-    width: 'md',
   },
 };
 
@@ -168,7 +155,6 @@ export const MediumSecondaryOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/h',
-    width: 'md',
   },
 };
 
@@ -179,7 +165,6 @@ export const SmallPrimary: Story = {
         버튼
       </Text>
     ),
-    width: 'sm',
   },
 };
 
@@ -191,7 +176,6 @@ export const SmallOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'main_color/blue_s',
-    width: 'sm',
   },
 };
 
@@ -204,14 +188,12 @@ export const SmallOutlined: Story = {
     ),
     backgroundColor: 'gray/white',
     isOutlined: true,
-    width: 'sm',
   },
 };
 
 export const SmallLoading: Story = {
   args: {
     children: <LoadingIcon />,
-    width: 'sm',
   },
 };
 
@@ -223,7 +205,6 @@ export const SmallDisabled: Story = {
       </Text>
     ),
     backgroundColor: 'gray/gray100',
-    width: 'sm',
   },
 };
 
@@ -235,7 +216,6 @@ export const SmallSecondary: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/c',
-    width: 'sm',
   },
 };
 
@@ -247,7 +227,6 @@ export const SmallSecondaryOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/h',
-    width: 'sm',
   },
 };
 
@@ -258,7 +237,6 @@ export const PopupPrimary: Story = {
         버튼
       </Text>
     ),
-    width: 'popup',
   },
 };
 
@@ -270,7 +248,6 @@ export const PopupOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'main_color/blue_s',
-    width: 'popup',
   },
 };
 
@@ -283,14 +260,12 @@ export const PopupOutlined: Story = {
     ),
     backgroundColor: 'gray/white',
     isOutlined: true,
-    width: 'popup',
   },
 };
 
 export const PopupLoading: Story = {
   args: {
     children: <LoadingIcon />,
-    width: 'popup',
   },
 };
 
@@ -302,7 +277,6 @@ export const PopupDisabled: Story = {
       </Text>
     ),
     backgroundColor: 'gray/gray100',
-    width: 'popup',
   },
 };
 
@@ -314,7 +288,6 @@ export const PopupSecondary: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/c',
-    width: 'popup',
   },
 };
 
@@ -326,6 +299,5 @@ export const PopupSecondaryOnHover: Story = {
       </Text>
     ),
     backgroundColor: 'sub_color/indigo/h',
-    width: 'popup',
   },
 };
