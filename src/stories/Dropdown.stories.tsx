@@ -13,6 +13,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     options: ['건국대학교', '국민대학교'],
-    id: 'ss',
+    category: '학교',
   },
 };
