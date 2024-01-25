@@ -42,7 +42,8 @@ export type ColorType =
   | 'sub_color/purple/p'
   | 'sub_color/purple/s'
   | 'sub_color/purple/c'
-  | 'sub_color/purple/bg';
+  | 'sub_color/purple/bg'
+  | 'error/error_color';
 
 export type WeightType = 'bold' | 'md';
 
@@ -96,6 +97,7 @@ const theme = {
     'sub_color/purple/s': '#C6B0FF',
     'sub_color/purple/c': '#E5DCFD',
     'sub_color/purple/bg': '#F5F1FF',
+    'error/error_color': '#FF4C24',
   },
   weight: {
     bold: 700,
@@ -107,12 +109,13 @@ const theme = {
     lg: 1.6,
   },
   buttonWidth: {
-    sm: 134,
+    sm: 92,
     md: 154,
     lg: 320,
+    popup: 134,
   },
 };
 
-export type ButtonWidthType = 'sm' | 'md' | 'lg';
+export type ButtonWidthType = 'sm' | 'md' | 'lg' | 'popup';
 
 export default theme;

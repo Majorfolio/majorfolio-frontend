@@ -9,6 +9,7 @@ export default function Text({
   size = 16,
   weight = 'md',
   lineHeight = 'md',
+  ...props
 }: TextPropsType) {
   return (
     <StyledText
@@ -16,6 +17,7 @@ export default function Text({
       size={size}
       weight={weight}
       lineHeight={lineHeight}
+      {...props}
     >
       {children}
     </StyledText>
