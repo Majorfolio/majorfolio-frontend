@@ -18,6 +18,7 @@ export { ReactComponent as CharacterSmall6Icon } from './ico_character_small_06.
 export { ReactComponent as CharacterSmall7Icon } from './ico_character_small_07.svg';
 export { ReactComponent as CharacterSmall8Icon } from './ico_character_small_08.svg';
 export { ReactComponent as CheckboxUnselectedIcon } from './ico_check_box_outline_blank.svg';
+export { ReactComponent as CheckboxDefaultIcon } from './ico_check_box-2.svg';
 export { ReactComponent as CheckboxFilledIcon } from './ico_check_box-1.svg';
 export { ReactComponent as CheckboxOutlinedIcon } from './ico_check_box.svg';
 export { ReactComponent as RadioUnselectedIcon } from './ico_choice-1.svg';
