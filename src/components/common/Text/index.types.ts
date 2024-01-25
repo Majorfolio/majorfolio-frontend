@@ -1,3 +1,4 @@
+import { ElementType } from 'react';
 import { ColorType, LineHeightType, SizeType, WeightType } from '../theme';
 
 export interface TextPropsType {
@@ -6,4 +7,5 @@ export interface TextPropsType {
   size?: SizeType;
   weight?: WeightType;
   lineHeight?: LineHeightType;
+  as?: ElementType;
 }
