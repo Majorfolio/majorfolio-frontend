@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "../../components/common/theme";
 
-export const ViewAllContainer = styled.div`
+export const MaterialBoxContainer = styled.div`
   background-color: ${ theme.color['gray/grayBG'] };
   padding-bottom: 200px;
 `;
