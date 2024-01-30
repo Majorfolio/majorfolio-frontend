@@ -7,6 +7,8 @@ const meta = {
   component: MaterialSellerProfile,
   argTypes: {
     hasReaction: { control: 'boolean' },
+    infoContent: { control: 'text' },
+    infoName: { control: 'text' },
   }
 } satisfies Meta;
 
@@ -23,5 +25,13 @@ export const HasReactionFalse: Story = {
 export const HasReactionTrue: Story = { 
   args: {
     hasReaction: true,
+  }
+};
+
+export const HasInfo: Story = { 
+  args: {
+    hasReaction: false,
+    infoContent: '2023. 11. 15',
+    infoName: '판매',
   }
 };

@@ -1,10 +1,10 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { Divider } from './index.styles';
 
 function AllDivider() {
   return (
-    <S.Divider />
+    <Divider />
   )
 }
 

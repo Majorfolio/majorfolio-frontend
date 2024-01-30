@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import * as S from './index.styles';
+import { Container, MenusWrapper } from './index.styles';
 import AllDividerThin from '../AllDividerThin';
 import TapMenuList from '../TapMenuList';
 
@@ -23,8 +23,8 @@ function TapMenu() {
   ]
 
   return (
-    <S.Container>
-      <S.MenusWrapper>
+    <Container>
+      <MenusWrapper>
         {[...TapMenuArray].map((menuItem, index) => (
           <TapMenuList
             key={menuItem.id}
@@ -33,9 +33,9 @@ function TapMenu() {
             isSelected={selectedItem === index}
           />
         ))}
-      </S.MenusWrapper>    
+      </MenusWrapper>    
       <AllDividerThin />
-    </S.Container>
+    </Container>
   )
 }
 

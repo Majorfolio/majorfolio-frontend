@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../common/theme";
 
 export const CouponSection = styled.div`
   padding: 20px;
@@ -16,7 +17,7 @@ export const CouponButton = styled.div`
   height: 52px;
   padding: 0 16px;
   border-radius: 6px;
-  background: #FFE9BF;
+  background: ${ theme.color['sub_color/yellow/c'] };
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../common/theme";
 
 export const CardWrapper = styled.div`
   padding: 20px 16px;
@@ -25,7 +26,7 @@ export const InfoWrapper = styled.span`
 
 export const MaterialPriceWrapper = styled.div`
   padding: 8px 4px 0 4px;
-  border-top: 1px #F2F5F8 solid;
+  border-top: 1px ${ theme.color['gray/gray50'] } solid;
   display: flex;
   justify-content: space-between;
   align-items: center;

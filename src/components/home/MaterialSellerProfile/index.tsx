@@ -1,37 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import * as S from './index.styles';
+import { BookmarkWrapper, InfoWrapper, LikeWrapper, ProfileImageWrapper, ProfileWrapper, ReactionButton, ReactionWrapper, SellerInfoWrapper } from './index.styles';
 import Text from '../../common/Text';
-import { CharacterSmall1Icon } from '../../../assets/icons';
+import { 
+  CharacterSmall1Icon,
+  ReactionDefaultIcon,
+  ReactionFilledIcon,
+  BookmarkIcon,
+  BookmarkFilledIcon,
+} from '../../../assets/icons';
 
 interface DetailProfileProps {
   hasReaction: boolean;
+  infoContent?: string;
+  infoName?: string;
 }
 
-function DetailProfile({ hasReaction }: DetailProfileProps) {
+function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProps) {
+  const [likeChecked, setLikeChecked] = useState(false);
+  const [bookmarkChecked, setBookmarkChecked] = useState(false);
+
+  const handleLikeClick = () => {
+    setLikeChecked(!likeChecked);
+  }
+
+  const handleBookmarkClick = () => {
+    setBookmarkChecked(!bookmarkChecked);
+  }
+
   return (
-    <S.ProfileWrapper>
-      <S.SellerInfoWrapper>
-        <S.ProfileImageWrapper><CharacterSmall1Icon /></S.ProfileImageWrapper>
+    <ProfileWrapper>
+      <SellerInfoWrapper>
+        <ProfileImageWrapper><CharacterSmall1Icon /></ProfileImageWrapper>
         <Text size={14} weight='bold' color='gray/gray900'>엘사네올라프엘사네올라프</Text>
-      </S.SellerInfoWrapper>
+      </SellerInfoWrapper>
 
       {hasReaction ? (
-        <S.ReactionWrapper>
-          <S.LikeWrapper>
+        <ReactionWrapper>
+          <LikeWrapper>
             <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
-            <S.Like />
-          </S.LikeWrapper>
-          <S.BookmarkWrapper>
+            <ReactionButton onClick={() => handleLikeClick()}>
+              {likeChecked ? <ReactionFilledIcon /> : <ReactionDefaultIcon />}
+            </ReactionButton>
+          </LikeWrapper>
+          <BookmarkWrapper>
             <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
-            <S.Bookmark />
-          </S.BookmarkWrapper>
+            <ReactionButton onClick={handleBookmarkClick}>
+              {bookmarkChecked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+            </ReactionButton>
+          </BookmarkWrapper>
           
-        </S.ReactionWrapper>
+        </ReactionWrapper>
         ) : null}
+
+        {infoName ? (
+          <InfoWrapper>
+            <Text size={14} color='gray/gray500'>{ infoContent }</Text>
+            <Text size={14} weight='bold' color='gray/gray900'>{ infoName }</Text>
+          </InfoWrapper>
+        ): null}
       
       
-    </S.ProfileWrapper>
+    </ProfileWrapper>
   )
 }
 

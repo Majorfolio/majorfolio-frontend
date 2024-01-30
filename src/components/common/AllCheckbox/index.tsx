@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import * as S from './index.styles';
+import { CheckboxWrapper } from './index.styles';
 import { CheckboxUnselectedIcon, CheckboxFilledIcon } from '../../../assets/icons';
 
 export interface AllCheckboxProps {
@@ -15,9 +15,9 @@ function AllCheckbox({ checked }: AllCheckboxProps)  {
   }
   
   return (
-    <S.CheckboxWrapper onClick={handleCheckbox}>
+    <CheckboxWrapper onClick={handleCheckbox}>
       {isChecked ? <CheckboxFilledIcon /> : <CheckboxUnselectedIcon />}
-    </S.CheckboxWrapper>
+    </CheckboxWrapper>
   )
 }
 

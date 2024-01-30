@@ -6,7 +6,7 @@ export const HomeContainer = styled.div`
 `;
 
 export const ContentPageContainer = styled.div`
-  padding: 24px 0 0 20px;
+  padding: 24px 0 200px 20px;
 `;
 
 export const CardWrapper = styled.div`

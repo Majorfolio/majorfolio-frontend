@@ -1,43 +1,46 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { CardWrapper, ContentPageContainer, HomeContainer } from './index.styles';
 import AllDivider from '../../components/common/AllDivider';
 import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonSection';
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
+import BottomBar from '../../components/common/BottomBar';
 
 const Home = () => {
   return (
-    <S.HomeContainer>
+    <HomeContainer>
       <HomeCategoryButtonSection />
       <AllDivider />
 
-      <S.ContentPageContainer>
+      <ContentPageContainer>
         <HomeContentPageTitle />
 
         <HomeTagCardTitle tag='new' />
-        <S.CardWrapper>
+        <CardWrapper>
           <HomeMaterialCard isBig={false} />
           <HomeMaterialCard isBig={false} />
           <HomeMaterialCard isBig={false} />
-        </S.CardWrapper>
+        </CardWrapper>
 
         <HomeTagCardTitle tag='hot' />
-        <S.CardWrapper>
+        <CardWrapper>
           <HomeMaterialCard isBig={false} />
           <HomeMaterialCard isBig={false} />
           <HomeMaterialCard isBig={false} />
-        </S.CardWrapper>
+        </CardWrapper>
 
         <HomeTagCardTitle />
-        <S.CardWrapper>
+        <CardWrapper>
           <HomeMaterialCard isBig={false} />
           <HomeMaterialCard isBig={false} />
           <HomeMaterialCard isBig={false} />
-        </S.CardWrapper>
-      </S.ContentPageContainer>
-    </S.HomeContainer>
+        </CardWrapper>
+      </ContentPageContainer>
+
+      <BottomBar />
+    </HomeContainer>
   )
 }
 
