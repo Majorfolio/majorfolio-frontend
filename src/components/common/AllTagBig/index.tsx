@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { Tag } from './index.styles';
 import Text from '../Text';
 import theme, { ColorType } from '../theme';
 
@@ -43,9 +43,9 @@ function AllTagBig({ text, color }: AllTagBigProps) {
   }
 
   return (
-    <S.Tag style={{ backgroundColor: backColor }}>
+    <Tag style={{ backgroundColor: backColor }}>
       <Text size={12} weight='bold' lineHeight='sm' color={textColor}>{ text }</Text>
-    </S.Tag>
+    </Tag>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { SelectedList, UnSelectedList } from './index.styles';
 import Text from '../Text';
 
 interface TapMenuListProps {
@@ -12,13 +12,13 @@ interface TapMenuListProps {
 function TapMenuList({ label, onClick, isSelected }: TapMenuListProps) {
   return (
     isSelected ? (
-      <S.SelectedList onClick={onClick}>
+      <SelectedList onClick={onClick}>
         <Text weight='bold' lineHeight='sm' color='gray/gray900'>{ label }</Text>
-      </S.SelectedList>   
+      </SelectedList>   
     ) : (
-      <S.UnSelectedList onClick={onClick}>
+      <UnSelectedList onClick={onClick}>
         <Text lineHeight='sm' color='gray/gray400'>{ label }</Text>
-      </S.UnSelectedList>
+      </UnSelectedList>
     )
   )
 }

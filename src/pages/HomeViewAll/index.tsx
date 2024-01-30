@@ -1,24 +1,24 @@
 import React from 'react'
 
-import * as S from './index.styles'
+import { CardTitleWrapper, CardsWrapper, ViewAllContainer } from './index.styles'
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle'
 import HomeMaterialCard from '../../components/home/HomeMaterialCard'
 import BottomBar from '../../components/common/BottomBar'
 
 const HomeViewAll = () => {
   return (
-    <S.ViewAllContainer>
-      <S.CardTitleWrapper>
+    <ViewAllContainer>
+      <CardTitleWrapper>
         <HomeTagCardTitle tag='hot' isViewAll />
-      </S.CardTitleWrapper>
-      <S.CardsWrapper>
+      </CardTitleWrapper>
+      <CardsWrapper>
         <HomeMaterialCard />
         <HomeMaterialCard />
         <HomeMaterialCard />
-      </S.CardsWrapper>
+      </CardsWrapper>
 
       <BottomBar />
-    </S.ViewAllContainer>
+    </ViewAllContainer>
   )
 }
 

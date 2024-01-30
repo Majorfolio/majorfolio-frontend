@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-
 import { useNavigate } from 'react-router-dom';
-import * as S from './index.styles';
+
+import { BottomBarContainer, CustomRadioNavigation, IconWrapper, IconsContainer, RadioNavigationWrapper, StickyContainer } from './index.styles';
 import Text from '../Text';
 import AllDividerThin from '../AllDividerThin';
 import {
@@ -45,13 +45,13 @@ function BottomBar() {
   }
 
   return (
-    <S.StickyContainer>
+    <StickyContainer>
       <AllDividerThin />
 
-      <S.BottomBarContainer>
+      <BottomBarContainer>
 
-        <S.RadioNavigationWrapper>
-          <S.CustomRadioNavigation
+        <RadioNavigationWrapper>
+          <CustomRadioNavigation
             type='radio'
             id='home'
             name='bottomBar'
@@ -59,7 +59,7 @@ function BottomBar() {
             onChange={() => handleNavigationClick(0)}
             onClick={() => handleNavigationClick(0)}
           />
-          <S.CustomRadioNavigation
+          <CustomRadioNavigation
             type='radio'
             id='taskbox'
             name='bottomBar'
@@ -67,7 +67,7 @@ function BottomBar() {
             onChange={() => handleNavigationClick(1)}
             onClick={() => handleNavigationClick(1)}
           />
-          <S.CustomRadioNavigation
+          <CustomRadioNavigation
             type='radio'
             id='upload'
             name='bottomBar'
@@ -75,7 +75,7 @@ function BottomBar() {
             onChange={() => handleNavigationClick(2)}
             onClick={() => handleNavigationClick(2)}
           />
-          <S.CustomRadioNavigation
+          <CustomRadioNavigation
             type='radio'
             id='my'
             name='bottomBar'
@@ -83,57 +83,57 @@ function BottomBar() {
             onChange={() => handleNavigationClick(3)}
             onClick={() => handleNavigationClick(3)}
           />        
-        </S.RadioNavigationWrapper>
+        </RadioNavigationWrapper>
 
-        <S.IconsContainer>
+        <IconsContainer>
           {currentPage === 0 ? (
-            <S.IconWrapper>
+            <IconWrapper>
               <HomeFilledIcon />
               <Text size={10} weight='bold' lineHeight='sm' color='main_color/blue_p'>홈</Text>            
-            </S.IconWrapper>
+            </IconWrapper>
           ) : (
-            <S.IconWrapper>
+            <IconWrapper>
               <HomeDefaultIcon />
               <Text size={10} lineHeight='sm' color='gray/gray200'>홈</Text>
-            </S.IconWrapper>
+            </IconWrapper>
           )}
           {currentPage === 1 ? (
-            <S.IconWrapper>
+            <IconWrapper>
               <TaskboxFilledIcon />
               <Text size={10} weight='bold' lineHeight='sm' color='main_color/blue_p'>자료함</Text>            
-            </S.IconWrapper>
+            </IconWrapper>
           ) : (
-            <S.IconWrapper>
+            <IconWrapper>
               <TaskboxDefaultIcon />
               <Text size={10} lineHeight='sm' color='gray/gray200'>자료함</Text>
-            </S.IconWrapper>
+            </IconWrapper>
           )}
           {currentPage === 2 ? (
-            <S.IconWrapper>
+            <IconWrapper>
               <UploadFilledIcon />
               <Text size={10} weight='bold' lineHeight='sm' color='main_color/blue_p'>업로드</Text>            
-            </S.IconWrapper>
+            </IconWrapper>
           ) : (
-            <S.IconWrapper>
+            <IconWrapper>
               <UploadDefaultIcon />
               <Text size={10} lineHeight='sm' color='gray/gray200'>업로드</Text>
-            </S.IconWrapper>
+            </IconWrapper>
           )}
           {currentPage === 3 ? (
-            <S.IconWrapper>
+            <IconWrapper>
               <MyFilledIcon />
               <Text size={10} weight='bold' lineHeight='sm' color='main_color/blue_p'>MY</Text>            
-            </S.IconWrapper>
+            </IconWrapper>
           ) : (
-            <S.IconWrapper>
+            <IconWrapper>
               <MyDefaultIcon />
               <Text size={10} lineHeight='sm' color='gray/gray200'>MY</Text>
-            </S.IconWrapper>
+            </IconWrapper>
           )}
-        </S.IconsContainer>
+        </IconsContainer>
 
-      </S.BottomBarContainer>      
-    </S.StickyContainer>
+      </BottomBarContainer>      
+    </StickyContainer>
 
   )
 }

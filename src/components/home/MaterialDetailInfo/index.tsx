@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { InfoTitleWrapper, InfoWrapper, InfosWrapper } from './index.styles';
 import Text from '../../common/Text';
 import { 
   PostTitleDefaultIcon, 
@@ -16,79 +16,79 @@ import {
 
 function MaterialDetailInfo() {
   return (
-    <S.InfosWrapper>
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+    <InfosWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <PostTitleDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>자료 제목</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>[과제] ALIDEA</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <SchoolDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학교</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>국민대학교</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <DepartmentOutlinedIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학과</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>공업디자인학과</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <SemesterDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>시기</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>23-1</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <ClassDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>수업</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>게임디자인과 기획</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <ProfessorDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>담당교수</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>홍길동</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <CreditDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학점</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>A+</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <ScoreDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>점수</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>90/100</Text>
-      </S.InfoWrapper>
+      </InfoWrapper>
 
-      <S.InfoWrapper>
-        <S.InfoTitleWrapper>
+      <InfoWrapper>
+        <InfoTitleWrapper>
           <PageDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>페이지</Text>
-        </S.InfoTitleWrapper>
+        </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'>4</Text>
-      </S.InfoWrapper>
-    </S.InfosWrapper>
+      </InfoWrapper>
+    </InfosWrapper>
   )
 }
 
