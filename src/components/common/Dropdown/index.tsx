@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import StyledCombobox, {
+  StyledComoboxContainer,
   StyledDropdownContainer,
   StyledDropdownIcon,
   StyledListbox,
@@ -18,12 +19,14 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
 
   const onSchoolInputChange = (currentSchool: string) => {
-    setSelectedSchool(currentSchool);
-    setListboxToggle((previousListboxToggle) => !previousListboxToggle);
+    console.log(currentSchool);
+    setSearchQuery(currentSchool);
+    setListboxToggle((currentToggle) => !currentToggle);
   };
 
   const dropdownListItem = options.map((option) => (
     <li
+      id={option}
       role="option"
       aria-selected="false"
       onClick={() => onSchoolInputChange(option)}
@@ -40,27 +43,26 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
 
   return (
     <StyledDropdownContainer>
-      <StyledCombobox
-        color="gray/gray900"
-        size={16}
-        weight="md"
-        lineHeight="lg"
-        value={searchQuery || category}
-        onChange={(event) => setSearchQuery(event.target.value)}
-        type="text"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        aria-controls="select-dropdown"
-        onFocus={() =>
-          setListboxToggle((previousListboxToggle) => !previousListboxToggle)
-        }
-        placeholder={selectedSchool}
-      />
-      <StyledDropdownIcon>
-        <ArrowDownDefaultIcon />
-      </StyledDropdownIcon>
-
+      <StyledComoboxContainer>
+        <StyledCombobox
+          color="gray/gray900"
+          size={16}
+          weight="md"
+          lineHeight="lg"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          type="text"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="select-dropdown"
+          onFocus={() => setListboxToggle(true)}
+          placeholder={category}
+        />
+        <StyledDropdownIcon>
+          <ArrowDownDefaultIcon />
+        </StyledDropdownIcon>
+      </StyledComoboxContainer>
       {listBoxToggle && (
         <StyledListbox role="listbox">{dropdownListItem}</StyledListbox>
       )}
@@ -68,8 +70,7 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
   );
 }
 
-{
-  /* <StyledTextField
+/* <StyledTextField
   type="email"
   placeholder={placeholder}
   color="gray/gray900"
@@ -82,4 +83,3 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
   onChange={(event) => setEmail(event.target.value)}
   {...props}
 />; */
-}

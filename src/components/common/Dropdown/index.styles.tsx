@@ -9,12 +9,17 @@ export const StyledDropdownContainer = styled.div`
   width: 100%;
 `;
 
-const StyledCombobox = styled(StyledText).attrs({ as: 'input' })`
+export const StyledComoboxContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: relative;
   height: 52px;
+`;
+
+const StyledCombobox = styled(StyledText).attrs({ as: 'input' })`
+  width: 100%;
+  height: 100%;
   padding-left: 13px;
   border: 1px ${theme.color['gray/gray100']} solid;
   border-radius: 6px;
@@ -22,6 +27,7 @@ const StyledCombobox = styled(StyledText).attrs({ as: 'input' })`
   cursor: pointer;
   /* margin-left: 20px; */
   /* margin-right: 20px; */
+  box-sizing: border-box;
 
   &:focus {
     border: 1px ${theme.color['main_color/blue_p']} solid;
@@ -33,6 +39,8 @@ const StyledCombobox = styled(StyledText).attrs({ as: 'input' })`
 `;
 
 export const StyledDropdownIcon = styled.span`
+  position: absolute;
+  right: 6px;
   padding: 10px;
   height: 24px;
 `;
