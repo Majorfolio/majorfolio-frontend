@@ -3,6 +3,7 @@ import React from 'react'
 import * as S from './index.styles'
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle'
 import HomeMaterialCard from '../../components/home/HomeMaterialCard'
+import BottomBar from '../../components/common/BottomBar'
 
 const HomeViewAll = () => {
   return (
@@ -15,6 +16,8 @@ const HomeViewAll = () => {
         <HomeMaterialCard />
         <HomeMaterialCard />
       </S.CardsWrapper>
+
+      <BottomBar />
     </S.ViewAllContainer>
   )
 }

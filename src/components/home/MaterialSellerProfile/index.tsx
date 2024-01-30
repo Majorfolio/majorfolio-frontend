@@ -1,14 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import * as S from './index.styles';
 import Text from '../../common/Text';
-import { CharacterSmall1Icon } from '../../../assets/icons';
+import { 
+  CharacterSmall1Icon,
+  ReactionDefaultIcon,
+  ReactionFilledIcon,
+  BookmarkIcon,
+  BookmarkFilledIcon,
+} from '../../../assets/icons';
 
 interface DetailProfileProps {
   hasReaction: boolean;
 }
 
 function DetailProfile({ hasReaction }: DetailProfileProps) {
+  const [likeChecked, setLikeChecked] = useState(false);
+  const [bookmarkChecked, setBookmarkChecked] = useState(false);
+
+  const handleLikeClick = () => {
+    setLikeChecked(!likeChecked);
+  }
+
+  const handleBookmarkClick = () => {
+    setBookmarkChecked(!bookmarkChecked);
+  }
+
   return (
     <S.ProfileWrapper>
       <S.SellerInfoWrapper>
@@ -20,11 +37,15 @@ function DetailProfile({ hasReaction }: DetailProfileProps) {
         <S.ReactionWrapper>
           <S.LikeWrapper>
             <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
-            <S.Like />
+            <S.ReactionButton onClick={() => handleLikeClick()}>
+              {likeChecked ? <ReactionFilledIcon /> : <ReactionDefaultIcon />}
+            </S.ReactionButton>
           </S.LikeWrapper>
           <S.BookmarkWrapper>
             <Text size={14} lineHeight='sm' color='gray/gray900'>00</Text>
-            <S.Bookmark />
+            <S.ReactionButton onClick={handleBookmarkClick}>
+              {bookmarkChecked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+            </S.ReactionButton>
           </S.BookmarkWrapper>
           
         </S.ReactionWrapper>

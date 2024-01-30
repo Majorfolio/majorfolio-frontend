@@ -13,7 +13,7 @@ import {
 } from '../../../assets/icons';
 import Text from '../../common/Text';
 
-const HomeCategoryButtonSection = () => {
+function HomeCategoryButtonSection() {
   const [currentCategory, setCurrentCategory] = useState(1);
 
   const handleButtonClick = (category: number) => {

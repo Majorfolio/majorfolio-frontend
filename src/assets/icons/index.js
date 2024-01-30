@@ -7,6 +7,7 @@ export { ReactComponent as ArrowRightOutlinedIcon } from './ico_arrow_right-1.sv
 export { ReactComponent as ArrowRightDefaultIcon } from './ico_arrow_right.svg';
 export { ReactComponent as ArrowUpDefaultIcon } from './ico_arrow_up.svg';
 export { ReactComponent as BookmarkIcon } from './ico_bookmark.svg';
+export { ReactComponent as BookmarkFilledIcon } from './ico_bookmark_active.svg';
 export { ReactComponent as CancelDefaultIcon } from './ico_cancel.svg';
 export { ReactComponent as CartDefaultIcon } from './ico_cart.svg';
 export { ReactComponent as CharacterSmall1Icon } from './ico_character_small_01.svg';
@@ -63,6 +64,7 @@ export { ReactComponent as PostTitleDefaultIcon } from './ico_post_title.svg';
 export { ReactComponent as ProfessorDefaultIcon } from './ico_professor.svg';
 export { ReactComponent as ProfessorSmallIcon } from './ico_professor_small.svg';
 export { ReactComponent as ReactionDefaultIcon } from './ico_reaction.svg';
+export { ReactComponent as ReactionFilledIcon } from './ico_reaction_active.svg';
 export { ReactComponent as ReactionSmallIcon } from './ico_reaction_small.svg';
 export { ReactComponent as SchoolDefaultIcon } from './ico_school.svg';
 export { ReactComponent as SchoolSmallIcon } from './ico_school_small.svg';
