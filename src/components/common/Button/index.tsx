@@ -6,15 +6,16 @@ import { StyledButton } from './index.styles';
 export default function Button({
   children,
   backgroundColor = 'main_color/blue_p',
-  width = 'lg',
   isOutlined = false,
+  onClick = () => {},
+  ...props
 }: ButtonPropsType) {
   return (
     <StyledButton
-      type="button"
       backgroundColor={backgroundColor}
       isOutlined={isOutlined}
-      width={width}
+      onClick={onClick}
+      {...props}
     >
       {children}
     </StyledButton>

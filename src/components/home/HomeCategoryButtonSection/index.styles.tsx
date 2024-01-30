@@ -25,7 +25,7 @@ export const CustomRadioInput = styled.input`
   margin: 0;
   appearance: none;
   border-radius: 100px;
-  background: #EBEEF2;
+  background: ${ theme.color['gray/gray100'] };
   display: flex;
   align-items: center;
   background: ${(props) => (props.checked ? theme.color['main_color/blue_p'] : theme.color['gray/gray100'] )};

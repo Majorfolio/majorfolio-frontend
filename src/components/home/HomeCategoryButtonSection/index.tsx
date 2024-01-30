@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import * as S from './index.styles';
+import { ButtonIconWrapper, ButtonText, ButtonWrapper, CategoryButtonsWrapper, CustomRadioInput } from './index.styles';
 import { 
   AllSchoolsOutinedIcon, 
   AllSchoolsDefaultIcon, 
@@ -21,16 +21,16 @@ function HomeCategoryButtonSection() {
   }
 
   return (
-    <S.CategoryButtonsWrapper>
-      <S.ButtonWrapper onClick={() => handleButtonClick(0)}>
-        <S.CustomRadioInput
+    <CategoryButtonsWrapper>
+      <ButtonWrapper onClick={() => handleButtonClick(0)}>
+        <CustomRadioInput
           type='radio'
           id='allSchool'
           name='homeCategory'
           checked={currentCategory === 0}
           onChange={() => handleButtonClick(0)}
         />
-        <S.ButtonText>
+        <ButtonText>
           {currentCategory === 0 
             ? (
               <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
@@ -43,21 +43,21 @@ function HomeCategoryButtonSection() {
             </Text>
             )
           }
-        </S.ButtonText>
-        <S.ButtonIconWrapper htmlFor='allSchool'>
+        </ButtonText>
+        <ButtonIconWrapper htmlFor='allSchool'>
           {currentCategory === 0 ? <AllSchoolsOutinedIcon /> : <AllSchoolsDefaultIcon />}
-        </S.ButtonIconWrapper>
-      </S.ButtonWrapper>
+        </ButtonIconWrapper>
+      </ButtonWrapper>
 
-      <S.ButtonWrapper onClick={() => handleButtonClick(1)}>
-        <S.CustomRadioInput
+      <ButtonWrapper onClick={() => handleButtonClick(1)}>
+        <CustomRadioInput
           type='radio'
           id='mySchool'
           name='homeCategory'
           checked={currentCategory === 1}
           onChange={() => handleButtonClick(1)}
         />
-        <S.ButtonText>
+        <ButtonText>
           {currentCategory === 1
             ? (
               <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
@@ -70,21 +70,21 @@ function HomeCategoryButtonSection() {
             </Text>
             )
           }
-        </S.ButtonText>
-        <S.ButtonIconWrapper htmlFor='mySchool'>
+        </ButtonText>
+        <ButtonIconWrapper htmlFor='mySchool'>
           {currentCategory === 1 ? <MySchoolFilledIcon /> : <MySchoolDefaultIcon />}
-        </S.ButtonIconWrapper>
-      </S.ButtonWrapper>
+        </ButtonIconWrapper>
+      </ButtonWrapper>
 
-      <S.ButtonWrapper onClick={() => handleButtonClick(2)}>
-        <S.CustomRadioInput
+      <ButtonWrapper onClick={() => handleButtonClick(2)}>
+        <CustomRadioInput
           type='radio'
           id='myDepartment'
           name='homeCategory'
           checked={currentCategory === 2}
           onChange={() => handleButtonClick(2)}
         />
-        <S.ButtonText>
+        <ButtonText>
           {currentCategory === 2
             ? (
               <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
@@ -97,21 +97,21 @@ function HomeCategoryButtonSection() {
             </Text>
             )
           }
-        </S.ButtonText>
-        <S.ButtonIconWrapper htmlFor='myDepartment'>
+        </ButtonText>
+        <ButtonIconWrapper htmlFor='myDepartment'>
           {currentCategory === 2 ? <MyDepartmentFilledIcon /> : <MyDepartmentDefaultIcon />}
-        </S.ButtonIconWrapper>
-      </S.ButtonWrapper>
+        </ButtonIconWrapper>
+      </ButtonWrapper>
 
-      <S.ButtonWrapper onClick={() => handleButtonClick(3)}>
-        <S.CustomRadioInput
+      <ButtonWrapper onClick={() => handleButtonClick(3)}>
+        <CustomRadioInput
           type='radio'
           id='myClass'
           name='homeCategory'
           checked={currentCategory === 3}
           onChange={() => handleButtonClick(3)}
         />
-        <S.ButtonText>
+        <ButtonText>
           {currentCategory === 3
             ? (
               <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
@@ -124,12 +124,12 @@ function HomeCategoryButtonSection() {
             </Text>
             )
           }
-        </S.ButtonText>
-        <S.ButtonIconWrapper htmlFor='myClass'>
+        </ButtonText>
+        <ButtonIconWrapper htmlFor='myClass'>
           {currentCategory === 3 ? <MyClassFilledIcon /> : <MyClassDefaultIcon />}
-        </S.ButtonIconWrapper>
-      </S.ButtonWrapper>
-    </S.CategoryButtonsWrapper>
+        </ButtonIconWrapper>
+      </ButtonWrapper>
+    </CategoryButtonsWrapper>
   )
 }
 

@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { ReactionDefaultIcon, BookmarkIcon } from '../../../assets/icons';
 
 export const ProfileWrapper = styled.div`
   height: 24px;
-  /* padding: 16px 20px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,6 +43,7 @@ export const BookmarkWrapper = styled.span`
   align-items: center;
 `;
 
-export const Bookmark = styled(BookmarkIcon)`
-
+export const InfoWrapper = styled.span`
+  display: flex;
+  gap: 8px;
 `;

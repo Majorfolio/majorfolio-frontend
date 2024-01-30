@@ -3,6 +3,7 @@ import theme from "../../components/common/theme";
 
 export const ViewAllContainer = styled.div`
   background-color: ${ theme.color['gray/grayBG'] };
+  padding-bottom: 200px;
 `;
 
 export const CardTitleWrapper = styled.div`
@@ -10,7 +11,7 @@ export const CardTitleWrapper = styled.div`
 `;
 
 export const CardsWrapper = styled.div`
-  padding: 16px 20px;
+  padding: 16px 20px 0 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../common/theme";
 
 export const PreviewWrapper = styled.div`
   height: 200px;
@@ -17,7 +18,7 @@ export const PreviewButton = styled.div`
   bottom: 20px;
   padding: 8px 20px;
   display: flex;
-  background: #4B535A; 
+  background: ${ theme.color['gray/gray600'] }; 
   border-radius: 4px;
   
   &:hover {

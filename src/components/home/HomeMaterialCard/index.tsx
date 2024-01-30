@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { CardWrapper, InfoWrapper, MaterialInfosContainer, MaterialTitleWrapper, ProfileWrapper } from './index.styles';
 import Text from '../../common/Text';
 import MaterialSellerProfile from '../MaterialSellerProfile';
 import AllDividerThin from '../../common/AllDividerThin';
@@ -27,42 +27,42 @@ function HomeMaterialCard({ isBig = true }: HomeMaterialCardProps) {
   }
 
   return (
-    <S.CardWrapper style={{ width: cardSize }}>
-      <S.ProfileWrapper style={{ padding: '0px' }}>
+    <CardWrapper style={{ width: cardSize }}>
+      <ProfileWrapper style={{ padding: '0px' }}>
         <MaterialSellerProfile hasReaction={false} />
-      </S.ProfileWrapper>
+      </ProfileWrapper>
 
       <AllDividerThin />
 
-      <S.MaterialTitleWrapper>
+      <MaterialTitleWrapper>
         <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'>[과제] ALIDEA</Text>
         <AllTagSmall text='PDF' />
-      </S.MaterialTitleWrapper>
+      </MaterialTitleWrapper>
 
-      <S.MaterialInfosContainer>
-        <S.InfoWrapper>
+      <MaterialInfosContainer>
+        <InfoWrapper>
           <SchoolSmallIcon />
           <Text size={14} color='gray/gray500'>국민대학교</Text>
-        </S.InfoWrapper>
-        <S.InfoWrapper>
+        </InfoWrapper>
+        <InfoWrapper>
           <DepartmentSmallIcon />
           <Text size={14} color='gray/gray500'>공업디자인학과</Text>
-        </S.InfoWrapper>
-        <S.InfoWrapper>
+        </InfoWrapper>
+        <InfoWrapper>
           <SemesterSmallIcon />
           <Text size={14} color='gray/gray500'>23-1</Text>
-        </S.InfoWrapper>
-        <S.InfoWrapper>
+        </InfoWrapper>
+        <InfoWrapper>
           <ProfessorSmallIcon />
           <Text size={14} color='gray/gray500'>홍길동</Text>
-        </S.InfoWrapper>
-        <S.InfoWrapper>
+        </InfoWrapper>
+        <InfoWrapper>
           <ReactionSmallIcon />
           <Text size={14} color='gray/gray500'>10</Text>
-        </S.InfoWrapper>
-      </S.MaterialInfosContainer>
+        </InfoWrapper>
+      </MaterialInfosContainer>
       
-    </S.CardWrapper>
+    </CardWrapper>
   )
 }
 
