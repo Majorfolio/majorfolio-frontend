@@ -13,6 +13,7 @@ interface DropdownPropsType {
 }
 
 export default function Dropdown({ category, options }: DropdownPropsType) {
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedSchool, setSelectedSchool] = useState<string>('');
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
 
@@ -40,33 +41,45 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
   return (
     <StyledDropdownContainer>
       <StyledCombobox
-        type="button"
+        color="gray/gray900"
+        size={16}
+        weight="md"
+        lineHeight="lg"
+        value={searchQuery || category}
+        onChange={(event) => setSearchQuery(event.target.value)}
+        type="text"
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded="false"
         aria-controls="select-dropdown"
-        onClick={() =>
+        onFocus={() =>
           setListboxToggle((previousListboxToggle) => !previousListboxToggle)
         }
-      >
-        {selectedSchool ? (
-          <Text color="gray/gray900" size={16} lineHeight="lg">
-            {selectedSchool}
-          </Text>
-        ) : (
-          <Text color="gray/gray400" size={16} lineHeight="lg">
-            {category}
-          </Text>
-        )}
-
-        <StyledDropdownIcon>
-          <ArrowDownDefaultIcon />
-        </StyledDropdownIcon>
-      </StyledCombobox>
+        placeholder={selectedSchool}
+      />
+      <StyledDropdownIcon>
+        <ArrowDownDefaultIcon />
+      </StyledDropdownIcon>
 
       {listBoxToggle && (
         <StyledListbox role="listbox">{dropdownListItem}</StyledListbox>
       )}
     </StyledDropdownContainer>
   );
+}
+
+{
+  /* <StyledTextField
+  type="email"
+  placeholder={placeholder}
+  color="gray/gray900"
+  size={16}
+  weight="md"
+  lineHeight="lg"
+  disabled={disabled}
+  name="email"
+  value={email}
+  onChange={(event) => setEmail(event.target.value)}
+  {...props}
+/>; */
 }

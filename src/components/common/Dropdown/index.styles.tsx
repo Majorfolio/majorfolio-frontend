@@ -2,13 +2,14 @@ import { styled } from 'styled-components';
 import theme from '../theme';
 import Text from '../Text';
 import Button from '../Button';
+import StyledText from '../Text/index.styles';
 
 export const StyledDropdownContainer = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const StyledCombobox = styled(Button)`
+const StyledCombobox = styled(StyledText).attrs({ as: 'input' })`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,6 +25,10 @@ const StyledCombobox = styled(Button)`
 
   &:focus {
     border: 1px ${theme.color['main_color/blue_p']} solid;
+  }
+
+  &::placeholder {
+    color: ${theme.color['gray/gray400']};
   }
 `;
 
