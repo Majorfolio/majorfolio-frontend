@@ -8,6 +8,7 @@ const meta = {
   argTypes: {
     hasReaction: { control: 'boolean' },
     infoContent: { control: 'text' },
+    infoName: { control: 'text' },
   }
 } satisfies Meta;
 
