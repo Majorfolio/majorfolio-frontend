@@ -7,18 +7,20 @@ import BottomBar from '../../components/common/BottomBar'
 
 const HomeViewAll = () => {
   return (
-    <ViewAllContainer>
-      <CardTitleWrapper>
-        <HomeTagCardTitle tag='hot' isViewAll />
-      </CardTitleWrapper>
-      <CardsWrapper>
-        <HomeMaterialCard />
-        <HomeMaterialCard />
-        <HomeMaterialCard />
-      </CardsWrapper>
+    <>
+      <ViewAllContainer>
+        <CardTitleWrapper>
+          <HomeTagCardTitle tag='hot' isViewAll />
+        </CardTitleWrapper>
+        <CardsWrapper>
+          <HomeMaterialCard />
+          <HomeMaterialCard />
+          <HomeMaterialCard />
+        </CardsWrapper>
 
-      <BottomBar />
-    </ViewAllContainer>
+      </ViewAllContainer>
+      <BottomBar />    
+    </>
   )
 }
 
