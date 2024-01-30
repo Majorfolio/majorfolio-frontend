@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../theme';
 import { TextPropsType } from './index.types';
 
-export const StyledText = styled.span<Required<TextPropsType>>`
+const StyledText = styled.span<Required<TextPropsType>>`
   color: ${(props) => theme.color[props.color]};
   font-size: ${(props) => `${props.size}px`};
   font-weight: ${(props) => theme.weight[props.weight]};
