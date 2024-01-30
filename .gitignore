@@ -28,3 +28,6 @@ package-lock.json
 yarn.lock
 
 .env
+
+# storybook
+storybook-static
