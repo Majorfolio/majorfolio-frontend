@@ -22,23 +22,27 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
     setSearchQuery(currentSchool);
   };
 
-  const dropdownListItem = options.map((option) => (
+  const filteredOptions = options.filter((option) =>
+    option.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
+  const dropdownListItem = filteredOptions.map((filteredOption) => (
     <li
-      key={option}
+      key={filteredOption}
       role="option"
       aria-selected="false"
       onClick={() => {
-        onSchoolInputChange(option);
+        onSchoolInputChange(filteredOption);
       }}
       onMouseDown={(event) => {
         event.preventDefault();
       }}
-      onKeyDown={() => onSchoolInputChange(option)}
+      onKeyDown={() => onSchoolInputChange(filteredOption)}
     >
-      <label htmlFor={option}>
-        <input id={option} type="radio" name="school" />
+      <label htmlFor={filteredOption}>
+        <input id={filteredOption} type="radio" name="school" />
         <Text size={16} lineHeight="lg" color="gray/gray500">
-          {option}
+          {filteredOption}
         </Text>
       </label>
     </li>
