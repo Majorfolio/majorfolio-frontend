@@ -55,6 +55,7 @@ export const StyledListbox = styled.ul`
   margin-top: 4px;
   max-height: 200px;
   overflow-y: auto;
+  z-index: 1;
 
   & li {
     cursor: pointer;
