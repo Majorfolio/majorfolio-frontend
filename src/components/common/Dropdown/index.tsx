@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import StyledCombobox, {
   StyledComoboxContainer,
   StyledDropdownContainer,
@@ -19,17 +19,20 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
 
   const onSchoolInputChange = (currentSchool: string) => {
-    console.log(currentSchool);
     setSearchQuery(currentSchool);
-    setListboxToggle((currentToggle) => !currentToggle);
   };
 
   const dropdownListItem = options.map((option) => (
     <li
-      id={option}
+      key={option}
       role="option"
       aria-selected="false"
-      onClick={() => onSchoolInputChange(option)}
+      onClick={() => {
+        onSchoolInputChange(option);
+      }}
+      onMouseDown={(event) => {
+        event.preventDefault();
+      }}
       onKeyDown={() => onSchoolInputChange(option)}
     >
       <label htmlFor={option}>
@@ -57,6 +60,9 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
           aria-expanded="false"
           aria-controls="select-dropdown"
           onFocus={() => setListboxToggle(true)}
+          onBlur={() => {
+            setListboxToggle(false);
+          }}
           placeholder={category}
         />
         <StyledDropdownIcon>
