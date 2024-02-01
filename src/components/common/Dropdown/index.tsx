@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import StyledCombobox, {
+  StyledComoboxContainer,
   StyledDropdownContainer,
   StyledDropdownIcon,
   StyledListbox,
@@ -13,25 +14,35 @@ interface DropdownPropsType {
 }
 
 export default function Dropdown({ category, options }: DropdownPropsType) {
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedSchool, setSelectedSchool] = useState<string>('');
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
 
   const onSchoolInputChange = (currentSchool: string) => {
-    setSelectedSchool(currentSchool);
-    setListboxToggle((previousListboxToggle) => !previousListboxToggle);
+    setSearchQuery(currentSchool);
   };
 
-  const dropdownListItem = options.map((option) => (
+  const filteredOptions = options.filter((option) =>
+    option.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
+  const dropdownListItem = filteredOptions.map((filteredOption) => (
     <li
+      key={filteredOption}
       role="option"
       aria-selected="false"
-      onClick={() => onSchoolInputChange(option)}
-      onKeyDown={() => onSchoolInputChange(option)}
+      onClick={() => {
+        onSchoolInputChange(filteredOption);
+      }}
+      onMouseDown={(event) => {
+        event.preventDefault();
+      }}
+      onKeyDown={() => onSchoolInputChange(filteredOption)}
     >
-      <label htmlFor={option}>
-        <input id={option} type="radio" name="school" />
+      <label htmlFor={filteredOption}>
+        <input id={filteredOption} type="radio" name="school" />
         <Text size={16} lineHeight="lg" color="gray/gray500">
-          {option}
+          {filteredOption}
         </Text>
       </label>
     </li>
@@ -39,34 +50,46 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
 
   return (
     <StyledDropdownContainer>
-      <StyledCombobox
-        type="button"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        aria-controls="select-dropdown"
-        onClick={() =>
-          setListboxToggle((previousListboxToggle) => !previousListboxToggle)
-        }
-      >
-        {selectedSchool ? (
-          <Text color="gray/gray900" size={16} lineHeight="lg">
-            {selectedSchool}
-          </Text>
-        ) : (
-          <Text color="gray/gray400" size={16} lineHeight="lg">
-            {category}
-          </Text>
-        )}
-
+      <StyledComoboxContainer>
+        <StyledCombobox
+          color="gray/gray900"
+          size={16}
+          weight="md"
+          lineHeight="lg"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          type="text"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="select-dropdown"
+          onFocus={() => setListboxToggle(true)}
+          onBlur={() => {
+            setListboxToggle(false);
+          }}
+          placeholder={category}
+        />
         <StyledDropdownIcon>
           <ArrowDownDefaultIcon />
         </StyledDropdownIcon>
-      </StyledCombobox>
-
+      </StyledComoboxContainer>
       {listBoxToggle && (
         <StyledListbox role="listbox">{dropdownListItem}</StyledListbox>
       )}
     </StyledDropdownContainer>
   );
 }
+
+/* <StyledTextField
+  type="email"
+  placeholder={placeholder}
+  color="gray/gray900"
+  size={16}
+  weight="md"
+  lineHeight="lg"
+  disabled={disabled}
+  name="email"
+  value={email}
+  onChange={(event) => setEmail(event.target.value)}
+  {...props}
+/>; */

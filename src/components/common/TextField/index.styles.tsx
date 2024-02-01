@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import theme, { ColorType } from '../theme';
-import { StyledText } from '../Text/index.styles';
+import StyledText from '../Text/index.styles';
 import { TextPropsType } from '../Text/index.types';
 
 export const StyledContainer = styled.div`
