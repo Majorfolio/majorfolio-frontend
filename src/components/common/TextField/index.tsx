@@ -1,20 +1,9 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ComponentPropsWithoutRef, ReactElement, useState } from 'react';
 import StyledTextField, { StyledButton, StyledContainer } from './index.styles';
 import { CancelDefaultIcon, VisibilityOffIcon } from '../../../assets/icons';
 import Button from '../Button';
-import { ColorType } from '../theme';
-
-interface TextFieldPropsType {
-  type: 'text' | 'password' | 'email';
-  disabled?: boolean;
-  active?: boolean;
-  borderColor: ColorType;
-  borderColorOnHover: ColorType;
-  borderColorOnFocus: ColorType;
-  placeholder: string;
-  icon: ReactElement;
-  id: string;
-}
+import { ColorType, SizeType } from '../theme';
+import { TextFieldPropsType } from './index.types';
 
 export default function TextField({
   type = 'text',
