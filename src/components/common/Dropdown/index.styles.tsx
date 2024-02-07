@@ -3,6 +3,7 @@ import theme from '../theme';
 import Text from '../Text';
 import Button from '../Button';
 import StyledText from '../Text/index.styles';
+import StyledComboboxType from './index.types';
 
 export const StyledDropdownContainer = styled.div`
   position: relative;
@@ -17,20 +18,23 @@ export const StyledComoboxContainer = styled.div`
   height: 52px;
 `;
 
-const StyledCombobox = styled(StyledText).attrs({ as: 'input' })`
+const StyledCombobox = styled(StyledText).attrs({
+  as: 'input',
+})<StyledComboboxType>`
   width: 100%;
   height: 100%;
   padding-left: 13px;
-  border: 1px ${theme.color['gray/gray100']} solid;
+  border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
   border-radius: 6px;
   background-color: ${theme.color['gray/white']};
   cursor: pointer;
   /* margin-left: 20px; */
   /* margin-right: 20px; */
   box-sizing: border-box;
+  outline-style: none;
 
   &:focus {
-    border: 1px ${theme.color['main_color/blue_p']} solid;
+    border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
   }
 
   &::placeholder {
