@@ -1,26 +1,36 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, ReactNode, useRef, useState } from 'react';
 import StyledCombobox, {
   StyledComoboxContainer,
   StyledDropdownContainer,
   StyledDropdownIcon,
   StyledListbox,
 } from './index.styles';
-import { ArrowDownDefaultIcon } from '../../../assets/icons';
+import { ArrowDownDefaultIcon, HelperCancelIcon } from '../../../assets/icons';
 import Text from '../Text';
+import { ColorType } from '../theme';
 
 interface DropdownPropsType {
   category: string;
   options: string[];
+  borderColor?: ColorType;
+  borderColorOnFocus?: ColorType;
+  icon?: ReactNode;
+  onFocus?: () => void;
+  searchQuery: string;
+  onSearchQueryUpdate: (value: string) => void;
 }
 
-export default function Dropdown({ category, options }: DropdownPropsType) {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedSchool, setSelectedSchool] = useState<string>('');
+export default function Dropdown({
+  category,
+  options,
+  borderColor = 'gray/gray100',
+  borderColorOnFocus = 'main_color/blue_p',
+  icon = <ArrowDownDefaultIcon />,
+  onFocus,
+  searchQuery,
+  onSearchQueryUpdate,
+}: DropdownPropsType) {
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
-
-  const onSchoolInputChange = (currentSchool: string) => {
-    setSearchQuery(currentSchool);
-  };
 
   const filteredOptions = options.filter((option) =>
     option.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -32,15 +42,17 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
       role="option"
       aria-selected="false"
       onClick={() => {
-        onSchoolInputChange(filteredOption);
+        onSearchQueryUpdate(filteredOption);
       }}
       onMouseDown={(event) => {
         event.preventDefault();
       }}
-      onKeyDown={() => onSchoolInputChange(filteredOption)}
+      onKeyDown={() => {
+        onSearchQueryUpdate(filteredOption);
+      }}
     >
       <label htmlFor={filteredOption}>
-        <input id={filteredOption} type="radio" name="school" />
+        <input id={filteredOption} type="radio" />
         <Text size={16} lineHeight="lg" color="gray/gray500">
           {filteredOption}
         </Text>
@@ -53,25 +65,31 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
       <StyledComoboxContainer>
         <StyledCombobox
           color="gray/gray900"
+          borderColor={borderColor}
+          borderColorOnFocus={borderColorOnFocus}
           size={16}
           weight="md"
           lineHeight="lg"
+          name={category}
           value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
+          onChange={(event) => onSearchQueryUpdate(event.target.value)}
           type="text"
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded="false"
           aria-controls="select-dropdown"
-          onFocus={() => setListboxToggle(true)}
+          onFocus={() => {
+            setListboxToggle(true);
+            if (onFocus !== undefined) {
+              onFocus();
+            }
+          }}
           onBlur={() => {
             setListboxToggle(false);
           }}
           placeholder={category}
         />
-        <StyledDropdownIcon>
-          <ArrowDownDefaultIcon />
-        </StyledDropdownIcon>
+        <StyledDropdownIcon>{icon}</StyledDropdownIcon>
       </StyledComoboxContainer>
       {listBoxToggle && (
         <StyledListbox role="listbox">{dropdownListItem}</StyledListbox>
@@ -79,17 +97,3 @@ export default function Dropdown({ category, options }: DropdownPropsType) {
     </StyledDropdownContainer>
   );
 }
-
-/* <StyledTextField
-  type="email"
-  placeholder={placeholder}
-  color="gray/gray900"
-  size={16}
-  weight="md"
-  lineHeight="lg"
-  disabled={disabled}
-  name="email"
-  value={email}
-  onChange={(event) => setEmail(event.target.value)}
-  {...props}
-/>; */
