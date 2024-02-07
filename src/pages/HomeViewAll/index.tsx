@@ -10,12 +10,12 @@ const HomeViewAll = () => {
     <>
       <ViewAllContainer>
         <CardTitleWrapper>
-          <HomeTagCardTitle tag='hot' isViewAll />
+          <HomeTagCardTitle title='모두보기제목' tag='hot' isViewAll />
         </CardTitleWrapper>
         <CardsWrapper>
+          {/* <HomeMaterialCard />
           <HomeMaterialCard />
-          <HomeMaterialCard />
-          <HomeMaterialCard />
+          <HomeMaterialCard /> */}
         </CardsWrapper>
 
       </ViewAllContainer>

@@ -13,7 +13,7 @@ const HomeMaterialDetail = () => {
     <HomeMaterialDetailContainer>
       <MaterialDetailPreview />
       <ProfileWrapper>
-        <MaterialSellerProfile hasReaction />
+        <MaterialSellerProfile nickname='사용자 1' hasReaction />
       </ProfileWrapper>
       <AllDividerThin />
       <MaterialDetailPost title='[과제] ALIDEA' content='3학년 공업디자인학과 게임디자인과 기획 수업에서 작업했던 과제물이며, A+ 학점을 받았습니다.' />

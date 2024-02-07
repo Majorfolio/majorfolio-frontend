@@ -15,9 +15,17 @@ import {
 
 interface HomeMaterialCardProps {
   isBig?: boolean;
+  id: number;
+  nickname: string;
+  className: string;
+  univ?: string | null;
+  major?: string | null;
+  semester?: string | null;
+  professor?: string | null;
+  like?: number | null;
 }
 
-function HomeMaterialCard({ isBig = true }: HomeMaterialCardProps) {
+function HomeMaterialCard({ isBig = true, id, nickname, className, univ, major, semester, professor, like }: HomeMaterialCardProps) {
   let cardSize: string;
 
   if(isBig) {
@@ -29,37 +37,48 @@ function HomeMaterialCard({ isBig = true }: HomeMaterialCardProps) {
   return (
     <CardWrapper style={{ width: cardSize }}>
       <ProfileWrapper style={{ padding: '0px' }}>
-        <MaterialSellerProfile hasReaction={false} />
+        <MaterialSellerProfile nickname={nickname} hasReaction={false} />
       </ProfileWrapper>
 
       <AllDividerThin />
 
       <MaterialTitleWrapper>
-        <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'>[과제] ALIDEA</Text>
+        <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'> {className} </Text>
         <AllTagSmall text='PDF' />
       </MaterialTitleWrapper>
 
       <MaterialInfosContainer>
-        <InfoWrapper>
-          <SchoolSmallIcon />
-          <Text size={14} color='gray/gray500'>국민대학교</Text>
-        </InfoWrapper>
-        <InfoWrapper>
-          <DepartmentSmallIcon />
-          <Text size={14} color='gray/gray500'>공업디자인학과</Text>
-        </InfoWrapper>
-        <InfoWrapper>
-          <SemesterSmallIcon />
-          <Text size={14} color='gray/gray500'>23-1</Text>
-        </InfoWrapper>
-        <InfoWrapper>
-          <ProfessorSmallIcon />
-          <Text size={14} color='gray/gray500'>홍길동</Text>
-        </InfoWrapper>
-        <InfoWrapper>
-          <ReactionSmallIcon />
-          <Text size={14} color='gray/gray500'>10</Text>
-        </InfoWrapper>
+        { univ &&
+          <InfoWrapper>
+            <SchoolSmallIcon />
+            <Text size={14} color='gray/gray500'> {univ} </Text>
+          </InfoWrapper>        
+        }
+        { major &&
+          <InfoWrapper>
+            <DepartmentSmallIcon />
+            <Text size={14} color='gray/gray500'> {major} </Text>
+          </InfoWrapper>        
+        }
+        { semester &&
+          <InfoWrapper>
+            <SemesterSmallIcon />
+            <Text size={14} color='gray/gray500'> {semester} </Text>
+          </InfoWrapper>        
+        }
+        { professor &&
+          <InfoWrapper>
+            <ProfessorSmallIcon />
+            <Text size={14} color='gray/gray500'> {professor} </Text>
+          </InfoWrapper>        
+        }
+        { like &&
+          <InfoWrapper>
+            <ReactionSmallIcon />
+            <Text size={14} color='gray/gray500'> {like} </Text>
+          </InfoWrapper>        
+        }
+
       </MaterialInfosContainer>
       
     </CardWrapper>

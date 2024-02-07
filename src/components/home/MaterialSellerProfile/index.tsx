@@ -10,13 +10,14 @@ import {
   BookmarkFilledIcon,
 } from '../../../assets/icons';
 
-interface DetailProfileProps {
+interface MaterialSellerProfileProps {
+  nickname: string;
   hasReaction: boolean;
   infoContent?: string;
   infoName?: string;
 }
 
-function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProps) {
+function MaterialSellerProfile({ nickname, hasReaction, infoContent, infoName }: MaterialSellerProfileProps) {
   const [likeChecked, setLikeChecked] = useState(false);
   const [bookmarkChecked, setBookmarkChecked] = useState(false);
 
@@ -32,7 +33,7 @@ function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProp
     <ProfileWrapper>
       <SellerInfoWrapper>
         <ProfileImageWrapper><CharacterSmall1Icon /></ProfileImageWrapper>
-        <Text size={14} weight='bold' color='gray/gray900'>엘사네올라프엘사네올라프</Text>
+        <Text size={14} weight='bold' color='gray/gray900'> {nickname} </Text>
       </SellerInfoWrapper>
 
       {hasReaction ? (
@@ -65,4 +66,4 @@ function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProp
   )
 }
 
-export default DetailProfile;
+export default MaterialSellerProfile;

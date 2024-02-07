@@ -11,21 +11,21 @@ const MaterialBox = () => {
       <TapMenu />
 
       <S.CardTitleWrapper>
-        <HomeTagCardTitle isViewAll />
+        <HomeTagCardTitle title='결제 대기' isViewAll />
       </S.CardTitleWrapper>
       <S.CardsWrapper>
+        {/* <HomeMaterialCard />
         <HomeMaterialCard />
-        <HomeMaterialCard />
-        <HomeMaterialCard />
+        <HomeMaterialCard /> */}
       </S.CardsWrapper>
       
       <S.CardTitleWrapper>
-        <HomeTagCardTitle isViewAll />
+        <HomeTagCardTitle title='결제 완료' isViewAll />
       </S.CardTitleWrapper>
       <S.CardsWrapper>
+        {/* <HomeMaterialCard />
         <HomeMaterialCard />
-        <HomeMaterialCard />
-        <HomeMaterialCard />
+        <HomeMaterialCard /> */}
       </S.CardsWrapper>
     </S.MaterialBoxContainer>
   )
