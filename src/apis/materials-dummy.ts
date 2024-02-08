@@ -4,8 +4,8 @@ const materials = {
 			id : 1,
 			nickname: "엘사네올라프",
 			className: "소프트웨어공학",
-			univ: "건국대학교",
-			major: "컴퓨터공학부",
+			univ: null,
+			major: null,
 			semester: "23-1",
 			professor: "홍길동",
 			like : 5
