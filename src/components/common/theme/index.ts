@@ -43,7 +43,8 @@ export type ColorType =
   | 'sub_color/purple/s'
   | 'sub_color/purple/c'
   | 'sub_color/purple/bg'
-  | 'error/error_color';
+  | 'error/error_color'
+  | 'kakaotalk';
 
 export type WeightType = 'bold' | 'md';
 
@@ -98,6 +99,7 @@ const theme = {
     'sub_color/purple/c': '#E5DCFD',
     'sub_color/purple/bg': '#F5F1FF',
     'error/error_color': '#FF4C24',
+    kakaotalk: '#FEE102',
   },
   weight: {
     bold: 700,
