@@ -7,7 +7,7 @@ import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
-import { getAllUnivHome } from '../../apis/materials';
+import { getAllUniv } from '../../apis/materials';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 import materials from '../../apis/materials-dummy'
@@ -40,7 +40,7 @@ const Home = () => {
   useEffect(() => {
     switch (currentCategory) {
       case 0:
-        getAllUnivHome().then((value) => setHomeMaterials(value));
+        getAllUniv().then((value) => setHomeMaterials(value));
         break;
       default:
         break;
