@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
+import { MemoryRouter } from 'react-router-dom';
 import HomeTagCardTitle from '../components/home/HomeTagCardTitle';
 
 const meta = {
@@ -9,7 +10,8 @@ const meta = {
     title: { control: 'text' },
     tag: { control: 'text' },
     isViewAll: { control: 'boolean' },
-  }
+  },
+  decorators: [(Story) => <MemoryRouter><Story /></MemoryRouter>],
 } satisfies Meta;
 
 export default meta;

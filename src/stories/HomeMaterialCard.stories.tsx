@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
+import { MemoryRouter } from 'react-router-dom';
 import HomeMaterialCard from '../components/home/HomeMaterialCard';
 
 const meta = {
@@ -14,7 +15,8 @@ const meta = {
     semester: { control: 'text' },
     professor: { control: 'text' },
     like: { control: 'number' },
-  }
+  },
+  decorators: [(Story) => <MemoryRouter><Story /></MemoryRouter>],
 } satisfies Meta;
 
 export default meta;

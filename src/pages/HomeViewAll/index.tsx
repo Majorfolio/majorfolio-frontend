@@ -33,7 +33,7 @@ const HomeViewAll = () => {
 
   useEffect(() => {
     switch (category) {
-      case (HomeCategory.LIKE).toString(): // 0
+      case HomeCategory.ALLUNIV.toString(): // 0
         if (tag === "new") {
           getAllUnivNewlyViewAll(1, 10).then((value) => setAllMaterials(value));
         } else if (tag === "hot") {
