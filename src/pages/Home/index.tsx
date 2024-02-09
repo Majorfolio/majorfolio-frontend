@@ -8,29 +8,14 @@ import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
 import { getAllUniv } from '../../apis/materials';
+import Material, { MaterialCategory } from '../../components/home/Material/index.types';
+import HomeCategory from '../../components/home/HomeCategory/index.types';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 import materials from '../../apis/materials-dummy'
 
-interface Material {
-  id: number;
-  nickname: string;
-  className: string;
-  univ?: string | null;
-  major?: string | null;
-  semester?: string | null;
-  professor?: string | null;
-  like?: number | null;
-}
-
-interface MaterialCategory {
-  "newUpload": Material[];
-  "best": Material[];
-  "latest": Material[];
-}
-
 const Home = () => {
-  const [currentCategory, setCurrentCategory] = useState(0);
+  const [currentCategory, setCurrentCategory] = useState(HomeCategory.ALLUNIV);
   const [homeMaterials, setHomeMaterials] = useState<null | MaterialCategory>(null);
 
   const updateCategory = (category: number) => {
@@ -39,13 +24,19 @@ const Home = () => {
 
   useEffect(() => {
     switch (currentCategory) {
-      case 0:
+      case HomeCategory.ALLUNIV: // 0
         getAllUniv().then((value) => setHomeMaterials(value));
+        break;
+      case HomeCategory.MYUNIV: // 1
+        setHomeMaterials(null);
+        break;
+      case HomeCategory.MYMAJOR: // 2
+        setHomeMaterials(null);
         break;
       default:
         break;
     }
-  }, []);
+  }, [currentCategory]);
 
   return (
     <PageContainer>
@@ -56,7 +47,7 @@ const Home = () => {
         <ContentPageContainer>
           <HomeContentPageTitle />
 
-          <HomeTagCardTitle title='신규 등록 자료' tag='new' />
+          <HomeTagCardTitle title='신규 등록 자료' tag='new' category={currentCategory} />
           <CardWrapper>
             { homeMaterials && homeMaterials.newUpload &&
               homeMaterials.newUpload.map((material: Material) => {
@@ -75,12 +66,9 @@ const Home = () => {
                   />
                 );
               })}
-            {/* <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} /> */}
           </CardWrapper>
 
-          <HomeTagCardTitle title='베스트 자료' tag='hot' />
+          <HomeTagCardTitle title='베스트 자료' tag='hot' category={currentCategory} />
           <CardWrapper>
             { homeMaterials && homeMaterials.best &&
               homeMaterials.best.map((material: Material) => {
@@ -99,12 +87,9 @@ const Home = () => {
                   />
                 );
               })}
-            {/* <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} /> */}
           </CardWrapper>
 
-          <HomeTagCardTitle title='최근에 본 자료' />
+          <HomeTagCardTitle title='최근에 본 자료' category={currentCategory} />
           <CardWrapper>
             {/* <HomeMaterialCard isBig={false} />
             <HomeMaterialCard isBig={false} />
