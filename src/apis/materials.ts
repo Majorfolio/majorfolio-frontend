@@ -15,3 +15,9 @@ export const getAllUnivBestViewAll = async (page: number, pageSize: number) => {
   const data = await response.json();
   return data;
 };
+
+// export const getMaterialDetail = async (materialId: number) => {
+//   const response = await fetch(`https://majorfolio-server.shop/assignment/${materialId}/detail`);
+//   const data = await response.json();
+//   return data;
+// };
