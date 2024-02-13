@@ -9,6 +9,7 @@ export default interface ButtonPropsType
 }
 
 export interface StyledButtonPropsType {
+  disabled?: boolean;
   backgroundColor?: ColorType;
   isOutlined?: boolean;
 }
