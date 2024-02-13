@@ -8,6 +8,7 @@ import HomeMaterialDetail from './HomeMaterialDetail';
 import Cart from './Cart';
 import MaterialBox from './MaterialBox';
 import Signin from './Signin';
+import Callback from './Callback';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const Router = () => {
         {
           path: '/signin',
           element: <Signin />,
+        },
+        {
+          path: '/callback',
+          element: <Callback />,
         },
       ],
     },
