@@ -15,11 +15,6 @@ export const StyledButton = styled.button<Required<StyledButtonPropsType>>`
   border-radius: 6px;
   width: 100%;
   cursor: ${(props) => (props.disabled ? 'auto' : 'pointer')};
-
-  && ${StyledText} {
-    color: ${({ disabled }) =>
-      disabled ? theme.color['gray/gray400'] : theme.color['gray/white']};
-  }
 `;
 
 export default StyledButton;
