@@ -21,7 +21,6 @@ interface SignupPropsType {
 
 export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
   const [step, setStep] = useState<'email' | 'details' | 'naming'>('email');
-  // TODO navigate to the home page after signup
   const navigate = useNavigate();
   return (
     <>
