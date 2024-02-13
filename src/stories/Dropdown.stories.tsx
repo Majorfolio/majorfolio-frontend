@@ -1,9 +1,18 @@
 import { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
 import Dropdown from '../components/common/Dropdown';
 
 const meta = {
   title: 'Dropdown',
   component: Dropdown,
+  decorators: [
+    (Story) => {
+      const [searchQuery, setSearchQuery] = useState('');
+      return (
+        <Story searchQuery={searchQuery} onSearchQueryUpdate={setSearchQuery} />
+      );
+    },
+  ],
   tags: ['autodocs'],
 } satisfies Meta;
 
@@ -14,5 +23,6 @@ export const Default: Story = {
   args: {
     options: ['건국대학교', '국민대학교'],
     category: '학교',
+    searchQuery: '',
   },
 };
