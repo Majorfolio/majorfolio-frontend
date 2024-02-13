@@ -9,6 +9,7 @@ import {
 import Button from '../../../components/common/Button';
 import { HelperCancelIcon } from '../../../assets/icons';
 import useSearchQueries from './useSearchQueries.tsx';
+import StyledButton from './index.styles';
 
 interface SignupDetailsStepPropsType {
   onNext: () => void;
@@ -188,7 +189,7 @@ export default function SignupDetailsStep({
         />
       </StyledDropdownContainer>
       <StyledButtonContainer>
-        <Button
+        <StyledButton
           backgroundColor="main_color/blue_p"
           type="submit"
           disabled={
@@ -199,7 +200,7 @@ export default function SignupDetailsStep({
           <Text size={16} lineHeight="sm" weight="bold" color="gray/gray400">
             다음으로
           </Text>
-        </Button>
+        </StyledButton>
       </StyledButtonContainer>
     </form>
   );
