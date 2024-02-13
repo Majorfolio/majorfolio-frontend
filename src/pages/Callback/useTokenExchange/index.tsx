@@ -75,7 +75,7 @@ export default function useTokenExchange() {
         setAuth({ isMember, memberId, accessToken, refreshToken });
 
         // TODO update the global state
-        // TODO navigate to the signup page
+        navigate('/signup');
       });
   }, [location]);
 
