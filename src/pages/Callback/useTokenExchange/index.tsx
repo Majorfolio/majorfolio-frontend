@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { HTTP_HEADERS, HTTP_METHODS } from '../../../api';
 
 const API_URL1 =
   'http://ec2-54-180-59-160.ap-northeast-2.compute.amazonaws.com';
@@ -35,9 +36,10 @@ export default function useTokenExchange() {
     }).toString();
 
     fetch('https://kauth.kakao.com/oauth/token', {
-      method: 'POST',
+      method: HTTP_METHODS.POST,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        [HTTP_HEADERS.CONTENT_TYPE]:
+          'application/x-www-form-urlencoded;charset=utf-8',
       },
       body,
     })
@@ -59,7 +61,7 @@ export default function useTokenExchange() {
         }
 
         return fetch(`${API_URL2}${PATH}`, {
-          method: 'POST',
+          method: HTTP_METHODS.POST,
           credentials: 'include',
           headers: {
             authorization: `Bearer ${id_token}`,
