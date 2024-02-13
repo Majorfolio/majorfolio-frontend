@@ -16,6 +16,14 @@ const PATH = '/member/login';
 
 const API_URL2 = 'https://majorfolio-server.shop';
 
+const generateUniqueRandomValue = () => {
+  const randomPart = window.crypto
+    .getRandomValues(new Uint32Array(1))[0]
+    .toString(16);
+  const timePart = new Date().getTime().toString(16);
+  return `${randomPart}-${timePart}`;
+};
+
 export default function Signin() {
   const location = useLocation();
 
@@ -23,6 +31,7 @@ export default function Signin() {
     const queryString = location.search;
     const searchParams = new URLSearchParams(queryString);
     const code = searchParams.get('code');
+
     if (code) {
       const body = new URLSearchParams({
         grant_type: 'authorization_code',
@@ -43,13 +52,17 @@ export default function Signin() {
           console.log(data);
           const { id_token } = data;
           console.log(id_token);
+
+          const state = sessionStorage.getItem('oauth_state');
+          const nonce = sessionStorage.getItem('openid_nonce');
+
           return fetch(`${API_URL2}${PATH}`, {
             method: 'POST',
             credentials: 'include',
             headers: {
-              Authorization: `Bearer ${id_token}`,
-              State: 'hi',
-              Nonce: 'hi',
+              authorization: `Bearer ${id_token}`,
+              state,
+              nonce,
             },
           });
         })
@@ -61,8 +74,21 @@ export default function Signin() {
   }, [location]);
 
   const onKakaoSignin = () => {
-    window.location.href =
-      'https://kauth.kakao.com/oauth/authorize?client_id=de13e7d19e639ae838e4735a0cf14614&redirect_uri=http://localhost:3000/signin&response_type=code';
+    const state = generateUniqueRandomValue();
+    const nonce = generateUniqueRandomValue();
+
+    sessionStorage.setItem('oauth_state', state);
+    sessionStorage.setItem('openid_nonce', nonce);
+
+    const queryString = new URLSearchParams({
+      client_id: 'de13e7d19e639ae838e4735a0cf14614',
+      redirect_uri: 'http://localhost:3000/signin',
+      response_type: 'code',
+      state,
+      nonce,
+    }).toString();
+
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?${queryString}`;
   };
 
   return (
