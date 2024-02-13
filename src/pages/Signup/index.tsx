@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import TextField from '../../components/common/TextField';
 import HelperText from '../../components/common/HelperText';
@@ -12,6 +13,7 @@ import { CancelDefaultIcon } from '../../assets/icons';
 import Tag from '../../components/common/Tag';
 import SignupEmailStep from './SignupEmailStep';
 import SignupDetailsStep from './SignupDetailsStep';
+import SignupNamingStep from './SignupNamingStep';
 
 interface SignupPropsType {
   isEmailConfirmed?: boolean;
@@ -19,6 +21,8 @@ interface SignupPropsType {
 
 export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
   const [step, setStep] = useState<'email' | 'details' | 'naming'>('email');
+  // TODO navigate to the home page after signup
+  const navigate = useNavigate();
   return (
     <>
       {step === 'email' && (
@@ -26,6 +30,9 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
       )}
       {step === 'details' && (
         <SignupDetailsStep onNext={() => setStep('naming')} />
+      )}
+      {step === 'naming' && (
+        <SignupNamingStep onNext={() => navigate('/home', { replace: true })} />
       )}
     </>
   );

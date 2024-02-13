@@ -6,6 +6,11 @@ import HelperText from '../../../components/common/HelperText';
 import { ErrorDefaultIcon } from '../../../assets/icons';
 import Button from '../../../components/common/Button';
 import StyledValidationContainer from './index.styles';
+import useSignupNaming from './useSignupNaming';
+
+interface SignupNamingStepType {
+  onNext: () => void;
+}
 
 const NICKNAME_MIN_LENGTH = 2;
 const NICKNAME_MAX_LENGTH = 8;
@@ -18,52 +23,18 @@ const HELPER_TEXT = {
 
 const KoreanEnglishAlphabetRegex = /^[가-힣a-zA-Z]+$/;
 
-export default function SignupNamingStep() {
-  // TODO validate nickname
-  // length 2 - 8 UI에 표시하기
-  // letter: Korean or Alphabet
-  // check if it already exists on the app
-  // check if user is already using it
-  //  영어한글 > 등록된 닉네임 > 현재 닉네임
-
-  // "2~8자의 영어 또는 한글로 입력해주세요"
-  // 이미 사용중인 닉네임이에요
-  // 기존 닉네임과 같아요
-
-  const [nickname, setNickname] = useState('');
-
-  const hasTextfieldError =
-    !KoreanEnglishAlphabetRegex.test(nickname) || nickname.length < 2;
-
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
-
-  const helperText =
-    (isNicknameValid && HELPER_TEXT.SUCCESS) ||
-    (hasTextfieldError && HELPER_TEXT.NONCOMPLIANT);
-
-  const borderColor = hasTextfieldError ? 'error/error_color' : 'gray/gray100';
-
-  const borderColorOnHover = hasTextfieldError
-    ? 'error/error_color'
-    : 'gray/gray150';
-
-  const borderColorOnFocus = hasTextfieldError
-    ? 'error/error_color'
-    : 'main_color/blue_p';
-
-  const onNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const nextNickname = event.target.value;
-    const whitespaceRegex = /\s/;
-    if (
-      whitespaceRegex.test(nextNickname) ||
-      nextNickname.length > NICKNAME_MAX_LENGTH
-    ) {
-      return;
-    }
-
-    setNickname(event.target.value);
-    setIsNicknameValid(false);
-  };
+export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
+  const {
+    hasTextfieldError,
+    onNicknameChange,
+    helperText,
+    borderColor,
+    borderColorOnHover,
+    borderColorOnFocus,
+    isNicknameValid,
+    onNicknameValidation,
+    nickname,
+  } = useSignupNaming();
 
   const textfieldIcon = hasTextfieldError ? (
     <ErrorDefaultIcon />
@@ -72,11 +43,6 @@ export default function SignupNamingStep() {
       {nickname.length} / {NICKNAME_MAX_LENGTH}
     </Text>
   );
-
-  const onNicknameValidation = () => {
-    // TODO nickname validation
-    setIsNicknameValid(true);
-  };
 
   // TODO: adjeust margin of icon props
   return (
@@ -107,7 +73,7 @@ export default function SignupNamingStep() {
         ))}
       <StyledValidationContainer>
         {isNicknameValid ? (
-          <Button backgroundColor="main_color/blue_p">
+          <Button backgroundColor="main_color/blue_p" onClick={onNext}>
             <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
               다음으로
             </Text>
