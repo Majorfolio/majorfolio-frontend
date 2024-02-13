@@ -8,7 +8,7 @@ import Button from '../../../components/common/Button';
 import StyledValidationContainer from './index.styles';
 import useSignupNaming from './useSignupNaming';
 
-interface SignupNamingStep {
+interface SignupNamingStepType {
   onNext: () => void;
 }
 
@@ -23,7 +23,7 @@ const HELPER_TEXT = {
 
 const KoreanEnglishAlphabetRegex = /^[가-힣a-zA-Z]+$/;
 
-export default function SignupNamingStep({ onNext }: SignupNamingStep) {
+export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
   const {
     hasTextfieldError,
     onNicknameChange,
@@ -73,7 +73,7 @@ export default function SignupNamingStep({ onNext }: SignupNamingStep) {
         ))}
       <StyledValidationContainer>
         {isNicknameValid ? (
-          <Button backgroundColor="main_color/blue_p">
+          <Button backgroundColor="main_color/blue_p" onClick={onNext}>
             <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
               다음으로
             </Text>
