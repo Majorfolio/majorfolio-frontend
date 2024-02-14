@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import getIdToken from '../apis/auth';
-import getAuth from '../apis/member';
+import { getAuth } from '../apis/member';
 
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
