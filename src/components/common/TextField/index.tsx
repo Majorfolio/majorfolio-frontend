@@ -11,64 +11,26 @@ export default function TextField({
   active = true,
   icon,
   placeholder,
+  text,
+  onTextChange,
   ...props
 }: TextFieldPropsType) {
-  const [email, setEmail] = useState('');
-  switch (type) {
-    case 'text':
-      return (
-        <StyledContainer>
-          <StyledTextField
-            type="text"
-            placeholder={placeholder}
-            color="gray/gray900"
-            size={16}
-            weight="md"
-            lineHeight="lg"
-            disabled={disabled}
-            {...props}
-          />
-          {!disabled && <StyledButton type="button">{icon}</StyledButton>}
-        </StyledContainer>
-      );
-    case 'password':
-      return (
-        <StyledContainer>
-          <StyledTextField
-            type="password"
-            placeholder={placeholder}
-            color="gray/gray900"
-            size={16}
-            weight="md"
-            lineHeight="lg"
-            disabled={disabled}
-            {...props}
-          />
-          {!disabled && active && (
-            <StyledButton type="button">{icon}</StyledButton>
-          )}
-        </StyledContainer>
-      );
-    case 'email':
-      return (
-        <StyledContainer>
-          <StyledTextField
-            type="email"
-            placeholder={placeholder}
-            color="gray/gray900"
-            size={16}
-            weight="md"
-            lineHeight="lg"
-            disabled={disabled}
-            name="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            {...props}
-          />
-          <StyledButton type="button">{icon}</StyledButton>
-        </StyledContainer>
-      );
-    default:
-      return <input type="text" placeholder="제목" />;
-  }
+  return (
+    <StyledContainer>
+      <StyledTextField
+        type={type}
+        placeholder={placeholder}
+        color="gray/gray900"
+        size={16}
+        weight="md"
+        lineHeight="lg"
+        disabled={disabled}
+        name={type}
+        value={text}
+        onChange={onTextChange}
+        {...props}
+      />
+      <StyledButton type="button">{icon}</StyledButton>
+    </StyledContainer>
+  );
 }

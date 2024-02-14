@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactElement } from 'react';
+import { ChangeEvent, ComponentPropsWithoutRef, ReactElement } from 'react';
 import { ColorType } from '../theme';
 
 export interface TextFieldPropsType extends ComponentPropsWithoutRef<'input'> {
@@ -10,6 +10,8 @@ export interface TextFieldPropsType extends ComponentPropsWithoutRef<'input'> {
   borderColorOnFocus: ColorType;
   placeholder: string;
   icon: ReactElement;
+  text: string;
+  onTextChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export type StyledTextFieldType = Pick<
