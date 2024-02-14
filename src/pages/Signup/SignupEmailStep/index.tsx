@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Text from '../../../components/common/Text';
 import TextField from '../../../components/common/TextField';
 import HelperText from '../../../components/common/HelperText';
@@ -10,6 +10,7 @@ import {
 import Button from '../../../components/common/Button';
 import { CancelDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
+import useText from '../../../hooks/common/useText';
 
 interface SignupPropsType {
   onNext: () => void;
@@ -20,6 +21,8 @@ export default function SignupEmailStep({
   onNext,
   isEmailConfirmed = false,
 }: SignupPropsType) {
+  const { email, onEmailChange, isEmailValid } = useText('email');
+
   const transition = isEmailConfirmed ? (
     <Button type="submit" backgroundColor="main_color/blue_p">
       <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
@@ -33,11 +36,19 @@ export default function SignupEmailStep({
           다음에 하기
         </Text>
       </Button>
-      <Button backgroundColor="gray/gray100">
-        <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
-          인증메일 전송
-        </Text>
-      </Button>
+      {isEmailValid ? (
+        <Button backgroundColor="main_color/blue_p">
+          <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
+            인증메일 전송
+          </Text>
+        </Button>
+      ) : (
+        <Button backgroundColor="gray/gray100" disabled>
+          <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
+            인증메일 전송
+          </Text>
+        </Button>
+      )}
     </>
   );
 
@@ -57,7 +68,7 @@ export default function SignupEmailStep({
   );
 
   return (
-    <form method="post" onSubmit={onNext}>
+    <form onSubmit={onNext}>
       <StyledTextContainer htmlFor="email">
         <Text as="div" size={22} lineHeight="lg">
           학교 인증을 위해
@@ -74,6 +85,8 @@ export default function SignupEmailStep({
         borderColorOnFocus="main_color/blue_p"
         icon={textfieldIcon}
         placeholder="이메일"
+        text={email}
+        onTextChange={onEmailChange}
       />
       <HelperText>해당 메일주소로 메일을 보내드립니다.</HelperText>
       <StyledButtonContainer>{transition}</StyledButtonContainer>
