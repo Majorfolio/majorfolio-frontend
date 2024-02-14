@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useText from '../../../../hooks/common/useText';
+import useAuthStore from '../../../../store/authStore';
+import { sendCodeToEmail, validateCode } from '../../../../apis/member';
+import useEmailStore from '../../../../store/emailStore';
 
 const validateEmail = (email: string): boolean => {
   const emailRegex =
@@ -9,12 +12,16 @@ const validateEmail = (email: string): boolean => {
 
 export default function useEmail() {
   const { email, onEmailChange } = useText('email');
+  const setEmail = useEmailStore((state) => state.setEmail);
+
+  const accessToken = useAuthStore((state) => state.accessToken)!;
 
   const isEmailValid = validateEmail(email);
 
-  // TODO create onEmailSubmit function which sends access token
-  // TODO add zustand to package.json
-  // TODO store access token in zustand to send access token
+  const onEmailSubmit = async () => {
+    const currentEmailId = await sendCodeToEmail(email, accessToken);
+    setEmail(currentEmailId);
+  };
 
-  return { email, onEmailChange, isEmailValid };
+  return { email, onEmailChange, isEmailValid, onEmailSubmit };
 }

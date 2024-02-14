@@ -21,7 +21,7 @@ export default function SignupEmailStep({
   onNext,
   isEmailConfirmed = false,
 }: SignupPropsType) {
-  const { email, onEmailChange, isEmailValid } = useEmail();
+  const { email, onEmailChange, isEmailValid, onEmailSubmit } = useEmail();
 
   const transition = isEmailConfirmed ? (
     <Button type="submit" backgroundColor="main_color/blue_p">
@@ -37,13 +37,17 @@ export default function SignupEmailStep({
         </Text>
       </Button>
       {isEmailValid ? (
-        <Button backgroundColor="main_color/blue_p">
+        <Button
+          type="submit"
+          backgroundColor="main_color/blue_p"
+          onClick={onEmailSubmit}
+        >
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
         </Button>
       ) : (
-        <Button backgroundColor="gray/gray100" disabled>
+        <Button type="submit" backgroundColor="gray/gray100" disabled>
           <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
@@ -68,7 +72,13 @@ export default function SignupEmailStep({
   );
 
   return (
-    <form onSubmit={onNext}>
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await onEmailSubmit();
+        onNext();
+      }}
+    >
       <StyledTextContainer htmlFor="email">
         <Text as="div" size={22} lineHeight="lg">
           학교 인증을 위해
