@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { HTTP_HEADERS, HTTP_METHODS } from '../../../api';
+import { HTTP_HEADERS, HTTP_METHODS } from '../../../apis/constants';
 
 const API_URL1 =
   'http://ec2-54-180-59-160.ap-northeast-2.compute.amazonaws.com';
