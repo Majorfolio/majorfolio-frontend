@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HTTP_HEADERS, HTTP_METHODS } from '../../../apis/constants';
 import getIdToken from '../../../apis/auth';
-import getAuth from '../../../apis/member';
+import { getAuth } from '../../../apis/member';
 import useAuthStore from '../../../store/authStore';
 
 const API_URL1 =
