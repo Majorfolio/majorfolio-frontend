@@ -29,7 +29,7 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
     const auth = await getAuth(idToken);
     set((state) => ({
       ...state,
-      auth,
+      ...auth,
     }));
 
     const { accessToken, refreshToken } = auth;
