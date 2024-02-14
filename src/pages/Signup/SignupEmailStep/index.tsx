@@ -10,7 +10,7 @@ import {
 import Button from '../../../components/common/Button';
 import { CancelDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
-import useText from '../../../hooks/common/useText';
+import useEmail from './useEmail';
 
 interface SignupPropsType {
   onNext: () => void;
@@ -21,7 +21,7 @@ export default function SignupEmailStep({
   onNext,
   isEmailConfirmed = false,
 }: SignupPropsType) {
-  const { email, onEmailChange, isEmailValid } = useText('email');
+  const { email, onEmailChange, isEmailValid } = useEmail();
 
   const transition = isEmailConfirmed ? (
     <Button type="submit" backgroundColor="main_color/blue_p">

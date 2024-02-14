@@ -62,8 +62,8 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
         borderColorOnFocus={borderColorOnFocus}
         icon={textfieldIcon}
         placeholder="닉네임"
-        value={nickname}
-        onChange={onNicknameChange}
+        text={nickname}
+        onTextChange={onNicknameChange}
       />
       {(isNicknameValid && (
         <HelperText type="checked">{helperText}</HelperText>
