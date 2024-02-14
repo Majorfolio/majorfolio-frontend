@@ -10,14 +10,14 @@ const MEMBER_API_SEGMENTS = {
   DELETE: '/delete',
 };
 
-const MEMBER_API_PATHS = Object.entries(MEMBER_API_SEGMENTS).reduce(
-  (accumulator, [key, value]) => {
-    return {
-      ...accumulator,
-      [key]: `${MEMBER_API_COMMON_SEGMENT}${value}`,
-    };
-  },
-  {},
-);
+const MEMBER_API_PATHS = {
+  LOGIN: '/member/login',
+  SCHOOL_EMAIL: '/member/school-email/code',
+  SIGNUP: '/member/signup',
+  REMAKE_TOKEN: '/member/remake/token',
+  CHECK_NICKNAME: '/member/check-nickname',
+  LOGOUT: '/member/logout',
+  DELETE: '/member/delete',
+};
 
 export default MEMBER_API_PATHS;
