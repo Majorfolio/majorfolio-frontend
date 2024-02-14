@@ -4,8 +4,8 @@ import useTokenExchange from './useTokenExchange';
 import Text from '../../components/common/Text';
 
 export default function Callback() {
-  const { auth } = useTokenExchange();
-  if (!auth) {
+  const { isLoading, auth } = useTokenExchange();
+  if (!isLoading) {
     return <Text>로그인 중입니다...</Text>;
   }
 
