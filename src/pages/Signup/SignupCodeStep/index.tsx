@@ -10,18 +10,19 @@ import {
 import Button from '../../../components/common/Button';
 import { CancelDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
-import useEmail from './useEmail';
+import useCode from './useCode';
+import useEmailStore from '../../../store/emailStore';
 
 interface SignupPropsType {
   onNext: () => void;
   isEmailConfirmed?: boolean;
 }
 
-export default function SignupEmailStep({
+export default function SignupCodeStep({
   onNext,
   isEmailConfirmed = false,
 }: SignupPropsType) {
-  const { email, onEmailChange, isEmailValid, onEmailSubmit } = useEmail();
+  const { code, onCodeChange, onCodeSubmit, isCodeEmpty } = useCode();
 
   const transition = isEmailConfirmed ? (
     <Button type="submit" backgroundColor="main_color/blue_p">
@@ -36,18 +37,14 @@ export default function SignupEmailStep({
           다음에 하기
         </Text>
       </Button>
-      {isEmailValid ? (
-        <Button
-          type="submit"
-          backgroundColor="main_color/blue_p"
-          onClick={onEmailSubmit}
-        >
+      {isCodeEmpty ? (
+        <Button backgroundColor="main_color/blue_p" onClick={onCodeSubmit}>
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
         </Button>
       ) : (
-        <Button type="submit" backgroundColor="gray/gray100" disabled>
+        <Button backgroundColor="gray/gray100" disabled>
           <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
@@ -72,33 +69,27 @@ export default function SignupEmailStep({
   );
 
   return (
-    <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-        await onEmailSubmit();
-        onNext();
-      }}
-    >
-      <StyledTextContainer htmlFor="email">
+    <form onSubmit={onNext}>
+      <StyledTextContainer htmlFor="text">
         <Text as="div" size={22} lineHeight="lg">
           학교 인증을 위해
         </Text>
         <Text as="div" size={22} weight="bold" lineHeight="lg">
-          학교 이메일을 입력해주세요
+          인증코드를 입력해주세요
         </Text>
       </StyledTextContainer>
       <TextField
-        id="email"
-        type="email"
+        id="text"
+        type="text"
         borderColor="gray/gray100"
         borderColorOnHover="gray/gray150"
         borderColorOnFocus="main_color/blue_p"
         icon={textfieldIcon}
-        placeholder="이메일"
-        text={email}
-        onTextChange={onEmailChange}
+        placeholder="인증코드"
+        text={code}
+        onTextChange={onCodeChange}
       />
-      <HelperText>해당 메일주소로 메일을 보내드립니다.</HelperText>
+      <HelperText>메일주소로 보내드린 인증코드를 확인해보세요.</HelperText>
       <StyledButtonContainer>{transition}</StyledButtonContainer>
     </form>
   );

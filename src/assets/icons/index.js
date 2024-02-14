@@ -35,7 +35,7 @@ export { ReactComponent as EditDefaultIcon } from './ico_edit.svg';
 export { ReactComponent as ErrorDefaultIcon } from './ico_error.svg';
 export { ReactComponent as FileDefaultIcon } from './ico_file.svg';
 export { ReactComponent as FilterDefaultIcon } from './ico_filter.svg';
-export { ReactComponent as GuideLineCheckIcon } from './ico_guide_line_check_circle.svg';
+export { ReactComponent as HelperDefaultIcon } from './ico_guide_line_check_circle.svg';
 export { ReactComponent as HelperCancelIcon } from './ico_helper_text_cancel.svg';
 export { ReactComponent as HelperCheckIcon } from './ico_helper_text_check_circle.svg';
 export { ReactComponent as HelperInfoIcon } from './ico_helper_text_info.svg';
@@ -77,3 +77,4 @@ export { ReactComponent as UploadCheckDefaultIcon } from './ico_upload_check.svg
 export { ReactComponent as VisibilityOffIcon } from './ico_visibility_off.svg';
 export { ReactComponent as VisibilityOnIcon } from './ico_visibility.svg';
 export { ReactComponent as LoadingIcon } from './ico_loading.svg';
+export { ReactComponent as KakaoIcon } from './btn_popup_kakao2.svg';
