@@ -1,5 +1,3 @@
-export const API_URL = 'https://majorfolio-server.shop';
-
 export const HTTP_METHODS = {
   GET: 'GET',
   POST: 'POST',

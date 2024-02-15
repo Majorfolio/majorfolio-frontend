@@ -5,11 +5,6 @@ import getIdToken from '../../../apis/auth';
 import { getAuth } from '../../../apis/member';
 import useAuthStore from '../../../store/authStore';
 
-const API_URL1 =
-  'http://ec2-54-180-59-160.ap-northeast-2.compute.amazonaws.com';
-const API_URL2 = 'https://majorfolio-server.shop';
-const PATH = '/member/login';
-
 interface AuthType {
   isMember: boolean;
   memberId: number;
