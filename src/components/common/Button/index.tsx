@@ -8,6 +8,7 @@ export default function Button({
   backgroundColor = 'main_color/blue_p',
   isOutlined = false,
   onClick = () => {},
+  disabled = false,
   ...props
 }: ButtonPropsType) {
   return (
@@ -15,6 +16,7 @@ export default function Button({
       backgroundColor={backgroundColor}
       isOutlined={isOutlined}
       onClick={onClick}
+      disabled={disabled}
       {...props}
     >
       {children}

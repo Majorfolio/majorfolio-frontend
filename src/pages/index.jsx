@@ -1,50 +1,65 @@
-import React from 'react'
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Landing from "./Landing/Landing"
+import Landing from './Landing/Landing';
 import Home from './Home';
 import HomeViewAll from './HomeViewAll';
-import HomeMaterialDetail from "./HomeMaterialDetail";
+import HomeMaterialDetail from './HomeMaterialDetail';
 import Cart from './Cart';
 import MaterialBox from './MaterialBox';
+import Signin from './Signin';
+import Callback from './Callback';
+import Signup from './Signup';
 
 const Router = () => {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       children: [
         {
-          index: true
+          index: true,
         },
         {
-          path: "/landing",
+          path: '/landing',
           element: <Landing />,
         },
         {
-          path: "/home",
+          path: '/home',
           element: <Home />,
         },
         {
           path: "/home-all/:category/:tag",
           element: <HomeViewAll />,
-        },     
+        },
         {
-          path: "/home/detail",
+          path: '/home/detail',
           element: <HomeMaterialDetail />,
         },
         {
-          path: "/cart",
+          path: '/cart',
           element: <Cart />,
         },
         {
-          path: "/material-box",
+          path: '/material-box',
           element: <MaterialBox />,
         },
-      ]
-    }
+        {
+          path: '/signin',
+          element: <Signin />,
+        },
+        {
+          path: '/signup',
+          element: <Signup />,
+        },
+        {
+          path: '/callback',
+          element: <Callback />,
+        },
+      ],
+    },
   ]);
 
   return <RouterProvider router={router} />;
-}
+};
 
-export default Router
+export default Router;
