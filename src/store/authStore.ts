@@ -35,8 +35,7 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
       if (!storedAccessToken || !storedRefreshToken) {
         return false;
       }
-      console.log(storedAccessToken);
-      console.log(storedRefreshToken);
+
       set((state) => ({
         ...state,
         accessToken: storedAccessToken,
