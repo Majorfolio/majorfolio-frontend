@@ -4,10 +4,17 @@ import TextField from '../components/common/TextField';
 import theme from '../components/common/theme';
 import Button from '../components/common/Button';
 import Text from '../components/common/Text';
+import useEmail from '../pages/Signup/SignupEmailStep/useEmail';
 
 const meta = {
   title: 'TextField',
   component: TextField,
+  decorators: [
+    (Story) => {
+      const { email, onEmailChange } = useEmail();
+      return <Story text={email} onTextChange={onEmailChange} />;
+    },
+  ],
   tags: ['autodocs'],
 } satisfies Meta;
 
@@ -29,6 +36,8 @@ export const EmailConfirmed: Story = {
       </Button>
     ),
     placeholder: '이메일',
+    text: '',
+    onTextChange: () => {},
   },
 };
 
@@ -59,5 +68,7 @@ export const EmailInProgress: Story = {
       </>
     ),
     placeholder: '이메일',
+    text: '',
+    onTextChange: () => {},
   },
 };

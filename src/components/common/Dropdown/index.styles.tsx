@@ -2,32 +2,49 @@ import { styled } from 'styled-components';
 import theme from '../theme';
 import Text from '../Text';
 import Button from '../Button';
+import StyledText from '../Text/index.styles';
+import StyledComboboxType from './index.types';
 
 export const StyledDropdownContainer = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const StyledCombobox = styled(Button)`
+export const StyledComoboxContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: relative;
   height: 52px;
+`;
+
+const StyledCombobox = styled(StyledText).attrs({
+  as: 'input',
+})<StyledComboboxType>`
+  width: 100%;
+  height: 100%;
   padding-left: 13px;
-  border: 1px ${theme.color['gray/gray100']} solid;
+  border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
   border-radius: 6px;
   background-color: ${theme.color['gray/white']};
   cursor: pointer;
   /* margin-left: 20px; */
   /* margin-right: 20px; */
+  box-sizing: border-box;
+  outline-style: none;
 
   &:focus {
-    border: 1px ${theme.color['main_color/blue_p']} solid;
+    border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
+  }
+
+  &::placeholder {
+    color: ${theme.color['gray/gray400']};
   }
 `;
 
 export const StyledDropdownIcon = styled.span`
+  position: absolute;
+  right: 6px;
   padding: 10px;
   height: 24px;
 `;
@@ -42,6 +59,7 @@ export const StyledListbox = styled.ul`
   margin-top: 4px;
   max-height: 200px;
   overflow-y: auto;
+  z-index: 1;
 
   & li {
     cursor: pointer;
