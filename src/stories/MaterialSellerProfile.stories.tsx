@@ -6,6 +6,7 @@ const meta = {
   title: 'Home/MaterialSellerProfile',
   component: MaterialSellerProfile,
   argTypes: {
+    id: { control: 'number' },
     nickname: { control: 'text' },
     hasReaction: { control: 'boolean' },
     infoContent: { control: 'text' },

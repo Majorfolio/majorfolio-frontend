@@ -29,7 +29,7 @@ const Router = () => {
           element: <HomeViewAll />,
         },     
         {
-          path: "/home/detail",
+          path: "/assignment/:materialId/detail",
           element: <HomeMaterialDetail />,
         },
         {
