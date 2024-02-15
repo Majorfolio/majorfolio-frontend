@@ -28,7 +28,7 @@ const Router = () => {
           element: <Home />,
         },
         {
-          path: '/home-all',
+          path: "/home-all/:category/:tag",
           element: <HomeViewAll />,
         },
         {

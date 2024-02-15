@@ -1,33 +1,38 @@
 import React from 'react'
 
-import * as S from './index.styles';
+import { CardTitleWrapper, CardsWrapper, MaterialBoxContainer, PageContainer } from './index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle'
 import HomeMaterialCard from '../../components/home/HomeMaterialCard'
 import TapMenu from '../../components/common/TapMenu';
+import BottomBar from '../../components/common/BottomBar';
 
 const MaterialBox = () => {
   return (
-    <S.MaterialBoxContainer>
-      <TapMenu />
+    <PageContainer>
+      <MaterialBoxContainer>
+        <TapMenu />
 
-      <S.CardTitleWrapper>
-        <HomeTagCardTitle isViewAll />
-      </S.CardTitleWrapper>
-      <S.CardsWrapper>
-        <HomeMaterialCard />
-        <HomeMaterialCard />
-        <HomeMaterialCard />
-      </S.CardsWrapper>
-      
-      <S.CardTitleWrapper>
-        <HomeTagCardTitle isViewAll />
-      </S.CardTitleWrapper>
-      <S.CardsWrapper>
-        <HomeMaterialCard />
-        <HomeMaterialCard />
-        <HomeMaterialCard />
-      </S.CardsWrapper>
-    </S.MaterialBoxContainer>
+        <CardTitleWrapper>
+          <HomeTagCardTitle title='결제 대기' isViewAll />
+        </CardTitleWrapper>
+        <CardsWrapper>
+          {/* <HomeMaterialCard />
+          <HomeMaterialCard />
+          <HomeMaterialCard /> */}
+        </CardsWrapper>
+        
+        <CardTitleWrapper>
+          <HomeTagCardTitle title='결제 완료' isViewAll />
+        </CardTitleWrapper>
+        <CardsWrapper>
+          {/* <HomeMaterialCard />
+          <HomeMaterialCard />
+          <HomeMaterialCard /> */}
+        </CardsWrapper>
+      </MaterialBoxContainer>
+
+      <BottomBar />
+    </PageContainer>
   )
 }
 
