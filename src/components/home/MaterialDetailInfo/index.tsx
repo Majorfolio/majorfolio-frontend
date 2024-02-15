@@ -14,7 +14,19 @@ import {
   PageDefaultIcon 
 } from '../../../assets/icons';
 
-function MaterialDetailInfo() {
+interface MaterialDetailInfoProps {
+  title: string,
+  university: string,
+  major: string,
+  semester: string,
+  subjectTitle: string,
+  professor: string,
+  grade: string,
+  score: number,
+  pages: number,
+}
+
+function MaterialDetailInfo({ title, university, major, semester, subjectTitle, professor, grade, score, pages }: MaterialDetailInfoProps) {
   return (
     <InfosWrapper>
       <InfoWrapper>
@@ -22,7 +34,7 @@ function MaterialDetailInfo() {
           <PostTitleDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>자료 제목</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>[과제] ALIDEA</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {title} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -30,7 +42,7 @@ function MaterialDetailInfo() {
           <SchoolDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학교</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>국민대학교</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {university} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -38,7 +50,7 @@ function MaterialDetailInfo() {
           <DepartmentOutlinedIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학과</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>공업디자인학과</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {major} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -46,7 +58,7 @@ function MaterialDetailInfo() {
           <SemesterDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>시기</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>23-1</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {semester} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -54,7 +66,7 @@ function MaterialDetailInfo() {
           <ClassDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>수업</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>게임디자인과 기획</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {subjectTitle} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -62,7 +74,7 @@ function MaterialDetailInfo() {
           <ProfessorDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>담당교수</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>홍길동</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {professor} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -70,7 +82,7 @@ function MaterialDetailInfo() {
           <CreditDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학점</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>A+</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {grade} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -78,7 +90,7 @@ function MaterialDetailInfo() {
           <ScoreDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>점수</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>90/100</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {score} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -86,7 +98,7 @@ function MaterialDetailInfo() {
           <PageDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>페이지</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'>4</Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {pages} </Text>
       </InfoWrapper>
     </InfosWrapper>
   )
