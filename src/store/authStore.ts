@@ -54,8 +54,8 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
     }));
 
     const { accessToken, refreshToken } = auth;
-    localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
-    localStorage.setItem(REFRESH_TOKEN, JSON.stringify(refreshToken));
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
     return auth;
   },
 
