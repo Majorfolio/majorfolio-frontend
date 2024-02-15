@@ -9,20 +9,26 @@ import {
   BookmarkIcon,
   BookmarkFilledIcon,
 } from '../../../assets/icons';
+import { updateLike } from '../../../apis/materials';
 
 interface MaterialSellerProfileProps {
+  id?: number;
   nickname: string;
   hasReaction: boolean;
   infoContent?: string;
   infoName?: string;
 }
 
-function MaterialSellerProfile({ nickname, hasReaction, infoContent, infoName }: MaterialSellerProfileProps) {
+function MaterialSellerProfile({ id, nickname, hasReaction, infoContent, infoName }: MaterialSellerProfileProps) {
   const [likeChecked, setLikeChecked] = useState(false);
   const [bookmarkChecked, setBookmarkChecked] = useState(false);
 
   const handleLikeClick = () => {
     setLikeChecked(!likeChecked);
+    if(hasReaction && id) {
+      // updateLike(id);
+      // console.log(id, ": 좋아요 전송!");
+    }
   }
 
   const handleBookmarkClick = () => {
