@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { access } from 'fs';
 import getIdToken from '../apis/auth';
 import { getAuth } from '../apis/member';
 
@@ -19,10 +20,31 @@ type AuthStateType = {
   refreshToken?: string;
   signin: (code: string) => Promise<AuthStateType>;
   signout: () => void;
+  restoreCredentials: () => boolean;
 };
 
 const useAuthStore = create<AuthStateType>((set, get) => ({
   ...initialState,
+
+  // TODO use refresh token when access token gets expired
+  restoreCredentials() {
+    // restore credentials only when there are no credentials
+    if (!get().accessToken && !get().refreshToken) {
+      const storedAccessToken = localStorage.getItem('accessToken');
+      const storedRefreshToken = localStorage.getItem('refreshToken');
+      if (!storedAccessToken || !storedRefreshToken) {
+        return false;
+      }
+      console.log(storedAccessToken);
+      console.log(storedRefreshToken);
+      set((state) => ({
+        ...state,
+        accessToken: storedAccessToken,
+        refreshToken: storedRefreshToken,
+      }));
+    }
+    return true;
+  },
 
   async signin(code: string) {
     const idToken = await getIdToken(code);
