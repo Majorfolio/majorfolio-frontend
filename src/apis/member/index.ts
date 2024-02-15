@@ -1,4 +1,4 @@
-import { API_URL, HTTP_METHODS } from '../constants';
+import { HTTP_METHODS } from '../constants';
 import MEMBER_API_PATHS from '../constants/member';
 
 export const getAuth = async (idToken: string) => {
@@ -14,15 +14,18 @@ export const getAuth = async (idToken: string) => {
       throw new Error('에러 발생');
     }
 
-    const response = await fetch(`${API_URL}${MEMBER_API_PATHS.LOGIN}`, {
-      method: HTTP_METHODS.POST,
-      credentials: 'include',
-      headers: {
-        authorization: `Bearer ${idToken}`,
-        state,
-        nonce,
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.LOGIN}`,
+      {
+        method: HTTP_METHODS.POST,
+        credentials: 'include',
+        headers: {
+          authorization: `Bearer ${idToken}`,
+          state,
+          nonce,
+        },
       },
-    });
+    );
 
     const { result } = await response.json();
     return result;
@@ -37,16 +40,19 @@ export const sendCodeToEmail = async (
   accessToken: string,
 ): Promise<number> => {
   try {
-    const response = await fetch(`${API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}`, {
-      method: HTTP_METHODS.POST,
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}`,
+      {
+        method: HTTP_METHODS.POST,
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+        }),
       },
-      body: JSON.stringify({
-        email,
-      }),
-    });
+    );
     const { result } = await response.json();
     const { emailId } = result;
     return emailId;
@@ -62,15 +68,18 @@ export const validateCode = async (
   accessToken: string,
 ) => {
   try {
-    const response = await fetch(`${API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}`, {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}`,
+      {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          emailId,
+          code,
+        }),
       },
-      body: JSON.stringify({
-        emailId,
-        code,
-      }),
-    });
+    );
     const { message } = await response.json();
     if (message === '요청에 성공하였습니다.') {
       return {

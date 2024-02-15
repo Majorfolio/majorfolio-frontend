@@ -18,7 +18,7 @@ export default function useSignin() {
 
     const queryString = new URLSearchParams({
       client_id: 'de13e7d19e639ae838e4735a0cf14614',
-      redirect_uri: 'http://localhost:3000/callback',
+      redirect_uri: `${process.env.REACT_APP_BASE_URL}/callback`,
       response_type: 'code',
       state,
       nonce,

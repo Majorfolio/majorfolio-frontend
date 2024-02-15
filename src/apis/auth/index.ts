@@ -5,7 +5,7 @@ const getIdToken = async (code: string) => {
     const body = new URLSearchParams({
       grant_type: 'authorization_code',
       client_id: 'de13e7d19e639ae838e4735a0cf14614',
-      redirect_uri: 'http://localhost:3000/callback',
+      redirect_uri: `${process.env.REACT_APP_BASE_URL}/callback`,
       code,
     }).toString();
 
