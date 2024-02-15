@@ -18,7 +18,6 @@ export const getAuth = async (idToken: string) => {
       `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.LOGIN}`,
       {
         method: HTTP_METHODS.POST,
-        credentials: 'include',
         headers: {
           authorization: `Bearer ${idToken}`,
           state,
