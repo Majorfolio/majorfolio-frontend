@@ -33,6 +33,9 @@ interface ModalType {
     | 'FEEDBACK_INVALID_FORMAT';
   modalRef: RefObject<HTMLDialogElement>;
   onToggle: () => void;
+  action: () => void;
+  primaryAction?: () => void;
+  secondaryAction?: () => void;
 }
 
 const HIGHLIGHTED_WORDS = [
@@ -146,7 +149,12 @@ const MODAL_TEXTS = {
   },
 };
 
-export function ModalCard({ type, onToggle }: Omit<ModalType, 'modalRef'>) {
+export function ModalCard({
+  type,
+  onToggle,
+  primaryAction = () => {},
+  secondaryAction = () => {},
+}: Omit<ModalType, 'modalRef'>) {
   // TODO Highlight the words with the primary color
   const {
     TITLE: titleText,
@@ -174,7 +182,13 @@ export function ModalCard({ type, onToggle }: Omit<ModalType, 'modalRef'>) {
   const footer =
     typeof footerTexts === 'string' ? (
       <StyledButtonWrapper>
-        <Button backgroundColor="main_color/blue_p">
+        <Button
+          backgroundColor="main_color/blue_p"
+          onClick={() => {
+            onToggle();
+            primaryAction();
+          }}
+        >
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             {footerTexts}
           </Text>
@@ -182,7 +196,13 @@ export function ModalCard({ type, onToggle }: Omit<ModalType, 'modalRef'>) {
       </StyledButtonWrapper>
     ) : (
       <StyledButtonWrapper>
-        <Button backgroundColor="sub_color/indigo/c">
+        <Button
+          backgroundColor="sub_color/indigo/c"
+          onClick={() => {
+            onToggle();
+            secondaryAction();
+          }}
+        >
           <Text
             color="main_color/blue_p"
             size={16}
@@ -195,7 +215,10 @@ export function ModalCard({ type, onToggle }: Omit<ModalType, 'modalRef'>) {
         <Button
           type="button"
           backgroundColor="main_color/blue_p"
-          onClick={onToggle}
+          onClick={() => {
+            onToggle();
+            primaryAction();
+          }}
         >
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             {footerTexts[1]}
