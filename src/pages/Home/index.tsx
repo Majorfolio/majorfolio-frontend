@@ -7,9 +7,10 @@ import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
-import { getAllUniv } from '../../apis/materials';
 import Material, { MaterialCategory } from '../../components/home/Material/index.types';
 import HomeCategory from '../../components/home/HomeCategory/index.types';
+import BannerContainer from '../../components/common/BannerContainer';
+import { getAllUniv } from '../../apis/materials';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 import materials from '../../apis/materials-dummy'
@@ -41,6 +42,8 @@ const Home = () => {
   return (
     <PageContainer>
       <HomeContainer>
+        <BannerContainer />
+
         <HomeCategoryButtonSection currentCategory={currentCategory} updateCategory={updateCategory} />
         <AllDivider />
 
