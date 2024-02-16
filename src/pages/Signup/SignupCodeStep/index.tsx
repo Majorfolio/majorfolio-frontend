@@ -70,8 +70,8 @@ export default function SignupCodeStep({
 
   return (
     <form
-      onSubmit={async () => {
-        console.log('onSubmit');
+      onSubmit={async (event) => {
+        event.preventDefault();
         await onCodeSubmit();
         onNext();
       }}
