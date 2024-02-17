@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function useModal() {
-  const modalRef = useRef<HTMLDialogElement | undefined>(undefined);
+  const modalRef = useRef<HTMLDialogElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const toggleModal = () => {
+  const onToggle = () => {
     setIsModalOpen((currentIsModalOpen) => !currentIsModalOpen);
   };
 
@@ -19,5 +19,5 @@ export default function useModal() {
     }
   }, [isModalOpen]);
 
-  return { modalRef, toggleModal };
+  return { modalRef, onToggle };
 }

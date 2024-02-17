@@ -38,7 +38,7 @@ export default function SignupCodeStep({
         </Text>
       </Button>
       {isCodeEmpty ? (
-        <Button backgroundColor="main_color/blue_p" onClick={onCodeSubmit}>
+        <Button backgroundColor="main_color/blue_p">
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
@@ -69,7 +69,13 @@ export default function SignupCodeStep({
   );
 
   return (
-    <form onSubmit={onNext}>
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await onCodeSubmit();
+        onNext();
+      }}
+    >
       <StyledTextContainer htmlFor="text">
         <Text as="div" size={22} lineHeight="lg">
           학교 인증을 위해

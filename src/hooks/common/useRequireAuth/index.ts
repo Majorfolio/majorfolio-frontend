@@ -6,16 +6,16 @@ export default function useRequireAuth() {
   const navigate = useNavigate();
   const location = useLocation();
   const accessToken = useAuthStore((state) => state.accessToken);
+  const restoreCredentials = useAuthStore((state) => state.restoreCredentials);
 
+  // change it to a state and render go-to-home modal
   const isUserSignedin = Boolean(accessToken);
 
   useEffect(() => {
-    console.log(accessToken);
-    if (!accessToken) {
+    if (!accessToken && !restoreCredentials()) {
       navigate('/home', { state: { from: location }, replace: true });
     }
-    // TODO send refresh token to issue access token again
-  }, [navigate, location, accessToken]);
+  }, [navigate, location, accessToken, restoreCredentials]);
 
   return { isUserSignedin };
 }

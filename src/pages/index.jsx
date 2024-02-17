@@ -18,6 +18,7 @@ const Router = () => {
       children: [
         {
           index: true,
+          element: <Home />,
         },
         {
           path: '/landing',
