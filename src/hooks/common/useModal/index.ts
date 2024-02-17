@@ -5,9 +5,7 @@ export default function useModal() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const onToggle = () => {
-    setIsModalOpen((currentIsModalOpen) => {
-      return !currentIsModalOpen;
-    });
+    setIsModalOpen((currentIsModalOpen) => !currentIsModalOpen);
   };
 
   useEffect(() => {
