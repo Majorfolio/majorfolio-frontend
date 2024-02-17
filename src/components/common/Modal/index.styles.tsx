@@ -18,6 +18,9 @@ export const StyledDialog = styled.dialog`
   z-index: 1;
   width: 320px;
   height: 220px;
+  box-sizing: border-box;
+  padding: 0;
+  border-radius: 16px;
 `;
 
 export const StyledModalContainer = styled.div`
