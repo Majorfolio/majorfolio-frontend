@@ -8,7 +8,6 @@ export const StyledText = styled.span<StyledTextType>`
   font-size: ${(props) => `${props.size}px`};
   font-weight: ${(props) => theme.weight[props.weight]};
   line-height: ${(props) => theme.lineHeight[props.lineHeight]};
-  /* white-space: nowrap; */
 `;
 
 export default StyledText;
