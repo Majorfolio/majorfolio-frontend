@@ -33,7 +33,6 @@ interface ModalType {
     | 'FEEDBACK_INVALID_FORMAT';
   modalRef: RefObject<HTMLDialogElement>;
   onToggle: () => void;
-  action: () => void;
   primaryAction?: () => void;
   secondaryAction?: () => void;
 }
