@@ -9,19 +9,26 @@ import {
   BookmarkIcon,
   BookmarkFilledIcon,
 } from '../../../assets/icons';
+import { updateLike } from '../../../apis/materials';
 
-interface DetailProfileProps {
+interface MaterialSellerProfileProps {
+  id?: number;
+  nickname: string;
   hasReaction: boolean;
   infoContent?: string;
   infoName?: string;
 }
 
-function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProps) {
+function MaterialSellerProfile({ id, nickname, hasReaction, infoContent, infoName }: MaterialSellerProfileProps) {
   const [likeChecked, setLikeChecked] = useState(false);
   const [bookmarkChecked, setBookmarkChecked] = useState(false);
 
   const handleLikeClick = () => {
     setLikeChecked(!likeChecked);
+    if(hasReaction && id) {
+      // updateLike(id);
+      // console.log(id, ": 좋아요 전송!");
+    }
   }
 
   const handleBookmarkClick = () => {
@@ -32,7 +39,7 @@ function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProp
     <ProfileWrapper>
       <SellerInfoWrapper>
         <ProfileImageWrapper><CharacterSmall1Icon /></ProfileImageWrapper>
-        <Text size={14} weight='bold' color='gray/gray900'>엘사네올라프엘사네올라프</Text>
+        <Text size={14} weight='bold' color='gray/gray900'> {nickname} </Text>
       </SellerInfoWrapper>
 
       {hasReaction ? (
@@ -65,4 +72,4 @@ function DetailProfile({ hasReaction, infoContent, infoName }: DetailProfileProp
   )
 }
 
-export default DetailProfile;
+export default MaterialSellerProfile;

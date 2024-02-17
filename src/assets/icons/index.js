@@ -78,3 +78,4 @@ export { ReactComponent as VisibilityOffIcon } from './ico_visibility_off.svg';
 export { ReactComponent as VisibilityOnIcon } from './ico_visibility.svg';
 export { ReactComponent as LoadingIcon } from './ico_loading.svg';
 export { ReactComponent as KakaoIcon } from './btn_popup_kakao2.svg';
+export { ReactComponent as UploadPreviewIcon } from './add.svg';

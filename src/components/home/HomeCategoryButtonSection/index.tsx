@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { ButtonIconWrapper, ButtonText, ButtonWrapper, CategoryButtonsWrapper, CustomRadioInput } from './index.styles';
 import { 
-  AllSchoolsOutinedIcon, 
+  AllSchoolsFilledIcon, 
   AllSchoolsDefaultIcon, 
   MySchoolFilledIcon, 
   MySchoolDefaultIcon, 
@@ -13,11 +13,16 @@ import {
 } from '../../../assets/icons';
 import Text from '../../common/Text';
 
-function HomeCategoryButtonSection() {
-  const [currentCategory, setCurrentCategory] = useState(1);
+interface HomeCategoryButtonSectionProps {
+  currentCategory?: number;
+  updateCategory: (newState: number) => void;
+}
+
+function HomeCategoryButtonSection({ currentCategory, updateCategory }: HomeCategoryButtonSectionProps) {
+  // const [currentCategory, setCurrentCategory] = useState(1);
 
   const handleButtonClick = (category: number) => {
-    setCurrentCategory(category);
+    updateCategory(category);
   }
 
   return (
@@ -45,7 +50,7 @@ function HomeCategoryButtonSection() {
           }
         </ButtonText>
         <ButtonIconWrapper htmlFor='allSchool'>
-          {currentCategory === 0 ? <AllSchoolsOutinedIcon /> : <AllSchoolsDefaultIcon />}
+          {currentCategory === 0 ? <AllSchoolsFilledIcon /> : <AllSchoolsDefaultIcon />}
         </ButtonIconWrapper>
       </ButtonWrapper>
 

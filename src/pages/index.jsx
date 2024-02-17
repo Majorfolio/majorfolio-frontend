@@ -29,11 +29,11 @@ const Router = () => {
           element: <Home />,
         },
         {
-          path: '/home-all',
+          path: "/home-all/:category/:tag",
           element: <HomeViewAll />,
         },
         {
-          path: '/home/detail',
+          path: "/assignment/:materialId/detail",        
           element: <HomeMaterialDetail />,
         },
         {
