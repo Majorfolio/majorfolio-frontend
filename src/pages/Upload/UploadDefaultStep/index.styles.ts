@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import theme from '../../../components/common/theme';
 import StyledButton from '../../Signup/SignupDetailsStep/index.styles';
 import Button from '../../../components/common/Button';
+import StyledText from '../../../components/common/Text/index.styles';
 
 const StyledPageContainer = styled.div`
   display: flex;
@@ -18,6 +19,10 @@ export const StyledDraftSectionTitleRow = styled.div`
   justify-content: space-between;
   align-items: baseline;
   width: 100%;
+
+  && ${StyledText} {
+    white-space: nowrap;
+  }
 `;
 
 export const StyledDraftEditButton = styled(Button)`
