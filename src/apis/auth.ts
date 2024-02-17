@@ -1,4 +1,4 @@
-import { HTTP_HEADERS, HTTP_METHODS } from '../constants';
+import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 
 const getIdToken = async (code: string) => {
   try {
