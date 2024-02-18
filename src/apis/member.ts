@@ -1,3 +1,4 @@
+import { UserStateType } from '../store/userStore';
 import { HTTP_METHODS } from './constants';
 
 const MEMBER_API_COMMON_SEGMENT = '/member';
@@ -14,7 +15,8 @@ const MEMBER_API_SEGMENTS = {
 
 const MEMBER_API_PATHS = {
   LOGIN: '/member/login',
-  SCHOOL_EMAIL: '/member/school-email/code',
+  SCHOOL_EMAIL: '/member/school-email',
+  SCHOOL_EMAIL_CODE: '/member/school-email/code',
   SIGNUP: '/member/signup',
   REMAKE_TOKEN: '/member/remake/token',
   CHECK_NICKNAME: '/member/check-nickname',
@@ -23,6 +25,21 @@ const MEMBER_API_PATHS = {
 };
 
 export default MEMBER_API_PATHS;
+
+interface GetAuthResponseType {
+  code: number;
+  status: number;
+  message: string;
+  result: {
+    isMember: boolean;
+    memberId: number;
+    emailId: number;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
+export type AuthResultType = GetAuthResponseType['result'];
 
 export const getAuth = async (idToken: string) => {
   try {
@@ -48,9 +65,11 @@ export const getAuth = async (idToken: string) => {
         },
       },
     );
-
-    const { result } = await response.json();
-    return result;
+    if (response.ok) {
+      const { result } = (await response.json()) as GetAuthResponseType;
+      return result;
+    }
+    throw new Error('ok 아님');
   } catch (error) {
     console.error(error);
     throw error;
@@ -63,7 +82,7 @@ export const sendCodeToEmail = async (
 ): Promise<number> => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}`,
+      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL_CODE}`,
       {
         method: HTTP_METHODS.POST,
         headers: {
@@ -91,17 +110,14 @@ export const validateCode = async (
 ) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}`,
+      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}/${emailId}/${code}`,
       {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({
-          emailId,
-          code,
-        }),
       },
     );
+
     const { message } = await response.json();
     if (message === '요청에 성공하였습니다.') {
       return {
@@ -126,4 +142,56 @@ export const validateCode = async (
     console.error(error);
     throw error;
   }
+};
+
+export const signup = async (
+  user: Omit<UserStateType, 'updateEmail' | 'updateDetails' | 'updateNickname'>,
+  accessToken: string,
+) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SIGNUP}`,
+    {
+      method: HTTP_METHODS.POST,
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    },
+  );
+  const data = await response.json();
+  if (response.ok) {
+    console.log('data');
+  }
+};
+
+interface VerifyNicknameResponseType {
+  code: number;
+  status: number;
+  message: string;
+  result: '사용가능한 닉네임 입니다.' | '중복된 닉네임 입니다.';
+}
+
+export const verifyNickname = async (nickname: string, accessToken: string) => {
+  console.log(nickname);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+  if (response.ok) {
+    const { result } = (await response.json()) as VerifyNicknameResponseType;
+    if (result === '사용가능한 닉네임 입니다.') {
+      return true;
+    }
+    if (result === '중복된 닉네임 입니다.') {
+      return false;
+    }
+  } else {
+    throw new Error('서비스에 문제가 발생했습니다.');
+  }
+  return false;
 };

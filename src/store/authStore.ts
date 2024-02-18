@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { access } from 'fs';
 import getIdToken from '../apis/auth';
-import { getAuth } from '../apis/member';
+import { AuthResultType, getAuth } from '../apis/member';
 
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
@@ -18,7 +18,7 @@ type AuthStateType = {
   memberId?: number;
   accessToken?: string;
   refreshToken?: string;
-  signin: (code: string) => Promise<AuthStateType>;
+  signin: (code: string) => Promise<AuthResultType>;
   signout: () => void;
   restoreCredentials: () => boolean;
 };
@@ -54,9 +54,9 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
     }));
 
     const { accessToken, refreshToken } = auth;
+    return auth;
     // localStorage.setItem(ACCESS_TOKEN, accessToken);
     // localStorage.setItem(REFRESH_TOKEN, refreshToken);
-    return auth;
   },
 
   signout() {

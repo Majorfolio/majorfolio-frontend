@@ -30,7 +30,7 @@ export default function BottomBar() {
   const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
   const { modalRef, onToggle } = useModal();
-  const { isUserSignedin } = useRequireAuth();
+  const { isUserSignedin } = useRequireAuth('member');
   console.log(`isusersignedin${isUserSignedin}`);
   const primaryAction = () => {
     // if (!isUserSignedin) {

@@ -10,6 +10,7 @@ import Button from '../../../components/common/Button';
 import { HelperCancelIcon } from '../../../assets/icons';
 import useSearchQueries from './useSearchQueries.tsx';
 import StyledButton from './index.styles';
+import userStore from '../../../store/userStore';
 
 interface SignupDetailsStepPropsType {
   onNext: () => void;
@@ -52,6 +53,8 @@ export default function SignupDetailsStep({
     createSearchQueryUpdater,
     isRequiredFieldEmpty,
   } = useSearchQueries();
+
+  const { updateDetails } = userStore();
 
   const [areFieldsValid, setAreFieldsValid] = useState<{
     school: boolean;
@@ -104,6 +107,14 @@ export default function SignupDetailsStep({
           (departmentOption) => departmentOption === minor,
         ),
     });
+
+    updateDetails({
+      universityName: school,
+      studentId: Number(admissionYear.slice(0, 2)),
+      major1: major,
+      major2: minor,
+    });
+    onNext();
   };
 
   return (
