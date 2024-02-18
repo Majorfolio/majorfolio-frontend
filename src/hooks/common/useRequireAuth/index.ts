@@ -18,7 +18,6 @@ export default function useRequireAuth(authLevel: AuthLevelType) {
   const emailId = useUserStore((state) => state.emailId);
 
   // change it to a state and render go-to-home modal
-  console.log(accessToken);
   const isUserSignedin = Boolean(accessToken);
   const hasUserVerifiedSchool = isMember;
 
@@ -28,11 +27,11 @@ export default function useRequireAuth(authLevel: AuthLevelType) {
         navigate('/home', { state: { from: location }, replace: true });
       }
     } else if (authLevel === 'member') {
-      if (!accessToken && !restoreCredentials()) {
+      if (!accessToken) {
         navigate('/home', { state: { from: location }, replace: true });
       }
     }
-  }, [navigate, location, accessToken, restoreCredentials]);
+  }, []);
 
   return { isUserSignedin, hasUserVerifiedSchool };
 }
