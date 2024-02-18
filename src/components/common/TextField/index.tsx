@@ -13,11 +13,13 @@ export default function TextField({
   placeholder,
   text,
   onTextChange,
+  hasError = false,
   ...props
 }: TextFieldPropsType) {
   return (
     <StyledContainer>
       <StyledTextField
+        hasError={hasError}
         type={type}
         placeholder={placeholder}
         color="gray/gray900"
@@ -30,7 +32,7 @@ export default function TextField({
         onChange={onTextChange}
         {...props}
       />
-      <StyledButton type="button">{icon}</StyledButton>
+      {icon && <StyledButton type="button">{icon}</StyledButton>}
     </StyledContainer>
   );
 }

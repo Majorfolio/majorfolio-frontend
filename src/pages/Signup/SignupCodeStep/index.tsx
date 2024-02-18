@@ -81,9 +81,6 @@ export default function SignupCodeStep({
       <TextField
         id="text"
         type="text"
-        borderColor="gray/gray100"
-        borderColorOnHover="gray/gray150"
-        borderColorOnFocus="main_color/blue_p"
         icon={textfieldIcon}
         placeholder="인증코드"
         text={code}

@@ -25,9 +25,7 @@ export const EmailConfirmed: Story = {
   args: {
     id: 'email',
     type: 'email',
-    borderColor: 'gray/gray100',
-    borderColorOnHover: 'gray/gray150',
-    borderColorOnFocus: 'main_color/blue_p',
+
     icon: (
       <Button type="submit" backgroundColor="main_color/blue_p">
         <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
@@ -45,9 +43,6 @@ export const EmailInProgress: Story = {
   args: {
     id: 'email',
     type: 'email',
-    borderColor: 'gray/gray100',
-    borderColorOnHover: 'gray/gray150',
-    borderColorOnFocus: 'main_color/blue_p',
     icon: (
       <>
         <Button backgroundColor="sub_color/indigo/c">

@@ -90,9 +90,6 @@ export default function SignupEmailStep({
       <TextField
         id="email"
         type="email"
-        borderColor="gray/gray100"
-        borderColorOnHover="gray/gray150"
-        borderColorOnFocus="main_color/blue_p"
         icon={textfieldIcon}
         placeholder="이메일"
         text={email}

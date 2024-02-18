@@ -57,9 +57,7 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
       <TextField
         id="text"
         type="text"
-        borderColor={borderColor}
-        borderColorOnHover={borderColorOnHover}
-        borderColorOnFocus={borderColorOnFocus}
+        hasError={hasTextfieldError}
         icon={textfieldIcon}
         placeholder="닉네임"
         text={nickname}

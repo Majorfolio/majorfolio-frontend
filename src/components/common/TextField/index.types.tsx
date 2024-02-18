@@ -5,21 +5,14 @@ export interface TextFieldPropsType extends ComponentPropsWithoutRef<'input'> {
   type: 'text' | 'password' | 'email';
   disabled?: boolean;
   active?: boolean;
-  borderColor: ColorType;
-  borderColorOnHover: ColorType;
-  borderColorOnFocus: ColorType;
   placeholder: string;
-  icon: ReactElement;
+  icon?: ReactElement;
   text: string;
+  hasError?: boolean;
   onTextChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export type StyledTextFieldType = Pick<
   TextFieldPropsType,
-  | 'type'
-  | 'disabled'
-  | 'borderColor'
-  | 'borderColorOnHover'
-  | 'borderColorOnFocus'
-  | 'placeholder'
+  'type' | 'disabled' | 'placeholder' | 'hasError'
 >;
