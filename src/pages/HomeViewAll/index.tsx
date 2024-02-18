@@ -7,7 +7,7 @@ import HomeMaterialCard from '../../components/home/HomeMaterialCard'
 import BottomBar from '../../components/common/BottomBar'
 import Material, { MaterialViewAll } from '../../components/home/Material/index.types'
 import { getAllUnivBestViewAll, getAllUnivNewlyViewAll } from '../../apis/materials'
-import HomeCategory from '../../components/home/HomeCategory/index.types'
+import HOME_CATEGORY from '../../components/home/HomeCategory/index.types'
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(null);
@@ -25,15 +25,15 @@ const HomeViewAll = () => {
       tagCardTitle = "최근에 본 자료";
       break;
   }
-  if (category === (HomeCategory.LIKE).toString()) {
+  if (category === (HOME_CATEGORY.LIKE).toString()) {
     tagCardTitle = "최근 좋아요순";
-  } else if (category === (HomeCategory.BOOKMARK).toString()) {
+  } else if (category === (HOME_CATEGORY.BOOKMARK).toString()) {
     tagCardTitle = "최근 북마크순";
   }
 
   useEffect(() => {
     switch (category) {
-      case HomeCategory.ALLUNIV.toString(): // 0
+      case HOME_CATEGORY.ALL_UNIV.toString(): // 0
         if (tag === "new") {
           getAllUnivNewlyViewAll(1, 10).then((value) => setAllMaterials(value));
         } else if (tag === "hot") {
@@ -52,7 +52,7 @@ const HomeViewAll = () => {
           <HomeTagCardTitle title={tagCardTitle} tag={tag} category={0} isViewAll />
         </CardTitleWrapper>
         <CardsWrapper>
-          { allMaterials && allMaterials.materialResponseList &&
+          { allMaterials?.materialResponseList &&
             allMaterials.materialResponseList.map((material: Material) => {
               return (
                 <HomeMaterialCard 

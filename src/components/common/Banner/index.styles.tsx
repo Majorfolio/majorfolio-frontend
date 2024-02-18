@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "../theme";
 
-export const BannerWrapper = styled.div`
+export const BannerWrapper = styled.li`
   height: 200px;
   position: relative;
   background-color: ${ theme.color['main_color/blue_p'] };
