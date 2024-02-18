@@ -11,7 +11,6 @@ import Button from '../../../components/common/Button';
 import { CancelDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
 import useCode from './useCode';
-import useEmailStore from '../../../store/emailStore';
 
 interface SignupPropsType {
   onNext: () => void;

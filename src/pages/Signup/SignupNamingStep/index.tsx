@@ -7,6 +7,9 @@ import { ErrorDefaultIcon } from '../../../assets/icons';
 import Button from '../../../components/common/Button';
 import StyledValidationContainer from './index.styles';
 import useSignupNaming from './useSignupNaming';
+import userStore from '../../../store/userStore';
+import { signup } from '../../../apis/member';
+import useAuthStore from '../../../store/authStore';
 
 interface SignupNamingStepType {
   onNext: () => void;
@@ -35,6 +38,20 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
     onNicknameValidation,
     nickname,
   } = useSignupNaming();
+
+  const {
+    updateNickname,
+    nickName,
+    emailId,
+    universityName,
+    studentId,
+    major1,
+    major2,
+    personalAgree,
+    serviceAgree,
+    marketingAgree,
+  } = userStore((state) => state);
+  const accessToken = useAuthStore((state) => state.accessToken)!;
 
   const textfieldIcon = hasTextfieldError ? (
     <ErrorDefaultIcon />
@@ -73,7 +90,28 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
         ))}
       <StyledValidationContainer>
         {isNicknameValid ? (
-          <Button backgroundColor="main_color/blue_p" onClick={onNext}>
+          <Button
+            backgroundColor="main_color/blue_p"
+            onClick={async () => {
+              updateNickname(nickname);
+              // TODO
+              await signup(
+                {
+                  nickName: nickname,
+                  emailId,
+                  universityName,
+                  studentId,
+                  major1,
+                  major2,
+                  personalAgree: true,
+                  serviceAgree: true,
+                  marketingAgree: true,
+                },
+                accessToken,
+              );
+              onNext();
+            }}
+          >
             <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
               다음으로
             </Text>
