@@ -32,7 +32,7 @@ export default function useTokenExchange() {
         updateEmail(emailId);
       }
 
-      navigate('/signup');
+      navigate('/');
     };
 
     authenticate();

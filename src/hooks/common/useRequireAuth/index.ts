@@ -8,15 +8,19 @@ type AuthLevelType = 'schoolVerified' | 'member';
 // 해당 auth레벨보다 낮은 경우 home으로 naviage 시키거나 접근 불가능 state를 제공
 // 어떻게 하지?
 //
+
 export default function useRequireAuth(authLevel: AuthLevelType) {
   const navigate = useNavigate();
   const location = useLocation();
   const accessToken = useAuthStore((state) => state.accessToken);
   const restoreCredentials = useAuthStore((state) => state.restoreCredentials);
+  const isMember = useAuthStore((state) => state.isMember);
   const emailId = useUserStore((state) => state.emailId);
 
   // change it to a state and render go-to-home modal
+  console.log(accessToken);
   const isUserSignedin = Boolean(accessToken);
+  const hasUserVerifiedSchool = isMember;
 
   useEffect(() => {
     if (authLevel === 'schoolVerified') {
@@ -30,5 +34,5 @@ export default function useRequireAuth(authLevel: AuthLevelType) {
     }
   }, [navigate, location, accessToken, restoreCredentials]);
 
-  return { isUserSignedin };
+  return { isUserSignedin, hasUserVerifiedSchool };
 }
