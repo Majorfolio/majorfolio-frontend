@@ -15,6 +15,7 @@ import { getAllUniv } from '../../apis/materials';
 // TODO: 카드 콘텐츠 경우의 수 체크
 import materials from '../../apis/materials-dummy'
 import Banner from '../../components/common/Banner';
+import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
 
 const Home = () => {
   const [currentCategory, setCurrentCategory] = useState(HOME_CATEGORY.ALL_UNIV);
@@ -56,7 +57,7 @@ const Home = () => {
           <HomeContentPageTitle />
 
           <HomeTagCardTitle title='신규 등록 자료' tag='new' category={currentCategory} />
-          <CardWrapper>
+          <HomeMaterialCardWrapper>
             { homeMaterials?.newUpload &&
               homeMaterials.newUpload.map((material: Material) => {
                 return (
@@ -74,10 +75,10 @@ const Home = () => {
                   />
                 );
               })}
-          </CardWrapper>
+          </HomeMaterialCardWrapper>
 
           <HomeTagCardTitle title='베스트 자료' tag='hot' category={currentCategory} />
-          <CardWrapper>
+          <HomeMaterialCardWrapper>
             { homeMaterials?.best &&
               homeMaterials.best.map((material: Material) => {
                 return (
@@ -95,7 +96,7 @@ const Home = () => {
                   />
                 );
               })}
-          </CardWrapper>
+          </HomeMaterialCardWrapper>
 
           <HomeTagCardTitle title='최근에 본 자료' category={currentCategory} />
           <CardWrapper>
