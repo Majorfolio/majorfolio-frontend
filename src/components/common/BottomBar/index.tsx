@@ -30,12 +30,19 @@ export default function BottomBar() {
   const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
   const { modalRef, onToggle } = useModal();
-  const { isUserSignedin } = useRequireAuth('member');
+  const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('member');
+
   console.log(`isusersignedin${isUserSignedin}`);
   const primaryAction = () => {
-    // if (!isUserSignedin) {
-    navigate('/signin');
-    // }
+    // TODO
+    // 자료함 버튼을 눌렀을 때
+    // 로그인 안 되어있다 => 로그인 요청
+    // 회원가입 안 되어있다 => 회원가입 요청
+    if (!isUserSignedin) {
+      navigate('/signin');
+    } else if (!hasUserVerifiedSchool) {
+      navigate('/signup');
+    }
   };
 
   const handleNavigationClick = (page: number) => {
@@ -48,19 +55,37 @@ export default function BottomBar() {
       case 1:
         // navigate('/material-box');
         // if (!isUserSignedin) {
-        onToggle();
+        // onToggle();
         // }
+
+        if (!isUserSignedin) {
+          onToggle();
+        } else if (!hasUserVerifiedSchool) {
+          onToggle();
+        }
         break;
       case 2:
         // navigate('/upload');
         // if (!isUserSignedin) {
-        onToggle();
+        // onToggle();
         // }
+
+        if (!isUserSignedin) {
+          onToggle();
+        } else if (!hasUserVerifiedSchool) {
+          onToggle();
+        }
         break;
       case 3:
         // navigate('/my');
         // if (!isUserSignedin) {
-        onToggle();
+        // onToggle();
+
+        if (!isUserSignedin) {
+          onToggle();
+        } else if (!hasUserVerifiedSchool) {
+          onToggle();
+        }
         // }
         break;
       default:
@@ -192,7 +217,7 @@ export default function BottomBar() {
       </BottomBarContainer>
       <Modal
         onToggle={onToggle}
-        type="REQUIRE_SIGNIN"
+        type={!isUserSignedin ? 'REQUIRE_SIGNIN' : 'REQUIRE_SIGNUP'}
         modalRef={modalRef}
         primaryAction={primaryAction}
       />
