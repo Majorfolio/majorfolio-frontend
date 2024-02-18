@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import { Logo } from '../../assets/images/landing';
-import StyledLogoContainer, {
+import {
+  StyledLogoContainer, 
   StyledButtonContainer,
   StyledSigninButton,
   StyledSigninContainer,

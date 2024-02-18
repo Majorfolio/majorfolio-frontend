@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import theme from '../theme';
 import Text from '../Text';
 import Button from '../Button';
-import StyledText from '../Text/index.styles';
+import { StyledText } from '../Text/index.styles';
 import StyledComboboxType from './index.types';
 
 export const StyledDropdownContainer = styled.div`
