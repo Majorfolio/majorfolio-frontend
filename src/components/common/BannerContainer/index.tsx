@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import Banner from '../Banner'
 import { BannerContainerWrapper } from './index.styles'
 
-function BannerContainer() {
+interface BannerContainerProps {
+  children: ReactNode;
+}
+
+function BannerContainer({ children }: BannerContainerProps) {
   return (
     <BannerContainerWrapper>
-      <Banner />
-      <Banner />
-      <Banner />
+      { children }
     </BannerContainerWrapper>
   )
 }

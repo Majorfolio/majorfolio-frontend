@@ -1,12 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Text from '../Text'
 import { BannerWrapper, ContentWrapper, ImgWrapper, TagWrapper, TextWrapper } from './index.styles'
 import AllTagBig from '../AllTagBig'
 
 function Banner() {
+  const navigate = useNavigate();
+  const handleBannerClick = () => {
+    navigate(`/landing`);
+  }
+
   return (
-    <BannerWrapper>
+    <BannerWrapper onClick={handleBannerClick}>
       <TagWrapper>
         <AllTagBig text='공지사항' color='dark' />
       </TagWrapper>
@@ -17,7 +23,7 @@ function Banner() {
           <Text size={14} lineHeight='sm' color='gray/white'>헤택을 확인해보세요!</Text>
         </TextWrapper>
 
-        <ImgWrapper />
+        <ImgWrapper src='' />
       </ContentWrapper>
       
     </BannerWrapper>

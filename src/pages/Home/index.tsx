@@ -14,6 +14,7 @@ import { getAllUniv } from '../../apis/materials';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 import materials from '../../apis/materials-dummy'
+import Banner from '../../components/common/Banner';
 
 const Home = () => {
   const [currentCategory, setCurrentCategory] = useState(HOME_CATEGORY.ALL_UNIV);
@@ -42,7 +43,11 @@ const Home = () => {
   return (
     <PageContainer>
       <HomeContainer>
-        <BannerContainer />
+        <BannerContainer>
+          <Banner/>
+          <Banner/>
+          <Banner/>
+        </BannerContainer>
 
         <HomeCategoryButtonSection currentCategory={currentCategory} updateCategory={updateCategory} />
         <AllDivider />

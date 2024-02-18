@@ -7,6 +7,9 @@ export const BannerWrapper = styled.li`
   background-color: ${ theme.color['main_color/blue_p'] };
   scroll-snap-align: start;
   min-width: 100%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const TagWrapper = styled.span`
@@ -29,6 +32,6 @@ export const TextWrapper = styled.div`
   gap: 8px;
 `;
 
-export const ImgWrapper = styled.div``;
+export const ImgWrapper = styled.img``;
 
 export default BannerWrapper
