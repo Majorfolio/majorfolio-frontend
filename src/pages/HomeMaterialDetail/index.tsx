@@ -18,7 +18,7 @@ const HomeMaterialDetail = () => {
 
   useLayoutEffect(() => {
     if(materialId){      
-      getMaterialDetail(1).then((response) => {
+      getMaterialDetail(parseInt(materialId, 10)).then((response) => {
         if (response.result) {
           setMaterialDetail(response.result);
         }
@@ -33,7 +33,7 @@ const HomeMaterialDetail = () => {
 
         <DetailContainer>
           <HomeMaterialDetailContainer>
-            <MaterialDetailPreview />
+            <MaterialDetailPreview image={materialDetail.imageUrl} />
 
             <ProfileWrapper>
               <MaterialSellerProfile id={materialDetail.id} nickname={materialDetail.nickName} hasReaction />
@@ -78,7 +78,7 @@ const HomeMaterialDetail = () => {
     ) : (
       // skeleton
       <HomeMaterialDetailContainer>
-        <MaterialDetailPreview />
+        <MaterialDetailPreview image='' />
 
         <ProfileWrapper>
           <MaterialSellerProfile nickname='-' hasReaction={false} />
@@ -92,6 +92,16 @@ const HomeMaterialDetail = () => {
         />
         
         <AllDivider />
+
+        <StatisticsNumberWrapper>
+              <MaterialPostStatisticsNumber
+                sell={0}
+                follower={0}
+                reaction={0}
+              />          
+            </StatisticsNumberWrapper>
+
+            <AllDivider />
 
         <MaterialDetailInfo 
           title=''

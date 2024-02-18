@@ -12,7 +12,7 @@ export const PreviewImage = styled.img`
   object-fit: cover;
 `;
 
-export const PreviewButton = styled.div`
+export const PreviewButton = styled.a`
   position: absolute;
   right: 20px;
   bottom: 20px;
