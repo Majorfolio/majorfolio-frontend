@@ -79,7 +79,7 @@ function HomeMaterialCard({ isBig = true, id, nickname, className, univ, major, 
               <Text size={14} color='gray/gray500'> {professor} </Text>
             </InfoWrapper>        
           }
-          { like &&
+          { like != null &&
             <InfoWrapper>
               <ReactionSmallIcon />
               <Text size={14} color='gray/gray500'> {like} </Text>
