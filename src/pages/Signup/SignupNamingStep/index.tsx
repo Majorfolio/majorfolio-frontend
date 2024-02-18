@@ -52,6 +52,7 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
     marketingAgree,
   } = userStore((state) => state);
   const accessToken = useAuthStore((state) => state.accessToken)!;
+  const setIsMember = useAuthStore((state) => state.setIsMember)!;
 
   const textfieldIcon = hasTextfieldError ? (
     <ErrorDefaultIcon />
@@ -109,6 +110,7 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
                 },
                 accessToken,
               );
+              setIsMember();
               onNext();
             }}
           >

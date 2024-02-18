@@ -42,6 +42,8 @@ export default function BottomBar() {
       navigate('/signin');
     } else if (!hasUserVerifiedSchool) {
       navigate('/signup');
+    } else {
+      // 원하는 페이지로 이동
     }
   };
 
