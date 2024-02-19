@@ -31,7 +31,8 @@ const HomeMaterialDetail = () => {
   }, [materialDetail]);
 
   const handleBuyNowClick = () => {
-    navigate(`/buy-now/${materialId}`);
+    const dataToSend = materialDetail;
+    navigate(`/buy-now/${materialId}`, { state: dataToSend });
   }
 
   return (

@@ -11,6 +11,7 @@ import Signin from './Signin';
 import Callback from './Callback';
 import Signup from './Signup';
 import BuyNow from './BuyNow';
+import RemittanceAdvice from './RemittanceAdvice';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const Router = () => {
         {
           path: "/buy-now/:materialId",
           element: <BuyNow />,
+        },
+        {
+          path: "/RemittanceAdvice",
+          element: <RemittanceAdvice />
         },
         {
           path: '/cart',

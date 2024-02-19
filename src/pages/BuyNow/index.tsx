@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import PaymentSelectAllBar from '../../components/home/PaymentSelectAllBar'
 import PaymentPostCard from '../../components/home/PaymentPostCard'
@@ -13,9 +13,13 @@ import Text from '../../components/common/Text'
 
 const BuyNow = () => {
   const { materialId } = useParams();
+  const location = useLocation();
+  const materialInfo = location.state;
+  const navigate = useNavigate();
 
   const handlePayNowClick = () => {
-
+    const dataToSend = materialInfo;
+    navigate(`/RemittanceAdvice`, { state: dataToSend });
   };
 
   return (
@@ -23,7 +27,7 @@ const BuyNow = () => {
       <BuyNowContainer>
         <PaymentSelectAllBar isCart={false} />
         { materialId ?
-          <PaymentPostCard isCart={false} materialId={parseInt(materialId, 10)} />
+          <PaymentPostCard isCart={false} materialInfo={materialInfo} />
           : null
         }
 

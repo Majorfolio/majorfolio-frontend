@@ -9,27 +9,14 @@ import {
   SemesterDefaultIcon, 
   ClassDefaultIcon 
 } from '../../../assets/icons';
-import { getMaterialDetail } from '../../../apis/materials';
 import { MaterialDetail } from '../Material/index.types';
 
 interface PaymentPostCardProps {
   isCart: boolean;
-  materialId?: number;
+  materialInfo?: MaterialDetail;
 }
 
-function PaymentPostCard({ isCart, materialId }: PaymentPostCardProps) {
-  const [materialInfo, setMaterialInfo] = useState<null | MaterialDetail>(null);
-
-  useEffect(() => {
-    if(materialId){      
-      getMaterialDetail(materialId).then((response) => {
-        if (response.result) {
-          setMaterialInfo(response.result);
-        }
-      });
-    }
-  }, [materialInfo]);
-
+function PaymentPostCard({ isCart, materialInfo }: PaymentPostCardProps) {
   return (
     materialInfo ?
       <CardWrapper>
