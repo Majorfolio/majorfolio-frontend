@@ -37,23 +37,23 @@ const HomeViewAll = () => {
     switch (category) {
       case HOME_CATEGORY.ALL_UNIV.toString(): // 0
         if (tag === "new") {
-          getAllUnivNewlyViewAll(1, 30).then((value) => setAllMaterials(value));
+          getAllUnivNewlyViewAll(1, 50).then((value) => setAllMaterials(value));
         } else if (tag === "hot") {
-          getAllUnivBestViewAll(1, 30).then((value) => setAllMaterials(value));
+          getAllUnivBestViewAll(1, 50).then((value) => setAllMaterials(value));
         }
         break;
       case HOME_CATEGORY.MY_UNIV.toString(): // 1
         if (tag === "new" && authStore) {
-          getMyUnivNewlyViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
+          getMyUnivNewlyViewAll(1, 50, authStore).then((value) => setAllMaterials(value));
         } else if (tag === "hot" && authStore) {
-          getMyUnivBestViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
+          getMyUnivBestViewAll(1, 50, authStore).then((value) => setAllMaterials(value));
         }
         break;
       case HOME_CATEGORY.MY_CLASS.toString(): // 2
         if (tag === "new" && authStore) {
-          getMyMajorNewlyViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
+          getMyMajorNewlyViewAll(1, 50, authStore).then((value) => setAllMaterials(value));
         } else if (tag === "hot" && authStore) {
-          getMyMajorBestViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
+          getMyMajorBestViewAll(1, 50, authStore).then((value) => setAllMaterials(value));
         }
         break;
       default:
