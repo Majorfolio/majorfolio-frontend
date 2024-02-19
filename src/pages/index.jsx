@@ -10,6 +10,8 @@ import MaterialBox from './MaterialBox';
 import Signin from './Signin';
 import Callback from './Callback';
 import Signup from './Signup';
+import Upload from './Upload';
+import MyMain from './My/MyMain';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -28,11 +30,11 @@ const Router = () => {
           element: <Home />,
         },
         {
-          path: "/home-all/:category/:tag",
+          path: '/home-all/:category/:tag',
           element: <HomeViewAll />,
         },
         {
-          path: "/assignment/:materialId/detail",        
+          path: '/assignment/:materialId/detail',
           element: <HomeMaterialDetail />,
         },
         {
@@ -54,6 +56,14 @@ const Router = () => {
         {
           path: '/callback',
           element: <Callback />,
+        },
+        {
+          path: '/upload',
+          element: <Upload />,
+        },
+        {
+          path: '/my',
+          element: <MyMain />,
         },
       ],
     },
