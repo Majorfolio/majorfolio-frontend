@@ -26,7 +26,7 @@ function MaterialSellerProfile({ id, nickname, hasReaction, like=0, bookmark=0, 
   const [likeChecked, setLikeChecked] = useState(false);
   const [bookmarkChecked, setBookmarkChecked] = useState(false);
   const [likeCount, setLikeCount] = useState(like);
-  const [bookmarkCount, setBookmarkCount] = useState(like);
+  const [bookmarkCount, setBookmarkCount] = useState(bookmark);
   const authStore = useAuthStore((state) => state.accessToken) ;
 
   const handleLikeClick = () => {
