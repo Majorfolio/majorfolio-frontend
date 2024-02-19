@@ -2,7 +2,6 @@ import { ChangeEvent, ComponentPropsWithoutRef, ReactElement } from 'react';
 import { ColorType } from '../theme';
 
 export interface TextFieldPropsType extends ComponentPropsWithoutRef<'input'> {
-  type: 'text' | 'password' | 'email';
   disabled?: boolean;
   active?: boolean;
   placeholder: string;

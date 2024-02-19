@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import theme from '../../common/theme';
 
 export const NumbersConatainer = styled.div`
   display: flex;
@@ -12,4 +13,11 @@ export const NumberWrapper = styled.span`
   flex-direction: column;
   gap: 6px;
   align-items: center;
+`;
+
+export const StyledMyProfileNumberContainer = styled(NumbersConatainer)`
+  margin-top: 24px;
+  padding: 8px 40px;
+  border-radius: 6px;
+  background-color: ${theme.color['gray/gray50']};
 `;

@@ -24,6 +24,29 @@ export const StyledUploadPreviewButton = styled(StyledUploadBaseButton)`
   height: 104px;
 `;
 
-export const StyledUploadActionButton = styled(StyledUploadBaseButton)`
+export const StyledUploadActionButton = styled(StyledUploadBaseButton)<{
+  hasFile: boolean;
+}>`
+  position: relative;
   height: 320px;
+  background-color: ${({ hasFile }) =>
+    hasFile && theme.color['sub_color/indigo/c']};
+`;
+
+export const StyledUploadTextSection = styled.span<{
+  hasFile: boolean;
+}>`
+  && ${StyledText} {
+    color: ${({ hasFile }) => hasFile && theme.color['main_color/blue_p']};
+  }
+`;
+
+export const StyledFileInput = styled.input`
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  cursor: pointer;
 `;

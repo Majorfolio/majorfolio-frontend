@@ -3,7 +3,7 @@ import Text from '../Text';
 import { StyledItemContainer, StyledSectionContainer } from './index.styles';
 
 interface UploadSectionType {
-  title: ReactNode;
+  title?: ReactNode;
   items?: Array<ReactNode>;
 }
 
