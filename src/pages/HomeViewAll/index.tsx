@@ -8,11 +8,13 @@ import BottomBar from '../../components/common/BottomBar'
 import Material, { MaterialViewAll } from '../../components/home/Material/index.types'
 import { getAllUnivBestViewAll, getAllUnivNewlyViewAll, getMyMajorBestViewAll, getMyMajorNewlyViewAll, getMyUnivBestViewAll, getMyUnivNewlyViewAll } from '../../apis/materials'
 import HOME_CATEGORY from '../../components/home/HomeCategory/index.types'
+import useAuthStore from '../../store/authStore'
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(null);
   const { category, tag } = useParams();
   let tagCardTitle: string;
+  const authStore = useAuthStore((state) => state.accessToken) ;
 
   switch (tag) {
     case "new":
@@ -41,17 +43,17 @@ const HomeViewAll = () => {
         }
         break;
       case HOME_CATEGORY.MY_UNIV.toString(): // 1
-        if (tag === "new") {
-          getMyUnivNewlyViewAll(1, 30).then((value) => setAllMaterials(value));
-        } else if (tag === "hot") {
-          getMyUnivBestViewAll(1, 30).then((value) => setAllMaterials(value));
+        if (tag === "new" && authStore) {
+          getMyUnivNewlyViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
+        } else if (tag === "hot" && authStore) {
+          getMyUnivBestViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
         }
         break;
       case HOME_CATEGORY.MY_CLASS.toString(): // 2
-        if (tag === "new") {
-          getMyMajorNewlyViewAll(1, 30).then((value) => setAllMaterials(value));
-        } else if (tag === "hot") {
-          getMyMajorBestViewAll(1, 30).then((value) => setAllMaterials(value));
+        if (tag === "new" && authStore) {
+          getMyMajorNewlyViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
+        } else if (tag === "hot" && authStore) {
+          getMyMajorBestViewAll(1, 30, authStore).then((value) => setAllMaterials(value));
         }
         break;
       default:

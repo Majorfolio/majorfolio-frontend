@@ -13,7 +13,9 @@ import BannerContainer from '../../components/common/BannerContainer';
 import { getAllUniv, getMyMajor, getMyUniv } from '../../apis/materials';
 import Banner from '../../components/common/Banner';
 import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
-import { getArrayFromLocalStorage } from '../../components/home/HomeMaterialCard/localStorageUtils';
+import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
+import useAuthStore from '../../store/authStore';
+import { getMy } from '../../apis/member';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 // import materials from '../../apis/materials-dummy'
@@ -22,6 +24,8 @@ const Home = () => {
   const [currentCategory, setCurrentCategory] = useState(HOME_CATEGORY.ALL_UNIV);
   const [homeMaterials, setHomeMaterials] = useState<null | MaterialCategory>(null);
   const materials = getArrayFromLocalStorage('recent-materials');
+  const authStore = useAuthStore((state) => state.accessToken) ;
+  const [title, setTitle] = useState("");
 
   const updateCategory = (category: number) => {
     setCurrentCategory(category);
@@ -31,12 +35,23 @@ const Home = () => {
     switch (currentCategory) {
       case HOME_CATEGORY.ALL_UNIV: // 0
         getAllUniv().then((value) => setHomeMaterials(value));
+        setTitle("모든 대학교");
         break;
       case HOME_CATEGORY.MY_UNIV: // 1
-        getMyUniv().then((value) => setHomeMaterials(value));
+        if (authStore) {
+          getMyUniv(authStore).then((value) => setHomeMaterials(value));       
+          getMy(authStore). then (({ univName }) => {
+            setTitle(univName);
+          });
+        }
         break;
       case HOME_CATEGORY.MY_MAJOR: // 2
-        getMyMajor().then((value) => setHomeMaterials(value));
+        if (authStore) {
+          getMyMajor(authStore).then((value) => setHomeMaterials(value));   
+          getMy(authStore). then (({ major }) => {
+            setTitle(major);
+          });       
+        }
         break;
       case HOME_CATEGORY.MY_CLASS:
         setHomeMaterials(null);
@@ -60,7 +75,7 @@ const Home = () => {
         <AllDivider />
 
         <ContentPageContainer>
-          <HomeContentPageTitle />
+          <HomeContentPageTitle title={title} />
 
           <HomeTagCardTitle title='신규 등록 자료' tag='new' category={currentCategory} />
           <HomeMaterialCardWrapper>
@@ -75,11 +90,11 @@ const Home = () => {
                     imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
-                    univ={material.univ ?? null} 
-                    major={material.major ?? null} 
-                    semester={material.semester ?? null} 
-                    professor={material.professor ?? null} 
-                    like={material.like ?? null} 
+                    univ={material.univ} 
+                    major={material.major} 
+                    semester={material.semester} 
+                    professor={material.professor} 
+                    like={material.like} 
                   />
                 );
               })}
@@ -98,11 +113,11 @@ const Home = () => {
                     imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
-                    univ={material.univ ?? null} 
-                    major={material.major ?? null} 
-                    semester={material.semester ?? null} 
-                    professor={material.professor ?? null} 
-                    like={material.like ?? null} 
+                    univ={material.univ} 
+                    major={material.major} 
+                    semester={material.semester} 
+                    professor={material.professor} 
+                    like={material.like} 
                   />
                 );
               })}
@@ -121,11 +136,11 @@ const Home = () => {
                     imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
-                    univ={material.univ ?? null} 
-                    major={material.major ?? null} 
-                    semester={material.semester ?? null} 
-                    professor={material.professor ?? null} 
-                    like={material.like ?? null} 
+                    univ={material.univ} 
+                    major={material.major} 
+                    semester={material.semester} 
+                    professor={material.professor} 
+                    like={material.like} 
                   />
                 );
               })}

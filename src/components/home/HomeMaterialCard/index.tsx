@@ -13,7 +13,7 @@ import {
   ProfessorSmallIcon, 
   ReactionSmallIcon,
 } from '../../../assets/icons';
-import { addToLocalStorageArrayWithUniqueID } from './localStorageUtils';
+import { addToLocalStorageArrayWithUniqueID } from '../LocalStorageUtils';
 
 interface HomeMaterialCardProps {
   isBig?: boolean;

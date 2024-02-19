@@ -1,13 +1,11 @@
-import useAuthStore from "../store/authStore";
-
 export const getAllUniv = async () => {
   const response = await fetch(`https://majorfolio-server.shop/home/all/univ`);
   const data = await response.json();
   return data;
 };
 
-export const getMyUniv = async () => {
-  const authStore = useAuthStore((state) => state.accessToken);
+export const getMyUniv = async (authStore: string) => {
+  // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -20,8 +18,8 @@ export const getMyUniv = async () => {
   return data;
 };
 
-export const getMyMajor = async () => {
-  const authStore = useAuthStore((state) => state.accessToken);
+export const getMyMajor = async (authStore: string) => {
+  // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -46,8 +44,8 @@ export const getAllUnivBestViewAll = async (page: number, pageSize: number) => {
   return data;
 };
 
-export const getMyUnivNewlyViewAll = async (page: number, pageSize: number) => {
-  const authStore = useAuthStore((state) => state.accessToken);
+export const getMyUnivNewlyViewAll = async (page: number, pageSize: number, authStore: string) => {
+  // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -60,8 +58,8 @@ export const getMyUnivNewlyViewAll = async (page: number, pageSize: number) => {
   return data;
 };
 
-export const getMyUnivBestViewAll = async (page: number, pageSize: number) => {
-  const authStore = useAuthStore((state) => state.accessToken);
+export const getMyUnivBestViewAll = async (page: number, pageSize: number, authStore: string) => {
+  // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -74,8 +72,8 @@ export const getMyUnivBestViewAll = async (page: number, pageSize: number) => {
   return data;
 };
 
-export const getMyMajorNewlyViewAll = async (page: number, pageSize: number) => {
-  const authStore = useAuthStore((state) => state.accessToken);
+export const getMyMajorNewlyViewAll = async (page: number, pageSize: number, authStore: string) => {
+  // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -88,8 +86,8 @@ export const getMyMajorNewlyViewAll = async (page: number, pageSize: number) => 
   return data;
 };
 
-export const getMyMajorBestViewAll = async (page: number, pageSize: number) => {
-  const authStore = useAuthStore((state) => state.accessToken);
+export const getMyMajorBestViewAll = async (page: number, pageSize: number, authStore: string) => {
+  // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -102,22 +100,44 @@ export const getMyMajorBestViewAll = async (page: number, pageSize: number) => {
   return data;
 };
 
-export const getMaterialDetail = async (materialId: number) => {
-  const response = await fetch(`https://majorfolio-server.shop/assignment/${materialId}/detail`);
+export const getMaterialDetail = async (materialId: number, authStore?: string) => {
+  const headers: HeadersInit = authStore ? { Authorization: `Bearer ${authStore}` } : {};
+  const response = await fetch(`https://majorfolio-server.shop/assignment/${materialId}/detail`, {
+    headers
+  });
   const data = await response.json();
   return data;
 };
 
-// TODO: 토큰 필요
-export const updateLike = async (materialId: number) => {
+export const updateLike = async (materialId: number, authStore: string) => {
   try {
-    return await fetch(`https://majorfolio-server.shop/my/${materialId}/like`, {
+    const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore}`
       },
       body: JSON.stringify({}),
-    });    
+    }
+    return await fetch(`https://majorfolio-server.shop/my/${materialId}/like`, requestOptions);    
+  } catch (e) { 
+    // console.log('updateLike error');
+    return Promise.reject(e);
+  };
+
+};
+
+export const updateBookmark = async (materialId: number, authStore: string) => {
+  try {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore}`
+      },
+      body: JSON.stringify({}),
+    }
+    return await fetch(`https://majorfolio-server.shop/my/${materialId}/bookmark`, requestOptions);    
   } catch (e) { 
     // console.log('updateLike error');
     return Promise.reject(e);

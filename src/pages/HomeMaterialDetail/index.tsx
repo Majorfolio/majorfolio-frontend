@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { DetailContainer, HomeMaterialDetailContainer, PageContainer, ProfileWrapper, StatisticsNumberWrapper } from './index.styles';
@@ -16,7 +16,7 @@ const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(null);
   const { materialId } = useParams();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(materialId){      
       getMaterialDetail(parseInt(materialId, 10)).then((response) => {
         if (response.result) {
@@ -24,7 +24,7 @@ const HomeMaterialDetail = () => {
         }
       });
     }
-  }, []);
+  }, [materialDetail]);
 
   return (
     materialDetail ? (
@@ -36,7 +36,13 @@ const HomeMaterialDetail = () => {
             <MaterialDetailPreview image={materialDetail.imageUrl} />
 
             <ProfileWrapper>
-              <MaterialSellerProfile id={materialDetail.id} nickname={materialDetail.nickName} hasReaction />
+              <MaterialSellerProfile 
+                id={materialDetail.id} 
+                nickname={materialDetail.nickName} 
+                hasReaction 
+                like={materialDetail.like} 
+                bookmark={materialDetail.bookmark} 
+              />
             </ProfileWrapper>
             <AllDividerThin />
 
