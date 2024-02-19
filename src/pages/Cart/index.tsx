@@ -9,8 +9,8 @@ import AllDivider from '../../components/common/AllDivider'
 const Cart = () => {
   return (
     <>
-      <PaymentSelectAllBar />
-      <PaymentPostCard />
+      <PaymentSelectAllBar isCart />
+      <PaymentPostCard isCart />
       <AllDivider />
       <PaymentCouponSection />
       <AllDivider />

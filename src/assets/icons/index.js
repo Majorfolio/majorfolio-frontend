@@ -28,6 +28,7 @@ export { ReactComponent as ClassDefaultIcon } from './ico_class.svg';
 export { ReactComponent as CloseDefaultIcon } from './ico_close.svg';
 export { ReactComponent as CoffeeDefaultIcon } from './ico_coffee.svg';
 export { ReactComponent as CouponDefaultIcon } from './ico_coupon.svg';
+export { ReactComponent as CouponGreyIcon } from './ico_coupon_grey.svg';
 export { ReactComponent as CreditDefaultIcon } from './ico_credit.svg';
 export { ReactComponent as DepartmentOutlinedIcon } from './ico_department.svg';
 export { ReactComponent as DepartmentSmallIcon } from './ico_department_small.svg';

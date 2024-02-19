@@ -10,6 +10,7 @@ import MaterialBox from './MaterialBox';
 import Signin from './Signin';
 import Callback from './Callback';
 import Signup from './Signup';
+import BuyNow from './BuyNow';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const Router = () => {
         {
           path: "/assignment/:materialId/detail",        
           element: <HomeMaterialDetail />,
+        },
+        {
+          path: "/buy-now/:materialId",
+          element: <BuyNow />,
         },
         {
           path: '/cart',
