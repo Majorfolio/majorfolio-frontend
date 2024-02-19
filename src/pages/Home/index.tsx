@@ -10,7 +10,7 @@ import BottomBar from '../../components/common/BottomBar';
 import Material, { MaterialCategory } from '../../components/home/Material/index.types';
 import HOME_CATEGORY from '../../components/home/HomeCategory/index.types';
 import BannerContainer from '../../components/common/BannerContainer';
-import { getAllUniv } from '../../apis/materials';
+import { getAllUniv, getMyMajor, getMyUniv } from '../../apis/materials';
 import Banner from '../../components/common/Banner';
 import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
 import { getArrayFromLocalStorage } from '../../components/home/HomeMaterialCard/localStorageUtils';
@@ -33,9 +33,12 @@ const Home = () => {
         getAllUniv().then((value) => setHomeMaterials(value));
         break;
       case HOME_CATEGORY.MY_UNIV: // 1
-        setHomeMaterials(null);
+        getMyUniv().then((value) => setHomeMaterials(value));
         break;
       case HOME_CATEGORY.MY_MAJOR: // 2
+        getMyMajor().then((value) => setHomeMaterials(value));
+        break;
+      case HOME_CATEGORY.MY_CLASS:
         setHomeMaterials(null);
         break;
       default:

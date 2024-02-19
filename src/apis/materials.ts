@@ -6,6 +6,34 @@ export const getAllUniv = async () => {
   return data;
 };
 
+export const getMyUniv = async () => {
+  const authStore = useAuthStore((state) => state.accessToken);
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${authStore}`
+    }
+  };
+
+  const response = await fetch(`https://majorfolio-server.shop/home/my/univ`, requestOptions);
+  const data = await response.json();
+  return data;
+};
+
+export const getMyMajor = async () => {
+  const authStore = useAuthStore((state) => state.accessToken);
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${authStore}`
+    }
+  };
+
+  const response = await fetch(`https://majorfolio-server.shop/home/my/major`, requestOptions);
+  const data = await response.json();
+  return data;
+};
+
 export const getAllUnivNewlyViewAll = async (page: number, pageSize: number) => {
   const response = await fetch(`https://majorfolio-server.shop/home/all/univ/newly-upload?page=${page}&pageSize=${pageSize}`);
   const data = await response.json();
@@ -27,7 +55,7 @@ export const getMyUnivNewlyViewAll = async (page: number, pageSize: number) => {
     }
   };
   
-  const response = await fetch(`https://majorfolio-server.shop/home/my/univ/newly-upload?page=${page}&pageSize=${pageSize}`);
+  const response = await fetch(`https://majorfolio-server.shop/home/my/univ/newly-upload?page=${page}&pageSize=${pageSize}`, requestOptions);
   const data = await response.json();
   return data;
 };
@@ -41,7 +69,7 @@ export const getMyUnivBestViewAll = async (page: number, pageSize: number) => {
     }
   };
   
-  const response = await fetch(`https://majorfolio-server.shop/home/my/univ/likes?page=${page}&pageSize=${pageSize}`);
+  const response = await fetch(`https://majorfolio-server.shop/home/my/univ/likes?page=${page}&pageSize=${pageSize}`, requestOptions);
   const data = await response.json();
   return data;
 };
@@ -55,7 +83,7 @@ export const getMyMajorNewlyViewAll = async (page: number, pageSize: number) => 
     }
   };
   
-  const response = await fetch(`https://majorfolio-server.shop/home/my/major/newly-upload?page=${page}&pageSize=${pageSize}`);
+  const response = await fetch(`https://majorfolio-server.shop/home/my/major/newly-upload?page=${page}&pageSize=${pageSize}`, requestOptions);
   const data = await response.json();
   return data;
 };
@@ -69,7 +97,7 @@ export const getMyMajorBestViewAll = async (page: number, pageSize: number) => {
     }
   };
   
-  const response = await fetch(`https://majorfolio-server.shop/home/my/major/likes?page=${page}&pageSize=${pageSize}`);
+  const response = await fetch(`https://majorfolio-server.shop/home/my/major/likes?page=${page}&pageSize=${pageSize}`, requestOptions);
   const data = await response.json();
   return data;
 };
