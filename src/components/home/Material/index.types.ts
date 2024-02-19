@@ -1,5 +1,7 @@
 export default interface Material {
   id: number;
+  memberId: number;
+  imageUrl: string;
   nickname: string;
   className: string;
   univ: string;

@@ -13,13 +13,15 @@ import BannerContainer from '../../components/common/BannerContainer';
 import { getAllUniv } from '../../apis/materials';
 import Banner from '../../components/common/Banner';
 import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
+import { getArrayFromLocalStorage } from '../../components/home/HomeMaterialCard/localStorageUtils';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
-import materials from '../../apis/materials-dummy'
+// import materials from '../../apis/materials-dummy'
 
 const Home = () => {
   const [currentCategory, setCurrentCategory] = useState(HOME_CATEGORY.ALL_UNIV);
   const [homeMaterials, setHomeMaterials] = useState<null | MaterialCategory>(null);
+  const materials = getArrayFromLocalStorage('recent-materials');
 
   const updateCategory = (category: number) => {
     setCurrentCategory(category);
@@ -40,6 +42,7 @@ const Home = () => {
         break;
     }
   }, [currentCategory]);
+
 
   return (
     <PageContainer>
@@ -65,6 +68,8 @@ const Home = () => {
                     key={material.id}
                     isBig={false} 
                     id={material.id} 
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
                     univ={material.univ ?? null} 
@@ -86,6 +91,8 @@ const Home = () => {
                     key={material.id}
                     isBig={false} 
                     id={material.id} 
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
                     univ={material.univ ?? null} 
@@ -100,9 +107,25 @@ const Home = () => {
 
           <HomeTagCardTitle title='최근에 본 자료' category={currentCategory} />
           <CardWrapper>
-            {/* <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} /> */}
+            { materials &&
+              materials.map((material: Material) => {
+                return (
+                  <HomeMaterialCard 
+                    key={material.id}
+                    isBig={false} 
+                    id={material.id} 
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
+                    nickname={material.nickname} 
+                    className={material.className} 
+                    univ={material.univ ?? null} 
+                    major={material.major ?? null} 
+                    semester={material.semester ?? null} 
+                    professor={material.professor ?? null} 
+                    like={material.like ?? null} 
+                  />
+                );
+              })}
           </CardWrapper>
         </ContentPageContainer>
       </HomeContainer>

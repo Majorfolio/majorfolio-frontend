@@ -73,6 +73,8 @@ const HomeViewAll = () => {
                   key={material.id}
                   isBig
                   id={material.id} 
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
                   nickname={material.nickname} 
                   className={material.className} 
                   univ={material.univ} 

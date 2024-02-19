@@ -13,20 +13,23 @@ import {
   ProfessorSmallIcon, 
   ReactionSmallIcon,
 } from '../../../assets/icons';
+import { addToLocalStorageArrayWithUniqueID } from './localStorageUtils';
 
 interface HomeMaterialCardProps {
   isBig?: boolean;
   id: number;
+  memberId: number;
+  imageUrl: string;
   nickname: string;
   className: string;
-  univ?: string | null;
-  major?: string | null;
-  semester?: string | null;
+  univ: string;
+  major: string;
+  semester: string;
   professor?: string | null;
-  like?: number | null;
+  like?: number;
 }
 
-function HomeMaterialCard({ isBig = true, id, nickname, className, univ, major, semester, professor, like }: HomeMaterialCardProps) {
+function HomeMaterialCard({ isBig = true, id, memberId, imageUrl, nickname, className, univ, major, semester, professor, like=0 }: HomeMaterialCardProps) {
   const navigate = useNavigate();
 
   let cardSize: string;
@@ -69,6 +72,19 @@ function HomeMaterialCard({ isBig = true, id, nickname, className, univ, major, 
 
   const handleMaterialClick = (event: MouseEvent<HTMLDivElement>) => {
     if (isClickEnabled) {
+      const materialObj = {
+        id,
+        memberId,
+        imageUrl,
+        nickname,
+        className,
+        univ,
+        major,
+        semester,
+        professor,
+        like,
+      };
+      addToLocalStorageArrayWithUniqueID("recent-materials", materialObj);
       navigate(`/assignment/${id}/detail`);
     }
   }
