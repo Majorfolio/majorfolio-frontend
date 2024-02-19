@@ -43,7 +43,7 @@ const Router = () => {
           element: <BuyNow />,
         },
         {
-          path: "/RemittanceAdvice",
+          path: "/RemittanceAdvice/:buyInfoId",
           element: <RemittanceAdvice />
         },
         {

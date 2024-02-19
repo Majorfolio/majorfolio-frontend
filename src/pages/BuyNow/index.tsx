@@ -10,16 +10,34 @@ import { ButtonWrapper, BuyNowContainer, PageContainer, StickyBottom } from './i
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount'
 import Button from '../../components/common/Button'
 import Text from '../../components/common/Text'
+import { Order } from '../../components/home/Payment/index.types'
+import { updateBuyInfo } from '../../apis/payments'
+import useAuthStore from '../../store/authStore'
 
 const BuyNow = () => {
   const { materialId } = useParams();
   const location = useLocation();
   const materialInfo = location.state;
   const navigate = useNavigate();
+  const authStore = useAuthStore((state) => state.accessToken);
+  let response: Response;
 
-  const handlePayNowClick = () => {
+  const handlePayNowClick = async () => {
     const dataToSend = materialInfo;
-    navigate(`/RemittanceAdvice`, { state: dataToSend });
+    const order: Order = {
+      assignmentIdList: [
+        { assignmentId: parseInt(materialInfo.id, 10) },
+      ],
+      couponIdList: [],
+      totalPrice: 4700,
+    };
+    if (authStore) {
+      response = await updateBuyInfo(authStore, order);
+      const data = await response.json();
+      navigate(`/RemittanceAdvice/${data.buyInfoId}`, { state: dataToSend });
+    } else {
+      navigate(`/RemittanceAdvice/${null}`, { state: dataToSend });
+    }
   };
 
   return (

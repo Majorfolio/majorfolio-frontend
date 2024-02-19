@@ -1,5 +1,5 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom';
 import { HelperInfoIcon } from '../../assets/icons';
 import { PageContainer } from '../Home/index.styles';
 import { AdviceContainer, CodeAdviceContainer, CodeContainer, HelperTextWrapper, MarginBottom16, MarginBottom4, RemittanceContainer, StickyBottom, ButtonWrapper, CopyButton } from './index.styles';
@@ -7,13 +7,25 @@ import AllDivider from '../../components/common/AllDivider';
 import Text from '../../components/common/Text';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
+import useAuthStore from '../../store/authStore';
+import { getBuyInfo } from '../../apis/payments';
+import { OrderInfo } from '../../components/home/Payment/index.types';
 
 const RemittanceAdvice = () => {
   const location = useLocation();
   const materialInfo = location.state;
+  const { buyInfoId } = useParams();
+  const authStore = useAuthStore((state) => state.accessToken) ;
+  const [buyInfo, setBuyInfo] = useState<OrderInfo>();
 
-  const hanelCopyClick = () => {
-
+  const hanelCopyClick = (code: string | undefined) => {
+    try {
+      if (code) {
+        navigator.clipboard.writeText(code);
+      }
+    } catch (error) {
+      alert('클립보드 복사에 실패하였습니다.');
+    }
   };
 
   const handleCancelClick = () => {
@@ -24,6 +36,15 @@ const RemittanceAdvice = () => {
 
   };
 
+  useEffect(() => {
+    if (buyInfoId && authStore) {
+      getBuyInfo(authStore, parseInt(buyInfoId, 10)).then((response) => {
+        setBuyInfo(response);
+        // console.log(response);
+      })
+    }
+  });
+
   return (
     <PageContainer>
       <AdviceContainer>
@@ -33,8 +54,8 @@ const RemittanceAdvice = () => {
           </MarginBottom4>
           <Text weight='bold' lineHeight='sm' color='gray/gray900'> {materialInfo.title} </Text>
           <Text size={12} color='gray/gray500'>
-            2024/03/06까지 송금해주세요 (요청일 : 2024/02/21)<br />
-            주문번호 : 1023591
+            14일 이내로 송금해주세요 (요청일 : {buyInfo?.createDate})<br />
+            주문번호 : {buyInfoId}
           </Text>
         </RemittanceContainer>
 
@@ -47,8 +68,8 @@ const RemittanceAdvice = () => {
           </MarginBottom16>
 
           <CodeContainer>
-            <Text size={16} lineHeight='lg' color='main_color/blue_p'>1Q2W3E4R5T6Y</Text>
-            <CopyButton onClick={hanelCopyClick} />
+            <Text size={16} lineHeight='lg' color='main_color/blue_p'> {buyInfo?.code} </Text>
+            <CopyButton onClick={() => {hanelCopyClick(buyInfo?.code)}} />
           </CodeContainer>
 
           <HelperTextWrapper>
