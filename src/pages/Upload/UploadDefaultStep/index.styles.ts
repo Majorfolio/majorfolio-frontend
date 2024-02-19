@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import theme from '../../../components/common/theme';
 import StyledButton from '../../Signup/SignupDetailsStep/index.styles';
 import Button from '../../../components/common/Button';
+import StyledText from '../../../components/common/Text/index.styles';
 
 const StyledPageContainer = styled.div`
   display: flex;
@@ -13,6 +14,10 @@ const StyledPageContainer = styled.div`
   background-color: ${theme.color['gray/grayBG']};
 `;
 
+export const StyledDraftText = styled(StyledText)`
+  white-space: nowrap;
+`;
+
 export const StyledDraftSectionTitleRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,9 +25,13 @@ export const StyledDraftSectionTitleRow = styled.div`
   width: 100%;
 `;
 
-export const StyledDraftEditButton = styled(Button)`
+export const StyledDraftEditButton = styled.button`
+  display: flex;
+  border-width: 0;
+  cursor: ${(props) => (props.disabled ? 'auto' : 'pointer')};
   justify-content: flex-end;
   padding: 0;
+  background-color: transparent;
 `;
 
 export default StyledPageContainer;

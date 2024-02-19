@@ -71,16 +71,15 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
         ))}
       <StyledValidationContainer>
         {isNicknameValid ? (
-          <Button backgroundColor="main_color/blue_p" onClick={onNext}>
+          <Button category="primary" onClick={onNext}>
             <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
               다음으로
             </Text>
           </Button>
         ) : (
           <Button
-            backgroundColor={
-              hasTextfieldError ? 'gray/gray100' : 'sub_color/indigo/c'
-            }
+            category="secondary"
+            disabled={hasTextfieldError}
             onClick={onNicknameValidation}
           >
             <Text

@@ -27,7 +27,7 @@ export const EmailConfirmed: Story = {
     type: 'email',
 
     icon: (
-      <Button type="submit" backgroundColor="main_color/blue_p">
+      <Button type="submit" category="primary">
         <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
           다음으로
         </Text>
@@ -45,7 +45,7 @@ export const EmailInProgress: Story = {
     type: 'email',
     icon: (
       <>
-        <Button backgroundColor="sub_color/indigo/c">
+        <Button category="secondary">
           <Text
             color="main_color/blue_p"
             size={16}
@@ -55,7 +55,7 @@ export const EmailInProgress: Story = {
             다음에 하기
           </Text>
         </Button>
-        <Button backgroundColor="gray/gray100">
+        <Button category="primary" disabled>
           <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>

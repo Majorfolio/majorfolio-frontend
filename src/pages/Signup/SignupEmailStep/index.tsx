@@ -24,30 +24,26 @@ export default function SignupEmailStep({
   const { email, onEmailChange, isEmailValid, onEmailSubmit } = useEmail();
 
   const transition = isEmailConfirmed ? (
-    <Button type="submit" backgroundColor="main_color/blue_p">
+    <Button type="submit" category="primary">
       <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
         다음으로
       </Text>
     </Button>
   ) : (
     <>
-      <Button backgroundColor="sub_color/indigo/c">
+      <Button category="secondary">
         <Text color="main_color/blue_p" size={16} weight="bold" lineHeight="sm">
           다음에 하기
         </Text>
       </Button>
       {isEmailValid ? (
-        <Button
-          type="submit"
-          backgroundColor="main_color/blue_p"
-          onClick={onEmailSubmit}
-        >
+        <Button type="submit" category="primary" onClick={onEmailSubmit}>
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
         </Button>
       ) : (
-        <Button type="submit" backgroundColor="gray/gray100" disabled>
+        <Button type="submit" category="primary" disabled>
           <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>

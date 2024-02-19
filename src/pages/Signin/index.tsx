@@ -24,7 +24,7 @@ export default function Signin() {
         </Text>
       </StyledLogoContainer>
       <StyledButtonContainer>
-        <Button backgroundColor="gray/grayBG" isOutlined>
+        <Button category="outlined">
           <Text
             color="main_color/blue_p"
             weight="bold"
@@ -34,7 +34,7 @@ export default function Signin() {
             게스트로 입장하기
           </Text>
         </Button>
-        <StyledSigninButton backgroundColor="kakaotalk" onClick={onKakaoSignin}>
+        <StyledSigninButton category="kakaotalk" onClick={onKakaoSignin}>
           <KakaoIcon />
           <Text color="gray/black" weight="bold" lineHeight="sm" size={16}>
             카카오톡으로 시작하기
