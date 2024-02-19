@@ -11,11 +11,11 @@ import Material, { MaterialCategory } from '../../components/home/Material/index
 import HOME_CATEGORY from '../../components/home/HomeCategory/index.types';
 import BannerContainer from '../../components/common/BannerContainer';
 import { getAllUniv } from '../../apis/materials';
+import Banner from '../../components/common/Banner';
+import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 import materials from '../../apis/materials-dummy'
-import Banner from '../../components/common/Banner';
-import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
 
 const Home = () => {
   const [currentCategory, setCurrentCategory] = useState(HOME_CATEGORY.ALL_UNIV);

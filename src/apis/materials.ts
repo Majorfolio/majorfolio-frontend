@@ -1,3 +1,5 @@
+import useAuthStore from "../store/authStore";
+
 export const getAllUniv = async () => {
   const response = await fetch(`https://majorfolio-server.shop/home/all/univ`);
   const data = await response.json();
@@ -12,6 +14,62 @@ export const getAllUnivNewlyViewAll = async (page: number, pageSize: number) => 
 
 export const getAllUnivBestViewAll = async (page: number, pageSize: number) => {
   const response = await fetch(`https://majorfolio-server.shop/home/all/univ/likes?page=${page}&pageSize=${pageSize}`);
+  const data = await response.json();
+  return data;
+};
+
+export const getMyUnivNewlyViewAll = async (page: number, pageSize: number) => {
+  const authStore = useAuthStore((state) => state.accessToken);
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${authStore}`
+    }
+  };
+  
+  const response = await fetch(`https://majorfolio-server.shop/home/my/univ/newly-upload?page=${page}&pageSize=${pageSize}`);
+  const data = await response.json();
+  return data;
+};
+
+export const getMyUnivBestViewAll = async (page: number, pageSize: number) => {
+  const authStore = useAuthStore((state) => state.accessToken);
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${authStore}`
+    }
+  };
+  
+  const response = await fetch(`https://majorfolio-server.shop/home/my/univ/likes?page=${page}&pageSize=${pageSize}`);
+  const data = await response.json();
+  return data;
+};
+
+export const getMyClassNewlyViewAll = async (page: number, pageSize: number) => {
+  const authStore = useAuthStore((state) => state.accessToken);
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${authStore}`
+    }
+  };
+  
+  const response = await fetch(`https://majorfolio-server.shop/home/my/major/newly-upload?page=${page}&pageSize=${pageSize}`);
+  const data = await response.json();
+  return data;
+};
+
+export const getMyClassBestViewAll = async (page: number, pageSize: number) => {
+  const authStore = useAuthStore((state) => state.accessToken);
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${authStore}`
+    }
+  };
+  
+  const response = await fetch(`https://majorfolio-server.shop/home/my/major/likes?page=${page}&pageSize=${pageSize}`);
   const data = await response.json();
   return data;
 };
