@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NumberWrapper, NumbersConatainer } from './index.styles'
+import { NumberWrapper, NumbersContainer } from './index.styles'
 import Text from '../../common/Text'
 
 interface MaterialPostStatisticsNumberProps {
@@ -11,7 +11,7 @@ interface MaterialPostStatisticsNumberProps {
 
 function MaterialPostStatisticsNumber({ sell, follower, reaction }: MaterialPostStatisticsNumberProps) {
   return (
-    <NumbersConatainer>
+    <NumbersContainer>
       <NumberWrapper>
         <Text size={18} weight='bold' lineHeight='sm'> {sell} </Text>
         <Text size={14} lineHeight='sm'>판매</Text>
@@ -26,7 +26,7 @@ function MaterialPostStatisticsNumber({ sell, follower, reaction }: MaterialPost
         <Text size={18} weight='bold' lineHeight='sm'> {reaction} </Text>
         <Text size={14} lineHeight='sm'>반응</Text>
       </NumberWrapper>
-    </NumbersConatainer>
+    </NumbersContainer>
   )
 }
 

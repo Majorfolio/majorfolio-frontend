@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import Button from '../../../components/common/Button';
-import StyledText from '../../../components/common/Text/index.styles';
+import { StyledText } from '../../../components/common/Text/index.styles';
 import theme from '../../../components/common/theme';
 
 const StyledButton = styled(Button)`

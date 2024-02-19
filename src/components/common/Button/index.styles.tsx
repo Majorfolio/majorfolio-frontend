@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ButtonPropsType, { StyledButtonPropsType } from './index.types';
 import theme from '../theme';
 import Text from '../Text';
-import StyledText from '../Text/index.styles';
+import { StyledText } from '../Text/index.styles';
 
 export const StyledButton = styled.button<Required<StyledButtonPropsType>>`
   display: flex;

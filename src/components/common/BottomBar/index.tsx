@@ -48,11 +48,10 @@ export default function BottomBar() {
   };
 
   const handleNavigationClick = (page: number) => {
-    setCurrentPage(page);
-
     switch (page) {
       case 0:
         navigate('/home');
+        setCurrentPage(page);
         break;
       case 1:
         // navigate('/material-box');
@@ -64,6 +63,8 @@ export default function BottomBar() {
           onToggle();
         } else if (!hasUserVerifiedSchool) {
           onToggle();
+        } else {
+          setCurrentPage(page);
         }
         break;
       case 2:
@@ -76,6 +77,8 @@ export default function BottomBar() {
           onToggle();
         } else if (!hasUserVerifiedSchool) {
           onToggle();
+        } else {
+          setCurrentPage(page);
         }
         break;
       case 3:
@@ -87,6 +90,8 @@ export default function BottomBar() {
           onToggle();
         } else if (!hasUserVerifiedSchool) {
           onToggle();
+        } else {
+          setCurrentPage(page);
         }
         // }
         break;

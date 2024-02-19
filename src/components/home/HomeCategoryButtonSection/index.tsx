@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import { ButtonIconWrapper, ButtonText, ButtonWrapper, CategoryButtonsWrapper, CustomRadioInput } from './index.styles';
 import { 
@@ -12,6 +13,10 @@ import {
   MyClassDefaultIcon 
 } from '../../../assets/icons';
 import Text from '../../common/Text';
+import HOME_CATEGORY from '../HomeCategory/index.types';
+import useModal from '../../../hooks/common/useModal';
+import useRequireAuth from '../../../hooks/common/useRequireAuth';
+import Modal from '../../common/Modal';
 
 interface HomeCategoryButtonSectionProps {
   currentCategory?: number;
@@ -19,11 +24,60 @@ interface HomeCategoryButtonSectionProps {
 }
 
 function HomeCategoryButtonSection({ currentCategory, updateCategory }: HomeCategoryButtonSectionProps) {
-  // const [currentCategory, setCurrentCategory] = useState(1);
+  const navigate = useNavigate();
+  const { modalRef, onToggle } = useModal();
+  const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('member');
+
+  const primaryAction = () => {
+    if (!isUserSignedin) {
+      navigate('/signin');
+    } else if (!hasUserVerifiedSchool) {
+      navigate('/signup');
+    } else {
+      // 원하는 페이지로 이동
+    }
+  };
 
   const handleButtonClick = (category: number) => {
-    updateCategory(category);
-  }
+    switch (category) {
+      case HOME_CATEGORY.ALL_UNIV:
+        updateCategory(category);
+        break;
+
+      case HOME_CATEGORY.MY_UNIV:
+        if (!isUserSignedin) {
+          onToggle();
+        } else if (!hasUserVerifiedSchool) {
+          onToggle();
+        } else {
+          updateCategory(category);
+        }
+        break;
+
+      case HOME_CATEGORY.MY_MAJOR:
+        if (!isUserSignedin) {
+          onToggle();
+        } else if (!hasUserVerifiedSchool) {
+          onToggle();
+        } else {
+          updateCategory(category);
+        }
+        break;
+
+      case HOME_CATEGORY.MY_CLASS:
+        if (!isUserSignedin) {
+          onToggle();
+        } else if (!hasUserVerifiedSchool) {
+          onToggle();
+        } else {
+          onToggle();
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <CategoryButtonsWrapper>
@@ -134,6 +188,12 @@ function HomeCategoryButtonSection({ currentCategory, updateCategory }: HomeCate
           {currentCategory === 3 ? <MyClassFilledIcon /> : <MyClassDefaultIcon />}
         </ButtonIconWrapper>
       </ButtonWrapper>
+      <Modal
+        onToggle={onToggle}
+        type={!isUserSignedin ? 'REQUIRE_SIGNIN' : 'TO_BE_UPDATED'}
+        modalRef={modalRef}
+        primaryAction={primaryAction}
+      />
     </CategoryButtonsWrapper>
   )
 }
