@@ -3,7 +3,9 @@ import Material from "../Material/index.types";
 // localStorage에서 배열 가져오기
 export function getArrayFromLocalStorage(key: string): Material[] {
   const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : [];
+  const array = data ? JSON.parse(data) : [];
+
+  return array.reverse(); // 최근 읽은 자료를 앞으로 하기 위함
 }
 
 // locasStorage에 배열 저장하기

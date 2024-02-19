@@ -6,7 +6,7 @@ import HomeTagCardTitle from '../../components/home/HomeTagCardTitle'
 import HomeMaterialCard from '../../components/home/HomeMaterialCard'
 import BottomBar from '../../components/common/BottomBar'
 import Material, { MaterialViewAll } from '../../components/home/Material/index.types'
-import { getAllUnivBestViewAll, getAllUnivNewlyViewAll, getMyClassBestViewAll, getMyClassNewlyViewAll, getMyUnivBestViewAll, getMyUnivNewlyViewAll } from '../../apis/materials'
+import { getAllUnivBestViewAll, getAllUnivNewlyViewAll, getMyMajorBestViewAll, getMyMajorNewlyViewAll, getMyUnivBestViewAll, getMyUnivNewlyViewAll } from '../../apis/materials'
 import HOME_CATEGORY from '../../components/home/HomeCategory/index.types'
 
 const HomeViewAll = () => {
@@ -49,9 +49,9 @@ const HomeViewAll = () => {
         break;
       case HOME_CATEGORY.MY_CLASS.toString(): // 2
         if (tag === "new") {
-          getMyClassNewlyViewAll(1, 30).then((value) => setAllMaterials(value));
+          getMyMajorNewlyViewAll(1, 30).then((value) => setAllMaterials(value));
         } else if (tag === "hot") {
-          getMyClassBestViewAll(1, 30).then((value) => setAllMaterials(value));
+          getMyMajorBestViewAll(1, 30).then((value) => setAllMaterials(value));
         }
         break;
       default:

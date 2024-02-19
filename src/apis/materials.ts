@@ -46,7 +46,7 @@ export const getMyUnivBestViewAll = async (page: number, pageSize: number) => {
   return data;
 };
 
-export const getMyClassNewlyViewAll = async (page: number, pageSize: number) => {
+export const getMyMajorNewlyViewAll = async (page: number, pageSize: number) => {
   const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
@@ -60,7 +60,7 @@ export const getMyClassNewlyViewAll = async (page: number, pageSize: number) => 
   return data;
 };
 
-export const getMyClassBestViewAll = async (page: number, pageSize: number) => {
+export const getMyMajorBestViewAll = async (page: number, pageSize: number) => {
   const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
