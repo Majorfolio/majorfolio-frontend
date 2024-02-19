@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState, MouseEvent } from 'react'
 
 import { useNavigate } from 'react-router-dom';
 import { CardWrapper, InfoWrapper, MaterialInfosContainer, MaterialTitleWrapper, MaterialWrapper, ProfileWrapper } from './index.styles';
@@ -28,9 +28,6 @@ interface HomeMaterialCardProps {
 
 function HomeMaterialCard({ isBig = true, id, nickname, className, univ, major, semester, professor, like }: HomeMaterialCardProps) {
   const navigate = useNavigate();
-  const handleMaterialClick = () => {
-    navigate(`/assignment/${id}/detail`);
-  }
 
   let cardSize: string;
 
@@ -40,8 +37,51 @@ function HomeMaterialCard({ isBig = true, id, nickname, className, univ, major, 
     cardSize = '270px';
   }
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [isClickEnabled, setIsClickEnabled] = useState<boolean>(true);
+  const MIN_DRAG_DISTANCE = 10;
+  let distance = 0;
+
+  const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    setIsClickEnabled(false);
+    if (!containerRef.current) return;
+    setStartX(event.pageX - containerRef.current.offsetLeft);
+  };
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !containerRef.current) return;
+    const x = event.pageX - containerRef.current.offsetLeft;
+    distance = Math.abs(x - startX);
+    if (distance >= MIN_DRAG_DISTANCE) {
+      setIsClickEnabled(false);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    if (distance < MIN_DRAG_DISTANCE) {
+      setIsClickEnabled(true);
+    }
+  };
+
+  const handleMaterialClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (isClickEnabled) {
+      navigate(`/assignment/${id}/detail`);
+    }
+  }
+
   return (
-    <CardWrapper style={{ width: cardSize }}>
+    <CardWrapper 
+      style={{ width: cardSize }} 
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
       <ProfileWrapper>
         <MaterialSellerProfile nickname={nickname} hasReaction={false} />
       </ProfileWrapper>

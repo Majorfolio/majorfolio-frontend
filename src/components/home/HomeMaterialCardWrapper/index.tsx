@@ -10,6 +10,7 @@ function HomeMaterialCardWrapper({ children }: HomeMaterialCardWrapperProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [scrollLeft, setScrollLeft] = useState<number>(0);
+  const MIN_DRAG_DISTANCE = 5;
 
   const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
@@ -21,8 +22,11 @@ function HomeMaterialCardWrapper({ children }: HomeMaterialCardWrapperProps) {
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     if (!isDragging || !containerRef.current) return;
     const x = event.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // 조절할 스크롤 속도
-    containerRef.current.scrollLeft = scrollLeft - walk;
+    const distance = Math.abs(x - startX);
+    if (distance >= MIN_DRAG_DISTANCE) {
+      const walk = (x - startX) * 2; // 조절할 스크롤 속도
+      containerRef.current.scrollLeft = scrollLeft - walk;
+    }
   };
 
   const handleMouseUp = () => {
