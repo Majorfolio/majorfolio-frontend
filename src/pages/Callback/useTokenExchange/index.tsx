@@ -25,8 +25,13 @@ export default function useTokenExchange() {
       if (!code) {
         throw new Error('에러 발생');
       }
-      await signin(code);
-      navigate('/signup');
+      const auth = await signin(code);
+      const { isMember } = auth;
+      if (isMember) {
+        navigate('/home');
+      } else {
+        navigate('/signup');
+      }
     };
 
     authenticate();
