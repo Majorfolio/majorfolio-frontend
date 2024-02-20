@@ -53,7 +53,7 @@ export default function BottomBar() {
         navigate('/home');
         break;
       case 1:
-        // navigate('/material-box');
+        navigate('/material-box');
         // if (!isUserSignedin) {
         // onToggle();
         // }
@@ -65,7 +65,7 @@ export default function BottomBar() {
         }
         break;
       case 2:
-        // navigate('/upload');
+        navigate('/upload');
         // if (!isUserSignedin) {
         // onToggle();
         // }
@@ -77,7 +77,7 @@ export default function BottomBar() {
         }
         break;
       case 3:
-        // navigate('/my');
+        navigate('/my');
         // if (!isUserSignedin) {
         // onToggle();
 
