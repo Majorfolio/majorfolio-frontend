@@ -22,6 +22,14 @@ import MaterialPostStatisticsNumber from '../../components/home/MaterialPostStat
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
+import { SecondaryTopbar } from '../../components/common/TopBar';
+import {
+  ArrowBackDefaultIcon,
+  CartDefaultIcon,
+  NotificationDefaultIcon,
+} from '../../assets/icons';
+import useModal from '../../hooks/common/useModal';
+import Modal from '../../components/common/Modal';
 
 const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
@@ -29,6 +37,7 @@ const HomeMaterialDetail = () => {
   );
   const { materialId } = useParams();
   const navigate = useNavigate();
+  const { modalRef, onToggle } = useModal();
 
   useEffect(() => {
     if (materialId) {
@@ -38,7 +47,7 @@ const HomeMaterialDetail = () => {
         }
       });
     }
-  }, [materialDetail]);
+  }, []);
 
   const handleBuyNowClick = () => {
     const dataToSend = materialDetail;
@@ -48,7 +57,33 @@ const HomeMaterialDetail = () => {
   return materialDetail ? (
     <PageContainer>
       {/* 상단바 위치 */}
-
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)}>
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            자세히보기
+          </Text>
+        }
+        icons={[
+          <button type="button" onClick={onToggle}>
+            <CartDefaultIcon />
+          </button>,
+          <button type="button" onClick={onToggle}>
+            <NotificationDefaultIcon />
+          </button>,
+        ]}
+      />
+      <Modal
+        modalRef={modalRef}
+        type="TO_BE_UPDATED"
+        onToggle={onToggle}
+        primaryAction={() => {}}
+        secondaryAction={() => {}}
+      />
       <DetailContainer>
         <HomeMaterialDetailContainer>
           <MaterialDetailPreview image={materialDetail.imageUrl} />

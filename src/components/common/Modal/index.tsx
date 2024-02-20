@@ -1,4 +1,4 @@
-import React, { RefObject, forwardRef } from 'react';
+import React, { RefObject, forwardRef, useState } from 'react';
 import Card from '../Card';
 import Text from '../Text';
 import { NotificationDefaultIcon } from '../../../assets/icons';

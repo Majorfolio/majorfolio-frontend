@@ -60,6 +60,18 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   }
+
+  // TODO shrink the heigh
+  button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    line-height: 1;
+    height: fit-content;
+  }
 `;
 
 export default GlobalStyle;
