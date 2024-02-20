@@ -54,7 +54,6 @@ export default function BottomBar() {
         setCurrentPage(page);
         break;
       case 1:
-        navigate('/material-box');
         // if (!isUserSignedin) {
         // onToggle();
         // }
@@ -65,10 +64,11 @@ export default function BottomBar() {
           onToggle();
         } else {
           setCurrentPage(page);
+          navigate('/material-box');
         }
         break;
       case 2:
-        navigate('/upload');
+        // navigate('/upload');
         // if (!isUserSignedin) {
         // onToggle();
         // }
@@ -79,10 +79,11 @@ export default function BottomBar() {
           onToggle();
         } else {
           setCurrentPage(page);
+          navigate('/upload');
         }
         break;
       case 3:
-        navigate('/my');
+        // navigate('/my');
         // if (!isUserSignedin) {
         // onToggle();
 
@@ -92,6 +93,7 @@ export default function BottomBar() {
           onToggle();
         } else {
           setCurrentPage(page);
+          navigate('/my');
         }
         // }
         break;
