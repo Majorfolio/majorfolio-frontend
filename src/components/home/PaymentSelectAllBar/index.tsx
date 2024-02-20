@@ -4,14 +4,23 @@ import { SelectAllBarWrapper, SelectAllWrapper } from './index.styles';
 import Text from '../../common/Text';
 import AllCheckbox from '../../common/AllCheckbox';
 
-function PaymentSelectAllBar() {
+interface PaymentSelectAllBarProps {
+  isCart: boolean;
+}
+
+function PaymentSelectAllBar({ isCart }: PaymentSelectAllBarProps) {
   return (
     <SelectAllBarWrapper>
       <Text weight='bold' lineHeight='sm' color='gray/gray900'>결제 자료</Text>
-      <SelectAllWrapper>
-        <Text lineHeight='sm' color='gray/gray500'>전체 선택</Text>
-        <AllCheckbox checked={false} />
-      </SelectAllWrapper>
+
+      {isCart ? 
+        <SelectAllWrapper>
+          <Text lineHeight='sm' color='gray/gray500'>전체 선택</Text>
+          <AllCheckbox checked={false} /> 
+        </SelectAllWrapper>
+        : null
+      }
+      
     </SelectAllBarWrapper>
   )
 }

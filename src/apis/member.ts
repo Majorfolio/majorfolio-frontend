@@ -195,3 +195,16 @@ export const verifyNickname = async (nickname: string, accessToken: string) => {
   }
   return false;
 };
+
+export const getMy = async (authStore: string) => {
+  const request0ptions = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${authStore}`
+    }
+  };
+
+  const response = await fetch(`https://majorfolio-server.shop/my/`, request0ptions);
+  const data = await response.json();
+  return data;
+};

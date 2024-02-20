@@ -13,7 +13,7 @@ export const CouponCountWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const CouponButton = styled.div`
+export const AvailableCouponButton = styled.div`
   height: 52px;
   padding: 0 16px;
   border-radius: 6px;
@@ -26,8 +26,25 @@ export const CouponButton = styled.div`
   }
 `;
 
-export const AvailableCouponWrapper = styled.span`
+export const DisableCouponButton = styled.div`
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 6px;
+  background: ${ theme.color['gray/gray100'] };
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:hover {
+    cursor: default;
+  }
+`;
+
+export const CouponWrapper = styled.span`
   display: flex;
   gap: 12px;
   align-items: center;
+`;
+
+export const GreyCouponRotate = styled.span`
+  transform: rotate(90deg);
 `;

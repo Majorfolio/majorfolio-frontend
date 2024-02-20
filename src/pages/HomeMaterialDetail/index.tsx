@@ -1,7 +1,7 @@
-import React, { useLayoutEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { DetailContainer, HomeMaterialDetailContainer, PageContainer, ProfileWrapper, StatisticsNumberWrapper } from './index.styles';
+import { ButtonWrapper, DetailContainer, HomeMaterialDetailContainer, PageContainer, ProfileWrapper, StatisticsNumberWrapper, StickyBottom } from './index.styles';
 import MaterialDetailPreview from '../../components/home/MaterialDetailPreview';
 import MaterialSellerProfile from '../../components/home/MaterialSellerProfile';
 import MaterialDetailPost from '../../components/home/MaterialDetailPost';
@@ -11,12 +11,16 @@ import AllDividerThin from '../../components/common/AllDividerThin';
 import { getMaterialDetail } from '../../apis/materials';
 import { MaterialDetail } from '../../components/home/Material/index.types';
 import MaterialPostStatisticsNumber from '../../components/home/MaterialPostStatisticsNumber';
+import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
+import Button from '../../components/common/Button';
+import Text from '../../components/common/Text';
 
 const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(null);
   const { materialId } = useParams();
+  const navigate = useNavigate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(materialId){      
       getMaterialDetail(parseInt(materialId, 10)).then((response) => {
         if (response.result) {
@@ -24,7 +28,12 @@ const HomeMaterialDetail = () => {
         }
       });
     }
-  }, []);
+  }, [materialDetail]);
+
+  const handleBuyNowClick = () => {
+    const dataToSend = materialDetail;
+    navigate(`/buy-now/${materialId}`, { state: dataToSend });
+  }
 
   return (
     materialDetail ? (
@@ -36,7 +45,13 @@ const HomeMaterialDetail = () => {
             <MaterialDetailPreview image={materialDetail.imageUrl} />
 
             <ProfileWrapper>
-              <MaterialSellerProfile id={materialDetail.id} nickname={materialDetail.nickName} hasReaction />
+              <MaterialSellerProfile 
+                id={materialDetail.id} 
+                nickname={materialDetail.nickName} 
+                hasReaction 
+                like={materialDetail.like} 
+                bookmark={materialDetail.bookmark} 
+              />
             </ProfileWrapper>
             <AllDividerThin />
 
@@ -72,6 +87,23 @@ const HomeMaterialDetail = () => {
 
           </HomeMaterialDetailContainer>           
         </DetailContainer>
+
+        <StickyBottom>
+          <BottomPaymentAmount />
+          <ButtonWrapper>
+            <Button
+              type="button"
+              backgroundColor="main_color/blue_p"
+              onClick={() => {
+                handleBuyNowClick();
+              }}
+            >
+              <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
+                바로구매
+              </Text>
+            </Button>            
+          </ButtonWrapper>
+        </StickyBottom>
        
       </PageContainer>
 

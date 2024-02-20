@@ -9,6 +9,8 @@ const meta = {
   argTypes: {
     isBig: { control: 'boolean' },
     id: { control: 'number' },
+    memberId: { control: 'number' },
+    imageUrl: { control: 'text' },
     nickname: { control: 'text' },
     univ: { control: 'text' },
     major: { control: 'text' },
@@ -27,6 +29,8 @@ export const Default: Story = {
   args: {
     isBig: true,
     id: 1,
+    memberId: 1,
+    imageUrl: "null",
     nickname: "엘사네올라프",
     className: "게임 디자인과 기획",
     univ: "건국대학교",
@@ -41,6 +45,8 @@ export const SmallCard: Story = {
   args: {
     isBig: false,
     id: 1,
+    memberId: 1,
+    imageUrl: "null",
     nickname: "엘사네올라프",
     className: "게임 디자인과 기획",
     univ: "건국대학교",
