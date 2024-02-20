@@ -24,26 +24,26 @@ export default function SignupCodeStep({
   const { code, onCodeChange, onCodeSubmit, isCodeEmpty } = useCode();
 
   const transition = isEmailConfirmed ? (
-    <Button type="submit" backgroundColor="main_color/blue_p">
+    <Button type="submit" category="primary">
       <Text color="gray/white" size={16} weight="bold" lineHeight="sm">
         다음으로
       </Text>
     </Button>
   ) : (
     <>
-      <Button backgroundColor="sub_color/indigo/c">
+      <Button category="secondary">
         <Text color="main_color/blue_p" size={16} weight="bold" lineHeight="sm">
           다음에 하기
         </Text>
       </Button>
       {isCodeEmpty ? (
-        <Button backgroundColor="main_color/blue_p">
+        <Button category="primary">
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
         </Button>
       ) : (
-        <Button backgroundColor="gray/gray100" disabled>
+        <Button category="primary" disabled>
           <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
@@ -86,9 +86,6 @@ export default function SignupCodeStep({
       <TextField
         id="text"
         type="text"
-        borderColor="gray/gray100"
-        borderColorOnHover="gray/gray150"
-        borderColorOnFocus="main_color/blue_p"
         icon={textfieldIcon}
         placeholder="인증코드"
         text={code}

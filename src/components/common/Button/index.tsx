@@ -1,25 +1,49 @@
 import React from 'react';
 import { ColorType } from '../theme';
 import ButtonPropsType from './index.types';
-import { StyledButton } from './index.styles';
+import {
+  StyledButton,
+  StyledKakaoButton,
+  StyledOutlinedButton,
+  StyledPrimaryButton,
+  StyledSecondaryButton,
+} from './index.styles';
+import { LoadingIcon } from '../../../assets/icons';
 
 export default function Button({
   children,
-  backgroundColor = 'main_color/blue_p',
-  isOutlined = false,
   onClick = () => {},
   disabled = false,
+  loading = false,
+  category = 'primary',
   ...props
 }: ButtonPropsType) {
-  return (
-    <StyledButton
-      backgroundColor={backgroundColor}
-      isOutlined={isOutlined}
-      onClick={onClick}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </StyledButton>
-  );
+  if (category === 'primary') {
+    return (
+      <StyledPrimaryButton onClick={onClick} disabled={disabled} {...props}>
+        {(loading && <LoadingIcon />) || children}
+      </StyledPrimaryButton>
+    );
+  }
+  if (category === 'secondary') {
+    return (
+      <StyledSecondaryButton onClick={onClick} disabled={disabled} {...props}>
+        {(loading && <LoadingIcon />) || children}
+      </StyledSecondaryButton>
+    );
+  }
+  if (category === 'outlined') {
+    return (
+      <StyledOutlinedButton onClick={onClick} disabled={disabled} {...props}>
+        {(loading && <LoadingIcon />) || children}
+      </StyledOutlinedButton>
+    );
+  }
+  if (category === 'kakaotalk') {
+    return (
+      <StyledKakaoButton onClick={onClick} disabled={disabled} {...props}>
+        {(loading && <LoadingIcon />) || children}
+      </StyledKakaoButton>
+    );
+  }
 }

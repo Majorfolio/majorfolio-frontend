@@ -1,7 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { NumberWrapper, NumbersContainer } from './index.styles'
-import Text from '../../common/Text'
+import {
+  NumberWrapper,
+  NumbersContainer,
+  StyledMyProfileNumberContainer,
+} from './index.styles';
+import Text from '../../common/Text';
 
 interface MaterialPostStatisticsNumberProps {
   sell: number;
@@ -9,25 +13,90 @@ interface MaterialPostStatisticsNumberProps {
   reaction: number;
 }
 
-function MaterialPostStatisticsNumber({ sell, follower, reaction }: MaterialPostStatisticsNumberProps) {
+function MaterialPostStatisticsNumber({
+  sell,
+  follower,
+  reaction,
+}: MaterialPostStatisticsNumberProps) {
   return (
     <NumbersContainer>
       <NumberWrapper>
-        <Text size={18} weight='bold' lineHeight='sm'> {sell} </Text>
-        <Text size={14} lineHeight='sm'>판매</Text>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {sell}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          판매
+        </Text>
       </NumberWrapper>
 
       <NumberWrapper>
-        <Text size={18} weight='bold' lineHeight='sm'> {follower} </Text>
-        <Text size={14} lineHeight='sm'>팔로워</Text>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {follower}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          팔로워
+        </Text>
       </NumberWrapper>
-      
+
       <NumberWrapper>
-        <Text size={18} weight='bold' lineHeight='sm'> {reaction} </Text>
-        <Text size={14} lineHeight='sm'>반응</Text>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {reaction}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          반응
+        </Text>
       </NumberWrapper>
     </NumbersContainer>
-  )
+  );
 }
 
-export default MaterialPostStatisticsNumber
+interface MyProifleStatisticsNumberPropsType {
+  upload: number | null;
+  sell: number | null;
+  follower: number | null;
+}
+
+export function MyProfileStatisticsNumber({
+  upload,
+  sell,
+  follower,
+}: MyProifleStatisticsNumberPropsType) {
+  return (
+    <StyledMyProfileNumberContainer>
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {upload}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          업로드
+        </Text>
+      </NumberWrapper>
+
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {sell}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          판매량
+        </Text>
+      </NumberWrapper>
+
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {follower}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          팔로워
+        </Text>
+      </NumberWrapper>
+    </StyledMyProfileNumberContainer>
+  );
+}
+
+export default MaterialPostStatisticsNumber;

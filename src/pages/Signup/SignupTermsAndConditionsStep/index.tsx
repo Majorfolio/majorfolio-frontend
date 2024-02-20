@@ -30,7 +30,7 @@ export default function SignupTermsAndConditionsStep() {
         </Text>
       </StyledConditionRow2>
       <StyledButtonContainer>
-        <Button backgroundColor="main_color/blue_p">
+        <Button category="primary">
           <Text size={16} weight="bold" color="gray/white" lineHeight="sm">
             로그인
           </Text>

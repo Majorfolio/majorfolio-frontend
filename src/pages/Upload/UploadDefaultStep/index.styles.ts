@@ -14,6 +14,10 @@ const StyledPageContainer = styled.div`
   background-color: ${theme.color['gray/grayBG']};
 `;
 
+export const StyledDraftText = styled(StyledText)`
+  white-space: nowrap;
+`;
+
 export const StyledDraftSectionTitleRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,9 +29,13 @@ export const StyledDraftSectionTitleRow = styled.div`
   }
 `;
 
-export const StyledDraftEditButton = styled(Button)`
+export const StyledDraftEditButton = styled.button`
+  display: flex;
+  border-width: 0;
+  cursor: ${(props) => (props.disabled ? 'auto' : 'pointer')};
   justify-content: flex-end;
   padding: 0;
+  background-color: transparent;
 `;
 
 export default StyledPageContainer;

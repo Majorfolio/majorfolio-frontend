@@ -201,7 +201,7 @@ export default function SignupDetailsStep({
       </StyledDropdownContainer>
       <StyledButtonContainer>
         <StyledButton
-          backgroundColor="main_color/blue_p"
+          category="primary"
           type="submit"
           disabled={
             isRequiredFieldEmpty ||

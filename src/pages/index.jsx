@@ -10,6 +10,8 @@ import MaterialBox from './MaterialBox';
 import Signin from './Signin';
 import Callback from './Callback';
 import Signup from './Signup';
+import Upload from './Upload';
+import MyMain from './My/MyMain';
 import BuyNow from './BuyNow';
 import RemittanceAdvice from './RemittanceAdvice';
 
@@ -31,20 +33,20 @@ const Router = () => {
           element: <Home />,
         },
         {
-          path: "/home-all/:category/:tag",
+          path: '/home-all/:category/:tag',
           element: <HomeViewAll />,
         },
         {
-          path: "/assignment/:materialId/detail",        
+          path: '/assignment/:materialId/detail',
           element: <HomeMaterialDetail />,
         },
         {
-          path: "/buy-now/:materialId",
+          path: '/buy-now/:materialId',
           element: <BuyNow />,
         },
         {
-          path: "/RemittanceAdvice/:buyInfoId",
-          element: <RemittanceAdvice />
+          path: '/RemittanceAdvice/:buyInfoId',
+          element: <RemittanceAdvice />,
         },
         {
           path: '/cart',
@@ -65,6 +67,14 @@ const Router = () => {
         {
           path: '/callback',
           element: <Callback />,
+        },
+        {
+          path: '/upload',
+          element: <Upload />,
+        },
+        {
+          path: '/my',
+          element: <MyMain />,
         },
       ],
     },

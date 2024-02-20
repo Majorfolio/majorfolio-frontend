@@ -182,7 +182,7 @@ export function ModalCard({
     typeof footerTexts === 'string' ? (
       <StyledButtonWrapper>
         <Button
-          backgroundColor="main_color/blue_p"
+          category="primary"
           onClick={() => {
             onToggle();
             primaryAction();
@@ -196,7 +196,7 @@ export function ModalCard({
     ) : (
       <StyledButtonWrapper>
         <Button
-          backgroundColor="sub_color/indigo/c"
+          category="secondary"
           onClick={() => {
             onToggle();
             secondaryAction();
@@ -213,7 +213,7 @@ export function ModalCard({
         </Button>
         <Button
           type="button"
-          backgroundColor="main_color/blue_p"
+          category="primary"
           onClick={() => {
             onToggle();
             primaryAction();

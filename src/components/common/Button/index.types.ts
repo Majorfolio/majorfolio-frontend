@@ -5,10 +5,10 @@ export default interface ButtonPropsType
   extends StyledButtonPropsType,
     ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode;
+  loading?: boolean;
+  category?: 'primary' | 'secondary' | 'outlined' | 'kakaotalk';
 }
 
 export interface StyledButtonPropsType {
   disabled?: boolean;
-  backgroundColor?: ColorType;
-  isOutlined?: boolean;
 }

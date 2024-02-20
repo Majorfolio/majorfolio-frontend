@@ -16,15 +16,27 @@ const StyledTextField = styled(StyledText).attrs({
   as: 'input',
 })<Required<StyledTextFieldType>>`
   padding: 13px 16px;
-  border: 1px solid ${theme.color['gray/gray100']};
+  border: 1px solid
+    ${({ hasError }) =>
+      !hasError
+        ? theme.color['gray/gray100']
+        : theme.color['error/error_color']};
   &&::placeholder {
     color: ${theme.color['gray/gray400']};
   }
   &&:hover {
-    border: ${(props) => `1px solid ${theme.color[props.borderColorOnHover]}`};
+    border: 1px solid
+      ${({ hasError }) =>
+        !hasError
+          ? theme.color['gray/gray150']
+          : theme.color['error/error_color']};
   }
   &&:focus {
-    border: ${(props) => `1px solid ${theme.color[props.borderColorOnFocus]}`};
+    border: 1px solid
+      ${({ hasError }) =>
+        !hasError
+          ? theme.color['main_color/blue_p']
+          : theme.color['error/error_color']};
   }
   &&:disabled {
     border: 1px solid ${theme.color['gray/gray150']};

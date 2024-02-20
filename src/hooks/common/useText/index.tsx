@@ -3,13 +3,15 @@ import React, { ChangeEvent, useState } from 'react';
 type TextReturnType<T extends string> = Record<T, string> &
   Record<
     `on${Capitalize<T>}Change`,
-    (event: ChangeEvent<HTMLInputElement>) => void
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   >;
 
 export default function useText<T extends string>(title: T): TextReturnType<T> {
   const [text, setText] = useState<string>('');
 
-  const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onTextChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setText(event.target.value);
   };
 

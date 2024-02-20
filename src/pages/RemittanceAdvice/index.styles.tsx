@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import theme from "../../components/common/theme";
-import { CopyIcon } from "../../assets/icons";
+import styled from 'styled-components';
+import theme from '../../components/common/theme';
+import { CopyIcon } from '../../assets/icons';
 
 export const PageContainer = styled.div`
-  background-color: ${ theme.color['gray/grayBG'] };
+  background-color: ${theme.color['gray/grayBG']};
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -20,9 +20,9 @@ export const RemittanceContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  background-color: ${ theme.color['gray/white'] };
+  background-color: ${theme.color['gray/white']};
   box-shadow: 0px 0px 16px rgba(35, 38, 41, 0.04);
-  border-radius: 6px;  
+  border-radius: 6px;
 `;
 
 export const CodeAdviceContainer = styled.section`
@@ -37,8 +37,8 @@ export const CodeContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 6px; 
-  border: 1px ${ theme.color['gray/gray100'] } solid;
+  border-radius: 6px;
+  border: 1px ${theme.color['gray/gray100']} solid;
 `;
 
 export const CopyButton = styled(CopyIcon)`

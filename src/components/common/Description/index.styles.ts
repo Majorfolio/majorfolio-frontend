@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DescriptionContainer = styled.div`
+const StyledDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,4 +10,10 @@ const DescriptionContainer = styled.div`
   margin-bottom: 8px;
 `;
 
-export default DescriptionContainer;
+export const StyledExpandedDescriptionContainer = styled(
+  StyledDescriptionContainer,
+)`
+  margin-top: 32px;
+`;
+
+export default StyledDescriptionContainer;

@@ -75,9 +75,7 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
       <TextField
         id="text"
         type="text"
-        borderColor={borderColor}
-        borderColorOnHover={borderColorOnHover}
-        borderColorOnFocus={borderColorOnFocus}
+        hasError={hasTextfieldError}
         icon={textfieldIcon}
         placeholder="닉네임"
         text={nickname}
@@ -92,7 +90,7 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
       <StyledValidationContainer>
         {isNicknameValid ? (
           <Button
-            backgroundColor="main_color/blue_p"
+            category="primary"
             onClick={async () => {
               updateNickname(nickname);
               // TODO
@@ -120,9 +118,8 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
           </Button>
         ) : (
           <Button
-            backgroundColor={
-              hasTextfieldError ? 'gray/gray100' : 'sub_color/indigo/c'
-            }
+            category="secondary"
+            disabled={hasTextfieldError}
             onClick={onNicknameValidation}
           >
             <Text

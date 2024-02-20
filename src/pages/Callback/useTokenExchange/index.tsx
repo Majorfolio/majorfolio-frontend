@@ -27,13 +27,14 @@ export default function useTokenExchange() {
       if (!code) {
         throw new Error('에러 발생');
       }
-      const { isMember, emailId } = await signin(code);
+      const updatedAuth = await signin(code);
+      const { emailId, isMember } = updatedAuth;
+      if (emailId !== 0) {
+        updateEmail(emailId);
+      }
       if (isMember) {
-        navigate('/');
+        navigate('/home');
       } else {
-        if (!emailId) {
-          updateEmail(emailId);
-        }
         navigate('/signup');
       }
     };
