@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   NumberWrapper,
-  NumbersConatainer,
+  NumbersContainer,
   StyledMyProfileNumberContainer,
 } from './index.styles';
 import Text from '../../common/Text';
@@ -19,7 +19,7 @@ function MaterialPostStatisticsNumber({
   reaction,
 }: MaterialPostStatisticsNumberProps) {
   return (
-    <NumbersConatainer>
+    <NumbersContainer>
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
@@ -49,7 +49,7 @@ function MaterialPostStatisticsNumber({
           반응
         </Text>
       </NumberWrapper>
-    </NumbersConatainer>
+    </NumbersContainer>
   );
 }
 

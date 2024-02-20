@@ -15,7 +15,7 @@ export const NumberWrapper = styled.span`
   align-items: center;
 `;
 
-export const StyledMyProfileNumberContainer = styled(NumbersConatainer)`
+export const StyledMyProfileNumberContainer = styled(NumbersContainer)`
   margin-top: 24px;
   padding: 8px 40px;
   border-radius: 6px;
