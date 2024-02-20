@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledText from './index.styles';
+import { StyledText } from './index.styles';
 import { TextPropsType } from './index.types';
 import theme from '../theme';
 

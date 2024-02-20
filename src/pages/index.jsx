@@ -12,6 +12,8 @@ import Callback from './Callback';
 import Signup from './Signup';
 import Upload from './Upload';
 import MyMain from './My/MyMain';
+import BuyNow from './BuyNow';
+import RemittanceAdvice from './RemittanceAdvice';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -37,6 +39,14 @@ const Router = () => {
         {
           path: '/assignment/:materialId/detail',
           element: <HomeMaterialDetail />,
+        },
+        {
+          path: '/buy-now/:materialId',
+          element: <BuyNow />,
+        },
+        {
+          path: '/RemittanceAdvice/:buyInfoId',
+          element: <RemittanceAdvice />,
         },
         {
           path: '/cart',

@@ -15,7 +15,7 @@ const BottomPaymentAmount = () => {
           <Text weight='bold' lineHeight='sm' color='main_color/blue_p'>자료 금액</Text>
         </TitleWrapper>
 
-        <Text weight='bold' lineHeight='sm' color='main_color/blue_p'>5,200원</Text>
+        <Text weight='bold' lineHeight='sm' color='main_color/blue_p'>4,700원</Text>
       </AmountContainer>    
     </>
 

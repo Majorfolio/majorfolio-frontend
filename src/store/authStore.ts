@@ -7,20 +7,21 @@ const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
 
 const initialState = {
-  isMember: undefined,
+  isMember: false,
   memberId: undefined,
   accessToken: undefined,
   refreshToken: undefined,
 };
 
 type AuthStateType = {
-  isMember?: boolean;
+  isMember: boolean;
   memberId?: number;
   accessToken?: string;
   refreshToken?: string;
   signin: (code: string) => Promise<AuthResultType>;
   signout: () => void;
   restoreCredentials: () => boolean;
+  setIsMember: () => void;
 };
 
 const useAuthStore = create<AuthStateType>((set, get) => ({
@@ -63,6 +64,10 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
     set(initialState);
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeitem(REFRESH_TOKEN);
+  },
+
+  setIsMember() {
+    set((state) => ({ ...state, isMember: true }));
   },
 }));
 

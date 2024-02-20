@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useNavigate } from 'react-router-dom';
 import * as S from './Landing.styles';
 
 import dollarIcon from '../../assets/images/landing/landing-dollar.png';
@@ -14,9 +13,8 @@ import phone2 from '../../assets/images/landing/landing-phone2.png';
 import phone3 from '../../assets/images/landing/landing-phone3.png';
 
 const Landing = () => {
-  const navigate = useNavigate();
   const handleBtn = () => {
-    navigate('/');
+    window.open('https://han.gl/JktiJy');
   };
   return (
     <S.Container>

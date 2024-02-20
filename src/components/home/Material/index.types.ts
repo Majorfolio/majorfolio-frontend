@@ -1,12 +1,14 @@
 export default interface Material {
   id: number;
+  memberId: number;
+  imageUrl: string;
   nickname: string;
   className: string;
-  univ?: string | null;
-  major?: string | null;
-  semester?: string | null;
+  univ: string;
+  major: string;
+  semester: string;
   professor?: string | null;
-  like?: number | null;
+  like: number;
 }
 
 export interface MaterialCategory {

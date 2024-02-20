@@ -37,8 +37,6 @@ export default function useTokenExchange() {
       } else {
         navigate('/signup');
       }
-
-      navigate('/');
     };
 
     authenticate();

@@ -16,7 +16,7 @@ function DetailPost({ title, content, updateTime }: DetailPostProps) {
       <PostTitleWrapper>
         <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'> {title} </Text>
         <TagWrapper><Tag text="PDF" color="white" /></TagWrapper>        
-        <Text size={12} lineHeight='sm' color='gray/gray400'> {`${updateTime.split('T')[0]} ${updateTime.split('T')[1]}`} </Text>
+        <Text size={12} lineHeight='sm' color='gray/gray400'> {`${updateTime.split('T')[0]} ${updateTime.split('T')[1]?.split('.')[0]}`} </Text>
       </PostTitleWrapper>
 
       <Text size={14} lineHeight='lg' color='gray/gray900'> {content} </Text>

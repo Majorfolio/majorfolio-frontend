@@ -42,15 +42,16 @@ export default function BottomBar() {
       navigate('/signin');
     } else if (!hasUserVerifiedSchool) {
       navigate('/signup');
+    } else {
+      // 원하는 페이지로 이동
     }
   };
 
   const handleNavigationClick = (page: number) => {
-    setCurrentPage(page);
-
     switch (page) {
       case 0:
         navigate('/home');
+        setCurrentPage(page);
         break;
       case 1:
         navigate('/material-box');
@@ -62,6 +63,8 @@ export default function BottomBar() {
           onToggle();
         } else if (!hasUserVerifiedSchool) {
           onToggle();
+        } else {
+          setCurrentPage(page);
         }
         break;
       case 2:
@@ -74,6 +77,8 @@ export default function BottomBar() {
           onToggle();
         } else if (!hasUserVerifiedSchool) {
           onToggle();
+        } else {
+          setCurrentPage(page);
         }
         break;
       case 3:
@@ -85,6 +90,8 @@ export default function BottomBar() {
           onToggle();
         } else if (!hasUserVerifiedSchool) {
           onToggle();
+        } else {
+          setCurrentPage(page);
         }
         // }
         break;

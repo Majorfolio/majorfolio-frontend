@@ -8,16 +8,24 @@ import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
 import Material, { MaterialCategory } from '../../components/home/Material/index.types';
-import HomeCategory from '../../components/home/HomeCategory/index.types';
+import HOME_CATEGORY from '../../components/home/HomeCategory/index.types';
 import BannerContainer from '../../components/common/BannerContainer';
-import { getAllUniv } from '../../apis/materials';
+import { getAllUniv, getMyMajor, getMyUniv } from '../../apis/materials';
+import Banner from '../../components/common/Banner';
+import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
+import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
+import useAuthStore from '../../store/authStore';
+import { getMy } from '../../apis/member';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
-import materials from '../../apis/materials-dummy'
+// import materials from '../../apis/materials-dummy'
 
 const Home = () => {
-  const [currentCategory, setCurrentCategory] = useState(HomeCategory.ALLUNIV);
+  const [currentCategory, setCurrentCategory] = useState(HOME_CATEGORY.ALL_UNIV);
   const [homeMaterials, setHomeMaterials] = useState<null | MaterialCategory>(null);
+  const materials = getArrayFromLocalStorage('recent-materials');
+  const authStore = useAuthStore((state) => state.accessToken) ;
+  const [title, setTitle] = useState("");
 
   const updateCategory = (category: number) => {
     setCurrentCategory(category);
@@ -25,13 +33,27 @@ const Home = () => {
 
   useEffect(() => {
     switch (currentCategory) {
-      case HomeCategory.ALLUNIV: // 0
+      case HOME_CATEGORY.ALL_UNIV: // 0
         getAllUniv().then((value) => setHomeMaterials(value));
+        setTitle("모든 대학교");
         break;
-      case HomeCategory.MYUNIV: // 1
-        setHomeMaterials(null);
+      case HOME_CATEGORY.MY_UNIV: // 1
+        if (authStore) {
+          getMyUniv(authStore).then((value) => setHomeMaterials(value));       
+          getMy(authStore). then (({ univName }) => {
+            setTitle(univName);
+          });
+        }
         break;
-      case HomeCategory.MYMAJOR: // 2
+      case HOME_CATEGORY.MY_MAJOR: // 2
+        if (authStore) {
+          getMyMajor(authStore).then((value) => setHomeMaterials(value));   
+          getMy(authStore). then (({ major }) => {
+            setTitle(major);
+          });       
+        }
+        break;
+      case HOME_CATEGORY.MY_CLASS:
         setHomeMaterials(null);
         break;
       default:
@@ -39,64 +61,89 @@ const Home = () => {
     }
   }, [currentCategory]);
 
+
   return (
     <PageContainer>
       <HomeContainer>
-        <BannerContainer />
+        <BannerContainer>
+          <Banner/>
+          <Banner/>
+          <Banner/>
+        </BannerContainer>
 
         <HomeCategoryButtonSection currentCategory={currentCategory} updateCategory={updateCategory} />
         <AllDivider />
 
         <ContentPageContainer>
-          <HomeContentPageTitle />
+          <HomeContentPageTitle title={title} />
 
           <HomeTagCardTitle title='신규 등록 자료' tag='new' category={currentCategory} />
-          <CardWrapper>
-            { homeMaterials && homeMaterials.newUpload &&
+          <HomeMaterialCardWrapper>
+            { homeMaterials?.newUpload &&
               homeMaterials.newUpload.map((material: Material) => {
                 return (
                   <HomeMaterialCard 
                     key={material.id}
                     isBig={false} 
                     id={material.id} 
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
-                    univ={material.univ ?? null} 
-                    major={material.major ?? null} 
-                    semester={material.semester ?? null} 
-                    professor={material.professor ?? null} 
-                    like={material.like ?? null} 
+                    univ={material.univ} 
+                    major={material.major} 
+                    semester={material.semester} 
+                    professor={material.professor} 
+                    like={material.like} 
                   />
                 );
               })}
-          </CardWrapper>
+          </HomeMaterialCardWrapper>
 
           <HomeTagCardTitle title='베스트 자료' tag='hot' category={currentCategory} />
-          <CardWrapper>
-            { homeMaterials && homeMaterials.best &&
+          <HomeMaterialCardWrapper>
+            { homeMaterials?.best &&
               homeMaterials.best.map((material: Material) => {
                 return (
                   <HomeMaterialCard 
                     key={material.id}
                     isBig={false} 
                     id={material.id} 
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
                     nickname={material.nickname} 
                     className={material.className} 
-                    univ={material.univ ?? null} 
-                    major={material.major ?? null} 
-                    semester={material.semester ?? null} 
-                    professor={material.professor ?? null} 
-                    like={material.like ?? null} 
+                    univ={material.univ} 
+                    major={material.major} 
+                    semester={material.semester} 
+                    professor={material.professor} 
+                    like={material.like} 
                   />
                 );
               })}
-          </CardWrapper>
+          </HomeMaterialCardWrapper>
 
           <HomeTagCardTitle title='최근에 본 자료' category={currentCategory} />
           <CardWrapper>
-            {/* <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} />
-            <HomeMaterialCard isBig={false} /> */}
+            { materials &&
+              materials.map((material: Material) => {
+                return (
+                  <HomeMaterialCard 
+                    key={material.id}
+                    isBig={false} 
+                    id={material.id} 
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
+                    nickname={material.nickname} 
+                    className={material.className} 
+                    univ={material.univ} 
+                    major={material.major} 
+                    semester={material.semester} 
+                    professor={material.professor} 
+                    like={material.like} 
+                  />
+                );
+              })}
           </CardWrapper>
         </ContentPageContainer>
       </HomeContainer>

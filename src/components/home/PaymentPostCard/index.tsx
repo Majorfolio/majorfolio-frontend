@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { CardTitleWrapper, CardWrapper, InfoWrapper, InfosWrapper, MaterialPriceWrapper } from './index.styles';
 import Text from '../../common/Text';
@@ -9,42 +9,53 @@ import {
   SemesterDefaultIcon, 
   ClassDefaultIcon 
 } from '../../../assets/icons';
+import { MaterialDetail } from '../Material/index.types';
 
-function PaymentPostCard() {
+interface PaymentPostCardProps {
+  isCart: boolean;
+  materialInfo?: MaterialDetail;
+}
+
+function PaymentPostCard({ isCart, materialInfo }: PaymentPostCardProps) {
   return (
-    <CardWrapper>
-      <CardTitleWrapper>
-        <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'>[과제] ALIDEA</Text>
-        <AllCheckbox checked={false} />
-      </CardTitleWrapper>
-      
-      <InfosWrapper>
-        <InfoWrapper>
-          <SchoolDefaultIcon />
-          <Text size={14} color='gray/gray500'>국민대학교</Text>
-        </InfoWrapper>
+    materialInfo ?
+      <CardWrapper>
+        <CardTitleWrapper>
+          <Text size={20} weight='bold' lineHeight='sm' color='gray/gray900'> {materialInfo.title} </Text>
+          { isCart ?
+            <AllCheckbox checked={false} /> :
+            null
+          }
+        </CardTitleWrapper>
+        
+        <InfosWrapper>
+          <InfoWrapper>
+            <SchoolDefaultIcon />
+            <Text size={14} color='gray/gray500'> {materialInfo.university} </Text>
+          </InfoWrapper>
 
-        <InfoWrapper>
-          <DepartmentOutlinedIcon />
-          <Text size={14} color='gray/gray500'>공업디자인학과</Text>
-        </InfoWrapper>
+          <InfoWrapper>
+            <DepartmentOutlinedIcon />
+            <Text size={14} color='gray/gray500'> {materialInfo.major} </Text>
+          </InfoWrapper>
 
-        <InfoWrapper>
-          <SemesterDefaultIcon />
-          <Text size={14} color='gray/gray500'>23-1</Text>
-        </InfoWrapper>
+          <InfoWrapper>
+            <SemesterDefaultIcon />
+            <Text size={14} color='gray/gray500'> {materialInfo.semester} </Text>
+          </InfoWrapper>
 
-        <InfoWrapper>
-          <ClassDefaultIcon />
-          <Text size={14} color='gray/gray500'>게임디자인과 기획</Text>
-        </InfoWrapper>
-      </InfosWrapper>
+          <InfoWrapper>
+            <ClassDefaultIcon />
+            <Text size={14} color='gray/gray500'> {materialInfo.subjectTitle} </Text>
+          </InfoWrapper>
+        </InfosWrapper>
 
-      <MaterialPriceWrapper>
-        <Text size={14} color='gray/gray500'>자료 금액</Text>
-        <Text weight='bold' color='gray/gray900'>5,200원</Text>
-      </MaterialPriceWrapper>
-    </CardWrapper>
+        <MaterialPriceWrapper>
+          <Text size={14} color='gray/gray500'>자료 금액</Text>
+          <Text weight='bold' color='gray/gray900'>4,700원</Text>
+        </MaterialPriceWrapper>
+      </CardWrapper>
+      : null
   )
 }
 

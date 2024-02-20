@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../common/theme';
 
-export const NumbersConatainer = styled.div`
+export const NumbersContainer = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
