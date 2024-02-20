@@ -1,5 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { ColorType } from '../../../../components/common/theme';
+import userStore from '../../../../store/userStore';
+import { verifyNickname } from '../../../../apis/member';
+import useAuthStore from '../../../../store/authStore';
 
 const NICKNAME_MIN_LENGTH = 2;
 const NICKNAME_MAX_LENGTH = 8;
@@ -25,6 +28,8 @@ export default function useSignupNaming() {
   // 기존 닉네임과 같아요
 
   const [nickname, setNickname] = useState('');
+
+  const accessToken = useAuthStore((state) => state.accessToken)!;
 
   const hasTextfieldError =
     !KoreanEnglishAlphabetRegex.test(nickname) || nickname.length < 2;
@@ -61,9 +66,12 @@ export default function useSignupNaming() {
     setIsNicknameValid(false);
   };
 
-  const onNicknameValidation = () => {
-    // TODO nickname validation
-    setIsNicknameValid(true);
+  const onNicknameValidation = async () => {
+    const currentIsNicknameValid = await verifyNickname(nickname, accessToken);
+    console.log(currentIsNicknameValid);
+    if (currentIsNicknameValid !== undefined) {
+      setIsNicknameValid(currentIsNicknameValid);
+    }
   };
 
   // hasTextFieldError

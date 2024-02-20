@@ -23,6 +23,10 @@ export const StyledDraftSectionTitleRow = styled.div`
   justify-content: space-between;
   align-items: baseline;
   width: 100%;
+
+  && ${StyledText} {
+    white-space: nowrap;
+  }
 `;
 
 export const StyledDraftEditButton = styled.button`

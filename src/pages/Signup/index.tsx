@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import TextField from '../../components/common/TextField';
@@ -16,6 +16,8 @@ import SignupDetailsStep from './SignupDetailsStep';
 import SignupNamingStep from './SignupNamingStep';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
 import SignupCodeStep from './SignupCodeStep';
+import useUserStore from '../../store/userStore';
+import useAuthStore from '../../store/authStore';
 
 interface SignupPropsType {
   isEmailConfirmed?: boolean;
@@ -26,11 +28,26 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
     'email',
   );
   const navigate = useNavigate();
+  const emailId = useUserStore((state) => state.emailId);
+  const isMember = useAuthStore((state) => state.isMember);
 
-  const { isUserSignedin } = useRequireAuth();
+  useEffect(() => {
+    if (emailId) {
+      setStep('details');
+    }
+    if (isMember) {
+      navigate('/');
+    }
+  }, [emailId, isMember]);
+
+  const { isUserSignedin } = useRequireAuth('member');
 
   if (!isUserSignedin) {
     return <>로그인이 되지 않았습니다. 메인 화면으로 이동합니다.</>;
+  }
+
+  if (isMember) {
+    return <>이미 회원가입한 유저입니다. 메인 화면으로 이동합니다.</>;
   }
 
   return (

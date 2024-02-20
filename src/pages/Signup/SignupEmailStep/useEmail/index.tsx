@@ -3,6 +3,7 @@ import useText from '../../../../hooks/common/useText';
 import useAuthStore from '../../../../store/authStore';
 import { sendCodeToEmail, validateCode } from '../../../../apis/member';
 import useEmailStore from '../../../../store/emailStore';
+import useUserStore from '../../../../store/userStore';
 
 const validateEmail = (email: string): boolean => {
   const emailRegex =
@@ -12,7 +13,7 @@ const validateEmail = (email: string): boolean => {
 
 export default function useEmail() {
   const { email, onEmailChange } = useText('email');
-  const setEmail = useEmailStore((state) => state.setEmail);
+  const updateEmail = useUserStore((state) => state.updateEmail);
 
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
@@ -20,7 +21,7 @@ export default function useEmail() {
 
   const onEmailSubmit = async () => {
     const currentEmailId = await sendCodeToEmail(email, accessToken);
-    setEmail(currentEmailId);
+    updateEmail(currentEmailId);
   };
 
   return { email, onEmailChange, isEmailValid, onEmailSubmit };

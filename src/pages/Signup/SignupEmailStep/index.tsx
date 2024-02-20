@@ -37,7 +37,7 @@ export default function SignupEmailStep({
         </Text>
       </Button>
       {isEmailValid ? (
-        <Button type="submit" category="primary" onClick={onEmailSubmit}>
+        <Button type="submit" category="primary">
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>

@@ -11,7 +11,6 @@ import Button from '../../../components/common/Button';
 import { CancelDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
 import useCode from './useCode';
-import useEmailStore from '../../../store/emailStore';
 
 interface SignupPropsType {
   onNext: () => void;
@@ -38,7 +37,7 @@ export default function SignupCodeStep({
         </Text>
       </Button>
       {isCodeEmpty ? (
-        <Button category="primary" onClick={onCodeSubmit}>
+        <Button category="primary">
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             인증메일 전송
           </Text>
@@ -69,7 +68,13 @@ export default function SignupCodeStep({
   );
 
   return (
-    <form onSubmit={onNext}>
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await onCodeSubmit();
+        onNext();
+      }}
+    >
       <StyledTextContainer htmlFor="text">
         <Text as="div" size={22} lineHeight="lg">
           학교 인증을 위해
