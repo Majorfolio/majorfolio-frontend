@@ -18,6 +18,7 @@ import useRequireAuth from '../../hooks/common/useRequireAuth';
 import SignupCodeStep from './SignupCodeStep';
 import useUserStore from '../../store/userStore';
 import useAuthStore from '../../store/authStore';
+import StyledPageContainer from '../Upload/UploadDefaultStep/index.styles';
 
 interface SignupPropsType {
   isEmailConfirmed?: boolean;
@@ -51,7 +52,7 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
   }
 
   return (
-    <>
+    <StyledPageContainer>
       {step === 'email' && <SignupEmailStep onNext={() => setStep('code')} />}
       {step === 'code' && <SignupCodeStep onNext={() => setStep('details')} />}
       {step === 'details' && (
@@ -60,6 +61,6 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
       {step === 'naming' && (
         <SignupNamingStep onNext={() => navigate('/home', { replace: true })} />
       )}
-    </>
+    </StyledPageContainer>
   );
 }

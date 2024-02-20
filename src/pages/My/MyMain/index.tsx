@@ -16,6 +16,7 @@ import MaterialPostStatisticsNumber, {
 import useMyProfile from './useMyProfile';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { ArrowBackDefaultIcon } from '../../../assets/icons';
+import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
 export default function MyMain() {
   const { nickName, univName, major, image_url, upload, sell, follower } =
@@ -64,16 +65,18 @@ export default function MyMain() {
         }
         icons={[]}
       />
-      <StyledProfileSection>
-        <StyledProfileIntro>
-          <StyledWelcomeSection>
-            <div>{welcomeText}</div>
-            <StyledTagSection>{tags}</StyledTagSection>
-          </StyledWelcomeSection>
-          <StyledPortrait />
-        </StyledProfileIntro>
-        {countInfoRow}
-      </StyledProfileSection>
+      <StyledPageContainer>
+        <StyledProfileSection>
+          <StyledProfileIntro>
+            <StyledWelcomeSection>
+              <div>{welcomeText}</div>
+              <StyledTagSection>{tags}</StyledTagSection>
+            </StyledWelcomeSection>
+            <StyledPortrait />
+          </StyledProfileIntro>
+          {countInfoRow}
+        </StyledProfileSection>
+      </StyledPageContainer>
     </>
   );
 }
