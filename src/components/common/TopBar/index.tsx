@@ -1,17 +1,53 @@
 import React, { ReactNode } from 'react';
+import {
+  StyledIconContainer,
+  StyledIconRow,
+  StyledTopbarContainer,
+  StyledPrimaryTopbarWrapper,
+  StyledSecondaryTopbarWrapper,
+  StyledLeftSection,
+} from './index.styles';
+import {
+  AppLogoIcon,
+  CartDefaultIcon,
+  NotificationDefaultIcon,
+} from '../../../assets/icons';
 
 interface TopBarPropsType {
-  transition: ReactNode;
+  transition?: ReactNode;
   title: ReactNode;
-  icons: ReactNode;
+  icons: ReactNode[];
 }
 
-export default function TopBar({ transition, title, icons }: TopBarPropsType) {
+export function PrimaryTopbar({ title, icons }: TopBarPropsType) {
   return (
-    <>
-      {transition && <div>{transition}</div>}
-      {title && <div>{title}</div>}
-      {icons && <div>{icons}</div>}
-    </>
+    <StyledTopbarContainer>
+      <StyledPrimaryTopbarWrapper>
+        {title}
+        <StyledIconRow>
+          {icons.map((icon) => (
+            <StyledIconContainer>{icon}</StyledIconContainer>
+          ))}
+        </StyledIconRow>
+      </StyledPrimaryTopbarWrapper>
+    </StyledTopbarContainer>
+  );
+}
+
+export function SecondaryTopbar({ transition, title, icons }: TopBarPropsType) {
+  return (
+    <StyledTopbarContainer>
+      <StyledSecondaryTopbarWrapper>
+        <StyledLeftSection>
+          <StyledIconContainer>{transition}</StyledIconContainer>
+          {title}
+        </StyledLeftSection>
+        <StyledIconRow>
+          {icons.map((icon) => (
+            <StyledIconContainer>{icon}</StyledIconContainer>
+          ))}
+        </StyledIconRow>
+      </StyledSecondaryTopbarWrapper>
+    </StyledTopbarContainer>
   );
 }

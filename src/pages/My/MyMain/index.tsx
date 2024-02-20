@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import {
   StyledPortrait,
@@ -13,10 +14,14 @@ import MaterialPostStatisticsNumber, {
   MyProfileStatisticsNumber,
 } from '../../../components/home/MaterialPostStatisticsNumber';
 import useMyProfile from './useMyProfile';
+import { SecondaryTopbar } from '../../../components/common/TopBar';
+import { ArrowBackDefaultIcon } from '../../../assets/icons';
 
 export default function MyMain() {
   const { nickName, univName, major, image_url, upload, sell, follower } =
     useMyProfile();
+
+  const navigate = useNavigate();
 
   const welcomeText = (
     <>
@@ -45,15 +50,30 @@ export default function MyMain() {
   );
 
   return (
-    <StyledProfileSection>
-      <StyledProfileIntro>
-        <StyledWelcomeSection>
-          <div>{welcomeText}</div>
-          <StyledTagSection>{tags}</StyledTagSection>
-        </StyledWelcomeSection>
-        <StyledPortrait />
-      </StyledProfileIntro>
-      {countInfoRow}
-    </StyledProfileSection>
+    <>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)}>
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            MY
+          </Text>
+        }
+        icons={[]}
+      />
+      <StyledProfileSection>
+        <StyledProfileIntro>
+          <StyledWelcomeSection>
+            <div>{welcomeText}</div>
+            <StyledTagSection>{tags}</StyledTagSection>
+          </StyledWelcomeSection>
+          <StyledPortrait />
+        </StyledProfileIntro>
+        {countInfoRow}
+      </StyledProfileSection>
+    </>
   );
 }
