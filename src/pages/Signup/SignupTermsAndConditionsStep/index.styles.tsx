@@ -5,9 +5,8 @@ const StyledRowContainer = styled.div``;
 
 const StyledAgreeAllRow = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
   border: 1px ${theme.color['gray/gray100']} solid;
   border-radius: 8px;
   height: 61px;
@@ -16,18 +15,16 @@ const StyledAgreeAllRow = styled.div`
 
 export const StyledConditionRow = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
   margin-top: 27px;
   padding-left: 26px;
 `;
 
 export const StyledConditionRow2 = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
   margin-top: 34px;
   padding-left: 26px;
 `;
