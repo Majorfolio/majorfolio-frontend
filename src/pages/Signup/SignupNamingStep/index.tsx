@@ -31,28 +31,11 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
     hasTextfieldError,
     onNicknameChange,
     helperText,
-    borderColor,
-    borderColorOnHover,
-    borderColorOnFocus,
     isNicknameValid,
     onNicknameValidation,
     nickname,
   } = useSignupNaming();
-
-  const {
-    updateNickname,
-    nickName,
-    emailId,
-    universityName,
-    studentId,
-    major1,
-    major2,
-    personalAgree,
-    serviceAgree,
-    marketingAgree,
-  } = userStore((state) => state);
-  const accessToken = useAuthStore((state) => state.accessToken)!;
-  const setIsMember = useAuthStore((state) => state.setIsMember)!;
+  const updateNickname = userStore((state) => state.updateNickname);
 
   const textfieldIcon = hasTextfieldError ? (
     <ErrorDefaultIcon />
@@ -93,22 +76,6 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
             category="primary"
             onClick={async () => {
               updateNickname(nickname);
-              // TODO
-              await signup(
-                {
-                  nickName: nickname,
-                  emailId,
-                  universityName,
-                  studentId,
-                  major1,
-                  major2,
-                  personalAgree: true,
-                  serviceAgree: true,
-                  marketingAgree: true,
-                },
-                accessToken,
-              );
-              setIsMember();
               onNext();
             }}
           >

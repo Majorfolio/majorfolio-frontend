@@ -90,31 +90,41 @@ export default function SignupDetailsStep({
     //   userDetails[CATEGORIES.MINOR_STR].value,
     // ];
 
-    setAreFieldsValid({
-      school: CATEGORY_OPTIONS.SCHOOLS.some(
-        (schoolOption) => school === schoolOption,
-      ),
-      admissionYear: CATEGORY_OPTIONS.ADMISSION_YEARS.some(
-        (admissionYearOption) => admissionYearOption === admissionYear,
-      ),
-      major: CATEGORY_OPTIONS.DEPARTMENTS.some(
-        (departmentOption) => departmentOption === major,
-      ),
-      minor:
-        !minor ||
-        minor !== major ||
+    const isSchoolValid = CATEGORY_OPTIONS.SCHOOLS.some(
+      (schoolOption) => school === schoolOption,
+    );
+
+    const isAdmissionYearValid = CATEGORY_OPTIONS.ADMISSION_YEARS.some(
+      (admissionYearOption) => admissionYearOption === admissionYear,
+    );
+
+    const isMajorValid = CATEGORY_OPTIONS.DEPARTMENTS.some(
+      (departmentOption) => departmentOption === major,
+    );
+
+    const isMinorValid =
+      !minor ||
+      (minor !== major &&
         CATEGORY_OPTIONS.DEPARTMENTS.some(
           (departmentOption) => departmentOption === minor,
-        ),
-    });
+        ));
 
-    updateDetails({
-      universityName: school,
-      studentId: Number(admissionYear.slice(0, 2)),
-      major1: major,
-      major2: minor,
+    if (isSchoolValid && isAdmissionYearValid && isMajorValid && isMinorValid) {
+      updateDetails({
+        universityName: school,
+        studentId: Number(admissionYear.slice(0, 2)),
+        major1: major,
+        major2: minor,
+      });
+      onNext();
+    }
+
+    setAreFieldsValid({
+      school: isSchoolValid,
+      admissionYear: isAdmissionYearValid,
+      major: isMajorValid,
+      minor: isMinorValid,
     });
-    onNext();
   };
 
   return (

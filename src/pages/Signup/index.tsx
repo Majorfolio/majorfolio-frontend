@@ -25,9 +25,9 @@ interface SignupPropsType {
 }
 
 export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
-  const [step, setStep] = useState<'email' | 'code' | 'details' | 'naming'>(
-    'email',
-  );
+  const [step, setStep] = useState<
+    'email' | 'code' | 'details' | 'naming' | 'terms'
+  >('email');
   const navigate = useNavigate();
   const emailId = useUserStore((state) => state.emailId);
   const isMember = useAuthStore((state) => state.isMember);
@@ -59,7 +59,10 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
         <SignupDetailsStep onNext={() => setStep('naming')} />
       )}
       {step === 'naming' && (
-        <SignupNamingStep onNext={() => navigate('/home', { replace: true })} />
+        <SignupNamingStep onNext={() => navigate('/terms')} />
+      )}
+      {step === 'terms' && (
+        <SignupNamingStep onNext={() => navigate('/', { replace: true })} />
       )}
     </StyledPageContainer>
   );

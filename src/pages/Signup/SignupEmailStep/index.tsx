@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import TextField from '../../../components/common/TextField';
 import HelperText from '../../../components/common/HelperText';
@@ -21,7 +22,15 @@ export default function SignupEmailStep({
   onNext,
   isEmailConfirmed = false,
 }: SignupPropsType) {
-  const { email, onEmailChange, isEmailValid, onEmailSubmit } = useEmail();
+  const {
+    email,
+    onEmailChange,
+    isEmailValid,
+    onEmailSubmit,
+    serverErrorMessage,
+    onDeleteAll,
+  } = useEmail();
+  const navigate = useNavigate();
 
   const transition = isEmailConfirmed ? (
     <Button type="submit" category="primary">
@@ -31,24 +40,20 @@ export default function SignupEmailStep({
     </Button>
   ) : (
     <>
-      <Button category="secondary">
+      <Button type="button" category="secondary" onClick={() => navigate('/')}>
         <Text color="main_color/blue_p" size={16} weight="bold" lineHeight="sm">
           다음에 하기
         </Text>
       </Button>
-      {isEmailValid ? (
-        <Button type="submit" category="primary">
-          <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
-            인증메일 전송
-          </Text>
-        </Button>
-      ) : (
-        <Button type="submit" category="primary" disabled>
-          <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
-            인증메일 전송
-          </Text>
-        </Button>
-      )}
+      <Button
+        type="submit"
+        category="primary"
+        disabled={!isEmailValid && Boolean(serverErrorMessage)}
+      >
+        <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
+          인증메일 전송
+        </Text>
+      </Button>
     </>
   );
 
@@ -64,15 +69,25 @@ export default function SignupEmailStep({
       인증됨
     </Tag>
   ) : (
-    <CancelDefaultIcon />
+    <button type="button" onClick={onDeleteAll}>
+      <CancelDefaultIcon />
+    </button>
+  );
+
+  const helperText = serverErrorMessage ? (
+    <HelperText type="error">{serverErrorMessage}</HelperText>
+  ) : (
+    <HelperText type="info">해당 메일주소로 메일을 보내드립니다.</HelperText>
   );
 
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        await onEmailSubmit();
-        onNext();
+        const isSuccess = await onEmailSubmit();
+        if (isSuccess) {
+          onNext();
+        }
       }}
     >
       <StyledTextContainer htmlFor="email">
@@ -91,7 +106,7 @@ export default function SignupEmailStep({
         text={email}
         onTextChange={onEmailChange}
       />
-      <HelperText>해당 메일주소로 메일을 보내드립니다.</HelperText>
+      {helperText}
       <StyledButtonContainer>{transition}</StyledButtonContainer>
     </form>
   );
