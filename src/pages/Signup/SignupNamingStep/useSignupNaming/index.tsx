@@ -40,18 +40,6 @@ export default function useSignupNaming() {
     (isNicknameValid && HELPER_TEXT.SUCCESS) ||
     (hasTextfieldError && HELPER_TEXT.NONCOMPLIANT);
 
-  const borderColor: ColorType = hasTextfieldError
-    ? 'error/error_color'
-    : 'gray/gray100';
-
-  const borderColorOnHover: ColorType = hasTextfieldError
-    ? 'error/error_color'
-    : 'gray/gray150';
-
-  const borderColorOnFocus: ColorType = hasTextfieldError
-    ? 'error/error_color'
-    : 'main_color/blue_p';
-
   const onNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const nextNickname = event.target.value;
     const whitespaceRegex = /\s/;
@@ -74,20 +62,10 @@ export default function useSignupNaming() {
     }
   };
 
-  // hasTextFieldError
-  // onNickNameChange
-  // helperText
-  // borderColor
-  // borderColorOnHover
-  // borerColorOnFocus
-
   return {
     hasTextfieldError,
     onNicknameChange,
     helperText,
-    borderColor,
-    borderColorOnHover,
-    borderColorOnFocus,
     isNicknameValid,
     onNicknameValidation,
     nickname,
