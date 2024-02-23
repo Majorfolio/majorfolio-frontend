@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import TextField from '../../../components/common/TextField';
 import HelperText from '../../../components/common/HelperText';
@@ -22,6 +23,7 @@ export default function SignupCodeStep({
   isEmailConfirmed = false,
 }: SignupPropsType) {
   const { code, onCodeChange, onCodeSubmit, isCodeEmpty } = useCode();
+  const navigate = useNavigate();
 
   const transition = isEmailConfirmed ? (
     <Button type="submit" category="primary">
@@ -31,9 +33,15 @@ export default function SignupCodeStep({
     </Button>
   ) : (
     <>
-      <Button category="secondary">
+      <Button
+        category="secondary"
+        type="button"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
         <Text color="main_color/blue_p" size={16} weight="bold" lineHeight="sm">
-          다음에 하기
+          인증번호 재발송
         </Text>
       </Button>
       {isCodeEmpty ? (
