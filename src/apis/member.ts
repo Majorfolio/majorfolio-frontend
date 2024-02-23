@@ -76,31 +76,22 @@ export const getAuth = async (idToken: string) => {
   }
 };
 
-export const sendCodeToEmail = async (
-  email: string,
-  accessToken: string,
-): Promise<number> => {
-  try {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL_CODE}`,
-      {
-        method: HTTP_METHODS.POST,
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-        }),
+export const sendCodeToEmail = async (email: string, accessToken: string) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL_CODE}`,
+    {
+      method: HTTP_METHODS.POST,
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
-    );
-    const { result } = await response.json();
-    const { emailId } = result;
-    return emailId;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+      body: JSON.stringify({
+        email,
+      }),
+    },
+  );
+  const data = await response.json();
+  return data;
 };
 
 export const validateCode = async (
@@ -200,11 +191,14 @@ export const getMy = async (authStore: string) => {
   const request0ptions = {
     method: 'GET',
     headers: {
-      "Authorization": `Bearer ${authStore}`
-    }
+      Authorization: `Bearer ${authStore}`,
+    },
   };
 
-  const response = await fetch(`https://majorfolio-server.shop/my/`, request0ptions);
+  const response = await fetch(
+    `https://majorfolio-server.shop/my/`,
+    request0ptions,
+  );
   const data = await response.json();
   return data;
 };
