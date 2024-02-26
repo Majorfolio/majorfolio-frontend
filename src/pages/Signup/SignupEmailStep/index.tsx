@@ -69,7 +69,7 @@ export default function SignupEmailStep({
       인증됨
     </Tag>
   ) : (
-    <button type="button" onClick={onDeleteAll}>
+    <button type="button" onClick={onDeleteAll} aria-label='deleteAll'>
       <CancelDefaultIcon />
     </button>
   );

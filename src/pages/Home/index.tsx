@@ -92,15 +92,16 @@ const Home = () => {
             onClick={() => {
               navigate('/');
             }}
+            aria-label='prev'
           >
             <AppLogoIcon />
           </button>
         }
         icons={[
-          <button type="button" onClick={onToggle}>
+          <button type="button" onClick={onToggle} aria-label='cart'>
             <CartDefaultIcon />
           </button>,
-          <button type="button" onClick={onToggle}>
+          <button type="button" onClick={onToggle} aria-label='alarm'>
             <NotificationDefaultIcon />
           </button>,
         ]}

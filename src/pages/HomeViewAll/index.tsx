@@ -101,7 +101,7 @@ const HomeViewAll = () => {
     <PageContainer>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
             <ArrowBackDefaultIcon />
           </button>
         }
@@ -111,10 +111,10 @@ const HomeViewAll = () => {
           </Text>
         }
         icons={[
-          <button type="button" onClick={onToggle}>
+          <button type="button" onClick={onToggle} aria-label='cart'>
             <CartDefaultIcon />
           </button>,
-          <button type="button" onClick={onToggle}>
+          <button type="button" onClick={onToggle} aria-label='alarm'>
             <NotificationDefaultIcon />
           </button>,
         ]}
