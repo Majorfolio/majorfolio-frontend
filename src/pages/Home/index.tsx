@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import {
-  CardWrapper,
   ContentPageContainer,
   HomeContainer,
   PageContainer,
@@ -32,6 +31,7 @@ import {
 } from '../../assets/icons';
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
+import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 // import materials from '../../apis/materials-dummy'
@@ -129,7 +129,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {homeMaterials?.newUpload &&
+              {homeMaterials?.newUpload ?
                 homeMaterials.newUpload.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -147,7 +147,15 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                })}
+                }) : (
+                  <>
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                  </>
+                )}
             </HomeMaterialCardWrapper>
 
             <HomeTagCardTitle
@@ -156,7 +164,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {homeMaterials?.best &&
+              {homeMaterials?.best ?
                 homeMaterials.best.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -174,15 +182,23 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                })}
+                }) : (
+                  <>
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />     
+                    <HomeMaterialCardSkeleton isBig={false} />             
+                  </>
+                )}
             </HomeMaterialCardWrapper>
 
             <HomeTagCardTitle
               title="최근에 본 자료"
               category={currentCategory}
             />
-            <CardWrapper>
-              {materials &&
+            <HomeMaterialCardWrapper>
+              {materials ?
                 materials.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -200,8 +216,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                })}
-            </CardWrapper>
+                }) : (
+                  <>
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />                  
+                  </>
+                )}
+            </HomeMaterialCardWrapper>
           </ContentPageContainer>
         </HomeContainer>
 
