@@ -14,7 +14,7 @@ import phone3 from '../../assets/images/landing/landing-phone3.png';
 
 const Landing = () => {
   const handleBtn = () => {
-    window.open('https://han.gl/JktiJy');
+    window.open('https://han.gl/slk5R');
   };
   return (
     <S.Container>
