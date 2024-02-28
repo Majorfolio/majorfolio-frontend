@@ -5,7 +5,11 @@ import UploadInProgresStep from './UploadInProgressStep';
 import UploadGuidelineStep from './UploadGuidelineStep';
 import UploadCautionStep from './UploadCautionStep';
 import { SecondaryTopbar } from '../../components/common/TopBar';
-import { CancelDefaultIcon, CloseDefaultIcon } from '../../assets/icons';
+import {
+  ArrowBackDefaultIcon,
+  CancelDefaultIcon,
+  CloseDefaultIcon,
+} from '../../assets/icons';
 import Text from '../../components/common/Text';
 
 enum Step {
@@ -19,14 +23,21 @@ export default function Upload() {
   const navigate = useNavigate();
 
   const [step, setStep] = useState<Step>(Step.Default);
+
+  const transitionButton =
+    step === Step.Default ? (
+      <button type="button" onClick={() => navigate('/')}>
+        <CloseDefaultIcon />
+      </button>
+    ) : (
+      <button type="button" onClick={() => navigate(-1)}>
+        <ArrowBackDefaultIcon />
+      </button>
+    );
   return (
     <>
       <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate('/')}>
-            <CloseDefaultIcon />
-          </button>
-        }
+        transition={transitionButton}
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
             업로드
