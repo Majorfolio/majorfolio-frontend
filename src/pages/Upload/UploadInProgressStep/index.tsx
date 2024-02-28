@@ -17,6 +17,8 @@ import { PageContainer } from '../../Home/index.styles';
 import uploadFile from '../../../apis/assignment';
 import useAuthStore from '../../../store/authStore';
 import useMaterialStore from '../../../store/materialStore';
+import useModal from '../../../hooks/common/useModal';
+import Modal from '../../../components/common/Modal';
 
 interface IFile {
   url: string;
@@ -45,9 +47,28 @@ export default function UploadInProgresStep({
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
+  const {
+    modalRef,
+    category,
+    activateModal,
+    closePrimarily,
+    closeSecondarily,
+  } = useModal();
+
   const onFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
+    const firstFile = selectedFiles?.[0];
+
+    // TODO validate file based on server-side validation, or by reading the file content
+    // TODO upload mock file upload to see if it works, when browser doesn't act default
+    if (firstFile.type !== 'application/pdf') {
+      activateModal('FEEDBACK_INVALID_FORMAT', {
+        primaryAction: () => {},
+      });
+      return;
+    }
+
     setCurrentFile(selectedFiles?.[0]);
   };
 
@@ -212,6 +233,12 @@ export default function UploadInProgresStep({
         />
       </SomeContainer>
       <BottomButtonBar transitions={transitions} />
+      <Modal
+        modalRef={modalRef}
+        category={category}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
     </PageContainer>
   );
 }
