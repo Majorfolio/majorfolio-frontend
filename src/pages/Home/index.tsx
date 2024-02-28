@@ -47,7 +47,13 @@ const Home = () => {
   const authStore = useAuthStore((state) => state.accessToken);
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
-  const { modalRef, onToggle } = useModal();
+  const {
+    modalRef,
+    category: modalCategory,
+    activateModal,
+    closePrimarily,
+    closeSecondarily,
+  } = useModal();
 
   const updateCategory = (category: number) => {
     setCurrentCategory(category);
@@ -97,10 +103,24 @@ const Home = () => {
           </button>
         }
         icons={[
-          <button type="button" onClick={onToggle}>
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+          >
             <CartDefaultIcon />
           </button>,
-          <button type="button" onClick={onToggle}>
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+          >
             <NotificationDefaultIcon />
           </button>,
         ]}
@@ -208,10 +228,9 @@ const Home = () => {
       </PageContainer>
       <Modal
         modalRef={modalRef}
-        type="TO_BE_UPDATED"
-        onToggle={onToggle}
-        primaryAction={() => {}}
-        secondaryAction={() => {}}
+        category={modalCategory}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
       />
     </>
   );

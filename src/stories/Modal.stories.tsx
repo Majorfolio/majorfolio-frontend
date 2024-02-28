@@ -14,7 +14,8 @@ type Story = StoryObj<typeof meta>;
 
 export const ToBeUpdated: Story = {
   args: {
-    type: 'TO_BE_UPDATED',
-    onToggle: () => {},
+    category: 'TO_BE_UPDATED',
+    onPrimaryAction: () => {},
+    onSecondaryAction: () => {},
   },
 };
