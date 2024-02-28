@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import Text from '../Text'
 import { BannerWrapper, ContentWrapper, ImgWrapper, TagWrapper, TextWrapper } from './index.styles'
 import AllTagBig from '../AllTagBig'
-// import bellIcon from '../../assets/images/landing/landing-bell.png';
 import bellIcon from '../../../assets/images/landing/landing-bell.png';
 
 
