@@ -8,12 +8,17 @@ import { SecondaryTopbar } from '../../components/common/TopBar';
 import { CancelDefaultIcon, CloseDefaultIcon } from '../../assets/icons';
 import Text from '../../components/common/Text';
 
+enum Step {
+  Default,
+  InProgress,
+  Guideline,
+  Caution,
+}
+
 export default function Upload() {
   const navigate = useNavigate();
 
-  const [step, setStep] = useState<
-    'default' | 'inProgress' | 'guideline' | 'caution'
-  >('default');
+  const [step, setStep] = useState<Step>(Step.Default);
   return (
     <>
       <SecondaryTopbar
@@ -29,16 +34,16 @@ export default function Upload() {
         }
         icons={[]}
       />
-      {step === 'default' && (
-        <UploadDefaultStep onNext={() => setStep('inProgress')} />
+      {step === Step.Default && (
+        <UploadDefaultStep onNext={() => setStep(Step.InProgress)} />
       )}
-      {step === 'inProgress' && (
-        <UploadInProgresStep onNext={() => setStep('guideline')} />
+      {step === Step.InProgress && (
+        <UploadInProgresStep onNext={() => setStep(Step.Guideline)} />
       )}
-      {step === 'guideline' && (
-        <UploadGuidelineStep onNext={() => setStep('caution')} />
+      {step === Step.Guideline && (
+        <UploadGuidelineStep onNext={() => setStep(Step.Caution)} />
       )}
-      {step === 'caution' && (
+      {step === Step.Caution && (
         <UploadCautionStep onNext={() => navigate('/', { replace: true })} />
       )}
     </>
