@@ -14,7 +14,7 @@ import ScoreRow, {
 } from './index.styles';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { PageContainer } from '../../Home/index.styles';
-import uploadFile from '../../../apis/assignment';
+import sendFile from '../../../apis/assignment';
 import useAuthStore from '../../../store/authStore';
 import useMaterialStore from '../../../store/materialStore';
 import useModal from '../../../hooks/common/useModal';
@@ -55,7 +55,7 @@ export default function UploadInProgresStep({
     closeSecondarily,
   } = useModal();
 
-  const onFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
+  const selectFile = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
     const firstFile = selectedFiles?.[0];
@@ -72,10 +72,10 @@ export default function UploadInProgresStep({
     setCurrentFile(selectedFiles?.[0]);
   };
 
-  const onFileUpload = async () => {
+  const uploadFile = async () => {
     if (!currentFile) return;
 
-    const response = await uploadFile(
+    const response = await sendFile(
       currentFile,
       {
         title: titleState.title,
@@ -102,7 +102,7 @@ export default function UploadInProgresStep({
 
   const fileSectionItem = (
     <UploadItemWrapper>
-      <UploadButton type="action" onChange={onFileSelect} file={currentFile} />
+      <UploadButton type="action" onChange={selectFile} file={currentFile} />
       <HelperTextWrapper>
         <HelperText>파일 업로드 시, PDF파일로 업로드해주세요.</HelperText>
       </HelperTextWrapper>
@@ -211,7 +211,7 @@ export default function UploadInProgresStep({
       text: '업로드하기',
       onAction: async () => {
         // TODO upload file when user consents to the terms and conditions
-        await onFileUpload();
+        await uploadFile();
         onNext();
       },
     },
