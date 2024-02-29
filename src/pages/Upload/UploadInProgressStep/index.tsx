@@ -21,6 +21,7 @@ import useMaterialStore from '../../../store/materialStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
 import { useNextStep } from '..';
+import UploadRoutes from '../../index.types';
 
 interface IFile {
   url: string;
@@ -97,7 +98,7 @@ export default function UploadInProgresStep() {
       const { isRegisterPhoneNumber } = result;
       if (!isRegisterPhoneNumber) {
         activateModal('REQUIRE_PHONE_NUMBER', {
-          primaryAction: () => {},
+          primaryAction: () => navigate(UploadRoutes.PhoneNumber),
           secondaryAction: () => navigate(-1),
         });
       }

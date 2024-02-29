@@ -7,8 +7,11 @@ import useText from '../../../hooks/common/useText';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
 import StyledItemRow from './index.styles';
+import { useNavigate } from 'react-router-dom';
+import UploadRoutes from '../../index.types';
 
 export default function UploadCollectPhoneNumberStep() {
+  const navigate = useNavigate();
   const description = (
     <ExpandedDescription
       normalText="자료 업로드를 위해"
@@ -26,7 +29,11 @@ export default function UploadCollectPhoneNumberStep() {
   );
 
   const saveButton = (
-    <Button type="button" category="primary" onClick={() => {}}>
+    <Button
+      type="button"
+      category="primary"
+      onClick={() => navigate(`/upload/${UploadRoutes.Guideline}`)}
+    >
       <Text size={16} weight="bold" lineHeight="sm">
         저장하기
       </Text>

@@ -20,6 +20,7 @@ import UploadInProgresStep from './Upload/UploadInProgressStep';
 import UploadGuidelineStep from './Upload/UploadGuidelineStep';
 import UploadRoutes from './index.types';
 import UploadCautionStep from './Upload/UploadCautionStep';
+import UploadCollectPhoneNumberStep from './Upload/UploadCollectPhoneNumberStep';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -93,6 +94,10 @@ const Router = () => {
             {
               path: UploadRoutes.Caution,
               element: <UploadCautionStep />,
+            },
+            {
+              path: UploadRoutes.PhoneNumber,
+              element: <UploadCollectPhoneNumberStep />,
             },
           ],
         },
