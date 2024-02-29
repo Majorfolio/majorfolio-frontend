@@ -98,7 +98,7 @@ export default function UploadInProgresStep() {
       const { isRegisterPhoneNumber } = result;
       if (!isRegisterPhoneNumber) {
         activateModal('REQUIRE_PHONE_NUMBER', {
-          primaryAction: () => navigate(UploadRoutes.PhoneNumber),
+          primaryAction: () => navigate(`../${UploadRoutes.PhoneNumber}`),
           secondaryAction: () => navigate(-1),
         });
       }
