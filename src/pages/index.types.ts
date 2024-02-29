@@ -1,7 +1,8 @@
 enum UploadRoutes {
-  Default = '/upload',
-  InProgress = '/upload/in-progress',
-  Guideline = '/upload/guideline',
-  Caution = '/upload/caution',
+  Default = '',
+  InProgress = 'in-progress',
+  Guideline = 'guideline',
+  Caution = 'caution',
+  PhoneNumber = 'collect-phone-number',
 }
 export default UploadRoutes;

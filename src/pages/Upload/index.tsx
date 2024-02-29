@@ -27,26 +27,28 @@ type UploadLocationType = { pathname: UploadRoutes };
 
 export default function Upload() {
   const navigate = useNavigate();
-  const { pathname } = useLocation() as UploadLocationType;
+  const { pathname } = useLocation();
+  const segment = pathname.split('/upload').slice(-1)[0] as UploadRoutes;
 
   const [step, setStep] = useState<UploadRoutes>(UploadRoutes.Default);
 
   const navigateToHome = () => navigate('/');
 
   useEffect(() => {
-    setStep(pathname);
-  }, [pathname, setStep]);
+    console.log(segment);
+    setStep(segment);
+  }, [segment, setStep]);
 
   const navigateToNextStep = () => {
     if (step === UploadRoutes.Default) {
       setStep(UploadRoutes.InProgress);
-      navigate(UploadRoutes.InProgress);
+      navigate(`/upload/${UploadRoutes.InProgress}`);
     } else if (step === UploadRoutes.InProgress) {
       setStep(UploadRoutes.Guideline);
-      navigate(UploadRoutes.Guideline);
+      navigate(`/upload/${UploadRoutes.Guideline}`);
     } else if (step === UploadRoutes.Guideline) {
       setStep(UploadRoutes.Caution);
-      navigate(UploadRoutes.Caution);
+      navigate(`/upload/${UploadRoutes.Caution}`);
     }
   };
 
