@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { Sign } from 'crypto';
 import {
   BottomBarContainer,
   CustomRadioNavigation,
@@ -26,81 +24,45 @@ import useModal from '../../../hooks/common/useModal';
 import Modal from '../Modal';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 
+export enum Path {
+  Home = '/home',
+  MaterialBox = '/material-box',
+  Upload = '/upload',
+  My = '/my',
+  Signin = '/signin',
+  Signup = '/signup',
+}
+
 export default function BottomBar() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState<Path>(Path.Home);
   const navigate = useNavigate();
-  const { modalRef, onToggle } = useModal();
+  const {
+    modalRef,
+    activateModal,
+    closePrimarily,
+    closeSecondarily,
+    category: modalCategory,
+  } = useModal();
   const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('guest');
 
-  console.log(`isusersignedin${isUserSignedin}`);
-  const primaryAction = () => {
-    // TODO
-    // 자료함 버튼을 눌렀을 때
-    // 로그인 안 되어있다 => 로그인 요청
-    // 회원가입 안 되어있다 => 회원가입 요청
+  const redirect = (path: Path) => {
     if (!isUserSignedin) {
-      navigate('/signin');
+      activateModal('REQUIRE_SIGNIN', {
+        primaryAction: () => navigate(Path.Signin),
+      });
     } else if (!hasUserVerifiedSchool) {
-      navigate('/signup');
+      activateModal('REQUIRE_SIGNUP', {
+        primaryAction: () => navigate(Path.Signup),
+      });
     } else {
       // 원하는 페이지로 이동
+      setCurrentPage(path);
+      navigate(path);
     }
   };
 
-  const handleNavigationClick = (page: number) => {
-    switch (page) {
-      case 0:
-        navigate('/home');
-        setCurrentPage(page);
-        break;
-      case 1:
-        // if (!isUserSignedin) {
-        // onToggle();
-        // }
-
-        if (!isUserSignedin) {
-          onToggle();
-        } else if (!hasUserVerifiedSchool) {
-          onToggle();
-        } else {
-          setCurrentPage(page);
-          navigate('/material-box');
-        }
-        break;
-      case 2:
-        // navigate('/upload');
-        // if (!isUserSignedin) {
-        // onToggle();
-        // }
-
-        if (!isUserSignedin) {
-          onToggle();
-        } else if (!hasUserVerifiedSchool) {
-          onToggle();
-        } else {
-          setCurrentPage(page);
-          navigate('/upload');
-        }
-        break;
-      case 3:
-        // navigate('/my');
-        // if (!isUserSignedin) {
-        // onToggle();
-
-        if (!isUserSignedin) {
-          onToggle();
-        } else if (!hasUserVerifiedSchool) {
-          onToggle();
-        } else {
-          setCurrentPage(page);
-          navigate('/my');
-        }
-        // }
-        break;
-      default:
-        break;
-    }
-
+  const handleNavigationClick = (path: Path) => {
+    redirect(path);
     // 페이지 이동 후 새로고침, 스크롤 위치 맨 위
     // window.location.reload();
     // window.scrollTo(0, 0);
@@ -115,34 +77,34 @@ export default function BottomBar() {
             type="radio"
             id="home"
             name="bottomBar"
-            checked={currentPage === 0}
-            onChange={() => handleNavigationClick(0)}
+            checked={currentPage === Path.Home}
+            onChange={() => handleNavigationClick(Path.Home)}
           />
           <CustomRadioNavigation
             type="radio"
             id="taskbox"
             name="bottomBar"
-            checked={currentPage === 1}
-            onChange={() => handleNavigationClick(1)}
+            checked={currentPage === Path.MaterialBox}
+            onChange={() => handleNavigationClick(Path.MaterialBox)}
           />
           <CustomRadioNavigation
             type="radio"
             id="upload"
             name="bottomBar"
-            checked={currentPage === 2}
-            onChange={() => handleNavigationClick(2)}
+            checked={currentPage === Path.Upload}
+            onChange={() => handleNavigationClick(Path.Upload)}
           />
           <CustomRadioNavigation
             type="radio"
             id="my"
             name="bottomBar"
-            checked={currentPage === 3}
-            onChange={() => handleNavigationClick(3)}
+            checked={currentPage === Path.My}
+            onChange={() => handleNavigationClick(Path.My)}
           />
         </RadioNavigationWrapper>
 
         <IconsContainer>
-          {currentPage === 0 ? (
+          {currentPage === Path.Home ? (
             <IconWrapper>
               <HomeFilledIcon />
               <Text
@@ -162,7 +124,7 @@ export default function BottomBar() {
               </Text>
             </IconWrapper>
           )}
-          {currentPage === 1 ? (
+          {currentPage === Path.MaterialBox ? (
             <IconWrapper>
               <TaskboxFilledIcon />
               <Text
@@ -182,7 +144,7 @@ export default function BottomBar() {
               </Text>
             </IconWrapper>
           )}
-          {currentPage === 2 ? (
+          {currentPage === Path.Upload ? (
             <IconWrapper>
               <UploadFilledIcon />
               <Text
@@ -202,7 +164,7 @@ export default function BottomBar() {
               </Text>
             </IconWrapper>
           )}
-          {currentPage === 3 ? (
+          {currentPage === Path.My ? (
             <IconWrapper>
               <MyFilledIcon />
               <Text
@@ -225,10 +187,10 @@ export default function BottomBar() {
         </IconsContainer>
       </BottomBarContainer>
       <Modal
-        onToggle={onToggle}
-        type={!isUserSignedin ? 'REQUIRE_SIGNIN' : 'REQUIRE_SIGNUP'}
+        category={modalCategory}
         modalRef={modalRef}
-        primaryAction={primaryAction}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
       />
     </StickyContainer>
   );

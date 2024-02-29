@@ -1,201 +1,212 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonIconWrapper, ButtonText, ButtonWrapper, CategoryButtonsWrapper, CustomRadioInput } from './index.styles';
-import { 
-  AllSchoolsFilledIcon, 
-  AllSchoolsDefaultIcon, 
-  MySchoolFilledIcon, 
-  MySchoolDefaultIcon, 
-  MyDepartmentFilledIcon, 
-  MyDepartmentDefaultIcon, 
-  MyClassFilledIcon, 
-  MyClassDefaultIcon 
+import {
+  ButtonIconWrapper,
+  ButtonText,
+  ButtonWrapper,
+  CategoryButtonsWrapper,
+  CustomRadioInput,
+} from './index.styles';
+import {
+  AllSchoolsFilledIcon,
+  AllSchoolsDefaultIcon,
+  MySchoolFilledIcon,
+  MySchoolDefaultIcon,
+  MyDepartmentFilledIcon,
+  MyDepartmentDefaultIcon,
+  MyClassFilledIcon,
+  MyClassDefaultIcon,
 } from '../../../assets/icons';
 import Text from '../../common/Text';
 import HOME_CATEGORY from '../HomeCategory/index.types';
 import useModal from '../../../hooks/common/useModal';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 import Modal from '../../common/Modal';
+import { Path } from '../../common/BottomBar';
 
 interface HomeCategoryButtonSectionProps {
   currentCategory?: number;
   updateCategory: (newState: number) => void;
 }
 
-function HomeCategoryButtonSection({ currentCategory, updateCategory }: HomeCategoryButtonSectionProps) {
+enum Category {
+  AllSchool,
+  MySchool,
+  MyDepartment,
+  MyClass,
+}
+
+function HomeCategoryButtonSection({
+  currentCategory,
+  updateCategory,
+}: HomeCategoryButtonSectionProps) {
   const navigate = useNavigate();
-  const { modalRef, onToggle } = useModal();
+  const {
+    modalRef,
+    category: modalCategory,
+    activateModal,
+    closePrimarily,
+    closeSecondarily,
+  } = useModal();
   const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('member');
 
-  const primaryAction = () => {
+  const redirect = (category: Category) => {
     if (!isUserSignedin) {
-      navigate('/signin');
+      activateModal('REQUIRE_SIGNIN', {
+        primaryAction: () => navigate(Path.Signin),
+      });
     } else if (!hasUserVerifiedSchool) {
-      navigate('/signup');
+      activateModal('REQUIRE_SIGNUP', {
+        primaryAction: () => navigate(Path.Signup),
+      });
     } else {
       // 원하는 페이지로 이동
-    }
-  };
-
-  const handleButtonClick = (category: number) => {
-    switch (category) {
-      case HOME_CATEGORY.ALL_UNIV:
-        updateCategory(category);
-        break;
-
-      case HOME_CATEGORY.MY_UNIV:
-        if (!isUserSignedin) {
-          onToggle();
-        } else if (!hasUserVerifiedSchool) {
-          onToggle();
-        } else {
-          updateCategory(category);
-        }
-        break;
-
-      case HOME_CATEGORY.MY_MAJOR:
-        if (!isUserSignedin) {
-          onToggle();
-        } else if (!hasUserVerifiedSchool) {
-          onToggle();
-        } else {
-          updateCategory(category);
-        }
-        break;
-
-      case HOME_CATEGORY.MY_CLASS:
-        if (!isUserSignedin) {
-          onToggle();
-        } else if (!hasUserVerifiedSchool) {
-          onToggle();
-        } else {
-          onToggle();
-        }
-        break;
-
-      default:
-        break;
+      updateCategory(category);
     }
   };
 
   return (
     <CategoryButtonsWrapper>
-      <ButtonWrapper onClick={() => handleButtonClick(0)}>
+      <ButtonWrapper onClick={() => redirect(Category.AllSchool)}>
         <CustomRadioInput
-          type='radio'
-          id='allSchool'
-          name='homeCategory'
-          checked={currentCategory === 0}
-          onChange={() => handleButtonClick(0)}
+          type="radio"
+          id="allSchool"
+          name="homeCategory"
+          checked={currentCategory === Category.AllSchool}
+          onChange={() => redirect(Category.AllSchool)}
         />
         <ButtonText>
-          {currentCategory === 0 
-            ? (
-              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
-                모든 학교
-              </Text>
-            ) 
-            : (
-              <Text lineHeight='sm' size={12} color='gray/gray500'>
-                모든 학교
+          {currentCategory === Category.AllSchool ? (
+            <Text
+              lineHeight="sm"
+              size={12}
+              weight="bold"
+              color="main_color/blue_p"
+            >
+              모든 학교
             </Text>
-            )
-          }
+          ) : (
+            <Text lineHeight="sm" size={12} color="gray/gray500">
+              모든 학교
+            </Text>
+          )}
         </ButtonText>
-        <ButtonIconWrapper htmlFor='allSchool'>
-          {currentCategory === 0 ? <AllSchoolsFilledIcon /> : <AllSchoolsDefaultIcon />}
+        <ButtonIconWrapper htmlFor="allSchool">
+          {currentCategory === Category.AllSchool ? (
+            <AllSchoolsFilledIcon />
+          ) : (
+            <AllSchoolsDefaultIcon />
+          )}
         </ButtonIconWrapper>
       </ButtonWrapper>
 
-      <ButtonWrapper onClick={() => handleButtonClick(1)}>
+      <ButtonWrapper onClick={() => redirect(Category.MySchool)}>
         <CustomRadioInput
-          type='radio'
-          id='mySchool'
-          name='homeCategory'
-          checked={currentCategory === 1}
-          onChange={() => handleButtonClick(1)}
+          type="radio"
+          id="mySchool"
+          name="homeCategory"
+          checked={currentCategory === Category.MySchool}
+          onChange={() => redirect(Category.MySchool)}
         />
         <ButtonText>
-          {currentCategory === 1
-            ? (
-              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
-                내 학교
-              </Text>
-            ) 
-            : (
-              <Text lineHeight='sm' size={12} color='gray/gray500'>
-                내 학교
+          {currentCategory === Category.MySchool ? (
+            <Text
+              lineHeight="sm"
+              size={12}
+              weight="bold"
+              color="main_color/blue_p"
+            >
+              내 학교
             </Text>
-            )
-          }
+          ) : (
+            <Text lineHeight="sm" size={12} color="gray/gray500">
+              내 학교
+            </Text>
+          )}
         </ButtonText>
-        <ButtonIconWrapper htmlFor='mySchool'>
-          {currentCategory === 1 ? <MySchoolFilledIcon /> : <MySchoolDefaultIcon />}
+        <ButtonIconWrapper htmlFor="mySchool">
+          {currentCategory === Category.MySchool ? (
+            <MySchoolFilledIcon />
+          ) : (
+            <MySchoolDefaultIcon />
+          )}
         </ButtonIconWrapper>
       </ButtonWrapper>
 
-      <ButtonWrapper onClick={() => handleButtonClick(2)}>
+      <ButtonWrapper onClick={() => redirect(Category.MyDepartment)}>
         <CustomRadioInput
-          type='radio'
-          id='myDepartment'
-          name='homeCategory'
-          checked={currentCategory === 2}
-          onChange={() => handleButtonClick(2)}
+          type="radio"
+          id="myDepartment"
+          name="homeCategory"
+          checked={currentCategory === Category.MyDepartment}
+          onChange={() => redirect(2)}
         />
         <ButtonText>
-          {currentCategory === 2
-            ? (
-              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
-                내 학과
-              </Text>
-            ) 
-            : (
-              <Text lineHeight='sm' size={12} color='gray/gray500'>
-                내 학과
+          {currentCategory === Category.MyDepartment ? (
+            <Text
+              lineHeight="sm"
+              size={12}
+              weight="bold"
+              color="main_color/blue_p"
+            >
+              내 학과
             </Text>
-            )
-          }
+          ) : (
+            <Text lineHeight="sm" size={12} color="gray/gray500">
+              내 학과
+            </Text>
+          )}
         </ButtonText>
-        <ButtonIconWrapper htmlFor='myDepartment'>
-          {currentCategory === 2 ? <MyDepartmentFilledIcon /> : <MyDepartmentDefaultIcon />}
+        <ButtonIconWrapper htmlFor="myDepartment">
+          {currentCategory === Category.MyDepartment ? (
+            <MyDepartmentFilledIcon />
+          ) : (
+            <MyDepartmentDefaultIcon />
+          )}
         </ButtonIconWrapper>
       </ButtonWrapper>
 
-      <ButtonWrapper onClick={() => handleButtonClick(3)}>
+      <ButtonWrapper onClick={() => redirect(Category.MyClass)}>
         <CustomRadioInput
-          type='radio'
-          id='myClass'
-          name='homeCategory'
-          checked={currentCategory === 3}
-          onChange={() => handleButtonClick(3)}
+          type="radio"
+          id="myClass"
+          name="homeCategory"
+          checked={currentCategory === Category.MyClass}
+          onChange={() => redirect(Category.MyClass)}
         />
         <ButtonText>
-          {currentCategory === 3
-            ? (
-              <Text lineHeight='sm' size={12} weight='bold' color='main_color/blue_p'>
-                내 수업
-              </Text>
-            ) 
-            : (
-              <Text lineHeight='sm' size={12} color='gray/gray500'>
-                내 수업
+          {currentCategory === Category.MyClass ? (
+            <Text
+              lineHeight="sm"
+              size={12}
+              weight="bold"
+              color="main_color/blue_p"
+            >
+              내 수업
             </Text>
-            )
-          }
+          ) : (
+            <Text lineHeight="sm" size={12} color="gray/gray500">
+              내 수업
+            </Text>
+          )}
         </ButtonText>
-        <ButtonIconWrapper htmlFor='myClass'>
-          {currentCategory === 3 ? <MyClassFilledIcon /> : <MyClassDefaultIcon />}
+        <ButtonIconWrapper htmlFor="myClass">
+          {currentCategory === Category.MyClass ? (
+            <MyClassFilledIcon />
+          ) : (
+            <MyClassDefaultIcon />
+          )}
         </ButtonIconWrapper>
       </ButtonWrapper>
       <Modal
-        onToggle={onToggle}
-        type={!isUserSignedin ? 'REQUIRE_SIGNIN' : 'TO_BE_UPDATED'}
+        category={modalCategory}
         modalRef={modalRef}
-        primaryAction={primaryAction}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
       />
     </CategoryButtonsWrapper>
-  )
+  );
 }
 
-export default HomeCategoryButtonSection
+export default HomeCategoryButtonSection;

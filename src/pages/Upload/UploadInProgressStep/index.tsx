@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import UploadSection from '../../../components/common/UploadSection';
 import Text from '../../../components/common/Text';
@@ -14,22 +15,22 @@ import ScoreRow, {
 } from './index.styles';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { PageContainer } from '../../Home/index.styles';
-import uploadFile from '../../../apis/assignment';
+import sendFile from '../../../apis/assignment';
 import useAuthStore from '../../../store/authStore';
 import useMaterialStore from '../../../store/materialStore';
+import useModal from '../../../hooks/common/useModal';
+import Modal from '../../../components/common/Modal';
+import { useNextStep } from '..';
+import UploadRoutes from '../../index.types';
 
 interface IFile {
   url: string;
   name: string;
 }
 
-interface UploadInProgressStepType {
-  onNext: () => void;
-}
+interface UploadInProgressStepType {}
 
-export default function UploadInProgresStep({
-  onNext,
-}: UploadInProgressStepType) {
+export default function UploadInProgresStep() {
   const {
     titleState,
     majorState,
@@ -45,16 +46,38 @@ export default function UploadInProgresStep({
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
-  const onFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
+  const navigate = useNavigate();
+  const { navigateToNextStep } = useNextStep();
+
+  const {
+    modalRef,
+    category,
+    activateModal,
+    closePrimarily,
+    closeSecondarily,
+  } = useModal();
+
+  const selectFile = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
+    const firstFile = selectedFiles?.[0];
+
+    // TODO validate file based on server-side validation, or by reading the file content
+    // TODO upload mock file upload to see if it works, when browser doesn't act default
+    if (firstFile.type !== 'application/pdf') {
+      activateModal('FEEDBACK_INVALID_FORMAT', {
+        primaryAction: () => {},
+      });
+      return;
+    }
+
     setCurrentFile(selectedFiles?.[0]);
   };
 
-  const onFileUpload = async () => {
+  const uploadFile = async () => {
     if (!currentFile) return;
 
-    const response = await uploadFile(
+    const response = await sendFile(
       currentFile,
       {
         title: titleState.title,
@@ -70,7 +93,16 @@ export default function UploadInProgresStep({
       accessToken,
     );
 
-    const data = response.json();
+    const { code, result } = await response.json();
+    if (code === 1000) {
+      const { isRegisterPhoneNumber } = result;
+      if (!isRegisterPhoneNumber) {
+        activateModal('REQUIRE_PHONE_NUMBER', {
+          primaryAction: () => navigate(`../${UploadRoutes.PhoneNumber}`),
+          secondaryAction: () => navigate(-1),
+        });
+      }
+    }
   };
 
   const fileSectionTitle = (
@@ -81,7 +113,7 @@ export default function UploadInProgresStep({
 
   const fileSectionItem = (
     <UploadItemWrapper>
-      <UploadButton type="action" onChange={onFileSelect} file={currentFile} />
+      <UploadButton type="action" onChange={selectFile} file={currentFile} />
       <HelperTextWrapper>
         <HelperText>파일 업로드 시, PDF파일로 업로드해주세요.</HelperText>
       </HelperTextWrapper>
@@ -185,13 +217,17 @@ export default function UploadInProgresStep({
   );
 
   const transitions = [
-    { text: '임시 저장', onAction: () => {} },
+    {
+      text: '임시 저장',
+      onAction: () =>
+        activateModal('TO_BE_UPDATED', { primaryAction: () => {} }),
+    },
     {
       text: '업로드하기',
       onAction: async () => {
         // TODO upload file when user consents to the terms and conditions
-        await onFileUpload();
-        onNext();
+        await uploadFile();
+        navigateToNextStep();
       },
     },
   ];
@@ -212,6 +248,12 @@ export default function UploadInProgresStep({
         />
       </SomeContainer>
       <BottomButtonBar transitions={transitions} />
+      <Modal
+        modalRef={modalRef}
+        category={category}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
     </PageContainer>
   );
 }
