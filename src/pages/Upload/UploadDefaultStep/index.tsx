@@ -8,14 +8,10 @@ import StyledPageContainer, {
 import UploadButton from '../../../components/common/UploadButton';
 import UploadSection from '../../../components/common/UploadSection';
 import Button from '../../../components/common/Button';
+import { useNextStep } from '..';
 
-interface UploadDefaultStepType {
-  onNext?: () => void;
-}
-
-export default function UploadDefaultStep({
-  onNext = () => {},
-}: UploadDefaultStepType) {
+export default function UploadDefaultStep() {
+  const { navigateToNextStep } = useNextStep();
   const uploadSectionTitle = (
     <Text color="gray/gray900" size={16} weight="bold" lineHeight="sm">
       새로 업로드
@@ -44,7 +40,7 @@ export default function UploadDefaultStep({
     <StyledPageContainer>
       <UploadSection
         title={uploadSectionTitle}
-        items={[<UploadButton type="preview" onClick={onNext} />]}
+        items={[<UploadButton type="preview" onClick={navigateToNextStep} />]}
       />
 
       <UploadSection title={draftSectionTitleRow} />

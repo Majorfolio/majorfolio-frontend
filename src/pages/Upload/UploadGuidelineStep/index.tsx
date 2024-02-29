@@ -13,14 +13,15 @@ import {
 import UploadSection from '../../../components/common/UploadSection';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { PageContainer } from '../../Home/index.styles';
+import { useNextStep } from '..';
 
 interface UploadGuidelineStepType {
   onNext: () => void;
 }
 
-export default function UploadGuidelineStep({
-  onNext,
-}: UploadGuidelineStepType) {
+export default function UploadGuidelineStep() {
+  const { navigateToNextStep, navigateToHome } = useNextStep();
+
   const description = (
     <Description
       normalText="업로드 하기 전,"
@@ -62,7 +63,7 @@ export default function UploadGuidelineStep({
     </ul>
   );
 
-  const transitions = [{ text: '확인 및 동의', onAction: onNext }];
+  const transitions = [{ text: '확인 및 동의', onAction: navigateToHome }];
 
   const notice = (
     <>

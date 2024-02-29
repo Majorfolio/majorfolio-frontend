@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+} from 'react-router-dom';
 import UploadDefaultStep from './UploadDefaultStep';
 import UploadInProgresStep from './UploadInProgressStep';
 import UploadGuidelineStep from './UploadGuidelineStep';
@@ -11,21 +16,41 @@ import {
   CloseDefaultIcon,
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
+import UploadRoutes from '../index.types';
 
-enum Step {
-  Default,
-  InProgress,
-  Guideline,
-  Caution,
-}
+type UploadContextType = {
+  navigateToNextStep: () => void;
+  navigateToHome: () => void;
+};
+type UploadLocationType = { pathname: UploadRoutes };
 
 export default function Upload() {
   const navigate = useNavigate();
+  const { pathname } = useLocation() as UploadLocationType;
 
-  const [step, setStep] = useState<Step>(Step.Default);
+  const [step, setStep] = useState<UploadRoutes>(UploadRoutes.Default);
+
+  const navigateToHome = () => navigate('/');
+
+  useEffect(() => {
+    setStep(pathname);
+  }, [pathname, setStep]);
+
+  const navigateToNextStep = () => {
+    if (step === UploadRoutes.Default) {
+      setStep(UploadRoutes.InProgress);
+      navigate(UploadRoutes.InProgress);
+    } else if (step === UploadRoutes.InProgress) {
+      setStep(UploadRoutes.Guideline);
+      navigate(UploadRoutes.Guideline);
+    } else if (step === UploadRoutes.Guideline) {
+      setStep(UploadRoutes.Caution);
+      navigate(UploadRoutes.Caution);
+    }
+  };
 
   const transitionButton =
-    step === Step.Default ? (
+    step === UploadRoutes.Default ? (
       <button type="button" onClick={() => navigate('/')}>
         <CloseDefaultIcon />
       </button>
@@ -45,18 +70,15 @@ export default function Upload() {
         }
         icons={[]}
       />
-      {step === Step.Default && (
-        <UploadDefaultStep onNext={() => setStep(Step.InProgress)} />
-      )}
-      {step === Step.InProgress && (
-        <UploadInProgresStep onNext={() => setStep(Step.Guideline)} />
-      )}
-      {step === Step.Guideline && (
-        <UploadGuidelineStep onNext={() => setStep(Step.Caution)} />
-      )}
-      {step === Step.Caution && (
-        <UploadCautionStep onNext={() => navigate('/', { replace: true })} />
-      )}
+      <Outlet
+        context={
+          { navigateToNextStep, navigateToHome } satisfies UploadContextType
+        }
+      />
     </>
   );
+}
+
+export function useNextStep() {
+  return useOutletContext<UploadContextType>();
 }

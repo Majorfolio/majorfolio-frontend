@@ -14,6 +14,12 @@ import Upload from './Upload';
 import MyMain from './My/MyMain';
 import BuyNow from './BuyNow';
 import RemittanceAdvice from './RemittanceAdvice';
+import { UploadDefaultIcon } from '../assets/icons';
+import UploadDefaultStep from './Upload/UploadDefaultStep';
+import UploadInProgresStep from './Upload/UploadInProgressStep';
+import UploadGuidelineStep from './Upload/UploadGuidelineStep';
+import UploadRoutes from './index.types';
+import UploadCautionStep from './Upload/UploadCautionStep';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -71,6 +77,24 @@ const Router = () => {
         {
           path: '/upload',
           element: <Upload />,
+          children: [
+            {
+              index: true,
+              element: <UploadDefaultStep />,
+            },
+            {
+              path: UploadRoutes.InProgress,
+              element: <UploadInProgresStep />,
+            },
+            {
+              path: UploadRoutes.Guideline,
+              element: <UploadGuidelineStep />,
+            },
+            {
+              path: UploadRoutes.Caution,
+              element: <UploadCautionStep />,
+            },
+          ],
         },
         {
           path: '/my',

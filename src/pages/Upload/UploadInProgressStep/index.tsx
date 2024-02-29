@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import UploadSection from '../../../components/common/UploadSection';
 import Text from '../../../components/common/Text';
@@ -19,19 +20,16 @@ import useAuthStore from '../../../store/authStore';
 import useMaterialStore from '../../../store/materialStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
+import { useNextStep } from '..';
 
 interface IFile {
   url: string;
   name: string;
 }
 
-interface UploadInProgressStepType {
-  onNext: () => void;
-}
+interface UploadInProgressStepType {}
 
-export default function UploadInProgresStep({
-  onNext,
-}: UploadInProgressStepType) {
+export default function UploadInProgresStep() {
   const {
     titleState,
     majorState,
@@ -46,6 +44,9 @@ export default function UploadInProgresStep({
 
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const accessToken = useAuthStore((state) => state.accessToken)!;
+
+  const navigate = useNavigate();
+  const { navigateToNextStep } = useNextStep();
 
   const {
     modalRef,
@@ -91,7 +92,16 @@ export default function UploadInProgresStep({
       accessToken,
     );
 
-    const data = response.json();
+    const { code, result } = await response.json();
+    if (code === 1000) {
+      const { isRegisterPhoneNumber } = result;
+      if (!isRegisterPhoneNumber) {
+        activateModal('REQUIRE_PHONE_NUMBER', {
+          primaryAction: () => {},
+          secondaryAction: () => navigate(-1),
+        });
+      }
+    }
   };
 
   const fileSectionTitle = (
@@ -212,7 +222,7 @@ export default function UploadInProgresStep({
       onAction: async () => {
         // TODO upload file when user consents to the terms and conditions
         await uploadFile();
-        onNext();
+        navigateToNextStep();
       },
     },
   ];

@@ -19,7 +19,7 @@ interface UploadCautionStepType {
   onNext: () => void;
 }
 
-export default function UploadCautionStep({ onNext }: UploadCautionStepType) {
+export default function UploadCautionStep() {
   const copyrightText = (
     <CautionText>
       자료의 정보 및 내용의 진실성에 대하여 메이저폴리오는 보증하지 않으며, 해당
