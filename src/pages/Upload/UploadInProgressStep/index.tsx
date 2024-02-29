@@ -216,7 +216,11 @@ export default function UploadInProgresStep() {
   );
 
   const transitions = [
-    { text: '임시 저장', onAction: () => {} },
+    {
+      text: '임시 저장',
+      onAction: () =>
+        activateModal('TO_BE_UPDATED', { primaryAction: () => {} }),
+    },
     {
       text: '업로드하기',
       onAction: async () => {
