@@ -17,6 +17,7 @@ import {
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import UploadRoutes from '../index.types';
+import StyledPageContainer from './UploadDefaultStep/index.styles';
 
 type UploadContextType = {
   navigateToNextStep: () => void;
@@ -70,11 +71,13 @@ export default function Upload() {
         }
         icons={[]}
       />
-      <Outlet
-        context={
-          { navigateToNextStep, navigateToHome } satisfies UploadContextType
-        }
-      />
+      <StyledPageContainer>
+        <Outlet
+          context={
+            { navigateToNextStep, navigateToHome } satisfies UploadContextType
+          }
+        />
+      </StyledPageContainer>
     </>
   );
 }
