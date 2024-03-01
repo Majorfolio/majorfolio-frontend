@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
@@ -40,6 +40,9 @@ const HomeViewAll = () => {
   const { category, tag } = useParams();
   let tagCardTitle: string;
   const authStore = useAuthStore((state) => state.accessToken);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const bottomRef = useRef(null);
 
   const navigate = useNavigate();
   const {
@@ -67,6 +70,82 @@ const HomeViewAll = () => {
     tagCardTitle = '최근 북마크순';
   }
 
+  const loadMoreMaterials = async () => {
+    try {
+      const nextPage = page + 1;
+      let newMaterials: MaterialViewAll | null;
+  
+      switch (category) {
+        case HOME_CATEGORY.ALL_UNIV.toString():
+          if (tag === 'new') {
+            newMaterials = await getAllUnivNewlyViewAll(nextPage, 10);
+            setAllMaterials(newMaterials);
+          } else if (tag === 'hot') {
+            newMaterials = await getAllUnivBestViewAll(nextPage, 10);
+            setAllMaterials(newMaterials);
+          }
+          break;
+        case HOME_CATEGORY.MY_UNIV.toString():
+          if (tag === 'new' && authStore) {
+            newMaterials = await getMyUnivNewlyViewAll(nextPage, 10, authStore);
+            setAllMaterials(newMaterials);
+          } else if (tag === 'hot' && authStore) {
+            newMaterials = await getMyUnivBestViewAll(nextPage, 10, authStore);
+            setAllMaterials(newMaterials);
+          }
+          break;
+        case HOME_CATEGORY.MY_CLASS.toString():
+          if (tag === 'new' && authStore) {
+            newMaterials = await getMyMajorNewlyViewAll(nextPage, 10, authStore);
+            setAllMaterials(newMaterials);
+          } else if (tag === 'hot' && authStore) {
+            newMaterials = await getMyMajorBestViewAll(nextPage, 10, authStore);
+            setAllMaterials(newMaterials);
+          }
+          break;
+        default:
+          break;
+      }
+  
+      // setAllMaterials((prevMaterials) => ({
+      //   ...prevMaterials.materialResponseList,
+      //   ...newMaterials.materialResponseList,
+      // }));
+  
+      setPage(nextPage);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error loading more materials:', error);
+      setLoading(false);
+    }
+  };
+
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    const target = entries[0];
+    if (target.isIntersecting && !loading) {
+      setLoading(true);
+      // 다음 페이지의 자료 불러오기
+      loadMoreMaterials();
+    }
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    });
+
+    if(bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [loading, allMaterials]);
+
+  /*
   useEffect(() => {
     switch (category) {
       case HOME_CATEGORY.ALL_UNIV.toString(): // 0
@@ -102,6 +181,7 @@ const HomeViewAll = () => {
         break;
     }
   }, []);
+  */
 
   return (
     <PageContainer>
@@ -171,6 +251,8 @@ const HomeViewAll = () => {
               );
             })}
         </CardsWrapper>
+
+        <div ref={bottomRef} style={{ height: '10px' }} />
       </ViewAllContainer>
       <BottomBar />
       <Modal
