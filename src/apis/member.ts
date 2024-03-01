@@ -22,6 +22,7 @@ const MEMBER_API_PATHS = {
   CHECK_NICKNAME: '/member/check-nickname',
   LOGOUT: '/member/logout',
   DELETE: '/member/delete',
+  PHONE_NUMBER: '/member/phone-number',
 };
 
 export default MEMBER_API_PATHS;
@@ -198,6 +199,22 @@ export const getMy = async (authStore: string) => {
   const response = await fetch(
     `https://majorfolio-server.shop/my/`,
     request0ptions,
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const sendContact = async (phoneNumber: string, accessToken: string) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.PHONE_NUMBER}`,
+    {
+      method: HTTP_METHODS.POST,
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(phoneNumber),
+    },
   );
   const data = await response.json();
   return data;

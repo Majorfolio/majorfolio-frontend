@@ -8,7 +8,7 @@ const ASSIGNMENT_API_SEGMENTS = {
   UPLOAD: '/assignment/upload',
 };
 
-const uploadFile = async (
+const sendFile = async (
   file: File,
   material: MaterialType,
   accessToken: string,
@@ -48,4 +48,4 @@ const uploadFile = async (
   );
 };
 
-export default uploadFile;
+export default sendFile;

@@ -9,18 +9,21 @@ import {
   StyledBodyContainer,
   StyledContentSection,
   StyledIconTextRow,
+  StyledUnderlinedText,
 } from './index.styles';
 import UploadSection from '../../../components/common/UploadSection';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { PageContainer } from '../../Home/index.styles';
+import { useNextStep } from '..';
+import { Link } from 'react-router-dom';
 
 interface UploadGuidelineStepType {
   onNext: () => void;
 }
 
-export default function UploadGuidelineStep({
-  onNext,
-}: UploadGuidelineStepType) {
+export default function UploadGuidelineStep() {
+  const { navigateToNextStep, navigateToHome } = useNextStep();
+
   const description = (
     <Description
       normalText="업로드 하기 전,"
@@ -62,7 +65,7 @@ export default function UploadGuidelineStep({
     </ul>
   );
 
-  const transitions = [{ text: '확인 및 동의', onAction: onNext }];
+  const transitions = [{ text: '확인 및 동의', onAction: navigateToHome }];
 
   const notice = (
     <>
@@ -76,9 +79,11 @@ export default function UploadGuidelineStep({
         <Text color="gray/gray900" size={14}>
           Majorfolio는 판매자와 구매자 모두가 만족하는 서비스가 되도록 노력하고
           있으며, 이용자 권리보호를 위해{' '}
-          <Text color="gray/gray900" size={14} weight="bold">
-            주의 사항 및 자료환불 조건
-          </Text>
+          <Link to="../caution">
+            <StyledUnderlinedText color="gray/gray900" size={14} weight="bold">
+              주의 사항 및 자료환불 조건
+            </StyledUnderlinedText>
+          </Link>
           에 유의하여 주시길 바랍니다.
         </Text>
       </StyledContentSection>

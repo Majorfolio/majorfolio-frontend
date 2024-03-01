@@ -10,31 +10,33 @@ import {
   StyledModalContainer,
   StyledTitleRow,
 } from './index.styles';
+import { CloseActionsType } from '../../../hooks/common/useModal/index.types';
 
-interface ModalType {
-  type:
-    | 'TO_BE_UPDATED'
-    | 'DOWNLOAD_PAID_MATERIAL'
-    | 'DOWNLOAD_PURCHASED_MATERIAL'
-    | 'CANCEL_PURCHASE'
-    | 'SWITCH_TO_PRIVATE'
-    | 'INVALID_COUPON'
-    | 'REPORT_MATERIAL'
-    | 'REPORT_USER'
-    | 'DELETE_DRAFT'
-    | 'SAVE_DRAFT'
-    | 'REQUIRE_PHONE_NUMBER'
-    | 'CHANGE_NICKNAME'
-    | 'SIGNOUT'
-    | 'REQUIRE_SCHOOL_VERIFICATION'
-    | 'REQUIRE_SIGNUP'
-    | 'CANCEL_ON_UPLOAD'
-    | 'REQUIRE_SIGNIN'
-    | 'FEEDBACK_INVALID_FORMAT';
+export type ModalCategoryType =
+  | 'TO_BE_UPDATED'
+  | 'DOWNLOAD_PAID_MATERIAL'
+  | 'DOWNLOAD_PURCHASED_MATERIAL'
+  | 'CANCEL_PURCHASE'
+  | 'SWITCH_TO_PRIVATE'
+  | 'INVALID_COUPON'
+  | 'REPORT_MATERIAL'
+  | 'REPORT_USER'
+  | 'DELETE_DRAFT'
+  | 'SAVE_DRAFT'
+  | 'REQUIRE_PHONE_NUMBER'
+  | 'CHANGE_NICKNAME'
+  | 'SIGNOUT'
+  | 'REQUIRE_SCHOOL_VERIFICATION'
+  | 'REQUIRE_SIGNUP'
+  | 'CANCEL_ON_UPLOAD'
+  | 'REQUIRE_SIGNIN'
+  | 'FEEDBACK_INVALID_FORMAT';
+
+interface ModalPropsType {
+  category: ModalCategoryType | null;
   modalRef: RefObject<HTMLDialogElement>;
-  onToggle: () => void;
-  primaryAction?: () => void;
-  secondaryAction?: () => void;
+  onPrimaryAction: () => void;
+  onSecondaryAction?: () => void;
 }
 
 const HIGHLIGHTED_WORDS = [
@@ -149,17 +151,20 @@ const MODAL_TEXTS = {
 };
 
 export function ModalCard({
-  type,
-  onToggle,
-  primaryAction = () => {},
-  secondaryAction = () => {},
-}: Omit<ModalType, 'modalRef'>) {
+  category,
+  onPrimaryAction: onPrimaryClose,
+  onSecondaryAction: onSecondaryClose = () => {},
+}: Omit<ModalPropsType, 'modalRef'>) {
   // TODO Highlight the words with the primary color
+  if (!category) {
+    return <span />;
+  }
+
   const {
     TITLE: titleText,
     BODY: bodyText,
     FOOTER: footerTexts,
-  } = MODAL_TEXTS[type];
+  } = MODAL_TEXTS[category];
 
   const title = (
     <Text color="gray/gray900" size={16} weight="bold" lineHeight="sm">
@@ -181,13 +186,7 @@ export function ModalCard({
   const footer =
     typeof footerTexts === 'string' ? (
       <StyledButtonWrapper>
-        <Button
-          category="primary"
-          onClick={() => {
-            onToggle();
-            primaryAction();
-          }}
-        >
+        <Button category="primary" onClick={onPrimaryClose}>
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             {footerTexts}
           </Text>
@@ -195,13 +194,7 @@ export function ModalCard({
       </StyledButtonWrapper>
     ) : (
       <StyledButtonWrapper>
-        <Button
-          category="secondary"
-          onClick={() => {
-            onToggle();
-            secondaryAction();
-          }}
-        >
+        <Button category="secondary" onClick={onSecondaryClose}>
           <Text
             color="main_color/blue_p"
             size={16}
@@ -211,14 +204,7 @@ export function ModalCard({
             {footerTexts[0]}
           </Text>
         </Button>
-        <Button
-          type="button"
-          category="primary"
-          onClick={() => {
-            onToggle();
-            primaryAction();
-          }}
-        >
+        <Button type="button" category="primary" onClick={onPrimaryClose}>
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
             {footerTexts[1]}
           </Text>
@@ -233,7 +219,7 @@ export function ModalCard({
   );
 }
 
-export default function Modal({ modalRef, ...props }: ModalType) {
+export default function Modal({ modalRef, ...props }: ModalPropsType) {
   return (
     <StyledDialog ref={modalRef}>
       <ModalCard {...props} />
