@@ -82,6 +82,7 @@ const HomeMaterialDetail = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='cart'
           >
             <CartDefaultIcon />
           </button>,
@@ -92,6 +93,7 @@ const HomeMaterialDetail = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='alarm'
           >
             <NotificationDefaultIcon />
           </button>,

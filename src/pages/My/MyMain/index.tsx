@@ -54,7 +54,7 @@ export default function MyMain() {
     <>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
             <ArrowBackDefaultIcon />
           </button>
         }

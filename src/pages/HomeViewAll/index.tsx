@@ -124,6 +124,7 @@ const HomeViewAll = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='cart'
           >
             <CartDefaultIcon />
           </button>,
@@ -134,6 +135,7 @@ const HomeViewAll = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='alarm'
           >
             <NotificationDefaultIcon />
           </button>,

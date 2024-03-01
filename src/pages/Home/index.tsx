@@ -111,6 +111,7 @@ const Home = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='cart'
           >
             <CartDefaultIcon />
           </button>,
@@ -121,6 +122,7 @@ const Home = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='alarm'
           >
             <NotificationDefaultIcon />
           </button>,
