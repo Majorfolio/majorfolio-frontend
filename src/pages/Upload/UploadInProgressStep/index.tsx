@@ -14,7 +14,6 @@ import ScoreRow, {
   StyledDescriptionSectionItem,
 } from './index.styles';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import { PageContainer } from '../../Home/index.styles';
 import sendFile from '../../../apis/assignment';
 import useAuthStore from '../../../store/authStore';
 import useMaterialStore from '../../../store/materialStore';
@@ -22,6 +21,9 @@ import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
 import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
+import { MainLeftContainer, MainRightContainer, PageContainer } from '../../../components/common/GlobalStyle/index.styles';
+import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
+import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 
 interface IFile {
   url: string;
@@ -234,26 +236,33 @@ export default function UploadInProgresStep() {
 
   return (
     <PageContainer>
-      <SomeContainer>
-        <Description
-          normalText="자세한 정보로"
-          boldText="자료의 구매를 유도해보세요"
+      <MainLeftContainer>
+        <MainLeftBoxTop />
+        <MainLeftBoxBottom />
+      </MainLeftContainer>
+
+      <MainRightContainer>
+        <SomeContainer>
+          <Description
+            normalText="자세한 정보로"
+            boldText="자료의 구매를 유도해보세요"
+          />
+          <UploadSection title={fileSectionTitle} items={[fileSectionItem]} />
+          <UploadSection title={titleSectionTitle} items={[titleSectionItem]} />
+          <UploadSection title={otherSectionTitle} items={[otherSectionItem]} />
+          <UploadSection
+            title={descriptionSectionTitle}
+            items={[descriptionSectionItem]}
+          />
+        </SomeContainer>
+        <BottomButtonBar transitions={transitions} />
+        <Modal
+          modalRef={modalRef}
+          category={category}
+          onPrimaryAction={closePrimarily}
+          onSecondaryAction={closeSecondarily}
         />
-        <UploadSection title={fileSectionTitle} items={[fileSectionItem]} />
-        <UploadSection title={titleSectionTitle} items={[titleSectionItem]} />
-        <UploadSection title={otherSectionTitle} items={[otherSectionItem]} />
-        <UploadSection
-          title={descriptionSectionTitle}
-          items={[descriptionSectionItem]}
-        />
-      </SomeContainer>
-      <BottomButtonBar transitions={transitions} />
-      <Modal
-        modalRef={modalRef}
-        category={category}
-        onPrimaryAction={closePrimarily}
-        onSecondaryAction={closeSecondarily}
-      />
+      </MainRightContainer>
     </PageContainer>
   );
 }

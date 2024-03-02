@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   ContentPageContainer,
   HomeContainer,
-  PageContainer,
 } from './index.styles';
+import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import AllDivider from '../../components/common/AllDivider';
 import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonSection';
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
@@ -32,6 +32,8 @@ import {
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
+import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
+import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 // import materials from '../../apis/materials-dummy'
@@ -90,45 +92,50 @@ const Home = () => {
   }, [currentCategory]);
 
   return (
-    <>
-      <PrimaryTopbar
-        title={
-          <button
-            type="button"
-            onClick={() => {
-              navigate('/');
-            }}
-            aria-label='prev'
-          >
-            <AppLogoIcon />
-          </button>
-        }
-        icons={[
-          <button
-            type="button"
-            onClick={() =>
-              activateModal('TO_BE_UPDATED', {
-                primaryAction: () => {},
-              })
-            }
-            aria-label='cart'
-          >
-            <CartDefaultIcon />
-          </button>,
-          <button
-            type="button"
-            onClick={() =>
-              activateModal('TO_BE_UPDATED', {
-                primaryAction: () => {},
-              })
-            }
-            aria-label='alarm'
-          >
-            <NotificationDefaultIcon />
-          </button>,
-        ]}
-      />
-      <PageContainer>
+    <PageContainer>
+      <MainLeftContainer>
+        <MainLeftBoxTop />
+        <MainLeftBoxBottom />
+      </MainLeftContainer>
+      
+      <MainRightContainer>
+        <PrimaryTopbar
+          title={
+            <button
+              type="button"
+              onClick={() => {
+                navigate('/');
+              }}
+              aria-label='prev'
+            >
+              <AppLogoIcon />
+            </button>
+          }
+          icons={[
+            <button
+              type="button"
+              onClick={() =>
+                activateModal('TO_BE_UPDATED', {
+                  primaryAction: () => {},
+                })
+              }
+              aria-label='cart'
+            >
+              <CartDefaultIcon />
+            </button>,
+            <button
+              type="button"
+              onClick={() =>
+                activateModal('TO_BE_UPDATED', {
+                  primaryAction: () => {},
+                })
+              }
+              aria-label='alarm'
+            >
+              <NotificationDefaultIcon />
+            </button>,
+          ]}
+        />        
         <HomeContainer>
           <BannerContainer>
             <Banner />
@@ -252,14 +259,14 @@ const Home = () => {
         </HomeContainer>
 
         <BottomBar />
-      </PageContainer>
+      </MainRightContainer>
       <Modal
         modalRef={modalRef}
         category={modalCategory}
         onPrimaryAction={closePrimarily}
         onSecondaryAction={closeSecondarily}
       />
-    </>
+    </PageContainer>
   );
 };
 

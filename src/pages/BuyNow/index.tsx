@@ -9,7 +9,6 @@ import PaymentAmountDetailSection from '../../components/home/PaymentAmountDetai
 import {
   ButtonWrapper,
   BuyNowContainer,
-  PageContainer,
   StickyBottom,
 } from './index.styles';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
@@ -18,6 +17,7 @@ import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
 import { updateBuyInfo } from '../../apis/payments';
 import useAuthStore from '../../store/authStore';
+import { PageContainer } from '../../components/common/GlobalStyle/index.styles';
 
 const BuyNow = () => {
   const { materialId } = useParams();

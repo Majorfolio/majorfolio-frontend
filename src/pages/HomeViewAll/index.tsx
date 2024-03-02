@@ -4,9 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   CardTitleWrapper,
   CardsWrapper,
-  PageContainer,
   ViewAllContainer,
 } from './index.styles';
+import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
@@ -32,6 +32,8 @@ import {
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
+import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
+import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -105,80 +107,87 @@ const HomeViewAll = () => {
 
   return (
     <PageContainer>
-      <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
-            <ArrowBackDefaultIcon />
-          </button>
-        }
-        title={
-          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            모두보기
-          </Text>
-        }
-        icons={[
-          <button
-            type="button"
-            onClick={() =>
-              activateModal('TO_BE_UPDATED', {
-                primaryAction: () => {},
-              })
-            }
-            aria-label='cart'
-          >
-            <CartDefaultIcon />
-          </button>,
-          <button
-            type="button"
-            onClick={() =>
-              activateModal('TO_BE_UPDATED', {
-                primaryAction: () => {},
-              })
-            }
-            aria-label='alarm'
-          >
-            <NotificationDefaultIcon />
-          </button>,
-        ]}
-      />
-      <ViewAllContainer>
-        <CardTitleWrapper>
-          <HomeTagCardTitle
-            title={tagCardTitle}
-            tag={tag}
-            category={0}
-            isViewAll
-          />
-        </CardTitleWrapper>
-        <CardsWrapper>
-          {allMaterials?.materialResponseList &&
-            allMaterials.materialResponseList.map((material: Material) => {
-              return (
-                <HomeMaterialCard
-                  key={material.id}
-                  isBig
-                  id={material.id}
-                  memberId={material.memberId}
-                  imageUrl={material.imageUrl}
-                  nickname={material.nickname}
-                  className={material.className}
-                  univ={material.univ}
-                  major={material.major}
-                  semester={material.semester}
-                  professor={material.professor}
-                  like={material.like}
-                />
-              );
-            })}
-        </CardsWrapper>
-      </ViewAllContainer>
-      <BottomBar />
-      <Modal
-        modalRef={modalRef}
-        category={modalCategory}
-        onPrimaryAction={closePrimarily}
-        onSecondaryAction={closeSecondarily}
-      />
+      <MainLeftContainer>
+        <MainLeftBoxTop />
+        <MainLeftBoxBottom />
+      </MainLeftContainer>
+
+      <MainRightContainer>
+        <SecondaryTopbar
+          transition={
+            <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
+              <ArrowBackDefaultIcon />
+            </button>
+          }
+          title={
+            <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+              모두보기
+            </Text>
+          }
+          icons={[
+            <button
+              type="button"
+              onClick={() =>
+                activateModal('TO_BE_UPDATED', {
+                  primaryAction: () => {},
+                })
+              }
+              aria-label='cart'
+            >
+              <CartDefaultIcon />
+            </button>,
+            <button
+              type="button"
+              onClick={() =>
+                activateModal('TO_BE_UPDATED', {
+                  primaryAction: () => {},
+                })
+              }
+              aria-label='alarm'
+            >
+              <NotificationDefaultIcon />
+            </button>,
+          ]}
+        />
+        <ViewAllContainer>
+          <CardTitleWrapper>
+            <HomeTagCardTitle
+              title={tagCardTitle}
+              tag={tag}
+              category={0}
+              isViewAll
+            />
+          </CardTitleWrapper>
+          <CardsWrapper>
+            {allMaterials?.materialResponseList &&
+              allMaterials.materialResponseList.map((material: Material) => {
+                return (
+                  <HomeMaterialCard
+                    key={material.id}
+                    isBig
+                    id={material.id}
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
+                    nickname={material.nickname}
+                    className={material.className}
+                    univ={material.univ}
+                    major={material.major}
+                    semester={material.semester}
+                    professor={material.professor}
+                    like={material.like}
+                  />
+                );
+              })}
+          </CardsWrapper>
+        </ViewAllContainer>
+        <BottomBar />
+        <Modal
+          modalRef={modalRef}
+          category={modalCategory}
+          onPrimaryAction={closePrimarily}
+          onSecondaryAction={closeSecondarily}
+        />
+      </MainRightContainer>
     </PageContainer>
   );
 };
