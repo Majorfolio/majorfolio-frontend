@@ -16,7 +16,7 @@ import {
 interface TopBarPropsType {
   transition?: ReactNode;
   title: ReactNode;
-  icons: ReactNode[];
+  icons?: ReactNode[];
 }
 
 export function PrimaryTopbar({ title, icons }: TopBarPropsType) {
@@ -25,7 +25,7 @@ export function PrimaryTopbar({ title, icons }: TopBarPropsType) {
       <StyledPrimaryTopbarWrapper>
         {title}
         <StyledIconRow>
-          {icons.map((icon) => (
+          {icons?.map((icon) => (
             <StyledIconContainer>{icon}</StyledIconContainer>
           ))}
         </StyledIconRow>
@@ -43,7 +43,7 @@ export function SecondaryTopbar({ transition, title, icons }: TopBarPropsType) {
           {title}
         </StyledLeftSection>
         <StyledIconRow>
-          {icons.map((icon) => (
+          {icons?.map((icon) => (
             <StyledIconContainer>{icon}</StyledIconContainer>
           ))}
         </StyledIconRow>
