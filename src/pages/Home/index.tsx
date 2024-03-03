@@ -44,6 +44,7 @@ const Home = () => {
     null,
   );
   const materials = getArrayFromLocalStorage('recent-materials');
+  const fiveMaterials = materials.slice(0, 5);
   const authStore = useAuthStore((state) => state.accessToken);
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
@@ -220,8 +221,8 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {materials ?
-                materials.map((material: Material) => {
+              {fiveMaterials ?
+                fiveMaterials.map((material: Material) => {
                   return (
                     <HomeMaterialCard
                       key={material.id}

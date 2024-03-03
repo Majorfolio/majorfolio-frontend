@@ -32,6 +32,7 @@ import {
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
+import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -40,9 +41,16 @@ const HomeViewAll = () => {
   const { category, tag } = useParams();
   let tagCardTitle: string;
   const authStore = useAuthStore((state) => state.accessToken);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const recentMaterials = getArrayFromLocalStorage('recent-materials');
+  const recentMaterialViewAll: MaterialViewAll = {
+    page: 1,
+    materialResponseList: recentMaterials,
+    end: true
+  };
 
   const navigate = useNavigate();
   const {
@@ -73,44 +81,61 @@ const HomeViewAll = () => {
   const loadMoreMaterials = async () => {
     try {
       const nextPage = page + 1;
-      let newMaterials: MaterialViewAll | null;
+      let newMaterials: MaterialViewAll | null = null;
   
       switch (category) {
         case HOME_CATEGORY.ALL_UNIV.toString():
           if (tag === 'new') {
             newMaterials = await getAllUnivNewlyViewAll(nextPage, 10);
-            setAllMaterials(newMaterials);
+            // if (newMaterials?.end) setIsLastPage(true);
           } else if (tag === 'hot') {
             newMaterials = await getAllUnivBestViewAll(nextPage, 10);
-            setAllMaterials(newMaterials);
+            // if (newMaterials?.end) setIsLastPage(true);
+          } else if (tag === 'undefined') {
+            setAllMaterials(recentMaterialViewAll);
+            setIsLastPage(true);
           }
           break;
         case HOME_CATEGORY.MY_UNIV.toString():
           if (tag === 'new' && authStore) {
             newMaterials = await getMyUnivNewlyViewAll(nextPage, 10, authStore);
-            setAllMaterials(newMaterials);
+            // if (newMaterials?.end) setIsLastPage(true);
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyUnivBestViewAll(nextPage, 10, authStore);
-            setAllMaterials(newMaterials);
+          } else if (tag === 'undefined') {
+            setAllMaterials(recentMaterialViewAll);
+            setIsLastPage(true);
           }
           break;
-        case HOME_CATEGORY.MY_CLASS.toString():
+        case HOME_CATEGORY.MY_MAJOR.toString():
           if (tag === 'new' && authStore) {
             newMaterials = await getMyMajorNewlyViewAll(nextPage, 10, authStore);
-            setAllMaterials(newMaterials);
+            // setAllMaterials(newMaterials);
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyMajorBestViewAll(nextPage, 10, authStore);
-            setAllMaterials(newMaterials);
+          } else if (tag === 'undefined') {
+            setAllMaterials(recentMaterialViewAll);
+            setIsLastPage(true);
           }
           break;
         default:
           break;
       }
+
+      if (newMaterials?.end) setIsLastPage(true);
+
+      if (newMaterials != null) {
+        setAllMaterials((prevMaterials: MaterialViewAll | null) => ({
+          ...prevMaterials!,
+          materialResponseList: [
+            ...(prevMaterials?.materialResponseList || []),
+            ...(newMaterials?.materialResponseList || []),
+          ],
+        }));
+        console.log("allMaterials:",allMaterials)
+      }
   
-      // setAllMaterials((prevMaterials) => ({
-      //   ...prevMaterials.materialResponseList,
-      //   ...newMaterials.materialResponseList,
-      // }));
+
   
       setPage(nextPage);
       setLoading(false);
@@ -122,7 +147,8 @@ const HomeViewAll = () => {
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting && !loading) {
+    if (target.isIntersecting && !loading && !isLastPage) {
+      console.log("page:", page);
       setLoading(true);
       // 다음 페이지의 자료 불러오기
       loadMoreMaterials();
@@ -138,50 +164,13 @@ const HomeViewAll = () => {
 
     if(bottomRef.current) {
       observer.observe(bottomRef.current);
+      console.log("발견!!", page);
     }
 
     return () => {
       observer.disconnect();
     };
   }, [loading, allMaterials]);
-
-  /*
-  useEffect(() => {
-    switch (category) {
-      case HOME_CATEGORY.ALL_UNIV.toString(): // 0
-        if (tag === 'new') {
-          getAllUnivNewlyViewAll(1, 50).then((value) => setAllMaterials(value));
-        } else if (tag === 'hot') {
-          getAllUnivBestViewAll(1, 50).then((value) => setAllMaterials(value));
-        }
-        break;
-      case HOME_CATEGORY.MY_UNIV.toString(): // 1
-        if (tag === 'new' && authStore) {
-          getMyUnivNewlyViewAll(1, 50, authStore).then((value) =>
-            setAllMaterials(value),
-          );
-        } else if (tag === 'hot' && authStore) {
-          getMyUnivBestViewAll(1, 50, authStore).then((value) =>
-            setAllMaterials(value),
-          );
-        }
-        break;
-      case HOME_CATEGORY.MY_CLASS.toString(): // 2
-        if (tag === 'new' && authStore) {
-          getMyMajorNewlyViewAll(1, 50, authStore).then((value) =>
-            setAllMaterials(value),
-          );
-        } else if (tag === 'hot' && authStore) {
-          getMyMajorBestViewAll(1, 50, authStore).then((value) =>
-            setAllMaterials(value),
-          );
-        }
-        break;
-      default:
-        break;
-    }
-  }, []);
-  */
 
   return (
     <PageContainer>
