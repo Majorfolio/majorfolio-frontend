@@ -32,6 +32,7 @@ import {
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
+import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -151,7 +152,7 @@ const HomeViewAll = () => {
           />
         </CardTitleWrapper>
         <CardsWrapper>
-          {allMaterials?.materialResponseList &&
+          {allMaterials?.materialResponseList ?
             allMaterials.materialResponseList.map((material: Material) => {
               return (
                 <HomeMaterialCard
@@ -169,7 +170,15 @@ const HomeViewAll = () => {
                   like={material.like}
                 />
               );
-            })}
+            }) : (
+              <>
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />              
+              </>
+            )}
         </CardsWrapper>
       </ViewAllContainer>
       <BottomBar />
