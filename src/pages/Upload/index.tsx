@@ -20,21 +20,33 @@ type UploadContextType = {
   navigateToNextStep: () => void;
   navigateToHome: () => void;
 };
-type UploadLocationType = { pathname: UploadRoutes };
+
+// TODO move function to different file when it's used in common
+
+const getChlidSegment = (
+  pathname: string,
+  parentSegment: string,
+): UploadRoutes => {
+  const segments = pathname.split('/');
+  const endingSegment = segments.slice(-1)[0];
+  if (endingSegment === parentSegment) {
+    return '' as UploadRoutes.Default;
+  }
+  return endingSegment as UploadRoutes;
+};
 
 export default function Upload() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const segment = pathname.split('/upload').slice(-1)[0] as UploadRoutes;
 
+  const childSegment = getChlidSegment(pathname, 'upload');
   const [step, setStep] = useState<UploadRoutes>(UploadRoutes.Default);
 
   const navigateToHome = () => navigate('/');
 
   useEffect(() => {
-    console.log(segment);
-    setStep(segment);
-  }, [segment, setStep]);
+    setStep(childSegment);
+  }, [childSegment, setStep]);
 
   const navigateToNextStep = () => {
     if (step === UploadRoutes.Default) {
