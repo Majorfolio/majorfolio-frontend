@@ -78,11 +78,7 @@ export default function MyViewMore() {
         primaryAction: () => {},
         secondaryAction: () => {},
       }),
-    () =>
-      activateModal('TO_BE_UPDATED', {
-        primaryAction: () => {},
-        secondaryAction: () => {},
-      }),
+    () => navigate('../delete-account'),
   ];
 
   const rowButtons = rowTexts.map((rowText, index) => (
