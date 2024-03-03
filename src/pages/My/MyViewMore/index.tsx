@@ -7,6 +7,8 @@ import Column from '../../../components/common/Column';
 import RowButton from '../../../components/common/RowButton';
 import Modal from '../../../components/common/Modal';
 import useModal from '../../../hooks/common/useModal';
+import BottomBar from '../../../components/common/BottomBar';
+import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
 export default function MyViewMore() {
   const navigate = useNavigate();
@@ -90,12 +92,14 @@ export default function MyViewMore() {
   return (
     <>
       {topbar}
-      <Column>{rowButtons}</Column>
-      <Modal
-        onPrimaryAction={closePrimarily}
-        onSecondaryAction={closeSecondarily}
-        {...modalProps}
-      />
+      <StyledPageContainer>
+        <Column>{rowButtons}</Column>
+        <Modal
+          onPrimaryAction={closePrimarily}
+          onSecondaryAction={closeSecondarily}
+          {...modalProps}
+        />
+      </StyledPageContainer>
     </>
   );
 }
