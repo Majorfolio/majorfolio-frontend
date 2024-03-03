@@ -19,7 +19,7 @@ interface TopBarPropsType {
   icons?: ReactNode[];
 }
 
-export function PrimaryTopbar({ title, icons }: TopBarPropsType) {
+export function PrimaryTopbar({ transition, title, icons }: TopBarPropsType) {
   return (
     <StyledTopbarContainer>
       <StyledPrimaryTopbarWrapper>

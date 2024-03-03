@@ -63,11 +63,11 @@ export default function Upload() {
 
   const transitionButton =
     step === UploadRoutes.Default ? (
-      <button type="button" onClick={() => navigate('/')}>
+      <button type="button" onClick={() => navigate('/')} aria-label='close'>
         <CloseDefaultIcon />
       </button>
     ) : (
-      <button type="button" onClick={() => navigate(-1)}>
+      <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
         <ArrowBackDefaultIcon />
       </button>
     );

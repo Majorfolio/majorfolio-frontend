@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import Text from '../Text'
 import { BannerWrapper, ContentWrapper, ImgWrapper, TagWrapper, TextWrapper } from './index.styles'
 import AllTagBig from '../AllTagBig'
+import bellIcon from '../../../assets/images/landing/landing-bell.png';
+
 
 function Banner() {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ function Banner() {
           <Text size={14} lineHeight='sm' color='gray/white'>헤택을 확인해보세요!</Text>
         </TextWrapper>
 
-        <ImgWrapper src='' />
+        <ImgWrapper src={bellIcon} alt='아이콘' width={100} />
       </ContentWrapper>
       
     </BannerWrapper>

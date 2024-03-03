@@ -65,7 +65,7 @@ const HomeMaterialDetail = () => {
       {/* 상단바 위치 */}
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
             <ArrowBackDefaultIcon />
           </button>
         }
@@ -82,6 +82,7 @@ const HomeMaterialDetail = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='cart'
           >
             <CartDefaultIcon />
           </button>,
@@ -92,6 +93,7 @@ const HomeMaterialDetail = () => {
                 primaryAction: () => {},
               })
             }
+            aria-label='alarm'
           >
             <NotificationDefaultIcon />
           </button>,
