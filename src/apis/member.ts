@@ -219,3 +219,20 @@ export const sendContact = async (phoneNumber: string, accessToken: string) => {
   const data = await response.json();
   return data;
 };
+
+export const signout = async (accessToken: string) => {};
+
+export const deleteAccount = async (accessToken: string) => {
+  const requestOptions = {
+    method: HTTP_METHODS.POST,
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    },
+  };
+
+  await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.DELETE}`,
+    requestOptions,
+  );
+};
