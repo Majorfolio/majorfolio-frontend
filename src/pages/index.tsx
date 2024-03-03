@@ -21,6 +21,8 @@ import UploadGuidelineStep from './Upload/UploadGuidelineStep';
 import UploadRoutes from './index.types';
 import UploadCautionStep from './Upload/UploadCautionStep';
 import UploadCollectPhoneNumberStep from './Upload/UploadCollectPhoneNumberStep';
+import MyViewMore from './My/MyViewMore';
+import DeleteAccount from './My/DeleteAccount';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -102,8 +104,13 @@ const Router = () => {
           ],
         },
         {
-          path: '/my',
-          element: <MyMain />,
+          path: 'my',
+          children: [
+            { index: true, element: <MyMain /> },
+            { path: 'view-more', element: <MyViewMore /> },
+            { path: 'signout', element: <span /> },
+            { path: 'delete-account', element: <DeleteAccount /> },
+          ],
         },
       ],
     },

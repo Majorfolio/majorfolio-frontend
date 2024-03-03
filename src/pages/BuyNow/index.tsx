@@ -18,6 +18,8 @@ import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
 import { updateBuyInfo } from '../../apis/payments';
 import useAuthStore from '../../store/authStore';
+import { SecondaryTopbar } from '../../components/common/TopBar';
+import { ArrowBackDefaultIcon } from '../../assets/icons';
 
 const BuyNow = () => {
   const { materialId } = useParams();
@@ -45,6 +47,18 @@ const BuyNow = () => {
 
   return (
     <PageContainer>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)}>
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            결제하기
+          </Text>
+        }
+      />
       <BuyNowContainer>
         <PaymentSelectAllBar isCart={false} />
         {materialId ? (

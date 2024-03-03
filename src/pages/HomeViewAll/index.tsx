@@ -34,6 +34,7 @@ import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
 import { getMy } from '../../apis/member';
+import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -50,7 +51,7 @@ const HomeViewAll = () => {
   const recentMaterialViewAll: MaterialViewAll = {
     page: 1,
     materialResponseList: recentMaterials,
-    end: true
+    end: true,
   };
 
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ const HomeViewAll = () => {
     try {
       const nextPage = page + 1;
       let newMaterials: MaterialViewAll | null = null;
-  
+
       switch (category) {
         case HOME_CATEGORY.ALL_UNIV.toString():
           if (tag === 'new') {
@@ -105,8 +106,10 @@ const HomeViewAll = () => {
               getMy(authStore).then(({ univName }) => {
                 const recentMyUnivViewAll: MaterialViewAll = {
                   page: 1,
-                  materialResponseList: recentMaterials.filter(item => item.univ === univName).slice(0, 10),
-                  end: true
+                  materialResponseList: recentMaterials
+                    .filter((item) => item.univ === univName)
+                    .slice(0, 10),
+                  end: true,
                 };
                 setAllMaterials(recentMyUnivViewAll);
               });
@@ -116,7 +119,11 @@ const HomeViewAll = () => {
           break;
         case HOME_CATEGORY.MY_MAJOR.toString():
           if (tag === 'new' && authStore) {
-            newMaterials = await getMyMajorNewlyViewAll(nextPage, 10, authStore);
+            newMaterials = await getMyMajorNewlyViewAll(
+              nextPage,
+              10,
+              authStore,
+            );
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyMajorBestViewAll(nextPage, 10, authStore);
           } else if (tag === 'undefined') {
@@ -124,8 +131,10 @@ const HomeViewAll = () => {
               getMy(authStore).then(({ major }) => {
                 const recentMyMajorViewAll: MaterialViewAll = {
                   page: 1,
-                  materialResponseList: recentMaterials.filter(item => item.major === major).slice(0, 10),
-                  end: true
+                  materialResponseList: recentMaterials
+                    .filter((item) => item.major === major)
+                    .slice(0, 10),
+                  end: true,
                 };
                 setAllMaterials(recentMyMajorViewAll);
               });
@@ -151,7 +160,6 @@ const HomeViewAll = () => {
 
       setPage(nextPage);
       setLoading(false);
-
     } catch (error) {
       // console.error('Error loading more materials:', error);
       setLoading(false);
@@ -165,7 +173,7 @@ const HomeViewAll = () => {
       // 다음 페이지의 자료 불러오기
       loadMoreMaterials();
     }
-  }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {
@@ -174,7 +182,7 @@ const HomeViewAll = () => {
       threshold: 0.1,
     });
 
-    if(bottomRef.current) {
+    if (bottomRef.current) {
       observer.observe(bottomRef.current);
     }
 
@@ -187,7 +195,7 @@ const HomeViewAll = () => {
     <PageContainer>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
             <ArrowBackDefaultIcon />
           </button>
         }
@@ -204,7 +212,7 @@ const HomeViewAll = () => {
                 primaryAction: () => {},
               })
             }
-            aria-label='cart'
+            aria-label="cart"
           >
             <CartDefaultIcon />
           </button>,
@@ -215,7 +223,7 @@ const HomeViewAll = () => {
                 primaryAction: () => {},
               })
             }
-            aria-label='alarm'
+            aria-label="alarm"
           >
             <NotificationDefaultIcon />
           </button>,
@@ -231,7 +239,7 @@ const HomeViewAll = () => {
           />
         </CardTitleWrapper>
         <CardsWrapper>
-          {allMaterials?.materialResponseList &&
+          {allMaterials?.materialResponseList ? (
             allMaterials.materialResponseList.map((material: Material) => {
               return (
                 <HomeMaterialCard
@@ -249,7 +257,16 @@ const HomeViewAll = () => {
                   like={material.like}
                 />
               );
-            })}
+            })
+          ) : (
+            <>
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+            </>
+          )}
         </CardsWrapper>
 
         <div ref={bottomRef} style={{ height: '10px' }} />
