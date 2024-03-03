@@ -83,7 +83,10 @@ const Home = () => {
         }
         break;
       case HOME_CATEGORY.MY_CLASS:
-        setHomeMaterials(null);
+        activateModal('TO_BE_UPDATED', {
+          primaryAction: () => {},
+        })
+        // setHomeMaterials(null);
         break;
       default:
         break;

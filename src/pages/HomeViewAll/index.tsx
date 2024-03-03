@@ -87,10 +87,8 @@ const HomeViewAll = () => {
         case HOME_CATEGORY.ALL_UNIV.toString():
           if (tag === 'new') {
             newMaterials = await getAllUnivNewlyViewAll(nextPage, 10);
-            // if (newMaterials?.end) setIsLastPage(true);
           } else if (tag === 'hot') {
             newMaterials = await getAllUnivBestViewAll(nextPage, 10);
-            // if (newMaterials?.end) setIsLastPage(true);
           } else if (tag === 'undefined') {
             setAllMaterials(recentMaterialViewAll);
             setIsLastPage(true);
@@ -99,7 +97,6 @@ const HomeViewAll = () => {
         case HOME_CATEGORY.MY_UNIV.toString():
           if (tag === 'new' && authStore) {
             newMaterials = await getMyUnivNewlyViewAll(nextPage, 10, authStore);
-            // if (newMaterials?.end) setIsLastPage(true);
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyUnivBestViewAll(nextPage, 10, authStore);
           } else if (tag === 'undefined') {
@@ -110,7 +107,6 @@ const HomeViewAll = () => {
         case HOME_CATEGORY.MY_MAJOR.toString():
           if (tag === 'new' && authStore) {
             newMaterials = await getMyMajorNewlyViewAll(nextPage, 10, authStore);
-            // setAllMaterials(newMaterials);
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyMajorBestViewAll(nextPage, 10, authStore);
           } else if (tag === 'undefined') {
@@ -132,15 +128,13 @@ const HomeViewAll = () => {
             ...(newMaterials?.materialResponseList || []),
           ],
         }));
-        console.log("allMaterials:",allMaterials)
       }
-  
 
-  
       setPage(nextPage);
       setLoading(false);
+
     } catch (error) {
-      console.error('Error loading more materials:', error);
+      // console.error('Error loading more materials:', error);
       setLoading(false);
     }
   };
@@ -148,7 +142,6 @@ const HomeViewAll = () => {
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
     if (target.isIntersecting && !loading && !isLastPage) {
-      console.log("page:", page);
       setLoading(true);
       // 다음 페이지의 자료 불러오기
       loadMoreMaterials();
@@ -164,7 +157,6 @@ const HomeViewAll = () => {
 
     if(bottomRef.current) {
       observer.observe(bottomRef.current);
-      console.log("발견!!", page);
     }
 
     return () => {
