@@ -5,6 +5,7 @@ import {
   useNavigate,
   useOutletContext,
 } from 'react-router-dom';
+import UploadCautionStep from './UploadCautionStep';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import {
   ArrowBackDefaultIcon,
