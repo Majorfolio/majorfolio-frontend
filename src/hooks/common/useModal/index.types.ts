@@ -1,4 +1,4 @@
 export interface CloseActionsType {
-  primaryAction: () => void;
-  secondaryAction?: () => void;
+  primaryAction: () => void | Promise<void>;
+  secondaryAction?: () => void | Promise<void>;
 }
