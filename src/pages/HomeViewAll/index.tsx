@@ -33,6 +33,7 @@ import {
 import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
+import { getMy } from '../../apis/member';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -100,7 +101,16 @@ const HomeViewAll = () => {
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyUnivBestViewAll(nextPage, 10, authStore);
           } else if (tag === 'undefined') {
-            setAllMaterials(recentMaterialViewAll);
+            if (authStore) {
+              getMy(authStore).then(({ univName }) => {
+                const recentMyUnivViewAll: MaterialViewAll = {
+                  page: 1,
+                  materialResponseList: recentMaterials.filter(item => item.univ === univName).slice(0, 10),
+                  end: true
+                };
+                setAllMaterials(recentMyUnivViewAll);
+              });
+            }
             setIsLastPage(true);
           }
           break;
@@ -110,7 +120,16 @@ const HomeViewAll = () => {
           } else if (tag === 'hot' && authStore) {
             newMaterials = await getMyMajorBestViewAll(nextPage, 10, authStore);
           } else if (tag === 'undefined') {
-            setAllMaterials(recentMaterialViewAll);
+            if (authStore) {
+              getMy(authStore).then(({ major }) => {
+                const recentMyMajorViewAll: MaterialViewAll = {
+                  page: 1,
+                  materialResponseList: recentMaterials.filter(item => item.major === major).slice(0, 10),
+                  end: true
+                };
+                setAllMaterials(recentMyMajorViewAll);
+              });
+            }
             setIsLastPage(true);
           }
           break;
