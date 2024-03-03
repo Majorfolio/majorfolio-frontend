@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import theme from '../theme';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -51,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     -ms-overflow-style: none;
+    background-color: ${theme.color['gray/grayBG']};
   }
   
   ::-webkit-scrollbar {
