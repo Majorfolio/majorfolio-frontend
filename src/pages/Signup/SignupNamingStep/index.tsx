@@ -31,19 +31,22 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
     hasTextfieldError,
     onNicknameChange,
     helperText,
+    hasTextfieldContent,
+    hasNicknameValidCharacters,
     isNicknameValid,
-    onNicknameValidation,
+    validateNickname,
     nickname,
   } = useSignupNaming();
   const updateNickname = userStore((state) => state.updateNickname);
 
-  const textfieldIcon = hasTextfieldError ? (
-    <ErrorDefaultIcon />
-  ) : (
-    <Text size={16} lineHeight="lg" color="gray/gray400">
-      {nickname.length} / {NICKNAME_MAX_LENGTH}
-    </Text>
-  );
+  const textfieldIcon =
+    hasTextfieldContent && !hasNicknameValidCharacters ? (
+      <ErrorDefaultIcon />
+    ) : (
+      <Text size={16} lineHeight="lg" color="gray/gray400">
+        {nickname.length} / {NICKNAME_MAX_LENGTH}
+      </Text>
+    );
 
   // TODO: adjeust margin of icon props
   return (
@@ -58,18 +61,18 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
       <TextField
         id="text"
         type="text"
-        hasError={hasTextfieldError}
+        hasError={hasTextfieldContent && !hasNicknameValidCharacters}
         icon={textfieldIcon}
         placeholder="닉네임"
         text={nickname}
         onTextChange={onNicknameChange}
       />
-      {(isNicknameValid && (
+      {hasTextfieldContent && hasNicknameValidCharacters && (
         <HelperText type="checked">{helperText}</HelperText>
-      )) ||
-        (hasTextfieldError && (
-          <HelperText type="error">{helperText}</HelperText>
-        ))}
+      )}
+      {hasTextfieldContent && !hasNicknameValidCharacters && (
+        <HelperText type="error">{helperText}</HelperText>
+      )}
       <StyledValidationContainer>
         {isNicknameValid ? (
           <Button
@@ -86,11 +89,15 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
         ) : (
           <Button
             category="secondary"
-            disabled={hasTextfieldError}
-            onClick={onNicknameValidation}
+            disabled={!hasNicknameValidCharacters}
+            onClick={validateNickname}
           >
             <Text
-              color={hasTextfieldError ? 'gray/gray400' : 'main_color/blue_p'}
+              color={
+                !hasNicknameValidCharacters
+                  ? 'gray/gray400'
+                  : 'main_color/blue_p'
+              }
               size={16}
               weight="bold"
               lineHeight="sm"
