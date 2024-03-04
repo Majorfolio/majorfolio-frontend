@@ -21,6 +21,12 @@ export const StyledDialog = styled.dialog`
   box-sizing: border-box;
   padding: 0;
   border-radius: 16px;
+  appearance: none;
+
+  &&::backdrop {
+    appearance: none;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const StyledModalContainer = styled.div`
@@ -29,10 +35,6 @@ export const StyledModalContainer = styled.div`
   border-radius: 16px;
   padding: 28px 20px 20px 20px;
   box-sizing: border-box;
-
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
 `;
 
 export const StyledTitleRow = styled.div`
