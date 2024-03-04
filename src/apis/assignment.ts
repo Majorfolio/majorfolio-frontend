@@ -1,5 +1,5 @@
 import Material from '../components/home/Material/index.types';
-import { MaterialType } from '../store/materialStore';
+import { MaterialType } from '../store/useMaterialStore';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 
 const ASSIGNMENT_API_COMMON_SEGMENT = '/assignment';

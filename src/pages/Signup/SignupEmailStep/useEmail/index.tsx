@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import useText from '../../../../hooks/common/useText';
 import useAuthStore from '../../../../store/useAuthStore';
 import { sendCodeToEmail, validateCode } from '../../../../apis/member';
-import useEmailStore from '../../../../store/emailStore';
+import useEmailStore from '../../../../store/useEmailStore';
 import useUserStore from '../../../../store/userStore';
 
 const validateEmail = (email: string): boolean => {
