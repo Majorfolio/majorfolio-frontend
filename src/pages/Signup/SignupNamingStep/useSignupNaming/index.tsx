@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { ColorType } from '../../../../components/common/theme';
 import userStore from '../../../../store/userStore';
-import { verifyNickname } from '../../../../apis/member';
+import { checkDuplicateNickname } from '../../../../apis/member';
 import useAuthStore from '../../../../store/authStore';
 
 const NICKNAME_MIN_LENGTH = 2;
@@ -55,7 +55,10 @@ export default function useSignupNaming() {
   };
 
   const onNicknameValidation = async () => {
-    const currentIsNicknameValid = await verifyNickname(nickname, accessToken);
+    const currentIsNicknameValid = await checkDuplicateNickname(
+      nickname,
+      accessToken,
+    );
     console.log(currentIsNicknameValid);
     if (currentIsNicknameValid !== undefined) {
       setIsNicknameValid(currentIsNicknameValid);

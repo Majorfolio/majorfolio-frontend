@@ -164,7 +164,10 @@ interface VerifyNicknameResponseType {
   result: '사용가능한 닉네임 입니다.' | '중복된 닉네임 입니다.';
 }
 
-export const verifyNickname = async (nickname: string, accessToken: string) => {
+export const checkDuplicateNickname = async (
+  nickname: string,
+  accessToken: string,
+) => {
   console.log(nickname);
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
