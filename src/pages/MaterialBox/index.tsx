@@ -61,7 +61,7 @@ const MaterialBox = () => {
           {}
         </CardTitleWrapper>
         <CardsWrapper>
-          {materialsByState?.beforePay.map((material) => (
+          {materialsByState?.beforePay?.map((material) => (
             <HomeMaterialCard
               key={material.id}
               isBig={false}
@@ -86,7 +86,7 @@ const MaterialBox = () => {
           <HomeTagCardTitle title="결제 완료" isViewAll />
         </CardTitleWrapper>
         <CardsWrapper>
-          {materialsByState?.afterPay.map((material) => (
+          {materialsByState?.afterPay?.map((material) => (
             <HomeMaterialCard
               key={material.id}
               isBig={false}
