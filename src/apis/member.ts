@@ -164,7 +164,7 @@ interface VerifyNicknameResponseType {
   result: '사용가능한 닉네임 입니다.' | '중복된 닉네임 입니다.';
 }
 
-export const checkDuplicateNickname = async (
+export const checkIsNicknameUnique = async (
   nickname: string,
   accessToken: string,
 ) => {
