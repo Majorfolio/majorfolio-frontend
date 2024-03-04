@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './Landing.styles';
 
@@ -13,9 +14,16 @@ import phone2 from '../../assets/images/landing/landing-phone2.png';
 import phone3 from '../../assets/images/landing/landing-phone3.png';
 
 const Landing = () => {
+  const navigate = useNavigate();
+
   const handleBtn = () => {
     window.open('https://han.gl/slk5R');
   };
+
+  const handleNavigateHome = () => {
+    navigate('/home');
+  };
+
   return (
     <S.Container>
       <S.MfWrapper>
@@ -32,7 +40,7 @@ const Landing = () => {
         사실을 알고 계셨나요?
       </S.Text1>
 
-      <S.BtnCheck onClick={handleBtn}>
+      <S.BtnCheck onClick={handleNavigateHome}>
         <S.Text2>확인하러 가기</S.Text2>
         <S.WhiteRightChevron />
       </S.BtnCheck>

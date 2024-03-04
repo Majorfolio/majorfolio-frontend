@@ -2,7 +2,7 @@ import React from 'react'
 
 import { DescriptionWrapper, LeftBoxBottomContainer, QrCodeWrapper, RotateRight, SurveyButton } from './index.styles'
 import Text from '../Text'
-import { Qr } from '../../../assets/images'
+import QrPng from '../../../assets/images/qr.png'
 
 const MainLeftBoxBottom = () => {
   return (
@@ -17,7 +17,7 @@ const MainLeftBoxBottom = () => {
       </DescriptionWrapper>
 
       <QrCodeWrapper>
-        <Qr />
+        <img src={QrPng} alt="큐알코드" />
       </QrCodeWrapper>
 
 

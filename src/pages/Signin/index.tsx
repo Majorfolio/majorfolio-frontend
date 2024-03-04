@@ -15,7 +15,6 @@ import useSignin from './useSignin';
 import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
-import { Qr } from '../../assets/images';
 
 export default function Signin() {
   const { onKakaoSignin } = useSignin();
