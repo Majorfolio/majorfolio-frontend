@@ -1,5 +1,15 @@
-import styled from "styled-components";
-import theme from "../../components/common/theme";
+import styled from 'styled-components';
+import theme from '../../components/common/theme';
+
+export const PageContainer = styled.div`
+  background-color: ${theme.color['gray/grayBG']};
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0px 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+`;
 
 export const HomeContainer = styled.div`
   flex: 1; /* 상단바, 하단바 제외 나머지 영역 차지 */

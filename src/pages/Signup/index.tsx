@@ -19,6 +19,7 @@ import SignupCodeStep from './SignupCodeStep';
 import useUserStore from '../../store/userStore';
 import useAuthStore from '../../store/authStore';
 import StyledPageContainer from '../Upload/UploadDefaultStep/index.styles';
+import SignupTermsAndConditionsStep from './SignupTermsAndConditionsStep';
 
 interface SignupPropsType {
   isEmailConfirmed?: boolean;
@@ -59,10 +60,12 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
         <SignupDetailsStep onNext={() => setStep('naming')} />
       )}
       {step === 'naming' && (
-        <SignupNamingStep onNext={() => navigate('/terms')} />
+        <SignupNamingStep onNext={() => setStep('terms')} />
       )}
       {step === 'terms' && (
-        <SignupNamingStep onNext={() => navigate('/', { replace: true })} />
+        <SignupTermsAndConditionsStep
+          onNext={() => navigate('/', { replace: true })}
+        />
       )}
     </StyledPageContainer>
   );

@@ -15,11 +15,12 @@ import MaterialPostStatisticsNumber, {
 } from '../../../components/home/MaterialPostStatisticsNumber';
 import useMyProfile from './useMyProfile';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
-import { ArrowBackDefaultIcon } from '../../../assets/icons';
+import { ArrowBackDefaultIcon, ViewMoreIcon } from '../../../assets/icons';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import { MainLeftContainer, MainRightContainer, PageContainer } from '../../../components/common/GlobalStyle/index.styles';
 import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
+import BottomBar from '../../../components/common/BottomBar';
 
 export default function MyMain() {
   const { nickName, univName, major, image_url, upload, sell, follower } =
@@ -72,7 +73,11 @@ export default function MyMain() {
               MY
             </Text>
           }
-          icons={[]}
+          icons={[
+            <button type="button" onClick={() => navigate('./view-more')}>
+              <ViewMoreIcon />
+            </button>,
+          ]}
         />
         <StyledPageContainer>
           <StyledProfileSection>
@@ -86,6 +91,8 @@ export default function MyMain() {
             {countInfoRow}
           </StyledProfileSection>
         </StyledPageContainer>
+        
+        <BottomBar />
       </MainRightContainer>
     </PageContainer>
   );

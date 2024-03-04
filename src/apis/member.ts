@@ -164,7 +164,10 @@ interface VerifyNicknameResponseType {
   result: '사용가능한 닉네임 입니다.' | '중복된 닉네임 입니다.';
 }
 
-export const verifyNickname = async (nickname: string, accessToken: string) => {
+export const checkIsNicknameUnique = async (
+  nickname: string,
+  accessToken: string,
+) => {
   console.log(nickname);
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
@@ -218,4 +221,21 @@ export const sendContact = async (phoneNumber: string, accessToken: string) => {
   );
   const data = await response.json();
   return data;
+};
+
+export const signout = async (accessToken: string) => {};
+
+export const deleteAccount = async (accessToken: string) => {
+  const requestOptions = {
+    method: HTTP_METHODS.POST,
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    },
+  };
+
+  await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.DELETE}`,
+    requestOptions,
+  );
 };

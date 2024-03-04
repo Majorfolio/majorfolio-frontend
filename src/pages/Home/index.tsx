@@ -45,7 +45,6 @@ const Home = () => {
   const [homeMaterials, setHomeMaterials] = useState<null | MaterialCategory>(
     null,
   );
-  const materials = getArrayFromLocalStorage('recent-materials');
   const authStore = useAuthStore((state) => state.accessToken);
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
@@ -57,6 +56,11 @@ const Home = () => {
     closeSecondarily,
   } = useModal();
 
+  const materials = getArrayFromLocalStorage('recent-materials');
+  const [recentMaterials, setRecentMaterials] = useState<Material[]>([]);
+  let recentMyUniv: Material[];
+  let recentMyMajor: Material[];
+
   const updateCategory = (category: number) => {
     setCurrentCategory(category);
   };
@@ -66,12 +70,15 @@ const Home = () => {
       case HOME_CATEGORY.ALL_UNIV: // 0
         getAllUniv().then((value) => setHomeMaterials(value));
         setTitle('모든 대학교');
+        setRecentMaterials(materials.slice(0, 5));
         break;
       case HOME_CATEGORY.MY_UNIV: // 1
         if (authStore) {
           getMyUniv(authStore).then((value) => setHomeMaterials(value));
           getMy(authStore).then(({ univName }) => {
             setTitle(univName);
+            recentMyUniv = materials.filter(item => item.univ === univName).slice(0, 5);
+            setRecentMaterials(recentMyUniv);
           });
         }
         break;
@@ -80,11 +87,16 @@ const Home = () => {
           getMyMajor(authStore).then((value) => setHomeMaterials(value));
           getMy(authStore).then(({ major }) => {
             setTitle(major);
+            recentMyMajor = materials.filter(item => item.major === major).slice(0, 5);
+            setRecentMaterials(recentMyMajor);
           });
         }
         break;
-      case HOME_CATEGORY.MY_CLASS:
-        setHomeMaterials(null);
+      case HOME_CATEGORY.MY_CLASS: // 3
+        activateModal('TO_BE_UPDATED', {
+          primaryAction: () => {},
+        })
+        // setHomeMaterials(null);
         break;
       default:
         break;
@@ -227,8 +239,8 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {materials ?
-                materials.map((material: Material) => {
+              {recentMaterials ?
+                recentMaterials.map((material: Material) => {
                   return (
                     <HomeMaterialCard
                       key={material.id}

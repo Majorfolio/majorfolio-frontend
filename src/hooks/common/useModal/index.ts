@@ -26,8 +26,8 @@ export default function useModal() {
     onToggle();
   };
 
-  const closePrimarily = () => {
-    primaryAction();
+  const closePrimarily = async () => {
+    await primaryAction();
     onToggle();
   };
 

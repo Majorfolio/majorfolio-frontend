@@ -20,6 +20,7 @@ export interface MaterialCategory {
 export interface MaterialViewAll {
   page: number;
   "materialResponseList": Material[];
+  end: boolean;
 }
 
 export interface MaterialDetail {

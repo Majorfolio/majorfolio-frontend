@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { ColorType } from '../../../../components/common/theme';
 import userStore from '../../../../store/userStore';
-import { verifyNickname } from '../../../../apis/member';
+import { checkIsNicknameUnique } from '../../../../apis/member';
 import useAuthStore from '../../../../store/authStore';
 
 const NICKNAME_MIN_LENGTH = 2;
@@ -27,18 +27,24 @@ export default function useSignupNaming() {
   // 이미 사용중인 닉네임이에요
   // 기존 닉네임과 같아요
 
-  const [nickname, setNickname] = useState('');
-
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
-  const hasTextfieldError =
-    !KoreanEnglishAlphabetRegex.test(nickname) || nickname.length < 2;
+  const [nickname, setNickname] = useState('');
+  const hasNicknameValidCharacters =
+    KoreanEnglishAlphabetRegex.test(nickname) && nickname.length > 2;
 
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
+  const hasTextfieldContent = nickname.length > 0;
+  const hasTextfieldError = hasTextfieldContent && !hasNicknameValidCharacters;
+
+  const [isNicknameUnique, setIsNicknameUnique] = useState<boolean | undefined>(
+    undefined,
+  );
+
+  const isNicknameValid = hasNicknameValidCharacters && isNicknameUnique;
 
   const helperText =
-    (isNicknameValid && HELPER_TEXT.SUCCESS) ||
-    (hasTextfieldError && HELPER_TEXT.NONCOMPLIANT);
+    (hasNicknameValidCharacters && HELPER_TEXT.SUCCESS) ||
+    (!hasNicknameValidCharacters && HELPER_TEXT.NONCOMPLIANT);
 
   const onNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const nextNickname = event.target.value;
@@ -50,24 +56,26 @@ export default function useSignupNaming() {
       return;
     }
 
-    setNickname(event.target.value);
-    setIsNicknameValid(false);
+    setNickname(nextNickname);
+    setIsNicknameUnique(undefined);
   };
 
-  const onNicknameValidation = async () => {
-    const currentIsNicknameValid = await verifyNickname(nickname, accessToken);
-    console.log(currentIsNicknameValid);
-    if (currentIsNicknameValid !== undefined) {
-      setIsNicknameValid(currentIsNicknameValid);
-    }
+  const validateNickname = async () => {
+    const nicknameAlreadyExists = await checkIsNicknameUnique(
+      nickname,
+      accessToken,
+    );
+    setIsNicknameUnique(nicknameAlreadyExists);
   };
 
   return {
     hasTextfieldError,
     onNicknameChange,
     helperText,
+    hasTextfieldContent,
+    hasNicknameValidCharacters,
     isNicknameValid,
-    onNicknameValidation,
+    validateNickname,
     nickname,
   };
 }

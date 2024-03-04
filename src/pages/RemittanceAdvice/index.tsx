@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { HelperInfoIcon } from '../../assets/icons';
 import {
   AdviceContainer,
@@ -19,17 +19,22 @@ import Text from '../../components/common/Text';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
 import useAuthStore from '../../store/authStore';
-import { getBuyInfo } from '../../apis/payments';
+import { cancelPayment, getBuyInfo } from '../../apis/payments';
 import { OrderInfo } from '../../components/home/Payment/index.types';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
+import useModal from '../../hooks/common/useModal';
+import Modal from '../../components/common/Modal';
 
 const RemittanceAdvice = () => {
   const location = useLocation();
   const materialInfo = location.state;
   const { buyInfoId } = useParams();
-  const authStore = useAuthStore((state) => state.accessToken);
+  const authStore = useAuthStore((state) => state.accessToken)!;
   const [buyInfo, setBuyInfo] = useState<OrderInfo>();
+  const { activateModal, closePrimarily, closeSecondarily, ...modalProps } =
+    useModal();
+  const navigate = useNavigate();
 
   const hanelCopyClick = (code: string | undefined) => {
     try {
@@ -41,18 +46,30 @@ const RemittanceAdvice = () => {
     }
   };
 
-  const handleCancelClick = () => {};
+  const handleCancelClick = () => {
+    activateModal('CANCEL_PURCHASE', {
+      primaryAction: async () => {
+        const { code } = await cancelPayment(buyInfoId as string, authStore);
+        // TODO navigate to the previous page
+        if (code === 9001) {
+          alert('이미 송금을 한 구매 정보입니다.');
+        }
+      },
+      secondaryAction: () => {},
+    });
+  };
 
-  const handleRemittanceClick = () => {};
+  const handleRemittanceClick = () => {
+    window.location.href = 'https://toss.me/majorfolio/4700';
+  };
 
   useEffect(() => {
     if (buyInfoId && authStore) {
       getBuyInfo(authStore, parseInt(buyInfoId, 10)).then((response) => {
         setBuyInfo(response);
-        // console.log(response);
       });
     }
-  });
+  }, [buyInfoId, authStore, setBuyInfo]);
 
   return (
     <PageContainer>
@@ -61,7 +78,7 @@ const RemittanceAdvice = () => {
         <MainLeftBoxBottom />
       </MainLeftContainer>
 
-      <MainRightContainer>
+      <MainRightContainer>     
         <AdviceContainer>
           <RemittanceContainer>
             <MarginBottom4>
@@ -164,6 +181,12 @@ const RemittanceAdvice = () => {
             </Button>
           </ButtonWrapper>
         </StickyBottom>
+        
+        <Modal
+          {...modalProps}
+          onPrimaryAction={closePrimarily}
+          onSecondaryAction={closeSecondarily}
+        />
       </MainRightContainer>
     </PageContainer>
   );

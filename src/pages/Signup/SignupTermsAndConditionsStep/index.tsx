@@ -122,7 +122,6 @@ export default function SignupTermsAndConditionsStep({
             로그인
           </Text>
         </Button>
-        아뭐야
       </StyledButtonContainer>
     </form>
   );

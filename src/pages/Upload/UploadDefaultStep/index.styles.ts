@@ -7,11 +7,12 @@ import StyledText from '../../../components/common/Text/index.styles';
 const StyledPageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
   box-sizing: border-box;
   padding: 0 20px;
   background-color: ${theme.color['gray/grayBG']};
+  min-height: 100vh;
 `;
 
 export const StyledDraftText = styled(StyledText)`
