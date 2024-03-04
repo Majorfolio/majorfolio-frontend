@@ -9,7 +9,7 @@ import StyledValidationContainer from './index.styles';
 import useSignupNaming from './useSignupNaming';
 import userStore from '../../../store/userStore';
 import { signup } from '../../../apis/member';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 
 interface SignupNamingStepType {
   onNext: () => void;

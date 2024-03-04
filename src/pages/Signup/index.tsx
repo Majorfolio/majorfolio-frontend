@@ -17,7 +17,7 @@ import SignupNamingStep from './SignupNamingStep';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
 import SignupCodeStep from './SignupCodeStep';
 import useUserStore from '../../store/userStore';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import StyledPageContainer from '../Upload/UploadDefaultStep/index.styles';
 import SignupTermsAndConditionsStep from './SignupTermsAndConditionsStep';
 

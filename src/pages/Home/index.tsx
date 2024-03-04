@@ -21,7 +21,7 @@ import { getAllUniv, getMyMajor, getMyUniv } from '../../apis/materials';
 import Banner from '../../components/common/Banner';
 import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import { getMy } from '../../apis/member';
 import { PrimaryTopbar } from '../../components/common/TopBar';
 import {
@@ -75,7 +75,9 @@ const Home = () => {
           getMyUniv(authStore).then((value) => setHomeMaterials(value));
           getMy(authStore).then(({ univName }) => {
             setTitle(univName);
-            recentMyUniv = materials.filter(item => item.univ === univName).slice(0, 5);
+            recentMyUniv = materials
+              .filter((item) => item.univ === univName)
+              .slice(0, 5);
             setRecentMaterials(recentMyUniv);
           });
         }
@@ -85,7 +87,9 @@ const Home = () => {
           getMyMajor(authStore).then((value) => setHomeMaterials(value));
           getMy(authStore).then(({ major }) => {
             setTitle(major);
-            recentMyMajor = materials.filter(item => item.major === major).slice(0, 5);
+            recentMyMajor = materials
+              .filter((item) => item.major === major)
+              .slice(0, 5);
             setRecentMaterials(recentMyMajor);
           });
         }
@@ -93,7 +97,7 @@ const Home = () => {
       case HOME_CATEGORY.MY_CLASS: // 3
         activateModal('TO_BE_UPDATED', {
           primaryAction: () => {},
-        })
+        });
         // setHomeMaterials(null);
         break;
       default:
@@ -110,7 +114,7 @@ const Home = () => {
             onClick={() => {
               navigate('/');
             }}
-            aria-label='prev'
+            aria-label="prev"
           >
             <AppLogoIcon />
           </button>
@@ -123,7 +127,7 @@ const Home = () => {
                 primaryAction: () => {},
               })
             }
-            aria-label='cart'
+            aria-label="cart"
           >
             <CartDefaultIcon />
           </button>,
@@ -134,7 +138,7 @@ const Home = () => {
                 primaryAction: () => {},
               })
             }
-            aria-label='alarm'
+            aria-label="alarm"
           >
             <NotificationDefaultIcon />
           </button>,
@@ -163,7 +167,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {homeMaterials?.newUpload ?
+              {homeMaterials?.newUpload ? (
                 homeMaterials.newUpload.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -181,15 +185,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                }) : (
-                  <>
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                  </>
-                )}
+                })
+              ) : (
+                <>
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                </>
+              )}
             </HomeMaterialCardWrapper>
 
             <HomeTagCardTitle
@@ -198,7 +203,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {homeMaterials?.best ?
+              {homeMaterials?.best ? (
                 homeMaterials.best.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -216,15 +221,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                }) : (
-                  <>
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />     
-                    <HomeMaterialCardSkeleton isBig={false} />             
-                  </>
-                )}
+                })
+              ) : (
+                <>
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                </>
+              )}
             </HomeMaterialCardWrapper>
 
             <HomeTagCardTitle
@@ -232,7 +238,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {recentMaterials ?
+              {recentMaterials ? (
                 recentMaterials.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -250,15 +256,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                }) : (
-                  <>
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />                  
-                  </>
-                )}
+                })
+              ) : (
+                <>
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                </>
+              )}
             </HomeMaterialCardWrapper>
           </ContentPageContainer>
         </HomeContainer>

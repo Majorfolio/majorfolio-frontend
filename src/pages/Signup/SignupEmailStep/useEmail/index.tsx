@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import useText from '../../../../hooks/common/useText';
-import useAuthStore from '../../../../store/authStore';
+import useAuthStore from '../../../../store/useAuthStore';
 import { sendCodeToEmail, validateCode } from '../../../../apis/member';
 import useEmailStore from '../../../../store/emailStore';
 import useUserStore from '../../../../store/userStore';

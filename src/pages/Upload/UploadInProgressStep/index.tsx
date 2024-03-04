@@ -16,7 +16,7 @@ import ScoreRow, {
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { PageContainer } from '../../Home/index.styles';
 import sendFile from '../../../apis/assignment';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 import useMaterialStore from '../../../store/materialStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';

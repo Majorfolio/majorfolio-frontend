@@ -18,7 +18,7 @@ import AllDivider from '../../components/common/AllDivider';
 import Text from '../../components/common/Text';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import { cancelPayment, getBuyInfo } from '../../apis/payments';
 import { OrderInfo } from '../../components/home/Payment/index.types';
 import useModal from '../../hooks/common/useModal';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import getMyProfile from '../../../../apis/my';
-import useAuthStore from '../../../../store/authStore';
+import useAuthStore from '../../../../store/useAuthStore';
 
 interface MyProfileType {
   nickName: string;

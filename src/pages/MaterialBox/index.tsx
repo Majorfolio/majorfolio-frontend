@@ -9,7 +9,7 @@ import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import TapMenu from '../../components/common/TapMenu';
 import BottomBar from '../../components/common/BottomBar';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import getPurchaseInfo from '../../apis/library';
 
 interface PurchasedItemType {

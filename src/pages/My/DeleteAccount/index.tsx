@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 import { deleteAccount, signout } from '../../../apis/member';
 import { PageContainer } from '../../Home/index.styles';
 import { StyledBodyContainer } from '../../Upload/UploadGuidelineStep/index.styles';

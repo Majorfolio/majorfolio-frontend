@@ -6,11 +6,18 @@ import { AuthResultType, getAuth } from '../apis/member';
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
 
+export enum AuthLevel {
+  Guest,
+  Unverified,
+  Member,
+}
+
 const initialState = {
   isMember: false,
   memberId: undefined,
   accessToken: undefined,
   refreshToken: undefined,
+  authLevel: AuthLevel.Guest,
 };
 
 type AuthStateType = {
@@ -18,6 +25,7 @@ type AuthStateType = {
   memberId?: number;
   accessToken?: string;
   refreshToken?: string;
+  authLevel: AuthLevel;
   signin: (code: string) => Promise<AuthResultType>;
   signout: () => void;
   restoreCredentials: () => boolean;

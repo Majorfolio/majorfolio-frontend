@@ -17,7 +17,7 @@ import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
 import { updateBuyInfo } from '../../apis/payments';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import { ArrowBackDefaultIcon } from '../../assets/icons';
 

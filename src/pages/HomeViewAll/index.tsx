@@ -22,7 +22,7 @@ import {
   getMyUnivNewlyViewAll,
 } from '../../apis/materials';
 import HOME_CATEGORY from '../../components/home/HomeCategory/index.types';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import useModal from '../../hooks/common/useModal';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import {

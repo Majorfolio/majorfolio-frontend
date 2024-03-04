@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { validateCode } from '../../../../apis/member';
-import useAuthStore from '../../../../store/authStore';
+import useAuthStore from '../../../../store/useAuthStore';
 import useText from '../../../../hooks/common/useText';
 import useUserStore from '../../../../store/userStore';
 

@@ -9,7 +9,7 @@ import StyledAgreeAllRow, {
 import Button from '../../../components/common/Button';
 import CheckboxWithIcon from '../../../components/common/CheckboxWithIcon';
 import userStore from '../../../store/userStore';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 import { signup } from '../../../apis/member';
 
 interface SignupTermsAndConditionsStepPropsType {

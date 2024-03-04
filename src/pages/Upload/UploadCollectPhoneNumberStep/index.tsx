@@ -10,7 +10,7 @@ import StyledItemRow from './index.styles';
 import { useNavigate } from 'react-router-dom';
 import UploadRoutes from '../../index.types';
 import { sendContact } from '../../../apis/member';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 
 const validateContact = (phoneNumber: string): boolean => {
   const phoneNumberRegex = /^010[0-9]{4}[0-9]{4}$/;

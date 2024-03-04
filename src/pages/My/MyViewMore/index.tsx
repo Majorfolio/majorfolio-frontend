@@ -9,7 +9,7 @@ import Modal from '../../../components/common/Modal';
 import useModal from '../../../hooks/common/useModal';
 import BottomBar from '../../../components/common/BottomBar';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 
 export default function MyViewMore() {
   const navigate = useNavigate();
