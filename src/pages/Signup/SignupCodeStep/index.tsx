@@ -47,13 +47,13 @@ export default function SignupCodeStep({
       {isCodeEmpty ? (
         <Button category="primary">
           <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
-            인증메일 전송
+            다음으로
           </Text>
         </Button>
       ) : (
         <Button category="primary" disabled>
           <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
-            인증메일 전송
+            다음으로
           </Text>
         </Button>
       )}
