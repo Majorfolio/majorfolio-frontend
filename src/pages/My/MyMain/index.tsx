@@ -17,6 +17,9 @@ import useMyProfile from './useMyProfile';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { ArrowBackDefaultIcon, ViewMoreIcon } from '../../../assets/icons';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
+import { MainLeftContainer, MainRightContainer, PageContainer } from '../../../components/common/GlobalStyle/index.styles';
+import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
+import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 import BottomBar from '../../../components/common/BottomBar';
 
 export default function MyMain() {
@@ -52,37 +55,45 @@ export default function MyMain() {
   );
 
   return (
-    <>
-      <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
-            <ArrowBackDefaultIcon />
-          </button>
-        }
-        title={
-          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            MY
-          </Text>
-        }
-        icons={[
-          <button type="button" onClick={() => navigate('./view-more')}>
-            <ViewMoreIcon />
-          </button>,
-        ]}
-      />
-      <StyledPageContainer>
-        <StyledProfileSection>
-          <StyledProfileIntro>
-            <StyledWelcomeSection>
-              <div>{welcomeText}</div>
-              <StyledTagSection>{tags}</StyledTagSection>
-            </StyledWelcomeSection>
-            <StyledPortrait />
-          </StyledProfileIntro>
-          {countInfoRow}
-        </StyledProfileSection>
-      </StyledPageContainer>
-      <BottomBar />
-    </>
+    <PageContainer>
+      <MainLeftContainer>
+        <MainLeftBoxTop />
+        <MainLeftBoxBottom />
+      </MainLeftContainer>
+
+      <MainRightContainer>
+        <SecondaryTopbar
+          transition={
+            <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
+              <ArrowBackDefaultIcon />
+            </button>
+          }
+          title={
+            <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+              MY
+            </Text>
+          }
+          icons={[
+            <button type="button" onClick={() => navigate('./view-more')}>
+              <ViewMoreIcon />
+            </button>,
+          ]}
+        />
+        <StyledPageContainer>
+          <StyledProfileSection>
+            <StyledProfileIntro>
+              <StyledWelcomeSection>
+                <div>{welcomeText}</div>
+                <StyledTagSection>{tags}</StyledTagSection>
+              </StyledWelcomeSection>
+              <StyledPortrait />
+            </StyledProfileIntro>
+            {countInfoRow}
+          </StyledProfileSection>
+        </StyledPageContainer>
+        
+        <BottomBar />
+      </MainRightContainer>
+    </PageContainer>
   );
 }

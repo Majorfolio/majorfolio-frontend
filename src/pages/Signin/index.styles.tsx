@@ -8,6 +8,7 @@ export const StyledSigninContainer = styled.div`
   align-items: center;
   width: 100%;
   position: relative;
+  min-height: 100vh;
 `;
 
 export const StyledLogoContainer = styled.div`
@@ -17,18 +18,20 @@ export const StyledLogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  flex: 1;
 `;
 
 export const StyledButtonContainer = styled.div`
   display: flex;
-  width: 100%;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 12px;
-  position: absolute;
-  bottom: 22px;
+  padding: 22px 20px;
+  gap: 12px;
+`;
+
+export const StickyBottom = styled.section`
+  position: sticky;
+  bottom: 0;
+  width: 100%;
 `;
 
 export const StyledSigninButton = styled(Button)`
