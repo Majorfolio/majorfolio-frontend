@@ -28,54 +28,79 @@ type AuthStateType = {
   authLevel: AuthLevel;
   signin: (code: string) => Promise<AuthResultType>;
   signout: () => void;
-  restoreCredentials: () => boolean;
+  restoreCredentials: () => void;
+  updateTokens: (accessToken: string, refreshToken: string) => void;
   setIsMember: () => void;
 };
 
 const useAuthStore = create<AuthStateType>((set, get) => ({
   ...initialState,
 
+  updateTokens(accessToken: string, refreshToken: string) {
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    set((state) => ({
+      ...state,
+      accessToken,
+      refreshToken,
+    }));
+  },
+
   // TODO use refresh token when access token gets expired
   restoreCredentials() {
     // restore credentials only when there are no credentials
-    if (!get().accessToken && !get().refreshToken) {
-      const storedAccessToken = localStorage.getItem('accessToken');
-      const storedRefreshToken = localStorage.getItem('refreshToken');
-      if (!storedAccessToken || !storedRefreshToken) {
-        return false;
-      }
-
-      set((state) => ({
-        ...state,
-        accessToken: storedAccessToken,
-        refreshToken: storedRefreshToken,
-      }));
+    const currentAccessToken = get().accessToken;
+    const currentRefreshToken = get().refreshToken;
+    if (currentAccessToken && currentRefreshToken) {
+      return;
     }
-    return true;
+    const storedAccessToken = localStorage.getItem('accessToken');
+    const storedRefreshToken = localStorage.getItem('refreshToken');
+
+    if (!storedAccessToken || !storedRefreshToken) {
+      return;
+    }
+
+    set((state) => ({
+      ...state,
+      accessToken: storedAccessToken,
+      refreshToken: storedRefreshToken,
+      authLevel: AuthLevel.Member,
+    }));
   },
 
   async signin(code: string) {
     const idToken = await getIdToken(code);
     const auth = await getAuth(idToken);
+
     set((state) => ({
       ...state,
       ...auth,
+      authLevel: auth.isMember ? AuthLevel.Member : AuthLevel.Unverified,
     }));
 
     const { accessToken, refreshToken } = auth;
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
     return auth;
-    // localStorage.setItem(ACCESS_TOKEN, accessToken);
-    // localStorage.setItem(REFRESH_TOKEN, refreshToken);
   },
 
   signout() {
     set(initialState);
     localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeitem(REFRESH_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
   },
 
   setIsMember() {
     set((state) => ({ ...state, isMember: true }));
+  },
+
+  clearAccessToken() {
+    set((state) => ({
+      ...state,
+      accessToken: undefined,
+      authLevel: AuthLevel.Guest,
+    }));
   },
 }));
 
