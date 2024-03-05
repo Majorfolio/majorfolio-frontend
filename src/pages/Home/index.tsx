@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { ContentPageContainer, HomeContainer } from './index.styles';
 import {
-  ContentPageContainer,
-  HomeContainer,
-} from './index.styles';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../components/common/GlobalStyle/index.styles';
 import AllDivider from '../../components/common/AllDivider';
 import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonSection';
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
@@ -21,7 +22,7 @@ import { getAllUniv, getMyMajor, getMyUniv } from '../../apis/materials';
 import Banner from '../../components/common/Banner';
 import HomeMaterialCardWrapper from '../../components/home/HomeMaterialCardWrapper';
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import { getMy } from '../../apis/member';
 import { PrimaryTopbar } from '../../components/common/TopBar';
 import {
@@ -32,6 +33,7 @@ import {
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 
@@ -65,6 +67,8 @@ const Home = () => {
     setCurrentCategory(category);
   };
 
+  const refreshPayload = useRefreshPayload();
+
   useEffect(() => {
     switch (currentCategory) {
       case HOME_CATEGORY.ALL_UNIV: // 0
@@ -74,20 +78,28 @@ const Home = () => {
         break;
       case HOME_CATEGORY.MY_UNIV: // 1
         if (authStore) {
-          getMyUniv(authStore).then((value) => setHomeMaterials(value));
-          getMy(authStore).then(({ univName }) => {
+          getMyUniv(authStore, refreshPayload).then((value) =>
+            setHomeMaterials(value),
+          );
+          getMy(authStore, refreshPayload).then(({ univName }) => {
             setTitle(univName);
-            recentMyUniv = materials.filter(item => item.univ === univName).slice(0, 5);
+            recentMyUniv = materials
+              .filter((item) => item.univ === univName)
+              .slice(0, 5);
             setRecentMaterials(recentMyUniv);
           });
         }
         break;
       case HOME_CATEGORY.MY_MAJOR: // 2
         if (authStore) {
-          getMyMajor(authStore).then((value) => setHomeMaterials(value));
-          getMy(authStore).then(({ major }) => {
+          getMyMajor(authStore, refreshPayload).then((value) =>
+            setHomeMaterials(value),
+          );
+          getMy(authStore, refreshPayload).then(({ major }) => {
             setTitle(major);
-            recentMyMajor = materials.filter(item => item.major === major).slice(0, 5);
+            recentMyMajor = materials
+              .filter((item) => item.major === major)
+              .slice(0, 5);
             setRecentMaterials(recentMyMajor);
           });
         }
@@ -95,7 +107,7 @@ const Home = () => {
       case HOME_CATEGORY.MY_CLASS: // 3
         activateModal('TO_BE_UPDATED', {
           primaryAction: () => {},
-        })
+        });
         // setHomeMaterials(null);
         break;
       default:
@@ -109,7 +121,7 @@ const Home = () => {
         <MainLeftBoxTop />
         <MainLeftBoxBottom />
       </MainLeftContainer>
-      
+
       <MainRightContainer>
         <PrimaryTopbar
           title={
@@ -118,7 +130,7 @@ const Home = () => {
               onClick={() => {
                 navigate('/');
               }}
-              aria-label='prev'
+              aria-label="prev"
             >
               <AppLogoIcon />
             </button>
@@ -131,7 +143,7 @@ const Home = () => {
                   primaryAction: () => {},
                 })
               }
-              aria-label='cart'
+              aria-label="cart"
             >
               <CartDefaultIcon />
             </button>,
@@ -142,12 +154,12 @@ const Home = () => {
                   primaryAction: () => {},
                 })
               }
-              aria-label='alarm'
+              aria-label="alarm"
             >
               <NotificationDefaultIcon />
             </button>,
           ]}
-        />        
+        />
         <HomeContainer>
           <BannerContainer>
             <Banner />
@@ -170,7 +182,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {homeMaterials?.newUpload ?
+              {homeMaterials?.newUpload ? (
                 homeMaterials.newUpload.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -188,15 +200,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                }) : (
-                  <>
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                  </>
-                )}
+                })
+              ) : (
+                <>
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                </>
+              )}
             </HomeMaterialCardWrapper>
 
             <HomeTagCardTitle
@@ -205,7 +218,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {homeMaterials?.best ?
+              {homeMaterials?.best ? (
                 homeMaterials.best.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -223,15 +236,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                }) : (
-                  <>
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />     
-                    <HomeMaterialCardSkeleton isBig={false} />             
-                  </>
-                )}
+                })
+              ) : (
+                <>
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                </>
+              )}
             </HomeMaterialCardWrapper>
 
             <HomeTagCardTitle
@@ -239,7 +253,7 @@ const Home = () => {
               category={currentCategory}
             />
             <HomeMaterialCardWrapper>
-              {recentMaterials ?
+              {recentMaterials ? (
                 recentMaterials.map((material: Material) => {
                   return (
                     <HomeMaterialCard
@@ -257,15 +271,16 @@ const Home = () => {
                       like={material.like}
                     />
                   );
-                }) : (
-                  <>
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />
-                    <HomeMaterialCardSkeleton isBig={false} />                  
-                  </>
-                )}
+                })
+              ) : (
+                <>
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                  <HomeMaterialCardSkeleton isBig={false} />
+                </>
+              )}
             </HomeMaterialCardWrapper>
           </ContentPageContainer>
         </HomeContainer>

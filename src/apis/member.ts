@@ -27,6 +27,65 @@ const MEMBER_API_PATHS = {
 
 export default MEMBER_API_PATHS;
 
+export const reissueAccessToken = async (refreshToken: string) => {
+  const requestOptions = {
+    method: HTTP_METHODS.POST,
+    headers: {
+      authorization: `Bearer ${refreshToken}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({}),
+  };
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.REMAKE_TOKEN}`,
+    requestOptions,
+  );
+
+  // TODO signout when refresh token gets expired
+  return response;
+};
+
+export interface RetryPayload {
+  refreshToken: string;
+  onRetrySuccess: (newAccessToken: string, newRefreshToken: string) => void;
+  onRetryFail: () => void;
+}
+
+export async function fetchWithTokenRetry(
+  url: string,
+  options: RequestInit,
+  retryPayload: RetryPayload,
+) {
+  const { refreshToken, onRetrySuccess, onRetryFail } = retryPayload;
+
+  // TODO set all the return type to body(response is useless)
+  const response = await fetch(url, options);
+  const { code, ...result } = await response.json();
+  if (code !== 4005) {
+    return result;
+  }
+
+  const refreshResponse = await reissueAccessToken(refreshToken);
+  const { refreshCode, ...refreshResult } = await refreshResponse.json();
+
+  if (refreshCode === 4005) {
+    // signout and navigate
+    onRetryFail();
+    return refreshResult;
+  }
+  const { newAccessToken, newRefreshToken } = result;
+  // signout and update tokens
+  onRetrySuccess(newAccessToken, newRefreshToken);
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      authorization: `Bearer ${newAccessToken}`,
+    },
+  }).then((retryResponse) => retryResponse.json());
+}
+
 interface GetAuthResponseType {
   code: number;
   status: number;
@@ -77,8 +136,12 @@ export const getAuth = async (idToken: string) => {
   }
 };
 
-export const sendCodeToEmail = async (email: string, accessToken: string) => {
-  const response = await fetch(
+export const sendCodeToEmail = async (
+  email: string,
+  accessToken: string,
+  refreshPayload: RetryPayload,
+) => {
+  const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL_CODE}`,
     {
       method: HTTP_METHODS.POST,
@@ -90,8 +153,9 @@ export const sendCodeToEmail = async (email: string, accessToken: string) => {
         email,
       }),
     },
+    refreshPayload,
   );
-  const data = await response.json();
+
   return data;
 };
 
@@ -99,34 +163,35 @@ export const validateCode = async (
   emailId: number,
   code: string,
   accessToken: string,
+  refreshPayload: RetryPayload,
 ) => {
   try {
-    const response = await fetch(
+    const { statusCode } = await fetchWithTokenRetry(
       `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}/${emailId}/${code}`,
       {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
       },
+      refreshPayload,
     );
 
-    const { message } = await response.json();
-    if (message === '요청에 성공하였습니다.') {
+    if (statusCode === 1000) {
       return {
         success: true,
-        message,
+        code: statusCode,
       };
     }
-    if (message === '인증 코드가 다릅니다.') {
+    if (statusCode === 5005) {
       return {
         success: false,
-        message,
+        code: statusCode,
       };
     }
-    if (message === '인증 시간이 지났습니다.') {
+    if (statusCode === 5004) {
       return {
-        success: true,
-        message,
+        success: false,
+        code: statusCode,
       };
     }
     throw new Error('에러 발생');
@@ -139,8 +204,9 @@ export const validateCode = async (
 export const signup = async (
   user: Omit<UserStateType, 'updateEmail' | 'updateDetails' | 'updateNickname'>,
   accessToken: string,
+  refreshPayload: RetryPayload,
 ) => {
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SIGNUP}`,
     {
       method: HTTP_METHODS.POST,
@@ -150,11 +216,8 @@ export const signup = async (
       },
       body: JSON.stringify(user),
     },
+    refreshPayload,
   );
-  const data = await response.json();
-  if (response.ok) {
-    console.log('data');
-  }
 };
 
 interface VerifyNicknameResponseType {
@@ -167,48 +230,55 @@ interface VerifyNicknameResponseType {
 export const checkIsNicknameUnique = async (
   nickname: string,
   accessToken: string,
+  refreshPayload: RetryPayload,
 ) => {
   console.log(nickname);
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
     {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },
     },
+    refreshPayload,
   );
-  if (response.ok) {
-    const { result } = (await response.json()) as VerifyNicknameResponseType;
-    if (result === '사용가능한 닉네임 입니다.') {
-      return true;
-    }
-    if (result === '중복된 닉네임 입니다.') {
-      return false;
-    }
-  } else {
-    throw new Error('서비스에 문제가 발생했습니다.');
+
+  const { result } = data as VerifyNicknameResponseType;
+  if (result === '사용가능한 닉네임 입니다.') {
+    return true;
   }
+  if (result === '중복된 닉네임 입니다.') {
+    return false;
+  }
+
   return false;
 };
 
-export const getMy = async (authStore: string) => {
-  const request0ptions = {
+export const getMy = async (
+  authStore: string,
+  refreshPayload: RetryPayload,
+) => {
+  const requestOptions = {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${authStore}`,
     },
   };
 
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `https://majorfolio-server.shop/my/`,
-    request0ptions,
+    requestOptions,
+    refreshPayload,
   );
-  const data = await response.json();
   return data;
 };
 
-export const sendContact = async (phoneNumber: string, accessToken: string) => {
-  const response = await fetch(
+export const sendContact = async (
+  phoneNumber: string,
+  accessToken: string,
+  refreshPayload: RetryPayload,
+) => {
+  const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.PHONE_NUMBER}`,
     {
       method: HTTP_METHODS.POST,
@@ -218,14 +288,16 @@ export const sendContact = async (phoneNumber: string, accessToken: string) => {
       },
       body: JSON.stringify(phoneNumber),
     },
+    refreshPayload,
   );
-  const data = await response.json();
+
   return data;
 };
 
-export const signout = async (accessToken: string) => {};
-
-export const deleteAccount = async (accessToken: string) => {
+export const deleteAccount = async (
+  accessToken: string,
+  refreshPayload: RetryPayload,
+) => {
   const requestOptions = {
     method: HTTP_METHODS.POST,
     headers: {
@@ -234,8 +306,9 @@ export const deleteAccount = async (accessToken: string) => {
     },
   };
 
-  await fetch(
+  await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.DELETE}`,
     requestOptions,
+    refreshPayload,
   );
 };

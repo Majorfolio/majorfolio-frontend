@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import { Logo } from '../../assets/images/landing';
 import {
-  StyledLogoContainer, 
+  StyledLogoContainer,
   StyledButtonContainer,
   StyledSigninButton,
   StyledSigninContainer,
@@ -12,13 +12,27 @@ import {
 import { KakaoIcon } from '../../assets/icons';
 import Button from '../../components/common/Button';
 import useSignin from './useSignin';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
+import {
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../components/common/GlobalStyle/index.styles';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 
 export default function Signin() {
   const { onKakaoSignin } = useSignin();
   const navigate = useNavigate();
+
+  const authLevel = useAuthStore((state) => state.authLevel);
+
+  // TODO seperate it using custom hook
+  useEffect(() => {
+    if (authLevel > AuthLevel.Guest) {
+      navigate('/home');
+    }
+  }, [authLevel, navigate]);
 
   return (
     <PageContainer>
@@ -38,7 +52,12 @@ export default function Signin() {
           </StyledLogoContainer>
           <StickyBottom>
             <StyledButtonContainer>
-              <Button category="outlined" onClick={() => {navigate('/home');}}>
+              <Button
+                category="outlined"
+                onClick={() => {
+                  navigate('/home');
+                }}
+              >
                 <Text
                   color="main_color/blue_p"
                   weight="bold"
@@ -50,7 +69,12 @@ export default function Signin() {
               </Button>
               <StyledSigninButton category="kakaotalk" onClick={onKakaoSignin}>
                 <KakaoIcon />
-                <Text color="gray/black" weight="bold" lineHeight="sm" size={16}>
+                <Text
+                  color="gray/black"
+                  weight="bold"
+                  lineHeight="sm"
+                  size={16}
+                >
                   카카오톡으로 시작하기
                 </Text>
               </StyledSigninButton>

@@ -1,6 +1,7 @@
 import Material from '../components/home/Material/index.types';
-import { MaterialType } from '../store/materialStore';
+import { MaterialType } from '../store/useMaterialStore';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
+import { RetryPayload, fetchWithTokenRetry } from './member';
 
 const ASSIGNMENT_API_COMMON_SEGMENT = '/assignment';
 
@@ -12,6 +13,7 @@ const sendFile = async (
   file: File,
   material: MaterialType,
   accessToken: string,
+  retryPayload: RetryPayload,
 ) => {
   const {
     title,
@@ -36,7 +38,7 @@ const sendFile = async (
   formData.append('score', String(score));
   formData.append('description', description);
 
-  return fetch(
+  return fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${ASSIGNMENT_API_SEGMENTS.UPLOAD}`,
     {
       method: HTTP_METHODS.PUT,
@@ -45,6 +47,7 @@ const sendFile = async (
       },
       body: formData,
     },
+    retryPayload,
   );
 };
 

@@ -4,13 +4,18 @@ import {
   CardsWrapper,
   MaterialBoxContainer,
 } from './index.styles';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
+import {
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../components/common/GlobalStyle/index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import TapMenu from '../../components/common/TapMenu';
 import BottomBar from '../../components/common/BottomBar';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import getPurchaseInfo from '../../apis/library';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 
@@ -37,12 +42,15 @@ const MaterialBox = () => {
     buyComplete: PurchasedItemType[];
   }>(null);
 
+  const refreshPayload = useRefreshPayload();
+
   useEffect(() => {
     const asyncEffect = async () => {
       const { beforePay, afterPay, buyComplete } = await getPurchaseInfo(
         1,
         10,
         accessToken,
+        refreshPayload,
       );
       setMaterialsByState({
         beforePay,

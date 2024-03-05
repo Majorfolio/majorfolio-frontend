@@ -1,4 +1,5 @@
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
+import { RetryPayload, fetchWithTokenRetry } from './member';
 
 const MY_API_COMMON_SEGMENT = '/my';
 
@@ -6,21 +7,21 @@ const MY_API_PATH_SEGEMENTS = {
   MY_PROFILE: '/my/',
 };
 
-const getMyProfile = async (accessToken: string) => {
+const getMyProfile = async (
+  accessToken: string,
+  retryPayload: RetryPayload,
+) => {
   try {
-    const response = await fetch(
+    const data = await fetchWithTokenRetry(
       `${process.env.REACT_APP_API_URL}${MY_API_PATH_SEGEMENTS.MY_PROFILE}`,
       {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
       },
+      retryPayload,
     );
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-    throw new Error('네트워크 에러 발생');
+    return data;
   } catch (error) {
     // TODO handle error properly
     console.error('Error fetching data: ', error);

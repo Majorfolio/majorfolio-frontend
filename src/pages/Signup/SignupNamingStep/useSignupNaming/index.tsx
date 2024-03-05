@@ -2,7 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import { ColorType } from '../../../../components/common/theme';
 import userStore from '../../../../store/userStore';
 import { checkIsNicknameUnique } from '../../../../apis/member';
-import useAuthStore from '../../../../store/authStore';
+import useAuthStore from '../../../../store/useAuthStore';
+import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 const NICKNAME_MIN_LENGTH = 2;
 const NICKNAME_MAX_LENGTH = 8;
@@ -60,10 +61,13 @@ export default function useSignupNaming() {
     setIsNicknameUnique(undefined);
   };
 
+  const refreshPayload = useRefreshPayload();
+
   const validateNickname = async () => {
     const nicknameAlreadyExists = await checkIsNicknameUnique(
       nickname,
       accessToken,
+      refreshPayload,
     );
     setIsNicknameUnique(nicknameAlreadyExists);
   };

@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import useAuthStore from '../../../store/authStore';
-import { deleteAccount, signout } from '../../../apis/member';
+import useAuthStore from '../../../store/useAuthStore';
+import { deleteAccount } from '../../../apis/member';
 import { PageContainer } from '../../Home/index.styles';
 import { StyledBodyContainer } from '../../Upload/UploadGuidelineStep/index.styles';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { CloseDefaultIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 export default function DeleteAccount() {
   const navigate = useNavigate();
@@ -20,10 +21,11 @@ export default function DeleteAccount() {
     return <span />;
   }
 
+  const refreshPayload = useRefreshPayload();
   const secondaryTransition = {
     text: '탈퇴하기',
     onAction: async () => {
-      await deleteAccount(accessToken);
+      await deleteAccount(accessToken, refreshPayload);
       signoutLocally();
       navigate('/signin');
     },

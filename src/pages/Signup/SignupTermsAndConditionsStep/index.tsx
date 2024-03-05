@@ -9,8 +9,9 @@ import StyledAgreeAllRow, {
 import Button from '../../../components/common/Button';
 import CheckboxWithIcon from '../../../components/common/CheckboxWithIcon';
 import userStore from '../../../store/userStore';
-import useAuthStore from '../../../store/authStore';
+import useAuthStore from '../../../store/useAuthStore';
 import { signup } from '../../../apis/member';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface SignupTermsAndConditionsStepPropsType {
   onNext?: () => void;
@@ -36,6 +37,8 @@ export default function SignupTermsAndConditionsStep({
   } = userStore((state) => state);
   const accessToken = useAuthStore((state) => state.accessToken)!;
   const setIsMember = useAuthStore((state) => state.setIsMember)!;
+
+  const refreshPayload = useRefreshPayload();
 
   const onFirstTermChange = () =>
     setIsFirstTermAgreed(
@@ -67,6 +70,7 @@ export default function SignupTermsAndConditionsStep({
           marketingAgree: true,
         },
         accessToken,
+        refreshPayload,
       );
       setIsMember();
       onNext();

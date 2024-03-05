@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import getMyProfile from '../../../../apis/my';
-import useAuthStore from '../../../../store/authStore';
+import useAuthStore from '../../../../store/useAuthStore';
+import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 interface MyProfileType {
   nickName: string;
@@ -23,10 +24,11 @@ export default function useMyProfile() {
     follower: null,
   });
   const accessToken = useAuthStore((state) => state.accessToken)!;
+  const refreshPayload = useRefreshPayload();
 
   useEffect(() => {
     const asyncEffect = async () => {
-      const updatedProfile = await getMyProfile(accessToken);
+      const updatedProfile = await getMyProfile(accessToken, refreshPayload);
       setMyProfile(updatedProfile);
     };
 

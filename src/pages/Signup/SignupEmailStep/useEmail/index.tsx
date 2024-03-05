@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import useText from '../../../../hooks/common/useText';
-import useAuthStore from '../../../../store/authStore';
+import useAuthStore from '../../../../store/useAuthStore';
 import { sendCodeToEmail, validateCode } from '../../../../apis/member';
-import useEmailStore from '../../../../store/emailStore';
+import useEmailStore from '../../../../store/useEmailStore';
 import useUserStore from '../../../../store/userStore';
+import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 const validateEmail = (email: string): boolean => {
   const emailRegex =
@@ -34,10 +35,13 @@ export default function useEmail() {
     setServerErrorMessage(null);
   };
 
+  const refreshPayload = useRefreshPayload();
+
   const onEmailSubmit = async () => {
     const { code, status, message, result } = await sendCodeToEmail(
       email,
       accessToken,
+      refreshPayload,
     );
     if (code === 5000) {
       setServerErrorMessage(ServerError.INCORRECT_FORMAT);

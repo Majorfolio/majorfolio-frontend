@@ -6,20 +6,17 @@ import PaymentPostCard from '../../components/home/PaymentPostCard';
 import AllDivider from '../../components/common/AllDivider';
 import PaymentCouponSection from '../../components/home/PaymentCouponSection';
 import PaymentAmountDetailSection from '../../components/home/PaymentAmountDetailSection';
-import {
-  ButtonWrapper,
-  BuyNowContainer,
-  StickyBottom,
-} from './index.styles';
+import { ButtonWrapper, BuyNowContainer, StickyBottom } from './index.styles';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
 import { updateBuyInfo } from '../../apis/payments';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import { PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import { ArrowBackDefaultIcon } from '../../assets/icons';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 
 const BuyNow = () => {
   const { materialId } = useParams();
@@ -27,8 +24,8 @@ const BuyNow = () => {
   const materialInfo = location.state;
   const navigate = useNavigate();
   const authStore = useAuthStore((state) => state.accessToken);
-  let response: Response;
 
+  const refreshPayload = useRefreshPayload();
   const handlePayNowClick = async () => {
     const dataToSend = materialInfo;
     const order: Order = {
@@ -37,8 +34,7 @@ const BuyNow = () => {
       totalPrice: 4700,
     };
     if (authStore) {
-      response = await updateBuyInfo(authStore, order);
-      const data = await response.json();
+      const data = await updateBuyInfo(authStore, order, refreshPayload);
       navigate(`/RemittanceAdvice/${data.buyInfoId}`, { state: dataToSend });
     } else {
       navigate(`/RemittanceAdvice/${null}`, { state: dataToSend });
