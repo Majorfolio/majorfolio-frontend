@@ -22,13 +22,6 @@ import Modal from '../../../components/common/Modal';
 import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
-import {
-  MainLeftContainer,
-  MainRightContainer,
-  PageContainer,
-} from '../../../components/common/GlobalStyle/index.styles';
-import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
-import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 
 interface IFile {
   url: string;
@@ -242,7 +235,7 @@ export default function UploadInProgresStep() {
   ];
 
   return (
-    <PageContainer>
+    <>
       <SomeContainer>
         <Description
           normalText="자세한 정보로"
@@ -264,6 +257,6 @@ export default function UploadInProgresStep() {
         onPrimaryAction={closePrimarily}
         onSecondaryAction={closeSecondarily}
       />
-    </PageContainer>
+    </>
   );
 }

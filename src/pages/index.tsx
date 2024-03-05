@@ -23,11 +23,13 @@ import UploadCautionStep from './Upload/UploadCautionStep';
 import UploadCollectPhoneNumberStep from './Upload/UploadCollectPhoneNumberStep';
 import MyViewMore from './My/MyViewMore';
 import DeleteAccount from './My/DeleteAccount';
+import RootContainer from './RootContainer';
 
 const Router = () => {
   const router = createBrowserRouter([
     {
       path: '/',
+      element: <RootContainer />,
       children: [
         {
           index: true,

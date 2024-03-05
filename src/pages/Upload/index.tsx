@@ -15,13 +15,6 @@ import {
 import Text from '../../components/common/Text';
 import UploadRoutes from '../index.types';
 import StyledPageContainer from './UploadDefaultStep/index.styles';
-import {
-  MainLeftContainer,
-  MainRightContainer,
-  PageContainer,
-} from '../../components/common/GlobalStyle/index.styles';
-import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
-import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 
 type UploadContextType = {
   navigateToNextStep: () => void;
@@ -79,31 +72,24 @@ export default function Upload() {
       </button>
     );
   return (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
-
-      <MainRightContainer>
-        <SecondaryTopbar
-          transition={transitionButton}
-          title={
-            <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-              업로드
-            </Text>
+    <>
+      <SecondaryTopbar
+        transition={transitionButton}
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            업로드
+          </Text>
+        }
+        icons={[]}
+      />
+      <StyledPageContainer>
+        <Outlet
+          context={
+            { navigateToNextStep, navigateToHome } satisfies UploadContextType
           }
-          icons={[]}
         />
-        <StyledPageContainer>
-          <Outlet
-            context={
-              { navigateToNextStep, navigateToHome } satisfies UploadContextType
-            }
-          />
-        </StyledPageContainer>
-      </MainRightContainer>
-    </PageContainer>
+      </StyledPageContainer>
+    </>
   );
 }
 

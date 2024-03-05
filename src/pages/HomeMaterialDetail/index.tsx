@@ -9,7 +9,6 @@ import {
   StatisticsNumberWrapper,
   StickyBottom,
 } from './index.styles';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import MaterialDetailPreview from '../../components/home/MaterialDetailPreview';
 import MaterialSellerProfile from '../../components/home/MaterialSellerProfile';
 import MaterialDetailPost from '../../components/home/MaterialDetailPost';
@@ -63,162 +62,146 @@ const HomeMaterialDetail = () => {
   };
 
   return materialDetail ? (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
+    <>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            자세히보기
+          </Text>
+        }
+        icons={[
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="cart"
+          >
+            <CartDefaultIcon />
+          </button>,
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="alarm"
+          >
+            <NotificationDefaultIcon />
+          </button>,
+        ]}
+      />
+      <Modal
+        modalRef={modalRef}
+        category={modalCategory}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
 
-      <MainRightContainer>
-        <SecondaryTopbar
-          transition={
-            <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
-              <ArrowBackDefaultIcon />
-            </button>
-          }
-          title={
-            <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-              자세히보기
-            </Text>
-          }
-          icons={[
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label='cart'
-            >
-              <CartDefaultIcon />
-            </button>,
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label='alarm'
-            >
-              <NotificationDefaultIcon />
-            </button>,
-          ]}
-        />
-        <Modal
-          modalRef={modalRef}
-          category={modalCategory}
-          onPrimaryAction={closePrimarily}
-          onSecondaryAction={closeSecondarily}
-        />
-        
-        <DetailContainer>
-          <HomeMaterialDetailContainer>
-            <MaterialDetailPreview image={materialDetail.imageUrl} />
-
-            <ProfileWrapper>
-              <MaterialSellerProfile
-                id={materialDetail.id}
-                nickname={materialDetail.nickName}
-                hasReaction
-                like={materialDetail.like}
-                bookmark={materialDetail.bookmark}
-              />
-            </ProfileWrapper>
-            <AllDividerThin />
-
-            <MaterialDetailPost
-              title={materialDetail.title}
-              content={materialDetail.description}
-              updateTime={materialDetail.updateTime}
-            />
-
-            <AllDivider />
-
-            <StatisticsNumberWrapper>
-              <MaterialPostStatisticsNumber
-                sell={materialDetail.sell}
-                follower={materialDetail.follower}
-                reaction={materialDetail.bookmark + materialDetail.like}
-              />
-            </StatisticsNumberWrapper>
-
-            <AllDivider />
-
-            <MaterialDetailInfo
-              title={materialDetail.title}
-              university={materialDetail.university}
-              major={materialDetail.major}
-              semester={materialDetail.semester}
-              subjectTitle={materialDetail.subjectTitle}
-              professor={materialDetail.professor}
-              grade={materialDetail.grade}
-              score={materialDetail.score}
-              pages={materialDetail.pages}
-            />
-          </HomeMaterialDetailContainer>
-        </DetailContainer>
-
-        <StickyBottom>
-          <BottomPaymentAmount />
-          <ButtonWrapper>
-            <Button
-              type="button"
-              category="primary"
-              onClick={() => {
-                handleBuyNowClick();
-              }}
-            >
-              <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
-                바로구매
-              </Text>
-            </Button>
-          </ButtonWrapper>
-        </StickyBottom>
-      </MainRightContainer>
-    </PageContainer>
-  ) : (
-    // skeleton
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
-
-      <MainRightContainer>
+      <DetailContainer>
         <HomeMaterialDetailContainer>
-          <MaterialDetailPreview image="" />
+          <MaterialDetailPreview image={materialDetail.imageUrl} />
 
           <ProfileWrapper>
-            <MaterialSellerProfile nickname="-" hasReaction={false} />
+            <MaterialSellerProfile
+              id={materialDetail.id}
+              nickname={materialDetail.nickName}
+              hasReaction
+              like={materialDetail.like}
+              bookmark={materialDetail.bookmark}
+            />
           </ProfileWrapper>
           <AllDividerThin />
 
-          <MaterialDetailPost title="-" content="-" updateTime="-" />
+          <MaterialDetailPost
+            title={materialDetail.title}
+            content={materialDetail.description}
+            updateTime={materialDetail.updateTime}
+          />
 
           <AllDivider />
 
           <StatisticsNumberWrapper>
-            <MaterialPostStatisticsNumber sell={0} follower={0} reaction={0} />
+            <MaterialPostStatisticsNumber
+              sell={materialDetail.sell}
+              follower={materialDetail.follower}
+              reaction={materialDetail.bookmark + materialDetail.like}
+            />
           </StatisticsNumberWrapper>
 
           <AllDivider />
 
           <MaterialDetailInfo
-            title=""
-            university=""
-            major=""
-            semester=""
-            subjectTitle=""
-            professor=""
-            grade=""
-            score={0}
-            pages={0}
+            title={materialDetail.title}
+            university={materialDetail.university}
+            major={materialDetail.major}
+            semester={materialDetail.semester}
+            subjectTitle={materialDetail.subjectTitle}
+            professor={materialDetail.professor}
+            grade={materialDetail.grade}
+            score={materialDetail.score}
+            pages={materialDetail.pages}
           />
         </HomeMaterialDetailContainer>
-      </MainRightContainer>
-    </PageContainer>
+      </DetailContainer>
+
+      <StickyBottom>
+        <BottomPaymentAmount />
+        <ButtonWrapper>
+          <Button
+            type="button"
+            category="primary"
+            onClick={() => {
+              handleBuyNowClick();
+            }}
+          >
+            <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
+              바로구매
+            </Text>
+          </Button>
+        </ButtonWrapper>
+      </StickyBottom>
+    </>
+  ) : (
+    // skeleton
+    <HomeMaterialDetailContainer>
+      <MaterialDetailPreview image="" />
+
+      <ProfileWrapper>
+        <MaterialSellerProfile nickname="-" hasReaction={false} />
+      </ProfileWrapper>
+      <AllDividerThin />
+
+      <MaterialDetailPost title="-" content="-" updateTime="-" />
+
+      <AllDivider />
+
+      <StatisticsNumberWrapper>
+        <MaterialPostStatisticsNumber sell={0} follower={0} reaction={0} />
+      </StatisticsNumberWrapper>
+
+      <AllDivider />
+
+      <MaterialDetailInfo
+        title=""
+        university=""
+        major=""
+        semester=""
+        subjectTitle=""
+        professor=""
+        grade=""
+        score={0}
+        pages={0}
+      />
+    </HomeMaterialDetailContainer>
   );
 };
 
