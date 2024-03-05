@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { ContentPageContainer, HomeContainer } from './index.styles';
-import {
-  MainLeftContainer,
-  MainRightContainer,
-  PageContainer,
-} from '../../components/common/GlobalStyle/index.styles';
 import AllDivider from '../../components/common/AllDivider';
 import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonSection';
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
@@ -116,184 +111,175 @@ const Home = () => {
   }, [currentCategory]);
 
   return (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
+    <>
+      <PrimaryTopbar
+        title={
+          <button
+            type="button"
+            onClick={() => {
+              navigate('/');
+            }}
+            aria-label="prev"
+          >
+            <AppLogoIcon />
+          </button>
+        }
+        icons={[
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="cart"
+          >
+            <CartDefaultIcon />
+          </button>,
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="alarm"
+          >
+            <NotificationDefaultIcon />
+          </button>,
+        ]}
+      />
+      <HomeContainer>
+        <BannerContainer>
+          <Banner />
+          <Banner />
+          <Banner />
+        </BannerContainer>
 
-      <MainRightContainer>
-        <PrimaryTopbar
-          title={
-            <button
-              type="button"
-              onClick={() => {
-                navigate('/');
-              }}
-              aria-label="prev"
-            >
-              <AppLogoIcon />
-            </button>
-          }
-          icons={[
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label="cart"
-            >
-              <CartDefaultIcon />
-            </button>,
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label="alarm"
-            >
-              <NotificationDefaultIcon />
-            </button>,
-          ]}
+        <HomeCategoryButtonSection
+          currentCategory={currentCategory}
+          updateCategory={updateCategory}
         />
-        <HomeContainer>
-          <BannerContainer>
-            <Banner />
-            <Banner />
-            <Banner />
-          </BannerContainer>
+        <AllDivider />
 
-          <HomeCategoryButtonSection
-            currentCategory={currentCategory}
-            updateCategory={updateCategory}
+        <ContentPageContainer>
+          <HomeContentPageTitle title={title} />
+
+          <HomeTagCardTitle
+            title="신규 등록 자료"
+            tag="new"
+            category={currentCategory}
           />
-          <AllDivider />
+          <HomeMaterialCardWrapper>
+            {homeMaterials?.newUpload ? (
+              homeMaterials.newUpload.map((material: Material) => {
+                return (
+                  <HomeMaterialCard
+                    key={material.id}
+                    isBig={false}
+                    id={material.id}
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
+                    nickname={material.nickname}
+                    className={material.className}
+                    univ={material.univ}
+                    major={material.major}
+                    semester={material.semester}
+                    professor={material.professor}
+                    like={material.like}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+              </>
+            )}
+          </HomeMaterialCardWrapper>
 
-          <ContentPageContainer>
-            <HomeContentPageTitle title={title} />
+          <HomeTagCardTitle
+            title="베스트 자료"
+            tag="hot"
+            category={currentCategory}
+          />
+          <HomeMaterialCardWrapper>
+            {homeMaterials?.best ? (
+              homeMaterials.best.map((material: Material) => {
+                return (
+                  <HomeMaterialCard
+                    key={material.id}
+                    isBig={false}
+                    id={material.id}
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
+                    nickname={material.nickname}
+                    className={material.className}
+                    univ={material.univ}
+                    major={material.major}
+                    semester={material.semester}
+                    professor={material.professor}
+                    like={material.like}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+              </>
+            )}
+          </HomeMaterialCardWrapper>
 
-            <HomeTagCardTitle
-              title="신규 등록 자료"
-              tag="new"
-              category={currentCategory}
-            />
-            <HomeMaterialCardWrapper>
-              {homeMaterials?.newUpload ? (
-                homeMaterials.newUpload.map((material: Material) => {
-                  return (
-                    <HomeMaterialCard
-                      key={material.id}
-                      isBig={false}
-                      id={material.id}
-                      memberId={material.memberId}
-                      imageUrl={material.imageUrl}
-                      nickname={material.nickname}
-                      className={material.className}
-                      univ={material.univ}
-                      major={material.major}
-                      semester={material.semester}
-                      professor={material.professor}
-                      like={material.like}
-                    />
-                  );
-                })
-              ) : (
-                <>
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                </>
-              )}
-            </HomeMaterialCardWrapper>
+          <HomeTagCardTitle title="최근에 본 자료" category={currentCategory} />
+          <HomeMaterialCardWrapper>
+            {recentMaterials ? (
+              recentMaterials.map((material: Material) => {
+                return (
+                  <HomeMaterialCard
+                    key={material.id}
+                    isBig={false}
+                    id={material.id}
+                    memberId={material.memberId}
+                    imageUrl={material.imageUrl}
+                    nickname={material.nickname}
+                    className={material.className}
+                    univ={material.univ}
+                    major={material.major}
+                    semester={material.semester}
+                    professor={material.professor}
+                    like={material.like}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+                <HomeMaterialCardSkeleton isBig={false} />
+              </>
+            )}
+          </HomeMaterialCardWrapper>
+        </ContentPageContainer>
+      </HomeContainer>
 
-            <HomeTagCardTitle
-              title="베스트 자료"
-              tag="hot"
-              category={currentCategory}
-            />
-            <HomeMaterialCardWrapper>
-              {homeMaterials?.best ? (
-                homeMaterials.best.map((material: Material) => {
-                  return (
-                    <HomeMaterialCard
-                      key={material.id}
-                      isBig={false}
-                      id={material.id}
-                      memberId={material.memberId}
-                      imageUrl={material.imageUrl}
-                      nickname={material.nickname}
-                      className={material.className}
-                      univ={material.univ}
-                      major={material.major}
-                      semester={material.semester}
-                      professor={material.professor}
-                      like={material.like}
-                    />
-                  );
-                })
-              ) : (
-                <>
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                </>
-              )}
-            </HomeMaterialCardWrapper>
+      <BottomBar />
 
-            <HomeTagCardTitle
-              title="최근에 본 자료"
-              category={currentCategory}
-            />
-            <HomeMaterialCardWrapper>
-              {recentMaterials ? (
-                recentMaterials.map((material: Material) => {
-                  return (
-                    <HomeMaterialCard
-                      key={material.id}
-                      isBig={false}
-                      id={material.id}
-                      memberId={material.memberId}
-                      imageUrl={material.imageUrl}
-                      nickname={material.nickname}
-                      className={material.className}
-                      univ={material.univ}
-                      major={material.major}
-                      semester={material.semester}
-                      professor={material.professor}
-                      like={material.like}
-                    />
-                  );
-                })
-              ) : (
-                <>
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                  <HomeMaterialCardSkeleton isBig={false} />
-                </>
-              )}
-            </HomeMaterialCardWrapper>
-          </ContentPageContainer>
-        </HomeContainer>
-
-        <BottomBar />
-      </MainRightContainer>
       <Modal
         modalRef={modalRef}
         category={modalCategory}
         onPrimaryAction={closePrimarily}
         onSecondaryAction={closeSecondarily}
       />
-    </PageContainer>
+    </>
   );
 };
 

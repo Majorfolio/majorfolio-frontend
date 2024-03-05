@@ -13,7 +13,7 @@ import {
   ButtonWrapper,
   CopyButton,
 } from './index.styles';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
+
 import AllDivider from '../../components/common/AllDivider';
 import Text from '../../components/common/Text';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
@@ -21,8 +21,6 @@ import Button from '../../components/common/Button';
 import useAuthStore from '../../store/useAuthStore';
 import { cancelPayment, getBuyInfo } from '../../apis/payments';
 import { OrderInfo } from '../../components/home/Payment/index.types';
-import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
-import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
@@ -80,123 +78,116 @@ const RemittanceAdvice = () => {
   }, [buyInfoId, authStore, setBuyInfo]);
 
   return (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
+    <>
+      <AdviceContainer>
+        <RemittanceContainer>
+          <MarginBottom4>
+            <Text
+              size={20}
+              weight="bold"
+              lineHeight="sm"
+              color="main_color/blue_p"
+            >
+              4,700원
+            </Text>
+          </MarginBottom4>
+          <Text weight="bold" lineHeight="sm" color="gray/gray900">
+            {' '}
+            {materialInfo.title}{' '}
+          </Text>
+          <Text size={12} color="gray/gray500">
+            14일 이내로 송금해주세요 (요청일 : {buyInfo?.createDate})<br />
+            주문번호 : {buyInfoId}
+          </Text>
+        </RemittanceContainer>
 
-      <MainRightContainer>     
-        <AdviceContainer>
-          <RemittanceContainer>
-            <MarginBottom4>
-              <Text
-                size={20}
-                weight="bold"
-                lineHeight="sm"
-                color="main_color/blue_p"
-              >
-                4,700원
-              </Text>
-            </MarginBottom4>
-            <Text weight="bold" lineHeight="sm" color="gray/gray900">
+        <AllDivider />
+
+        <CodeAdviceContainer>
+          <MarginBottom16>
+            <Text size={22} lineHeight="lg" color="gray/gray900">
+              아래 식별코드를
+            </Text>
+            <Text size={22} weight="bold" lineHeight="lg" color="gray/gray900">
+              송금자명에 붙여넣어주세요
+            </Text>
+          </MarginBottom16>
+
+          <CodeContainer>
+            <Text size={16} lineHeight="lg" color="main_color/blue_p">
               {' '}
-              {materialInfo.title}{' '}
+              {buyInfo?.code}{' '}
             </Text>
-            <Text size={12} color="gray/gray500">
-              14일 이내로 송금해주세요 (요청일 : {buyInfo?.createDate})<br />
-              주문번호 : {buyInfoId}
+            <CopyButton
+              onClick={() => {
+                hanelCopyClick(buyInfo?.code);
+              }}
+            />
+          </CodeContainer>
+
+          <HelperTextWrapper>
+            <HelperInfoIcon />
+            <Text size={12} lineHeight="lg" color="gray/gray400">
+              송금이 확인되는 대로 자료를 사용할 수 있으며, <br />
+              최대 3 영업일이 소요될 수 있습니다.
             </Text>
-          </RemittanceContainer>
+          </HelperTextWrapper>
+          <HelperTextWrapper>
+            <HelperInfoIcon />
+            <Text size={12} lineHeight="lg" color="gray/gray400">
+              입금 전까지 ‘구매 내역’에서 구매를 취소할 수 있으며, <br />
+              입금 후 자료 열람 전까지 ‘자료함’에서 환불요청할 수 있습니다.
+            </Text>
+          </HelperTextWrapper>
+          <HelperTextWrapper>
+            <HelperInfoIcon />
+            <Text size={12} lineHeight="lg" color="gray/gray400">
+              하나의 주문으로 묶인 자료는 한 번에 결제가 필요합니다. <br />
+              개별 자료 구매를 원하시면 구매 취소 후 각각 주문해주세요.
+            </Text>
+          </HelperTextWrapper>
+        </CodeAdviceContainer>
+      </AdviceContainer>
 
-          <AllDivider />
-
-          <CodeAdviceContainer>
-            <MarginBottom16>
-              <Text size={22} lineHeight="lg" color="gray/gray900">
-                아래 식별코드를
-              </Text>
-              <Text size={22} weight="bold" lineHeight="lg" color="gray/gray900">
-                송금자명에 붙여넣어주세요
-              </Text>
-            </MarginBottom16>
-
-            <CodeContainer>
-              <Text size={16} lineHeight="lg" color="main_color/blue_p">
-                {' '}
-                {buyInfo?.code}{' '}
-              </Text>
-              <CopyButton
-                onClick={() => {
-                  hanelCopyClick(buyInfo?.code);
-                }}
-              />
-            </CodeContainer>
-
-            <HelperTextWrapper>
-              <HelperInfoIcon />
-              <Text size={12} lineHeight="lg" color="gray/gray400">
-                송금이 확인되는 대로 자료를 사용할 수 있으며, <br />
-                최대 3 영업일이 소요될 수 있습니다.
-              </Text>
-            </HelperTextWrapper>
-            <HelperTextWrapper>
-              <HelperInfoIcon />
-              <Text size={12} lineHeight="lg" color="gray/gray400">
-                입금 전까지 ‘구매 내역’에서 구매를 취소할 수 있으며, <br />
-                입금 후 자료 열람 전까지 ‘자료함’에서 환불요청할 수 있습니다.
-              </Text>
-            </HelperTextWrapper>
-            <HelperTextWrapper>
-              <HelperInfoIcon />
-              <Text size={12} lineHeight="lg" color="gray/gray400">
-                하나의 주문으로 묶인 자료는 한 번에 결제가 필요합니다. <br />
-                개별 자료 구매를 원하시면 구매 취소 후 각각 주문해주세요.
-              </Text>
-            </HelperTextWrapper>
-          </CodeAdviceContainer>
-        </AdviceContainer>
-
-        <StickyBottom>
-          <BottomPaymentAmount />
-          <ButtonWrapper>
-            <Button
-              type="button"
-              category="secondary"
-              onClick={() => {
-                handleCancelClick();
-              }}
+      <StickyBottom>
+        <BottomPaymentAmount />
+        <ButtonWrapper>
+          <Button
+            type="button"
+            category="secondary"
+            onClick={() => {
+              handleCancelClick();
+            }}
+          >
+            <Text
+              color="main_color/blue_p"
+              size={16}
+              weight="bold"
+              lineHeight="sm"
             >
-              <Text
-                color="main_color/blue_p"
-                size={16}
-                weight="bold"
-                lineHeight="sm"
-              >
-                구매취소
-              </Text>
-            </Button>
-            <Button
-              type="button"
-              category="primary"
-              onClick={() => {
-                handleRemittanceClick();
-              }}
-            >
-              <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
-                송금하기
-              </Text>
-            </Button>
-          </ButtonWrapper>
-        </StickyBottom>
-        
-        <Modal
-          {...modalProps}
-          onPrimaryAction={closePrimarily}
-          onSecondaryAction={closeSecondarily}
-        />
-      </MainRightContainer>
-    </PageContainer>
+              구매취소
+            </Text>
+          </Button>
+          <Button
+            type="button"
+            category="primary"
+            onClick={() => {
+              handleRemittanceClick();
+            }}
+          >
+            <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
+              송금하기
+            </Text>
+          </Button>
+        </ButtonWrapper>
+      </StickyBottom>
+
+      <Modal
+        {...modalProps}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
+    </>
   );
 };
 

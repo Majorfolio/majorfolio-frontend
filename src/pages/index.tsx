@@ -23,11 +23,16 @@ import UploadCautionStep from './Upload/UploadCautionStep';
 import UploadCollectPhoneNumberStep from './Upload/UploadCollectPhoneNumberStep';
 import MyViewMore from './My/MyViewMore';
 import DeleteAccount from './My/DeleteAccount';
+import Bookmarks from './My/Bookmarks';
+import Likes from './My/Likes';
+import Transactions from './My/Transactions';
+import RootContainer from './RootContainer';
 
 const Router = () => {
   const router = createBrowserRouter([
     {
       path: '/',
+      element: <RootContainer />,
       children: [
         {
           index: true,
@@ -110,6 +115,9 @@ const Router = () => {
             { path: 'view-more', element: <MyViewMore /> },
             { path: 'signout', element: <span /> },
             { path: 'delete-account', element: <DeleteAccount /> },
+            { path: 'bookmarks', element: <Bookmarks /> },
+            { path: 'likes', element: <Likes /> },
+            { path: 'transactions', element: <Transactions /> },
           ],
         },
       ],

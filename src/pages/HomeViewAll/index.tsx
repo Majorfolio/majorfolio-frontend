@@ -6,7 +6,6 @@ import {
   CardsWrapper,
   ViewAllContainer,
 } from './index.styles';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
@@ -32,8 +31,7 @@ import {
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
-import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
-import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
+
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
 import { getMy } from '../../apis/member';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
@@ -47,9 +45,9 @@ const HomeViewAll = () => {
   let tagCardTitle: string;
   const authStore = useAuthStore((state) => state.accessToken);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const bottomRef = useRef(null);
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [hasLastPageReached, setHasLastPageReached] = useState(false);
   const recentMaterials = getArrayFromLocalStorage('recent-materials');
   const recentMaterialViewAll: MaterialViewAll = {
     page: 1,
@@ -98,7 +96,7 @@ const HomeViewAll = () => {
             newMaterials = await getAllUnivBestViewAll(nextPage, 10);
           } else if (tag === 'undefined') {
             setAllMaterials(recentMaterialViewAll);
-            setIsLastPage(true);
+            setHasLastPageReached(true);
           }
           break;
         case HOME_CATEGORY.MY_UNIV.toString():
@@ -129,7 +127,7 @@ const HomeViewAll = () => {
                 setAllMaterials(recentMyUnivViewAll);
               });
             }
-            setIsLastPage(true);
+            setHasLastPageReached(true);
           }
           break;
         case HOME_CATEGORY.MY_MAJOR.toString():
@@ -160,14 +158,14 @@ const HomeViewAll = () => {
                 setAllMaterials(recentMyMajorViewAll);
               });
             }
-            setIsLastPage(true);
+            setHasLastPageReached(true);
           }
           break;
         default:
           break;
       }
 
-      if (newMaterials?.end) setIsLastPage(true);
+      if (newMaterials?.end) setHasLastPageReached(true);
 
       if (newMaterials != null) {
         setAllMaterials((prevMaterials: MaterialViewAll | null) => ({
@@ -180,17 +178,17 @@ const HomeViewAll = () => {
       }
 
       setPage(nextPage);
-      setLoading(false);
+      setIsLoading(false);
     } catch (error) {
       // console.error('Error loading more materials:', error);
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting && !loading && !isLastPage) {
-      setLoading(true);
+    if (target.isIntersecting && !isLoading && !hasLastPageReached) {
+      setIsLoading(true);
       // 다음 페이지의 자료 불러오기
       loadMoreMaterials();
     }
@@ -200,7 +198,7 @@ const HomeViewAll = () => {
     const observer = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1,
+      threshold: 1.0,
     });
 
     if (bottomRef.current) {
@@ -210,103 +208,96 @@ const HomeViewAll = () => {
     return () => {
       observer.disconnect();
     };
-  }, [loading, allMaterials]);
+  }, [isLoading, allMaterials]);
 
   return (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
-
-      <MainRightContainer>
-        <SecondaryTopbar
-          transition={
-            <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
-              <ArrowBackDefaultIcon />
-            </button>
-          }
-          title={
-            <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-              모두보기
-            </Text>
-          }
-          icons={[
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label='cart'
-            >
-              <CartDefaultIcon />
-            </button>,
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label='alarm'
-            >
-              <NotificationDefaultIcon />
-            </button>,
-          ]}
-        />
-        <ViewAllContainer>
-          <CardTitleWrapper>
-            <HomeTagCardTitle
-              title={tagCardTitle}
-              tag={tag}
-              category={0}
-              isViewAll
-            />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {allMaterials?.materialResponseList ? (
-              allMaterials.materialResponseList.map((material: Material) => {
-                return (
-                  <HomeMaterialCard
-                    key={material.id}
-                    isBig
-                    id={material.id}
-                    memberId={material.memberId}
-                    imageUrl={material.imageUrl}
-                    nickname={material.nickname}
-                    className={material.className}
-                    univ={material.univ}
-                    major={material.major}
-                    semester={material.semester}
-                    professor={material.professor}
-                    like={material.like}
-                  />
-                );
+    <>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            모두보기
+          </Text>
+        }
+        icons={[
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
               })
-            ) : (
-              <>
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-              </>
-            )}
-          </CardsWrapper>
-          
-          <div ref={bottomRef} style={{ height: '10px' }} />
-        </ViewAllContainer>
-        <BottomBar />
-        <Modal
-          modalRef={modalRef}
-          category={modalCategory}
-          onPrimaryAction={closePrimarily}
-          onSecondaryAction={closeSecondarily}
-        />
-      </MainRightContainer>
-    </PageContainer>
+            }
+            aria-label="cart"
+          >
+            <CartDefaultIcon />
+          </button>,
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="alarm"
+          >
+            <NotificationDefaultIcon />
+          </button>,
+        ]}
+      />
+      <ViewAllContainer>
+        <CardTitleWrapper>
+          <HomeTagCardTitle
+            title={tagCardTitle}
+            tag={tag}
+            category={0}
+            isViewAll
+          />
+        </CardTitleWrapper>
+        <CardsWrapper>
+          {allMaterials?.materialResponseList &&
+            allMaterials.materialResponseList.map((material: Material) => {
+              return (
+                <HomeMaterialCard
+                  key={material.id}
+                  isBig
+                  id={material.id}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
+                  nickname={material.nickname}
+                  className={material.className}
+                  univ={material.univ}
+                  major={material.major}
+                  semester={material.semester}
+                  professor={material.professor}
+                  like={material.like}
+                />
+              );
+            })}
+          {isLoading && (
+            <>
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+            </>
+          )}
+        </CardsWrapper>
+
+        <div ref={bottomRef} style={{ height: '10px' }} />
+      </ViewAllContainer>
+      <BottomBar />
+      <Modal
+        modalRef={modalRef}
+        category={modalCategory}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
+    </>
   );
 };
 
