@@ -45,9 +45,9 @@ const HomeViewAll = () => {
   let tagCardTitle: string;
   const authStore = useAuthStore((state) => state.accessToken);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const bottomRef = useRef(null);
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [hasLastPageReached, setHasLastPageReached] = useState(false);
   const recentMaterials = getArrayFromLocalStorage('recent-materials');
   const recentMaterialViewAll: MaterialViewAll = {
     page: 1,
@@ -96,7 +96,7 @@ const HomeViewAll = () => {
             newMaterials = await getAllUnivBestViewAll(nextPage, 10);
           } else if (tag === 'undefined') {
             setAllMaterials(recentMaterialViewAll);
-            setIsLastPage(true);
+            setHasLastPageReached(true);
           }
           break;
         case HOME_CATEGORY.MY_UNIV.toString():
@@ -127,7 +127,7 @@ const HomeViewAll = () => {
                 setAllMaterials(recentMyUnivViewAll);
               });
             }
-            setIsLastPage(true);
+            setHasLastPageReached(true);
           }
           break;
         case HOME_CATEGORY.MY_MAJOR.toString():
@@ -158,14 +158,14 @@ const HomeViewAll = () => {
                 setAllMaterials(recentMyMajorViewAll);
               });
             }
-            setIsLastPage(true);
+            setHasLastPageReached(true);
           }
           break;
         default:
           break;
       }
 
-      if (newMaterials?.end) setIsLastPage(true);
+      if (newMaterials?.end) setHasLastPageReached(true);
 
       if (newMaterials != null) {
         setAllMaterials((prevMaterials: MaterialViewAll | null) => ({
@@ -178,17 +178,17 @@ const HomeViewAll = () => {
       }
 
       setPage(nextPage);
-      setLoading(false);
+      setIsLoading(false);
     } catch (error) {
       // console.error('Error loading more materials:', error);
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting && !loading && !isLastPage) {
-      setLoading(true);
+    if (target.isIntersecting && !isLoading && !hasLastPageReached) {
+      setIsLoading(true);
       // 다음 페이지의 자료 불러오기
       loadMoreMaterials();
     }
@@ -198,7 +198,7 @@ const HomeViewAll = () => {
     const observer = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1,
+      threshold: 1.0,
     });
 
     if (bottomRef.current) {
@@ -208,7 +208,7 @@ const HomeViewAll = () => {
     return () => {
       observer.disconnect();
     };
-  }, [loading, allMaterials]);
+  }, [isLoading, allMaterials]);
 
   return (
     <>
@@ -258,7 +258,7 @@ const HomeViewAll = () => {
           />
         </CardTitleWrapper>
         <CardsWrapper>
-          {allMaterials?.materialResponseList ? (
+          {allMaterials?.materialResponseList &&
             allMaterials.materialResponseList.map((material: Material) => {
               return (
                 <HomeMaterialCard
@@ -276,8 +276,8 @@ const HomeViewAll = () => {
                   like={material.like}
                 />
               );
-            })
-          ) : (
+            })}
+          {isLoading && (
             <>
               <HomeMaterialCardSkeleton isBig />
               <HomeMaterialCardSkeleton isBig />
