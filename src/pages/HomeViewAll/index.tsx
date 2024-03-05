@@ -35,6 +35,7 @@ import Modal from '../../components/common/Modal';
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
 import { getMy } from '../../apis/member';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -62,6 +63,8 @@ const HomeViewAll = () => {
     closePrimarily,
     closeSecondarily,
   } = useModal();
+
+  const refreshPayload = useRefreshPayload();
 
   switch (tag) {
     case 'new':
@@ -98,12 +101,22 @@ const HomeViewAll = () => {
           break;
         case HOME_CATEGORY.MY_UNIV.toString():
           if (tag === 'new' && authStore) {
-            newMaterials = await getMyUnivNewlyViewAll(nextPage, 10, authStore);
+            newMaterials = await getMyUnivNewlyViewAll(
+              nextPage,
+              10,
+              authStore,
+              refreshPayload,
+            );
           } else if (tag === 'hot' && authStore) {
-            newMaterials = await getMyUnivBestViewAll(nextPage, 10, authStore);
+            newMaterials = await getMyUnivBestViewAll(
+              nextPage,
+              10,
+              authStore,
+              refreshPayload,
+            );
           } else if (tag === 'undefined') {
             if (authStore) {
-              getMy(authStore).then(({ univName }) => {
+              getMy(authStore, refreshPayload).then(({ univName }) => {
                 const recentMyUnivViewAll: MaterialViewAll = {
                   page: 1,
                   materialResponseList: recentMaterials
@@ -123,12 +136,18 @@ const HomeViewAll = () => {
               nextPage,
               10,
               authStore,
+              refreshPayload,
             );
           } else if (tag === 'hot' && authStore) {
-            newMaterials = await getMyMajorBestViewAll(nextPage, 10, authStore);
+            newMaterials = await getMyMajorBestViewAll(
+              nextPage,
+              10,
+              authStore,
+              refreshPayload,
+            );
           } else if (tag === 'undefined') {
             if (authStore) {
-              getMy(authStore).then(({ major }) => {
+              getMy(authStore, refreshPayload).then(({ major }) => {
                 const recentMyMajorViewAll: MaterialViewAll = {
                   page: 1,
                   materialResponseList: recentMaterials

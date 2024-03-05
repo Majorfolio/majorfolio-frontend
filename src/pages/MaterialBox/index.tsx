@@ -11,6 +11,7 @@ import TapMenu from '../../components/common/TapMenu';
 import BottomBar from '../../components/common/BottomBar';
 import useAuthStore from '../../store/useAuthStore';
 import getPurchaseInfo from '../../apis/library';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 
 interface PurchasedItemType {
   id: number;
@@ -35,12 +36,15 @@ const MaterialBox = () => {
     buyComplete: PurchasedItemType[];
   }>(null);
 
+  const refreshPayload = useRefreshPayload();
+
   useEffect(() => {
     const asyncEffect = async () => {
       const { beforePay, afterPay, buyComplete } = await getPurchaseInfo(
         1,
         10,
         accessToken,
+        refreshPayload,
       );
       setMaterialsByState({
         beforePay,

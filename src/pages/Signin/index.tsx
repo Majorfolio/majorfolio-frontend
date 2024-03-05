@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import { Logo } from '../../assets/images/landing';
 import {
-  StyledLogoContainer, 
+  StyledLogoContainer,
   StyledButtonContainer,
   StyledSigninButton,
   StyledSigninContainer,
@@ -11,9 +11,20 @@ import {
 import { KakaoIcon } from '../../assets/icons';
 import Button from '../../components/common/Button';
 import useSignin from './useSignin';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 
 export default function Signin() {
   const { onKakaoSignin } = useSignin();
+  const navigate = useNavigate();
+
+  const authLevel = useAuthStore((state) => state.authLevel);
+
+  // TODO seperate it using custom hook
+  useEffect(() => {
+    if (authLevel > AuthLevel.Guest) {
+      navigate('/home');
+    }
+  }, [authLevel, navigate]);
 
   return (
     <StyledSigninContainer>

@@ -1,3 +1,5 @@
+import { RetryPayload, fetchWithTokenRetry } from './member';
+
 const LIBRARY_COMMON_SEGMENT = 'library';
 
 const LIBRARY_PATH_SEGMENTS = {
@@ -9,21 +11,22 @@ const getPurchaseInfo = async (
   page: number,
   pageSize: number,
   accessToken: string,
+  retryPayload: RetryPayload,
 ) => {
   const queryParams = new URLSearchParams({
     page: page.toString(),
     pageSize: pageSize.toString(),
   });
 
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${LIBRARY_PATH_SEGMENTS.PURCHASED}?${queryParams}`,
     {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },
     },
+    retryPayload,
   );
-  const data = response.json();
 
   return data;
 };

@@ -32,6 +32,7 @@ import {
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 // import materials from '../../apis/materials-dummy'
@@ -63,6 +64,8 @@ const Home = () => {
     setCurrentCategory(category);
   };
 
+  const refreshPayload = useRefreshPayload();
+
   useEffect(() => {
     switch (currentCategory) {
       case HOME_CATEGORY.ALL_UNIV: // 0
@@ -72,8 +75,10 @@ const Home = () => {
         break;
       case HOME_CATEGORY.MY_UNIV: // 1
         if (authStore) {
-          getMyUniv(authStore).then((value) => setHomeMaterials(value));
-          getMy(authStore).then(({ univName }) => {
+          getMyUniv(authStore, refreshPayload).then((value) =>
+            setHomeMaterials(value),
+          );
+          getMy(authStore, refreshPayload).then(({ univName }) => {
             setTitle(univName);
             recentMyUniv = materials
               .filter((item) => item.univ === univName)
@@ -84,8 +89,10 @@ const Home = () => {
         break;
       case HOME_CATEGORY.MY_MAJOR: // 2
         if (authStore) {
-          getMyMajor(authStore).then((value) => setHomeMaterials(value));
-          getMy(authStore).then(({ major }) => {
+          getMyMajor(authStore, refreshPayload).then((value) =>
+            setHomeMaterials(value),
+          );
+          getMy(authStore, refreshPayload).then(({ major }) => {
             setTitle(major);
             recentMyMajor = materials
               .filter((item) => item.major === major)

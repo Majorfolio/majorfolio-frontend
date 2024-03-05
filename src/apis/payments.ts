@@ -1,8 +1,13 @@
 import { access } from 'fs';
 import { Order } from '../components/home/Payment/index.types';
 import { HTTP_METHODS } from './constants';
+import { RetryPayload, fetchWithTokenRetry } from './member';
 
-export const updateBuyInfo = async (authStore: string, buyInfo: Order) => {
+export const updateBuyInfo = async (
+  authStore: string,
+  buyInfo: Order,
+  refreshPayload: RetryPayload,
+) => {
   try {
     const requestOptions = {
       method: 'POST',
@@ -12,16 +17,21 @@ export const updateBuyInfo = async (authStore: string, buyInfo: Order) => {
       },
       body: JSON.stringify(buyInfo),
     };
-    return await fetch(
+    return await fetchWithTokenRetry(
       `https://majorfolio-server.shop/payments/info`,
       requestOptions,
+      refreshPayload,
     );
   } catch (e) {
     return Promise.reject(e);
   }
 };
 
-export const getBuyInfo = async (authStore: string, buyInfoId: number) => {
+export const getBuyInfo = async (
+  authStore: string,
+  buyInfoId: number,
+  refreshPayload: RetryPayload,
+) => {
   // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     method: 'GET',
@@ -30,15 +40,20 @@ export const getBuyInfo = async (authStore: string, buyInfoId: number) => {
     },
   };
 
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `https://majorfolio-server.shop/payments/info/${buyInfoId}`,
     requestOptions,
+    refreshPayload,
   );
-  const data = await response.json();
+
   return data;
 };
 
-export const updateCancel = async (authStore: string, buyInfoId: number) => {
+export const updateCancel = async (
+  authStore: string,
+  buyInfoId: number,
+  refreshPayload: RetryPayload,
+) => {
   try {
     const requestOptions = {
       method: 'POST',
@@ -48,9 +63,10 @@ export const updateCancel = async (authStore: string, buyInfoId: number) => {
       },
       body: JSON.stringify({}),
     };
-    return await fetch(
+    return await fetchWithTokenRetry(
       `https://majorfolio-server.shop/payments/cancel/${buyInfoId}`,
       requestOptions,
+      refreshPayload,
     );
   } catch (e) {
     return Promise.reject(e);
@@ -61,6 +77,7 @@ export const getBuyTransaction = async (
   page: number,
   pageSize: number,
   authStore: string,
+  refreshPayload: RetryPayload,
 ) => {
   // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
@@ -70,11 +87,12 @@ export const getBuyTransaction = async (
     },
   };
 
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `https://majorfolio-server.shop/transaction/buy?page=${page}&pageSize=${pageSize}`,
     requestOptions,
+    refreshPayload,
   );
-  const data = await response.json();
+
   return data;
 };
 
@@ -82,6 +100,7 @@ export const getSaleTransaction = async (
   page: number,
   pageSize: number,
   authStore: string,
+  refreshPayload: RetryPayload,
 ) => {
   // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
@@ -91,16 +110,21 @@ export const getSaleTransaction = async (
     },
   };
 
-  const response = await fetch(
+  const data = await fetchWithTokenRetry(
     `https://majorfolio-server.shop/sale/buy?page=${page}&pageSize=${pageSize}`,
     requestOptions,
+    refreshPayload,
   );
-  const data = await response.json();
+
   return data;
 };
 
-export const cancelPayment = async (buyInfoId: string, accessToken: string) => {
-  const response = await fetch(
+export const cancelPayment = async (
+  buyInfoId: string,
+  accessToken: string,
+  refreshPayload: RetryPayload,
+) => {
+  const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}/payments/cancel/${buyInfoId}`,
     {
       method: HTTP_METHODS.POST,
@@ -110,7 +134,8 @@ export const cancelPayment = async (buyInfoId: string, accessToken: string) => {
       },
       body: JSON.stringify({}),
     },
+    refreshPayload,
   );
-  const data = await response.json();
+
   return data;
 };

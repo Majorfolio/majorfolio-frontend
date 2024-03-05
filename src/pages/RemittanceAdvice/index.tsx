@@ -23,6 +23,7 @@ import { cancelPayment, getBuyInfo } from '../../apis/payments';
 import { OrderInfo } from '../../components/home/Payment/index.types';
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 
 const RemittanceAdvice = () => {
   const location = useLocation();
@@ -44,10 +45,15 @@ const RemittanceAdvice = () => {
     }
   };
 
+  const refreshPayload = useRefreshPayload();
   const handleCancelClick = () => {
     activateModal('CANCEL_PURCHASE', {
       primaryAction: async () => {
-        const { code } = await cancelPayment(buyInfoId as string, authStore);
+        const { code } = await cancelPayment(
+          buyInfoId as string,
+          authStore,
+          refreshPayload,
+        );
         // TODO navigate to the previous page
         if (code === 9001) {
           alert('이미 송금을 한 구매 정보입니다.');
@@ -63,9 +69,11 @@ const RemittanceAdvice = () => {
 
   useEffect(() => {
     if (buyInfoId && authStore) {
-      getBuyInfo(authStore, parseInt(buyInfoId, 10)).then((response) => {
-        setBuyInfo(response);
-      });
+      getBuyInfo(authStore, parseInt(buyInfoId, 10), refreshPayload).then(
+        (response) => {
+          setBuyInfo(response);
+        },
+      );
     }
   }, [buyInfoId, authStore, setBuyInfo]);
 

@@ -24,6 +24,7 @@ import {
   updateLike,
 } from '../../../apis/materials';
 import useAuthStore from '../../../store/useAuthStore';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface MaterialSellerProfileProps {
   id?: number;
@@ -49,12 +50,13 @@ function MaterialSellerProfile({
   const [likeCount, setLikeCount] = useState(like);
   const [bookmarkCount, setBookmarkCount] = useState(bookmark);
   const authStore = useAuthStore((state) => state.accessToken);
+  const refreshPayload = useRefreshPayload();
 
   const handleLikeClick = () => {
     // setLikeChecked(!likeChecked);
     if (hasReaction && id && authStore) {
       setLikeChecked(!likeChecked);
-      updateLike(id, authStore);
+      updateLike(id, authStore, refreshPayload);
       getMaterialDetail(id, authStore).then((response) => {
         setLikeCount(response.result.like);
       });
@@ -64,7 +66,7 @@ function MaterialSellerProfile({
   const handleBookmarkClick = () => {
     if (hasReaction && id && authStore) {
       setBookmarkChecked(!bookmarkChecked);
-      updateBookmark(id, authStore);
+      updateBookmark(id, authStore, refreshPayload);
       getMaterialDetail(id, authStore).then((response) => {
         setBookmarkCount(response.result.bookmark);
       });

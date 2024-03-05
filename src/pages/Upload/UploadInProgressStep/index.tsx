@@ -22,6 +22,7 @@ import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
 import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface IFile {
   url: string;
@@ -57,6 +58,8 @@ export default function UploadInProgresStep() {
     closeSecondarily,
   } = useModal();
 
+  const refreshPayload = useRefreshPayload();
+
   const selectFile = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
@@ -77,7 +80,7 @@ export default function UploadInProgresStep() {
   const uploadFile = async () => {
     if (!currentFile) return;
 
-    const response = await sendFile(
+    const { code, result } = await sendFile(
       currentFile,
       {
         title: titleState.title,
@@ -91,9 +94,9 @@ export default function UploadInProgresStep() {
         description: descriptionState.description,
       },
       accessToken,
+      refreshPayload,
     );
 
-    const { code, result } = await response.json();
     if (code === 1000) {
       const { isRegisterPhoneNumber } = result;
       if (!isRegisterPhoneNumber) {
