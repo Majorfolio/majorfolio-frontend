@@ -239,3 +239,62 @@ export const deleteAccount = async (accessToken: string) => {
     requestOptions,
   );
 };
+
+export const reissueAccessToken = async (refreshToken: string) => {
+  const requestOptions = {
+    method: HTTP_METHODS.POST,
+    headers: {
+      authorization: `Bearer ${refreshToken}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({}),
+  };
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.REMAKE_TOKEN}`,
+    requestOptions,
+  );
+
+  // TODO signout when refresh token gets expired
+  return response;
+};
+
+export interface RetryPayload {
+  refreshToken: string;
+  onRetrySuccess: (newAccessToken: string, newRefreshToken: string) => void;
+  onRetryFail: () => void;
+}
+
+export async function fetchWithTokenRetry(
+  url: string,
+  options: RequestInit,
+  retryPayload: RetryPayload,
+) {
+  const { refreshToken, onRetrySuccess, onRetryFail } = retryPayload;
+
+  // TODO set all the return type to body(response is useless)
+  const response = await fetch(url, options);
+  const { code, ...result } = await response.json();
+  if (code !== 4005) {
+    return result;
+  }
+
+  const refreshResponse = await reissueAccessToken(refreshToken);
+  const { refreshCode, ...refreshResult } = await refreshResponse.json();
+
+  if (refreshCode === 4005) {
+    // signout and navigate
+    onRetryFail();
+    return refreshResult;
+  }
+  const { newAccessToken, newRefreshToken } = result;
+  // signout and update tokens
+  onRetrySuccess(newAccessToken, newRefreshToken);
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      authorization: `Bearer ${newAccessToken}`,
+    },
+  }).then((retryResponse) => retryResponse.json());
+}
