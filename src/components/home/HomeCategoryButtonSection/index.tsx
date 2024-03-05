@@ -24,6 +24,7 @@ import useModal from '../../../hooks/common/useModal';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 import Modal from '../../common/Modal';
 import { Path } from '../../common/BottomBar';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 
 interface HomeCategoryButtonSectionProps {
   currentCategory?: number;
@@ -50,13 +51,14 @@ function HomeCategoryButtonSection({
     closeSecondarily,
   } = useModal();
   const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('member');
+  const authLevel = useAuthStore((state) => state.authLevel);
 
   const redirect = (category: Category) => {
-    if (!isUserSignedin) {
+    if (authLevel === AuthLevel.Guest) {
       activateModal('REQUIRE_SIGNIN', {
         primaryAction: () => navigate(Path.Signin),
       });
-    } else if (!hasUserVerifiedSchool) {
+    } else if (authLevel === AuthLevel.Unverified) {
       activateModal('REQUIRE_SIGNUP', {
         primaryAction: () => navigate(Path.Signup),
       });

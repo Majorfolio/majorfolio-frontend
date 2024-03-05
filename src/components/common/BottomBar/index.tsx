@@ -23,6 +23,7 @@ import {
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../Modal';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 
 export enum Path {
   Home = '/home',
@@ -44,13 +45,14 @@ export default function BottomBar() {
     category: modalCategory,
   } = useModal();
   const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('guest');
+  const authLevel = useAuthStore((state) => state.authLevel);
 
   const redirect = (path: Path) => {
-    if (!isUserSignedin) {
+    if (authLevel === AuthLevel.Guest) {
       activateModal('REQUIRE_SIGNIN', {
         primaryAction: () => navigate(Path.Signin),
       });
-    } else if (!hasUserVerifiedSchool) {
+    } else if (authLevel === AuthLevel.Unverified) {
       activateModal('REQUIRE_SIGNUP', {
         primaryAction: () => navigate(Path.Signup),
       });
