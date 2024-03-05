@@ -50,7 +50,7 @@ export type WeightType = 'bold' | 'md';
 
 export type LineHeightType = 'sm' | 'md' | 'lg';
 
-export type SizeType = 10 | 12 | 14 | 16 | 18 | 20 | 22;
+export type SizeType = 10 | 12 | 14 | 16 | 18 | 20 | 22 | 52;
 
 const theme = {
   color: {

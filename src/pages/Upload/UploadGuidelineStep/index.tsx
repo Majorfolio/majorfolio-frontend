@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import {
   CheckboxDefaultIcon,
@@ -13,9 +14,14 @@ import {
 } from './index.styles';
 import UploadSection from '../../../components/common/UploadSection';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import { PageContainer } from '../../Home/index.styles';
 import { useNextStep } from '..';
-import { Link } from 'react-router-dom';
+import {
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../../components/common/GlobalStyle/index.styles';
+import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
+import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 
 interface UploadGuidelineStepType {
   onNext: () => void;
@@ -91,13 +97,15 @@ export default function UploadGuidelineStep() {
   );
 
   return (
-    <PageContainer>
-      <StyledBodyContainer>
-        {description}
-        {checklist}
-        <UploadSection items={[notice]} />
-      </StyledBodyContainer>
+    <>
+      <PageContainer>
+        <StyledBodyContainer>
+          {description}
+          {checklist}
+          <UploadSection items={[notice]} />
+        </StyledBodyContainer>
+      </PageContainer>
       <BottomButtonBar transitions={transitions} />
-    </PageContainer>
+    </>
   );
 }

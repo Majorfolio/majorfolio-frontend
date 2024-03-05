@@ -14,7 +14,6 @@ import ScoreRow, {
   StyledDescriptionSectionItem,
 } from './index.styles';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import { PageContainer } from '../../Home/index.styles';
 import sendFile from '../../../apis/assignment';
 import useAuthStore from '../../../store/useAuthStore';
 import useMaterialStore from '../../../store/useMaterialStore';
@@ -23,6 +22,13 @@ import Modal from '../../../components/common/Modal';
 import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import {
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../../components/common/GlobalStyle/index.styles';
+import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
+import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 
 interface IFile {
   url: string;
@@ -249,8 +255,9 @@ export default function UploadInProgresStep() {
           title={descriptionSectionTitle}
           items={[descriptionSectionItem]}
         />
+        <BottomButtonBar transitions={transitions} />
       </SomeContainer>
-      <BottomButtonBar transitions={transitions} />
+
       <Modal
         modalRef={modalRef}
         category={category}

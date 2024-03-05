@@ -6,18 +6,14 @@ import PaymentPostCard from '../../components/home/PaymentPostCard';
 import AllDivider from '../../components/common/AllDivider';
 import PaymentCouponSection from '../../components/home/PaymentCouponSection';
 import PaymentAmountDetailSection from '../../components/home/PaymentAmountDetailSection';
-import {
-  ButtonWrapper,
-  BuyNowContainer,
-  PageContainer,
-  StickyBottom,
-} from './index.styles';
+import { ButtonWrapper, BuyNowContainer, StickyBottom } from './index.styles';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
 import { updateBuyInfo } from '../../apis/payments';
 import useAuthStore from '../../store/useAuthStore';
+import { PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import { ArrowBackDefaultIcon } from '../../assets/icons';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';

@@ -6,7 +6,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0px 20px;
+  /* padding: 0px 20px; */
   min-height: 100vh;
   box-sizing: border-box;
 `;
