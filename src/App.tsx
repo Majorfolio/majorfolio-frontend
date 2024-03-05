@@ -4,7 +4,11 @@ import GlobalStyle from './components/common/GlobalStyle';
 import useAutoSignin from './hooks/common/useAutoSignin';
 
 function App() {
-  useAutoSignin();
+  const { isSigninDone } = useAutoSignin();
+
+  if (!isSigninDone) {
+    return <span />;
+  }
 
   return (
     <>
