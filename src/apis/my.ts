@@ -29,4 +29,46 @@ const getMyProfile = async (
   }
 };
 
+export const getMyBookmarks = async (
+  page: number,
+  pageSize: number,
+  accessToken: string,
+  refreshPayload: RetryPayload,
+) => {
+  const requestOptions = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  const data = await fetchWithTokenRetry(
+    `${process.env.REACT_APP_API_URL}/my/bookmark?page=${page}&pageSize=${pageSize}`,
+    requestOptions,
+    refreshPayload,
+  );
+
+  return data;
+};
+
+export const getMyLikes = async (
+  page: number,
+  pageSize: number,
+  authStore: string,
+  refreshPayload: RetryPayload,
+) => {
+  const requestOptions = {
+    headers: {
+      Authorization: `Bearer ${authStore}`,
+    },
+  };
+
+  const data = await fetchWithTokenRetry(
+    `${process.env.REACT_APP_API_URL}/my/like?page=${page}&pageSize=${pageSize}`,
+    requestOptions,
+    refreshPayload,
+  );
+
+  return data;
+};
+
 export default getMyProfile;

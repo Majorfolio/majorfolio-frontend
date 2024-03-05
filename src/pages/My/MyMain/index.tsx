@@ -19,6 +19,8 @@ import { ArrowBackDefaultIcon, ViewMoreIcon } from '../../../assets/icons';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
 import BottomBar from '../../../components/common/BottomBar';
+import Column from '../../../components/common/Column';
+import RowButton from '../../../components/common/RowButton';
 
 export default function MyMain() {
   const { nickName, univName, major, image_url, upload, sell, follower } =
@@ -82,6 +84,22 @@ export default function MyMain() {
           </StyledProfileIntro>
           {countInfoRow}
         </StyledProfileSection>
+        <Column>
+          <RowButton
+            text="북마크한 자료"
+            onClick={() => navigate('./bookmarks')}
+          />
+          <RowButton text="좋아요한 자료" onClick={() => navigate('./likes')} />
+          <RowButton
+            text="거래 내역"
+            onClick={() => navigate('../transactions')}
+          />
+          <RowButton
+            type="button"
+            text="쿠폰함"
+            onClick={() => navigate('/')}
+          />
+        </Column>
       </StyledPageContainer>
 
       <BottomBar />
