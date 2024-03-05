@@ -6,7 +6,6 @@ import {
   CardsWrapper,
   ViewAllContainer,
 } from './index.styles';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import BottomBar from '../../components/common/BottomBar';
@@ -32,8 +31,7 @@ import {
 } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import Modal from '../../components/common/Modal';
-import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
-import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
+
 import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtils';
 import { getMy } from '../../apis/member';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
@@ -213,100 +211,93 @@ const HomeViewAll = () => {
   }, [loading, allMaterials]);
 
   return (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
-
-      <MainRightContainer>
-        <SecondaryTopbar
-          transition={
-            <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
-              <ArrowBackDefaultIcon />
-            </button>
-          }
-          title={
-            <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-              모두보기
-            </Text>
-          }
-          icons={[
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label='cart'
-            >
-              <CartDefaultIcon />
-            </button>,
-            <button
-              type="button"
-              onClick={() =>
-                activateModal('TO_BE_UPDATED', {
-                  primaryAction: () => {},
-                })
-              }
-              aria-label='alarm'
-            >
-              <NotificationDefaultIcon />
-            </button>,
-          ]}
-        />
-        <ViewAllContainer>
-          <CardTitleWrapper>
-            <HomeTagCardTitle
-              title={tagCardTitle}
-              tag={tag}
-              category={0}
-              isViewAll
-            />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {allMaterials?.materialResponseList ? (
-              allMaterials.materialResponseList.map((material: Material) => {
-                return (
-                  <HomeMaterialCard
-                    key={material.id}
-                    isBig
-                    id={material.id}
-                    memberId={material.memberId}
-                    imageUrl={material.imageUrl}
-                    nickname={material.nickname}
-                    className={material.className}
-                    univ={material.univ}
-                    major={material.major}
-                    semester={material.semester}
-                    professor={material.professor}
-                    like={material.like}
-                  />
-                );
+    <>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            모두보기
+          </Text>
+        }
+        icons={[
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
               })
-            ) : (
-              <>
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-                <HomeMaterialCardSkeleton isBig />
-              </>
-            )}
-          </CardsWrapper>
-          
-          <div ref={bottomRef} style={{ height: '10px' }} />
-        </ViewAllContainer>
-        <BottomBar />
-        <Modal
-          modalRef={modalRef}
-          category={modalCategory}
-          onPrimaryAction={closePrimarily}
-          onSecondaryAction={closeSecondarily}
-        />
-      </MainRightContainer>
-    </PageContainer>
+            }
+            aria-label="cart"
+          >
+            <CartDefaultIcon />
+          </button>,
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="alarm"
+          >
+            <NotificationDefaultIcon />
+          </button>,
+        ]}
+      />
+      <ViewAllContainer>
+        <CardTitleWrapper>
+          <HomeTagCardTitle
+            title={tagCardTitle}
+            tag={tag}
+            category={0}
+            isViewAll
+          />
+        </CardTitleWrapper>
+        <CardsWrapper>
+          {allMaterials?.materialResponseList ? (
+            allMaterials.materialResponseList.map((material: Material) => {
+              return (
+                <HomeMaterialCard
+                  key={material.id}
+                  isBig
+                  id={material.id}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
+                  nickname={material.nickname}
+                  className={material.className}
+                  univ={material.univ}
+                  major={material.major}
+                  semester={material.semester}
+                  professor={material.professor}
+                  like={material.like}
+                />
+              );
+            })
+          ) : (
+            <>
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+              <HomeMaterialCardSkeleton isBig />
+            </>
+          )}
+        </CardsWrapper>
+
+        <div ref={bottomRef} style={{ height: '10px' }} />
+      </ViewAllContainer>
+      <BottomBar />
+      <Modal
+        modalRef={modalRef}
+        category={modalCategory}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
+    </>
   );
 };
 

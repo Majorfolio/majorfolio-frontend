@@ -26,11 +26,13 @@ import DeleteAccount from './My/DeleteAccount';
 import Bookmarks from './My/Bookmarks';
 import Likes from './My/Likes';
 import Transactions from './My/Transactions';
+import RootContainer from './RootContainer';
 
 const Router = () => {
   const router = createBrowserRouter([
     {
       path: '/',
+      element: <RootContainer />,
       children: [
         {
           index: true,
