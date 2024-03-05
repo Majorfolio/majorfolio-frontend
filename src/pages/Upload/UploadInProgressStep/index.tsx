@@ -21,7 +21,11 @@ import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
 import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../../components/common/GlobalStyle/index.styles';
+import {
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../../components/common/GlobalStyle/index.styles';
 import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 
@@ -236,33 +240,27 @@ export default function UploadInProgresStep() {
 
   return (
     <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
-
-      <MainRightContainer>
-        <SomeContainer>
-          <Description
-            normalText="자세한 정보로"
-            boldText="자료의 구매를 유도해보세요"
-          />
-          <UploadSection title={fileSectionTitle} items={[fileSectionItem]} />
-          <UploadSection title={titleSectionTitle} items={[titleSectionItem]} />
-          <UploadSection title={otherSectionTitle} items={[otherSectionItem]} />
-          <UploadSection
-            title={descriptionSectionTitle}
-            items={[descriptionSectionItem]}
-          />
-        </SomeContainer>
-        <BottomButtonBar transitions={transitions} />
-        <Modal
-          modalRef={modalRef}
-          category={category}
-          onPrimaryAction={closePrimarily}
-          onSecondaryAction={closeSecondarily}
+      <SomeContainer>
+        <Description
+          normalText="자세한 정보로"
+          boldText="자료의 구매를 유도해보세요"
         />
-      </MainRightContainer>
+        <UploadSection title={fileSectionTitle} items={[fileSectionItem]} />
+        <UploadSection title={titleSectionTitle} items={[titleSectionItem]} />
+        <UploadSection title={otherSectionTitle} items={[otherSectionItem]} />
+        <UploadSection
+          title={descriptionSectionTitle}
+          items={[descriptionSectionItem]}
+        />
+        <BottomButtonBar transitions={transitions} />
+      </SomeContainer>
+
+      <Modal
+        modalRef={modalRef}
+        category={category}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
     </PageContainer>
   );
 }

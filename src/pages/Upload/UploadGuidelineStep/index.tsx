@@ -15,7 +15,11 @@ import {
 import UploadSection from '../../../components/common/UploadSection';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { useNextStep } from '..';
-import { MainLeftContainer, MainRightContainer, PageContainer } from '../../../components/common/GlobalStyle/index.styles';
+import {
+  MainLeftContainer,
+  MainRightContainer,
+  PageContainer,
+} from '../../../components/common/GlobalStyle/index.styles';
 import MainLeftBoxTop from '../../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../../components/common/MainLeftBoxBottom';
 
@@ -93,20 +97,15 @@ export default function UploadGuidelineStep() {
   );
 
   return (
-    <PageContainer>
-      <MainLeftContainer>
-        <MainLeftBoxTop />
-        <MainLeftBoxBottom />
-      </MainLeftContainer>
-
-      <MainRightContainer>
+    <>
+      <PageContainer>
         <StyledBodyContainer>
           {description}
           {checklist}
           <UploadSection items={[notice]} />
         </StyledBodyContainer>
-        <BottomButtonBar transitions={transitions} />
-      </MainRightContainer>
-    </PageContainer>
+      </PageContainer>
+      <BottomButtonBar transitions={transitions} />
+    </>
   );
 }
