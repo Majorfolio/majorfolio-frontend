@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StyledSectionContainer } from '../../../components/common/UploadSection/index.styles';
 import Description from '../../../components/common/Description';
 import RowButton from '../../../components/common/RowButton';
@@ -8,7 +9,14 @@ import { CloseDefaultIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
+export enum Notices {
+  PersonalInfoPolicy,
+  PreOrder,
+}
+
 export default function NoticeList() {
+  const navigate = useNavigate();
+
   const description = (
     <Description
       normalText="메이저폴리오의"
@@ -31,6 +39,9 @@ export default function NoticeList() {
           </LargeTag>
         }
         text="개인정보처리방침 개정 안내"
+        onClick={() =>
+          navigate(`../notice-detail/${Notices.PersonalInfoPolicy}`)
+        }
       />
       <RowButton
         tag={
@@ -45,6 +56,7 @@ export default function NoticeList() {
           </LargeTag>
         }
         text="사전예약 시 혜택을 살펴보세요"
+        onClick={() => navigate(`../notice-detail/${Notices.PreOrder}`)}
       />
     </>
   );
@@ -52,7 +64,11 @@ export default function NoticeList() {
     <>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => {}} aria-label="previous">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            aria-label="previous"
+          >
             <CloseDefaultIcon />
           </button>
         }
