@@ -29,14 +29,6 @@ const Landing = () => {
 
   return (
     <PageContainer>
-      <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
-            <ArrowBackDefaultIcon />
-          </button>
-        }
-        title=""
-      />
       <S.Container>
         <S.MfWrapper>
           <S.MfImg1 />
