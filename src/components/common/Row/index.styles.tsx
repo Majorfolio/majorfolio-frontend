@@ -1,9 +1,31 @@
 import { styled } from 'styled-components';
+import { RowPropsType } from './index.types';
+import theme from '../theme';
 
-export const StyledRow = styled.div`
+const StyledRow = styled.div<RowPropsType>`
   display: flex;
-  width: 100%;
-  align-items: center;
+  align-items: ${({ align }) => align || 'center'};
+  justify-content: ${({ justify }) => justify || 'start'};
+  column-gap: ${({ gap }) => (gap ? `${gap}px` : 'normal')};
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  height: ${({ height }) => (height ? `${height}px` : '')};
+  border-radius: ${({ radius }) => (radius ? `${radius}px` : '0')};
+
+  box-sizing: border-box;
+  background-color: ${({ background }) =>
+    background ? `${theme.color[background]}` : 'transparent'};
+
+  margin: ${({ margin }) => margin || ''};
+  margin-top: ${({ mt }) => (mt ? `${mt}px` : '')};
+  margin-right: ${({ mr }) => (mr ? `${mr}px` : '')};
+  margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '')};
+  margin-left: ${({ ml }) => (ml ? `${ml}px` : '')};
+
+  padding: ${({ padding }) => padding || ''};
+  padding-top: ${({ pt }) => (pt ? `${pt}px` : '')};
+  padding-right: ${({ pr }) => (pr ? `${pr}px` : '')};
+  padding-bottom: ${({ pb }) => (pb ? `${pb}px` : '')};
+  padding-left: ${({ pl }) => (pl ? `${pl}px` : '')};
 `;
 
 export const StyledSpacedRow = styled(StyledRow)`
