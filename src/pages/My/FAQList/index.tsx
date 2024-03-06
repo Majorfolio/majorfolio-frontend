@@ -9,6 +9,7 @@ import { CloseDefaultIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import Column from '../../../components/common/Column';
+import StyledTextContainer from './index.styles';
 
 export enum FAQs {
   Refund,
@@ -17,33 +18,76 @@ export enum FAQs {
 }
 
 const FAQContents = {
-  [FAQs.Refund]: `고객님이 상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 훼손된 경우 (단, 내용 확인을 위한 포장 개봉의 경우는 예외)
+  [FAQs.Refund]: (
+    <>
+      <p>
+        `고객님이 상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가
+        훼손된 경우 (단, 내용 확인을 위한 포장 개봉의 경우는 예외)
+      </p>
+      <br />
+      <p>
+        고객님의 단순변심으로 인한 교환/반품 신청이 상품 수령한 날로부터 7일이
+        경과한 경우
+      </p>
+      <br />
+      <p>
+        신선식품(냉장/냉동 포함)을 단순변심/주문착오로 교환/반품 신청하는 경우
+      </p>
+      <br />
+      <p>고객님의 사용 또는 일부 소비에 의해 상품의 가치가 훼손된 경우</p>
+      <br />
+      <p>
+        시간 경과에 따라 상품 등의 가치가 현저히 감소하여 재판매가 불가능한 경우
+      </p>
+    </>
+  ),
 
-고객님의 단순변심으로 인한 교환/반품 신청이 상품 수령한 날로부터 7일이 경과한 경우
-
-신선식품(냉장/냉동 포함)을 단순변심/주문착오로 교환/반품 신청하는 경우
-
-고객님의 사용 또는 일부 소비에 의해 상품의 가치가 훼손된 경우
-
-시간 경과에 따라 상품 등의 가치가 현저히 감소하여 재판매가 불가능한 경우`,
-  [FAQs.Notification]: `고객님이 상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 훼손된 경우 (단, 내용 확인을 위한 포장 개봉의 경우는 예외)
-
-고객님의 단순변심으로 인한 교환/반품 신청이 상품 수령한 날로부터 7일이 경과한 경우
-
-신선식품(냉장/냉동 포함)을 단순변심/주문착오로 교환/반품 신청하는 경우
-
-고객님의 사용 또는 일부 소비에 의해 상품의 가치가 훼손된 경우
-
-시간 경과에 따라 상품 등의 가치가 현저히 감소하여 재판매가 불가능한 경우`,
-  [FAQs.Account]: `고객님이 상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 훼손된 경우 (단, 내용 확인을 위한 포장 개봉의 경우는 예외)
-
-고객님의 단순변심으로 인한 교환/반품 신청이 상품 수령한 날로부터 7일이 경과한 경우
-
-신선식품(냉장/냉동 포함)을 단순변심/주문착오로 교환/반품 신청하는 경우
-
-고객님의 사용 또는 일부 소비에 의해 상품의 가치가 훼손된 경우
-
-시간 경과에 따라 상품 등의 가치가 현저히 감소하여 재판매가 불가능한 경우`,
+  [FAQs.Notification]: (
+    <>
+      <p>
+        `고객님이 상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가
+        훼손된 경우 (단, 내용 확인을 위한 포장 개봉의 경우는 예외)
+      </p>
+      <br />
+      <p>
+        고객님의 단순변심으로 인한 교환/반품 신청이 상품 수령한 날로부터 7일이
+        경과한 경우
+      </p>
+      <br />
+      <p>
+        신선식품(냉장/냉동 포함)을 단순변심/주문착오로 교환/반품 신청하는 경우
+      </p>
+      <br />
+      <p>고객님의 사용 또는 일부 소비에 의해 상품의 가치가 훼손된 경우</p>
+      <br />
+      <p>
+        시간 경과에 따라 상품 등의 가치가 현저히 감소하여 재판매가 불가능한 경우
+      </p>
+    </>
+  ),
+  [FAQs.Account]: (
+    <>
+      <p>
+        `고객님이 상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가
+        훼손된 경우 (단, 내용 확인을 위한 포장 개봉의 경우는 예외)
+      </p>
+      <br />
+      <p>
+        고객님의 단순변심으로 인한 교환/반품 신청이 상품 수령한 날로부터 7일이
+        경과한 경우
+      </p>
+      <br />
+      <p>
+        신선식품(냉장/냉동 포함)을 단순변심/주문착오로 교환/반품 신청하는 경우
+      </p>
+      <br />
+      <p>고객님의 사용 또는 일부 소비에 의해 상품의 가치가 훼손된 경우</p>
+      <br />
+      <p>
+        시간 경과에 따라 상품 등의 가치가 현저히 감소하여 재판매가 불가능한 경우
+      </p>
+    </>
+  ),
 };
 
 export default function FAQList() {
@@ -76,9 +120,11 @@ export default function FAQList() {
           }
         />
         {openedFAQ === FAQs.Refund && (
-          <Text size={14} color="gray/gray900">
-            {FAQContents[FAQs.Refund]}
-          </Text>
+          <StyledTextContainer>
+            <Text size={14} color="gray/gray900">
+              {FAQContents[FAQs.Refund]}
+            </Text>
+          </StyledTextContainer>
         )}
       </Column>
       <Column>
@@ -102,9 +148,11 @@ export default function FAQList() {
           }
         />
         {openedFAQ === FAQs.Notification && (
-          <Text size={14} color="gray/gray900">
-            {FAQContents[FAQs.Notification]}
-          </Text>
+          <StyledTextContainer>
+            <Text size={14} color="gray/gray900">
+              {FAQContents[FAQs.Notification]}
+            </Text>
+          </StyledTextContainer>
         )}
       </Column>
       <Column>
@@ -126,9 +174,11 @@ export default function FAQList() {
           }
         />
         {openedFAQ === FAQs.Account && (
-          <Text size={14} color="gray/gray900">
-            {FAQContents[FAQs.Account]}
-          </Text>
+          <StyledTextContainer>
+            <Text size={14} color="gray/gray900">
+              {FAQContents[FAQs.Account]}
+            </Text>
+          </StyledTextContainer>
         )}
       </Column>
     </>
