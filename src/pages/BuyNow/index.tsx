@@ -17,6 +17,7 @@ import { PageContainer } from '../../components/common/GlobalStyle/index.styles'
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import { ArrowBackDefaultIcon } from '../../assets/icons';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
+import AllDividerThin from '../../components/common/AllDividerThin';
 
 const BuyNow = () => {
   const { materialId } = useParams();
@@ -42,10 +43,10 @@ const BuyNow = () => {
   };
 
   return (
-    <PageContainer>
+    <>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
             <ArrowBackDefaultIcon />
           </button>
         }
@@ -57,6 +58,8 @@ const BuyNow = () => {
       />
       <BuyNowContainer>
         <PaymentSelectAllBar isCart={false} />
+        
+        <AllDividerThin />
         {materialId ? (
           <PaymentPostCard isCart={false} materialInfo={materialInfo} />
         ) : null}
@@ -83,7 +86,7 @@ const BuyNow = () => {
           </Button>
         </ButtonWrapper>
       </StickyBottom>
-    </PageContainer>
+    </>
   );
 };
 
