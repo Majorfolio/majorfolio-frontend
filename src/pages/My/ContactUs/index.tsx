@@ -11,6 +11,7 @@ import { CenteredRow } from '../../../components/common/Row';
 import { KakaoButton } from '../../../components/common/Button';
 import StyledRow from './index.styles';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
+import RowButton from '../../../components/common/RowButton';
 
 const KAKAOTALK_CHANNEL_URL = 'http://pf.kakao.com/_NexmfG/chat';
 
@@ -49,6 +50,9 @@ export default function ContactUs() {
           >
             카카오톡 채널 상담
           </KakaoButton>
+        </StyledRow>
+        <StyledRow>
+          <RowButton text="FAQ" onClick={() => navigate('../FAQ')} />
         </StyledRow>
       </StyledPageContainer>
     </>
