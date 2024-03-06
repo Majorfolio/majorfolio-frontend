@@ -1,0 +1,54 @@
+<svg width="82" height="82" viewBox="0 0 82 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 427319680">
+<g id="Group 1000004436">
+<rect id="Rectangle 4656" x="24.2109" y="36" width="13.4743" height="35" rx="6" fill="#FF7A00"/>
+<rect id="Rectangle 4657" x="40.5703" y="36" width="13.4743" height="35" rx="6" fill="#FF7A00"/>
+<rect id="Rectangle 4658" width="11.7993" height="17.0079" rx="5.89964" transform="matrix(0.65671 -0.754143 0.728599 0.684941 58.8594 35.8984)" fill="#FF7A00"/>
+<rect id="Rectangle 4659" width="11.7203" height="17.1218" rx="5.86016" transform="matrix(0.779131 0.626861 -0.597571 0.801816 14.2344 32)" fill="#FF7A00"/>
+<g id="Group 1000004362">
+<path id="Vector 796" d="M66.1073 10.3203L14.7656 14.959C13.0836 15.1109 11.8585 16.6207 12.0561 18.2979L16.3054 54.354C16.5274 56.238 18.4204 57.4455 20.2224 56.8526L65.2389 42.0412C66.3861 41.6637 67.1951 40.6351 67.2917 39.4313L69.3676 13.548C69.5163 11.694 67.9596 10.1529 66.1073 10.3203Z" fill="#FF7A00"/>
+<path id="Vector 797" d="M56.5105 11.1877L14.7656 14.9593C13.0836 15.1113 11.8585 16.621 12.0561 18.2982L16.3055 54.3555C16.5275 56.2391 18.4198 57.4466 20.2216 56.8544L55.9621 45.1076C57.1281 44.7244 57.943 43.6696 58.0196 42.4447L59.7746 14.3626C59.8893 12.5277 58.3416 11.0222 56.5105 11.1877Z" fill="#FFA722"/>
+<ellipse id="Ellipse 17" cx="34.816" cy="38.4539" rx="4.64494" ry="6.63598" transform="rotate(-180 34.816 38.4539)" fill="white"/>
+<ellipse id="Ellipse 18" cx="24.4801" cy="38.4539" rx="4.64494" ry="6.63598" transform="rotate(-180 24.4801 38.4539)" fill="white"/>
+<g id="Mask group">
+<mask id="mask0_1639_12447" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="30" y="32" width="10" height="14">
+<ellipse id="Ellipse 8" cx="34.8238" cy="38.655" rx="4.64494" ry="6.43489" transform="rotate(-180 34.8238 38.655)" fill="white"/>
+</mask>
+<g mask="url(#mask0_1639_12447)">
+<ellipse id="Ellipse 12" cx="36.3721" cy="41.068" rx="3.09662" ry="4.02181" transform="rotate(-180 36.3721 41.068)" fill="url(#paint0_linear_1639_12447)"/>
+</g>
+</g>
+<g id="Mask group_2">
+<mask id="mask1_1639_12447" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="19" y="32" width="11" height="14">
+<ellipse id="Ellipse 8_2" cx="24.4801" cy="38.655" rx="4.64494" ry="6.43489" transform="rotate(-180 24.4801 38.655)" fill="white"/>
+</mask>
+<g mask="url(#mask1_1639_12447)">
+<ellipse id="Ellipse 12_2" cx="26.0284" cy="41.068" rx="3.09662" ry="4.02181" transform="rotate(-180 26.0284 41.068)" fill="url(#paint1_linear_1639_12447)"/>
+</g>
+</g>
+<ellipse id="Ellipse 324" cx="24.4841" cy="39.8624" rx="1.66384" ry="0.864377" fill="white"/>
+<ellipse id="Ellipse 325" cx="35.0232" cy="39.8624" rx="1.66384" ry="0.864377" fill="white"/>
+</g>
+<rect id="Rectangle 4693" x="37.6875" y="62" width="9" height="19.249" rx="4.5" transform="rotate(90 37.6875 62)" fill="url(#paint2_linear_1639_12447)"/>
+<rect id="Rectangle 4692" x="54.0469" y="62" width="9" height="19.249" rx="4.5" transform="rotate(90 54.0469 62)" fill="url(#paint3_linear_1639_12447)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1639_12447" x1="35.2546" y1="38.8106" x2="38.7611" y2="43.8729" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.53"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1639_12447" x1="24.7719" y1="38.8106" x2="28.2785" y2="43.8729" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.53"/>
+</linearGradient>
+<linearGradient id="paint2_linear_1639_12447" x1="45.9375" y1="65.8498" x2="36.4507" y2="75.577" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF7A00"/>
+<stop offset="1" stop-color="#FFA722"/>
+</linearGradient>
+<linearGradient id="paint3_linear_1639_12447" x1="62.2969" y1="64.8873" x2="52.4352" y2="74.4934" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF7A00"/>
+<stop offset="1" stop-color="#FFA722"/>
+</linearGradient>
+</defs>
+</svg>

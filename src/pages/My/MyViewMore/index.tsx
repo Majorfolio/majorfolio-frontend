@@ -63,11 +63,7 @@ export default function MyViewMore() {
         primaryAction: () => {},
         secondaryAction: () => {},
       }),
-    () =>
-      activateModal('TO_BE_UPDATED', {
-        primaryAction: () => {},
-        secondaryAction: () => {},
-      }),
+    () => navigate('../contact-us'),
     () =>
       activateModal('SIGNOUT', {
         primaryAction: () => {

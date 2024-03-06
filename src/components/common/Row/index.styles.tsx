@@ -15,4 +15,8 @@ export const StyledGappedRow = styled(StyledRow)<{ gap: number }>`
   column-gap: ${({ gap }) => `${gap}px`};
 `;
 
+export const StyledCenteredRow = styled(StyledRow)`
+  justify-content: center;
+`;
+
 export default StyledRow;

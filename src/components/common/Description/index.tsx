@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import StyledDescriptionContainer, {
   StyledExpandedDescriptionContainer,
 } from './index.styles';
 import Text from '../Text';
 
-interface DescriptionType {
+interface DescriptionPropsType {
   normalText: string;
   boldText: string;
 }
 
-export function ExpandedDescription({ normalText, boldText }: DescriptionType) {
+export function ExpandedDescription({
+  normalText,
+  boldText,
+}: DescriptionPropsType) {
   return (
     <StyledExpandedDescriptionContainer>
       <Text as="div" size={22} lineHeight="lg">
@@ -22,7 +25,10 @@ export function ExpandedDescription({ normalText, boldText }: DescriptionType) {
   );
 }
 
-export default function Description({ normalText, boldText }: DescriptionType) {
+export default function Description({
+  normalText,
+  boldText,
+}: DescriptionPropsType) {
   return (
     <StyledDescriptionContainer>
       <Text as="div" size={22} lineHeight="lg">

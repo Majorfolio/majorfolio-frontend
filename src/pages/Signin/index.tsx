@@ -5,12 +5,11 @@ import { Logo } from '../../assets/images/landing';
 import {
   StyledLogoContainer,
   StyledButtonContainer,
-  StyledSigninButton,
   StyledSigninContainer,
   StickyBottom,
 } from './index.styles';
 import { KakaoIcon } from '../../assets/icons';
-import Button from '../../components/common/Button';
+import Button, { KakaoButton } from '../../components/common/Button';
 import useSignin from './useSignin';
 import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
@@ -55,12 +54,9 @@ export default function Signin() {
               게스트로 입장하기
             </Text>
           </Button>
-          <StyledSigninButton category="kakaotalk" onClick={onKakaoSignin}>
-            <KakaoIcon />
-            <Text color="gray/black" weight="bold" lineHeight="sm" size={16}>
-              카카오톡으로 시작하기
-            </Text>
-          </StyledSigninButton>
+          <KakaoButton onClick={onKakaoSignin}>
+            카카오톡으로 시작하기
+          </KakaoButton>
         </StyledButtonContainer>
       </StickyBottom>
     </StyledSigninContainer>
