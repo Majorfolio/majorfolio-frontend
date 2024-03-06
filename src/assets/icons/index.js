@@ -84,3 +84,5 @@ export { ReactComponent as UploadPreviewIcon } from './add.svg';
 export { ReactComponent as CopyIcon } from './btn_copy.svg';
 export { ReactComponent as AppLogoIcon } from './app_logo.svg';
 export { ReactComponent as ViewMoreIcon } from './ico_more.svg';
+export { ReactComponent as ContactUsYellowCharacter } from './ico_contact_us_character1.svg';
+export { ReactComponent as ContactUsBlueCharacter } from './ico_contact_us_character2.svg';

@@ -31,6 +31,7 @@ import NoticeList from './My/NoticeList';
 import NoticeDetail, { NoticeDetailById } from './My/NoticeDetail';
 import EventList from './My/EventList';
 import { EventDetailById } from './My/EventDetail';
+import ContactUs from './My/ContactUs';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -126,6 +127,7 @@ const Router = () => {
             { path: 'notice-detail/:noticeId', element: <NoticeDetailById /> },
             { path: 'event-list', element: <EventList /> },
             { path: 'event-detail/:eventId', element: <EventDetailById /> },
+            { path: 'contact-us', element: <ContactUs /> },
           ],
         },
       ],
