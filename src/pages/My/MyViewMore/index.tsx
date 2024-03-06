@@ -57,11 +57,7 @@ export default function MyViewMore() {
         secondaryAction: () => {},
       }),
     () => navigate('../notice-list'),
-    () =>
-      activateModal('TO_BE_UPDATED', {
-        primaryAction: () => {},
-        secondaryAction: () => {},
-      }),
+    () => navigate('../event-list'),
     () =>
       activateModal('TO_BE_UPDATED', {
         primaryAction: () => {},

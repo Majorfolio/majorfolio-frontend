@@ -29,6 +29,8 @@ import Transactions from './My/Transactions';
 import RootContainer from './RootContainer';
 import NoticeList from './My/NoticeList';
 import NoticeDetail, { NoticeDetailById } from './My/NoticeDetail';
+import EventList from './My/EventList';
+import { EventDetailById } from './My/EventDetail';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -122,6 +124,8 @@ const Router = () => {
             { path: 'transactions', element: <Transactions /> },
             { path: 'notice-list', element: <NoticeList /> },
             { path: 'notice-detail/:noticeId', element: <NoticeDetailById /> },
+            { path: 'event-list', element: <EventList /> },
+            { path: 'event-detail/:eventId', element: <EventDetailById /> },
           ],
         },
       ],
