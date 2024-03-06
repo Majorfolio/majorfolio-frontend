@@ -1,4 +1,9 @@
-import React, { useState, MouseEvent } from 'react';
+import React, {
+  useState,
+  MouseEvent,
+  ComponentPropsWithoutRef,
+  ReactNode,
+} from 'react';
 import { ColorType } from '../theme';
 import ButtonPropsType from './index.types';
 import {
@@ -8,7 +13,8 @@ import {
   StyledPrimaryButton,
   StyledSecondaryButton,
 } from './index.styles';
-import { LoadingIcon } from '../../../assets/icons';
+import { KakaoIcon, LoadingIcon } from '../../../assets/icons';
+import Text from '../Text';
 
 export default function Button({
   children,
@@ -68,5 +74,26 @@ export function SubmitButton({
       onClick={() => {}}
       {...props}
     />
+  );
+}
+
+export function KakaoButton({
+  children,
+  onClick = () => {},
+  disabled = false,
+  loading = false,
+  ...props
+}: Omit<ButtonPropsType, 'category'>) {
+  return (
+    <StyledKakaoButton onClick={onClick} disabled={disabled} {...props}>
+      {(loading && <LoadingIcon />) || (
+        <>
+          <KakaoIcon />
+          <Text color="gray/black" weight="bold" lineHeight="sm" size={16}>
+            {children}
+          </Text>
+        </>
+      )}
+    </StyledKakaoButton>
   );
 }

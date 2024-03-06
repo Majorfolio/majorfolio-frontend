@@ -34,11 +34,4 @@ export const StickyBottom = styled.section`
   width: 100%;
 `;
 
-export const StyledSigninButton = styled(Button)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 10px;
-`;
-
 export default StyledLogoContainer;

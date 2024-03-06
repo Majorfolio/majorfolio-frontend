@@ -82,6 +82,10 @@ export const StyledOutlinedButton = styled(StyledButton)`
 `;
 
 export const StyledKakaoButton = styled(StyledButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
   background-color: ${theme.color.kakaotalk};
 
   && ${StyledText} {
