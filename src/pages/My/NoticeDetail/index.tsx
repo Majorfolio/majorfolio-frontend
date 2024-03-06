@@ -6,7 +6,7 @@ import { CloseDefaultIcon } from '../../../assets/icons';
 import { StyledSectionContainer } from '../../../components/common/UploadSection/index.styles';
 import RowButton, { RowText } from '../../../components/common/RowButton';
 import { LargeTag } from '../../../components/common/Tag';
-import Image from './Image';
+import Image from '../../../components/common/Image';
 import FirstNotice from '../../../assets/images/notice_image_0.png';
 import { Notices } from '../NoticeList';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
@@ -102,7 +102,7 @@ export function NoticeDetailById() {
   }
   if (noticeId === Notices.PreOrder) {
     const noticeDescription = (
-      <RowButton
+      <RowText
         tag={
           <LargeTag
             backgroundColor="sub_color/yellow/c"
@@ -115,7 +115,6 @@ export function NoticeDetailById() {
           </LargeTag>
         }
         text="사전예약 시 혜택을 살펴보세요"
-        disabled
       />
     );
 
