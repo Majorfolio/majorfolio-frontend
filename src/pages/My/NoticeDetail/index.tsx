@@ -4,7 +4,7 @@ import { SecondaryTopbar } from '../../../components/common/TopBar';
 import Text from '../../../components/common/Text';
 import { CloseDefaultIcon } from '../../../assets/icons';
 import { StyledSectionContainer } from '../../../components/common/UploadSection/index.styles';
-import RowButton from '../../../components/common/RowButton';
+import RowButton, { RowText } from '../../../components/common/RowButton';
 import { LargeTag } from '../../../components/common/Tag';
 import Image from './Image';
 import FirstNotice from '../../../assets/images/notice_image_0.png';
@@ -59,7 +59,6 @@ export default function NoticeDetail({
 
 export function NoticeDetailById() {
   const { noticeId: stringNoticeId } = useParams();
-  const navigate = useNavigate();
 
   if (!stringNoticeId) {
     return <span />;
@@ -70,7 +69,7 @@ export function NoticeDetailById() {
   if (noticeId === Notices.PersonalInfoPolicy) {
     // TODO change HTML tag to satisfy markup semantic
     const noticeDescription = (
-      <RowButton
+      <RowText
         tag={
           <LargeTag
             backgroundColor="gray/gray100"
@@ -83,7 +82,6 @@ export function NoticeDetailById() {
           </LargeTag>
         }
         text="개인정보처리방침 개정 안내"
-        disabled
       />
     );
 
