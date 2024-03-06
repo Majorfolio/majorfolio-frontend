@@ -1,10 +1,17 @@
 import React, { ReactNode } from 'react';
-import StyledRow from './index.styles';
+import { StyledGappedRow, StyledSpacedRow } from './index.styles';
 
 interface RowPropsType {
   children: ReactNode;
 }
 
 export default function Row({ children }: RowPropsType) {
-  return <StyledRow>{children}</StyledRow>;
+  return <StyledSpacedRow>{children}</StyledSpacedRow>;
+}
+
+export function GappedRow({
+  children,
+  ...props
+}: RowPropsType & { gap: number }) {
+  return <StyledGappedRow {...props}>{children}</StyledGappedRow>;
 }

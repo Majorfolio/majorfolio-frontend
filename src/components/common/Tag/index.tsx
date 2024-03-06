@@ -13,3 +13,11 @@ export default function Tag({ children, type, ...props }: TagPropsType) {
   }
   throw new Error('type not defined');
 }
+
+export function LargeTag({ children, ...props }: Omit<TagPropsType, 'type'>) {
+  return <StyledLargeTag {...props}>{children}</StyledLargeTag>;
+}
+
+export function SmallTag({ children, ...props }: Omit<TagPropsType, 'type'>) {
+  return <StyledSmallTag {...props}>{children}</StyledSmallTag>;
+}
