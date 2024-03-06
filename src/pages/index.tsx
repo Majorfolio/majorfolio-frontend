@@ -27,6 +27,8 @@ import Bookmarks from './My/Bookmarks';
 import Likes from './My/Likes';
 import Transactions from './My/Transactions';
 import RootContainer from './RootContainer';
+import NoticeList from './My/NoticeList';
+import NoticeDetail from './My/NoticeDetail';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -118,6 +120,8 @@ const Router = () => {
             { path: 'bookmarks', element: <Bookmarks /> },
             { path: 'likes', element: <Likes /> },
             { path: 'transactions', element: <Transactions /> },
+            { path: 'notice-list', element: <NoticeList /> },
+            { path: 'notice-detail', element: <NoticeDetail /> },
           ],
         },
       ],
