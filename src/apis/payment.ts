@@ -3,6 +3,13 @@ import { Order } from '../components/home/Payment/index.types';
 import { HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
+const PAYMENT_API_PATHS = {
+  PAYMENTS_INFO: '/payments/info',
+  CANCEL: '/payments/cancel',
+  PURCHASES: '/transaction/buy',
+  SALES: '/transaction/sale',
+};
+
 export const updateBuyInfo = async (
   authStore: string,
   buyInfo: Order,
@@ -10,7 +17,7 @@ export const updateBuyInfo = async (
 ) => {
   try {
     const requestOptions = {
-      method: 'POST',
+      method: HTTP_METHODS.POST,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${authStore}`,
@@ -18,7 +25,7 @@ export const updateBuyInfo = async (
       body: JSON.stringify(buyInfo),
     };
     return await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/payments/info`,
+      `${process.env.REACT_APP_API_URL}${PAYMENT_API_PATHS.PAYMENTS_INFO}`,
       requestOptions,
       refreshPayload,
     );
@@ -41,7 +48,7 @@ export const getBuyInfo = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/payments/info/${buyInfoId}`,
+    `${process.env.REACT_APP_API_URL}${PAYMENT_API_PATHS.PAYMENTS_INFO}/${buyInfoId}`,
     requestOptions,
     refreshPayload,
   );
@@ -64,7 +71,7 @@ export const updateCancel = async (
       body: JSON.stringify({}),
     };
     return await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/payments/cancel/${buyInfoId}`,
+      `${process.env.REACT_APP_API_URL}${PAYMENT_API_PATHS.CANCEL}/${buyInfoId}`,
       requestOptions,
       refreshPayload,
     );
@@ -73,7 +80,7 @@ export const updateCancel = async (
   }
 };
 
-export const getBuyTransaction = async (
+export const getPurchases = async (
   page: number,
   pageSize: number,
   authStore: string,
@@ -88,7 +95,7 @@ export const getBuyTransaction = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/transaction/buy?page=${page}&pageSize=${pageSize}`,
+    `${process.env.REACT_APP_API_URL}${PAYMENT_API_PATHS.PURCHASES}?page=${page}&pageSize=${pageSize}`,
     requestOptions,
     refreshPayload,
   );
@@ -96,7 +103,7 @@ export const getBuyTransaction = async (
   return data;
 };
 
-export const getSaleTransaction = async (
+export const getSales = async (
   page: number,
   pageSize: number,
   authStore: string,
@@ -104,14 +111,13 @@ export const getSaleTransaction = async (
 ) => {
   // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
-    method: 'GET',
     headers: {
       Authorization: `Bearer ${authStore}`,
     },
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/sale/buy?page=${page}&pageSize=${pageSize}`,
+    `${process.env.REACT_APP_API_URL}${PAYMENT_API_PATHS.SALES}?page=${page}&pageSize=${pageSize}`,
     requestOptions,
     refreshPayload,
   );
@@ -125,7 +131,7 @@ export const cancelPayment = async (
   refreshPayload: RetryPayload,
 ) => {
   const data = await fetchWithTokenRetry(
-    `${process.env.REACT_APP_API_URL}/payments/cancel/${buyInfoId}`,
+    `${process.env.REACT_APP_API_URL}${PAYMENT_API_PATHS.CANCEL}/${buyInfoId}`,
     {
       method: HTTP_METHODS.POST,
       headers: {

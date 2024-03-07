@@ -19,7 +19,7 @@ import Text from '../../components/common/Text';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
 import useAuthStore from '../../store/useAuthStore';
-import { cancelPayment, getBuyInfo } from '../../apis/payments';
+import { cancelPayment, getBuyInfo } from '../../apis/payment';
 import { OrderInfo } from '../../components/home/Payment/index.types';
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';

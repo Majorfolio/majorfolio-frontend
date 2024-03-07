@@ -11,7 +11,7 @@ import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
-import { updateBuyInfo } from '../../apis/payments';
+import { updateBuyInfo } from '../../apis/payment';
 import useAuthStore from '../../store/useAuthStore';
 import { PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import { SecondaryTopbar } from '../../components/common/TopBar';
@@ -46,7 +46,7 @@ const BuyNow = () => {
     <>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label='prev'>
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
             <ArrowBackDefaultIcon />
           </button>
         }
@@ -58,7 +58,7 @@ const BuyNow = () => {
       />
       <BuyNowContainer>
         <PaymentSelectAllBar isCart={false} />
-        
+
         <AllDividerThin />
         {materialId ? (
           <PaymentPostCard isCart={false} materialInfo={materialInfo} />

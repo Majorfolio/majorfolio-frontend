@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 import { Divider } from './index.styles';
 
 const AllDividerThin = () => {
-  return (
-    <Divider />
-  )
-}
+  return <Divider />;
+};
 
-export default AllDividerThin
+export default AllDividerThin;

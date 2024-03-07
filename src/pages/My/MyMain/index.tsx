@@ -92,7 +92,7 @@ export default function MyMain() {
           <RowButton text="좋아요한 자료" onClick={() => navigate('./likes')} />
           <RowButton
             text="거래 내역"
-            onClick={() => navigate('../transactions')}
+            onClick={() => navigate('./transactions')}
           />
           <RowButton
             type="button"

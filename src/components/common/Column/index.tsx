@@ -1,10 +1,7 @@
 import React, { ReactNode } from 'react';
 import StyledColumn from './index.styles';
+import { ColumnPropsType } from './index.types';
 
-interface ColumnPropsType {
-  children: ReactNode;
-}
-
-export default function Column({ children }: ColumnPropsType) {
-  return <StyledColumn>{children}</StyledColumn>;
+export default function Column({ children, ...props }: ColumnPropsType) {
+  return <StyledColumn {...props}>{children}</StyledColumn>;
 }
