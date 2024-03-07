@@ -1,6 +1,6 @@
-import React, { useRef, useState, MouseEvent } from 'react'
+import React, { useRef, useState, MouseEvent, ReactNode } from 'react'
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CardWrapper, InfoWrapper, MaterialInfosContainer, MaterialTitleWrapper, MaterialWrapper, ProfileWrapper } from './index.styles';
 import Text from '../../common/Text';
 import MaterialSellerProfile from '../MaterialSellerProfile';
@@ -27,10 +27,13 @@ interface HomeMaterialCardProps {
   semester: string;
   professor?: string | null;
   like?: number;
+  header: ReactNode;
+  onClick: () => void;
 }
 
-function HomeMaterialCard({ isBig = true, id, memberId, imageUrl, nickname, className, univ, major, semester, professor, like=0 }: HomeMaterialCardProps) {
+function HomeMaterialCard({ isBig = true, id, memberId, imageUrl, nickname, className, univ, major, semester, professor, like=0, header, onClick }: HomeMaterialCardProps) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   let cardSize: string;
 
@@ -71,7 +74,7 @@ function HomeMaterialCard({ isBig = true, id, memberId, imageUrl, nickname, clas
   };
 
   const handleMaterialClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (isClickEnabled) {
+    if (isClickEnabled && location.pathname !== "/material-box") {
       const materialObj = {
         id,
         memberId,
@@ -97,9 +100,11 @@ function HomeMaterialCard({ isBig = true, id, memberId, imageUrl, nickname, clas
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
+      onClick={onClick}
     >
       <ProfileWrapper>
-        <MaterialSellerProfile nickname={nickname} hasReaction={false} />
+        {header && header}
+        {/* <MaterialSellerProfile nickname={nickname} hasReaction={false} /> */}
       </ProfileWrapper>
 
       <AllDividerThin />

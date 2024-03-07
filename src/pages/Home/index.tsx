@@ -31,6 +31,7 @@ import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkel
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
+import MaterialSellerProfile from '../../components/home/MaterialSellerProfile';
 
 // TODO: 카드 콘텐츠 경우의 수 체크
 // import materials from '../../apis/materials-dummy'
@@ -187,6 +188,10 @@ const Home = () => {
                     semester={material.semester}
                     professor={material.professor}
                     like={material.like}
+                    header={
+                      <MaterialSellerProfile nickname={material.nickname} hasReaction={false} />
+                    }
+                    onClick={() => {}}
                   />
                 );
               })
@@ -223,6 +228,10 @@ const Home = () => {
                     semester={material.semester}
                     professor={material.professor}
                     like={material.like}
+                    header={
+                      <MaterialSellerProfile nickname={material.nickname} hasReaction={false} />
+                    }
+                    onClick={() => {}}
                   />
                 );
               })
@@ -255,6 +264,10 @@ const Home = () => {
                     semester={material.semester}
                     professor={material.professor}
                     like={material.like}
+                    header={
+                      <MaterialSellerProfile nickname={material.nickname} hasReaction={false} />
+                    }
+                    onClick={() => {}}
                   />
                 );
               })

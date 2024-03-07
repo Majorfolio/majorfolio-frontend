@@ -37,6 +37,7 @@ import { getMy } from '../../apis/member';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 import usePagination from '../../hooks/common/usePagination';
+import MaterialSellerProfile from '../../components/home/MaterialSellerProfile';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -294,6 +295,10 @@ const HomeViewAll = () => {
                   semester={material.semester}
                   professor={material.professor}
                   like={material.like}
+                  header={
+                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} />
+                  }
+                  onClick={() => {}}
                 />
               );
             })}
