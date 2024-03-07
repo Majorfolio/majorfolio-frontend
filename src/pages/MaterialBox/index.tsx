@@ -11,6 +11,11 @@ import BottomBar from '../../components/common/BottomBar';
 import useAuthStore from '../../store/useAuthStore';
 import getPurchaseInfo from '../../apis/library';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
+import { PrimaryTopbar } from '../../components/common/TopBar';
+import Modal from '../../components/common/Modal';
+import useModal from '../../hooks/common/useModal';
+import { CartDefaultIcon, NotificationDefaultIcon } from '../../assets/icons';
+import Text from '../../components/common/Text';
 
 interface PurchasedItemType {
   id: number;
@@ -34,6 +39,13 @@ const MaterialBox = () => {
     afterPay: PurchasedItemType[];
     buyComplete: PurchasedItemType[];
   }>(null);
+  const {
+    modalRef,
+    category: modalCategory,
+    activateModal,
+    closePrimarily,
+    closeSecondarily,
+  } = useModal();
 
   const refreshPayload = useRefreshPayload();
 
@@ -57,6 +69,33 @@ const MaterialBox = () => {
 
   return (
     <>
+      <PrimaryTopbar
+        title={<Text size={18} weight='bold' lineHeight='sm' color='gray/gray900'>자료함</Text> }
+        icons={[
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="cart"
+          >
+            <CartDefaultIcon />
+          </button>,
+          <button
+            type="button"
+            onClick={() =>
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              })
+            }
+            aria-label="alarm"
+          >
+            <NotificationDefaultIcon />
+          </button>,
+        ]}
+      />
       <MaterialBoxContainer>
         <TapMenu />
         <CardTitleWrapper>
@@ -112,6 +151,13 @@ const MaterialBox = () => {
       </MaterialBoxContainer>
 
       <BottomBar />
+
+      <Modal
+        modalRef={modalRef}
+        category={modalCategory}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
     </>
   );
 };
