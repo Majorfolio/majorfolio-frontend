@@ -208,7 +208,18 @@ const HomeViewAll = () => {
     return () => {
       observer.disconnect();
     };
-  }, [isLoading, allMaterials]);
+  }, [
+    isLoading,
+    allMaterials,
+    hasLastPageReached,
+    page,
+    category,
+    tag,
+    authStore,
+    refreshPayload,
+    recentMaterialViewAll,
+    recentMaterials,
+  ]);
 
   return (
     <>
