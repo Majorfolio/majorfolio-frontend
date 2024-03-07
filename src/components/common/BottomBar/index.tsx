@@ -44,7 +44,7 @@ export default function BottomBar() {
     closeSecondarily,
     category: modalCategory,
   } = useModal();
-  const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('guest');
+
   const authLevel = useAuthStore((state) => state.authLevel);
 
   const redirect = (path: Path) => {

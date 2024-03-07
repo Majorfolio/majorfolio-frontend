@@ -50,7 +50,7 @@ function HomeCategoryButtonSection({
     closePrimarily,
     closeSecondarily,
   } = useModal();
-  const { isUserSignedin, hasUserVerifiedSchool } = useRequireAuth('member');
+
   const authLevel = useAuthStore((state) => state.authLevel);
 
   const redirect = (category: Category) => {
