@@ -8,7 +8,7 @@ import {
 } from './index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
-import BottomBar from '../../components/common/BottomBar';
+import BottomBar, { Path } from '../../components/common/BottomBar';
 import Material, {
   MaterialViewAll,
 } from '../../components/home/Material/index.types';
@@ -310,7 +310,9 @@ const HomeViewAll = () => {
 
         <div ref={bottomRef} style={{ height: '10px' }} />
       </ViewAllContainer>
-      <BottomBar />
+
+      <BottomBar currentPath={Path.Home} />
+
       <Modal
         modalRef={modalRef}
         category={modalCategory}

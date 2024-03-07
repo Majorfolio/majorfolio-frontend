@@ -7,7 +7,7 @@ import {
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import TapMenu from '../../components/common/TapMenu';
-import BottomBar from '../../components/common/BottomBar';
+import BottomBar, { Path } from '../../components/common/BottomBar';
 import useAuthStore from '../../store/useAuthStore';
 import getPurchaseInfo from '../../apis/library';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
@@ -150,7 +150,7 @@ const MaterialBox = () => {
         </CardsWrapper>
       </MaterialBoxContainer>
 
-      <BottomBar />
+      <BottomBar currentPath={Path.MaterialBox} />
 
       <Modal
         modalRef={modalRef}

@@ -7,7 +7,7 @@ import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonS
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
-import BottomBar from '../../components/common/BottomBar';
+import BottomBar, { Path } from '../../components/common/BottomBar';
 import Material, {
   MaterialCategory,
 } from '../../components/home/Material/index.types';
@@ -271,7 +271,7 @@ const Home = () => {
         </ContentPageContainer>
       </HomeContainer>
 
-      <BottomBar />
+      <BottomBar currentPath={Path.Home} />
 
       <Modal
         modalRef={modalRef}
