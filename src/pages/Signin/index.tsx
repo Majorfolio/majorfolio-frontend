@@ -14,19 +14,20 @@ import useSignin from './useSignin';
 import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
+import useRequireAuth from '../../hooks/common/useRequireAuth';
 
 export default function Signin() {
   const { onKakaoSignin } = useSignin();
   const navigate = useNavigate();
 
-  const authLevel = useAuthStore((state) => state.authLevel);
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Guest,
+    AuthLevel.Guest,
+  );
 
-  // TODO seperate it using custom hook
-  useEffect(() => {
-    if (authLevel > AuthLevel.Guest) {
-      navigate('/home');
-    }
-  }, [authLevel, navigate]);
+  if (!isAuthLevelSatisfied) {
+    return <>유효하지 않은 페이지입니다. 메인 화면으로 이동합니다.</>;
+  }
 
   return (
     <StyledSigninContainer>

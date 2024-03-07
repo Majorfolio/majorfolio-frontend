@@ -91,7 +91,7 @@ interface GetAuthResponseType {
   status: number;
   message: string;
   result: {
-    isMember: boolean;
+    isWriteMemberDetailInfo: boolean;
     memberId: number;
     emailId: number;
     accessToken: string;

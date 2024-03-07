@@ -17,52 +17,54 @@ import SignupNamingStep from './SignupNamingStep';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
 import SignupCodeStep from './SignupCodeStep';
 import useUserStore from '../../store/userStore';
-import useAuthStore from '../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import StyledPageContainer from '../Upload/UploadDefaultStep/index.styles';
 import SignupTermsAndConditionsStep from './SignupTermsAndConditionsStep';
+import useAutoSignin from '../../hooks/common/useAutoSignin';
 
 interface SignupPropsType {
   isEmailConfirmed?: boolean;
 }
 
+enum SignupStep {
+  Email,
+  Code,
+  Details,
+  Nickname,
+  TermsAndConditions,
+}
+
 export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
-  const [step, setStep] = useState<
-    'email' | 'code' | 'details' | 'naming' | 'terms'
-  >('email');
+  const [step, setStep] = useState<SignupStep>(SignupStep.Email);
   const navigate = useNavigate();
-  const emailId = useUserStore((state) => state.emailId);
-  const isMember = useAuthStore((state) => state.isMember);
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Unverified,
+    AuthLevel.Verified,
+  );
 
-  useEffect(() => {
-    if (emailId) {
-      setStep('details');
-    }
-    if (isMember) {
-      navigate('/');
-    }
-  }, [emailId, isMember]);
-
-  const { isUserSignedin } = useRequireAuth('member');
-
-  if (!isUserSignedin) {
-    return <>로그인이 되지 않았습니다. 메인 화면으로 이동합니다.</>;
-  }
-
-  if (isMember) {
-    return <>이미 회원가입한 유저입니다. 메인 화면으로 이동합니다.</>;
+  if (!isAuthLevelSatisfied) {
+    return (
+      <>유효하지 않은 페이지로 이동하였습니다. 메인 화면으로 이동합니다.</>
+    );
   }
 
   return (
     <StyledPageContainer>
-      {step === 'email' && <SignupEmailStep onNext={() => setStep('code')} />}
-      {step === 'code' && <SignupCodeStep onNext={() => setStep('details')} />}
-      {step === 'details' && (
-        <SignupDetailsStep onNext={() => setStep('naming')} />
+      {step === SignupStep.Email && (
+        <SignupEmailStep onNext={() => setStep(SignupStep.Code)} />
       )}
-      {step === 'naming' && (
-        <SignupNamingStep onNext={() => setStep('terms')} />
+      {step === SignupStep.Code && (
+        <SignupCodeStep onNext={() => setStep(SignupStep.Details)} />
       )}
-      {step === 'terms' && (
+      {step === SignupStep.Details && (
+        <SignupDetailsStep onNext={() => setStep(SignupStep.Nickname)} />
+      )}
+      {step === SignupStep.Nickname && (
+        <SignupNamingStep
+          onNext={() => setStep(SignupStep.TermsAndConditions)}
+        />
+      )}
+      {step === SignupStep.TermsAndConditions && (
         <SignupTermsAndConditionsStep
           onNext={() => navigate('/', { replace: true })}
         />

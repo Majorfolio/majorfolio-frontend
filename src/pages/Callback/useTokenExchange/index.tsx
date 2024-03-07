@@ -28,11 +28,11 @@ export default function useTokenExchange() {
         throw new Error('에러 발생');
       }
       const updatedAuth = await signin(code);
-      const { emailId, isMember } = updatedAuth;
+      const { emailId, isWriteMemberDetailInfo } = updatedAuth;
       if (emailId !== 0) {
         updateEmail(emailId);
       }
-      if (isMember) {
+      if (isWriteMemberDetailInfo) {
         navigate('/home');
       } else {
         navigate('/signup');

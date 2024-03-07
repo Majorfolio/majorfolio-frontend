@@ -9,14 +9,13 @@ export default function Callback() {
     return <Text>로그인 중입니다...</Text>;
   }
 
-  const { isMember, memberId, accessToken, refreshToken } = auth;
+  const { isWriteMemberDetailInfo: isMember, memberId } = auth;
+
   return (
     <Text>
       로그인에 성공했습니다! 로그인 중입니다...
       <div>isMember{isMember}</div>
       <div>memberId{memberId}</div>
-      <div>accessToken{accessToken}</div>
-      <div>refreshToken{refreshToken}</div>
     </Text>
   );
 }
