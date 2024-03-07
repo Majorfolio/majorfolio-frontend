@@ -36,6 +36,7 @@ import { getArrayFromLocalStorage } from '../../components/home/LocalStorageUtil
 import { getMy } from '../../apis/member';
 import HomeMaterialCardSkeleton from '../../components/home/HomeMaterialCardSkeleton';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
+import usePagination from '../../hooks/common/usePagination';
 
 const HomeViewAll = () => {
   const [allMaterials, setAllMaterials] = useState<null | MaterialViewAll>(
@@ -44,13 +45,21 @@ const HomeViewAll = () => {
   const { category, tag } = useParams();
   let tagCardTitle: string;
   const authStore = useAuthStore((state) => state.accessToken);
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const bottomRef = useRef(null);
-  const [hasLastPageReached, setHasLastPageReached] = useState(false);
+
+  const {
+    isLoading,
+    nextPage,
+    hasLastPageReached,
+    bottomRef,
+    canLoadMore,
+    startLoading,
+    finishLoading,
+    reachLastPage,
+  } = usePagination();
+
   const recentMaterials = getArrayFromLocalStorage('recent-materials');
   const recentMaterialViewAll: MaterialViewAll = {
-    page: 1,
+    page: nextPage,
     materialResponseList: recentMaterials,
     end: true,
   };
@@ -85,7 +94,6 @@ const HomeViewAll = () => {
 
   const loadMoreMaterials = async () => {
     try {
-      const nextPage = page + 1;
       let newMaterials: MaterialViewAll | null = null;
 
       switch (category) {
@@ -96,7 +104,7 @@ const HomeViewAll = () => {
             newMaterials = await getAllUnivBestViewAll(nextPage, 10);
           } else if (tag === 'undefined') {
             setAllMaterials(recentMaterialViewAll);
-            setHasLastPageReached(true);
+            reachLastPage();
           }
           break;
         case HOME_CATEGORY.MY_UNIV.toString():
@@ -127,7 +135,7 @@ const HomeViewAll = () => {
                 setAllMaterials(recentMyUnivViewAll);
               });
             }
-            setHasLastPageReached(true);
+            reachLastPage();
           }
           break;
         case HOME_CATEGORY.MY_MAJOR.toString():
@@ -158,14 +166,14 @@ const HomeViewAll = () => {
                 setAllMaterials(recentMyMajorViewAll);
               });
             }
-            setHasLastPageReached(true);
+            reachLastPage();
           }
           break;
         default:
           break;
       }
 
-      if (newMaterials?.end) setHasLastPageReached(true);
+      if (newMaterials?.end) reachLastPage();
 
       if (newMaterials != null) {
         setAllMaterials((prevMaterials: MaterialViewAll | null) => ({
@@ -176,21 +184,18 @@ const HomeViewAll = () => {
           ],
         }));
       }
-
-      setPage(nextPage);
-      setIsLoading(false);
     } catch (error) {
       // console.error('Error loading more materials:', error);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = async (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting && !isLoading && !hasLastPageReached) {
-      setIsLoading(true);
-      // 다음 페이지의 자료 불러오기
-      loadMoreMaterials();
+    if (target.isIntersecting && canLoadMore) {
+      startLoading();
+      await loadMoreMaterials();
+      finishLoading();
     }
   };
 
@@ -210,9 +215,13 @@ const HomeViewAll = () => {
     };
   }, [
     isLoading,
-    allMaterials,
     hasLastPageReached,
-    page,
+    canLoadMore,
+    nextPage,
+    startLoading,
+    finishLoading,
+    reachLastPage,
+    allMaterials,
     category,
     tag,
     authStore,
