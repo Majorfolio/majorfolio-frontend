@@ -78,7 +78,9 @@ const MaterialBox = () => {
 
   const handleDownloadCompleteClick = (materialId: number) => {
     activateModal('DOWNLOAD_PURCHASED_MATERIAL', {
-      primaryAction: () => {},
+      primaryAction: () => {
+        navigate(`/assignment/${materialId}/detail`);
+      },
       secondaryAction: () => {
         downloadFile(materialId, accessToken, refreshPayload)
           .then(downloadLink => {
