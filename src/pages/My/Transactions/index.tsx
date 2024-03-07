@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
 import {
   ArrowBackDefaultIcon,
@@ -46,6 +46,7 @@ export function TransactionCard({
   material,
 }: TransactionCardPropsType) {
   const tagText = Category[category];
+  const navigate = useNavigate();
 
   const header = (
     <>
@@ -120,7 +121,7 @@ export function TransactionCard({
       padding="16px"
       radius={6}
       background="gray/white"
-      onClick={() => {}}
+      onClick={() => navigate(`/assignment/${material.id}/detail`)}
     >
       <Card header={header} title={title} body={body} footer={footer} />
     </StyledTransactionCardContainer>
