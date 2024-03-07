@@ -37,17 +37,14 @@ export default function useEmail() {
 
   const refreshPayload = useRefreshPayload();
 
-  const onEmailSubmit = async () => {
-    const { code, status, message, result } = await sendCodeToEmail(
-      email,
-      accessToken,
-      refreshPayload,
-    );
+  const submitEmail = async () => {
+    const data = await sendCodeToEmail(email, accessToken, refreshPayload);
+    const { code, status, message, result } = data;
     if (code === 5000) {
       setServerErrorMessage(ServerError.INCORRECT_FORMAT);
       return false;
     }
-    if (code === 5001) {
+    if (code === 5001 || message === '학교 이메일이 아닙니다.') {
       setServerErrorMessage(ServerError.NOT_SCHOOL_EMAIL);
       return false;
     }
@@ -60,10 +57,14 @@ export default function useEmail() {
       updateEmail(emailId);
       return true;
     }
-    return false;
+
+    if (status === 404) {
+      return false;
+    }
+    return true;
   };
 
-  const onDeleteAll = () => {
+  const resetEmail = () => {
     setEmail('');
   };
 
@@ -71,8 +72,8 @@ export default function useEmail() {
     email,
     onEmailChange,
     isEmailValid,
-    onEmailSubmit,
+    resetEmail,
+    submitEmail,
     serverErrorMessage,
-    onDeleteAll,
   };
 }
