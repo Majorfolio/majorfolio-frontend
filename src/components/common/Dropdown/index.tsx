@@ -1,5 +1,6 @@
 import React, { ChangeEvent, ReactNode, useRef, useState } from 'react';
 import StyledCombobox, {
+  StyledComboboxButton,
   StyledComoboxContainer,
   StyledDropdownContainer,
   StyledDropdownIcon,
@@ -8,6 +9,7 @@ import StyledCombobox, {
 import { ArrowDownDefaultIcon, HelperCancelIcon } from '../../../assets/icons';
 import Text from '../Text';
 import { ColorType } from '../theme';
+import TextField from '../TextField';
 
 interface DropdownPropsType {
   category: string;
@@ -20,7 +22,7 @@ interface DropdownPropsType {
   onSearchQueryUpdate: (value: string) => void;
 }
 
-export default function Dropdown({
+export default function SearchableDropdown({
   category,
   options,
   borderColor = 'gray/gray100',
@@ -89,6 +91,95 @@ export default function Dropdown({
           }}
           placeholder={category}
         />
+        <StyledDropdownIcon>{icon}</StyledDropdownIcon>
+      </StyledComoboxContainer>
+      {listBoxToggle && (
+        <StyledListbox role="listbox">{dropdownListItem}</StyledListbox>
+      )}
+    </StyledDropdownContainer>
+  );
+}
+
+export function Dropdown({
+  category,
+  options,
+  borderColor = 'gray/gray100',
+  borderColorOnFocus = 'main_color/blue_p',
+  icon = <ArrowDownDefaultIcon />,
+  onFocus,
+  searchQuery,
+  onSearchQueryUpdate,
+}: Pick<
+  DropdownPropsType,
+  | 'options'
+  | 'borderColor'
+  | 'borderColorOnFocus'
+  | 'icon'
+  | 'searchQuery'
+  | 'onSearchQueryUpdate'
+  | 'category'
+  | 'onFocus'
+>) {
+  const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
+
+  const dropdownListItem = options.map((option) => (
+    <li
+      key={option}
+      role="option"
+      aria-selected="false"
+      onClick={() => {
+        onSearchQueryUpdate(option);
+      }}
+      onMouseDown={(event) => {
+        event.preventDefault();
+      }}
+      onKeyDown={() => {
+        onSearchQueryUpdate(option);
+      }}
+    >
+      <label htmlFor={option}>
+        <input id={option} type="radio" />
+        <Text size={16} lineHeight="lg" color="gray/gray500">
+          {option}
+        </Text>
+      </label>
+    </li>
+  ));
+
+  return (
+    <StyledDropdownContainer>
+      <StyledComoboxContainer>
+        <StyledComboboxButton
+          color="gray/gray900"
+          borderColor={borderColor}
+          borderColorOnFocus={borderColorOnFocus}
+          size={16}
+          weight="md"
+          lineHeight="lg"
+          type="button"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="select-dropdown"
+          onFocus={() => {
+            setListboxToggle(true);
+            if (onFocus !== undefined) {
+              onFocus();
+            }
+          }}
+          onBlur={() => {
+            setListboxToggle(false);
+          }}
+          // onClick={() => {
+          //   setListboxToggle((currentToggle) => !currentToggle);
+          //   // if (onFocus !== undefined) {
+          //   //   onFocus();
+          //   // }
+          // }}
+        >
+          {!searchQuery && <Text color="gray/gray400">{category}</Text>}
+          {!!searchQuery && searchQuery}
+        </StyledComboboxButton>
         <StyledDropdownIcon>{icon}</StyledDropdownIcon>
       </StyledComoboxContainer>
       {listBoxToggle && (

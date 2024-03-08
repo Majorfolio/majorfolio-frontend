@@ -12,7 +12,7 @@ const validateEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-enum ServerError {
+export enum ServerError {
   NOT_SCHOOL_EMAIL = '학교 이메일이 아닙니다',
   INCORRECT_FORMAT = '올바르지 않은 이메일입니다.',
   ALREADY_IN_USE = '이미 인증한 이메일입니다.',
@@ -37,17 +37,14 @@ export default function useEmail() {
 
   const refreshPayload = useRefreshPayload();
 
-  const onEmailSubmit = async () => {
-    const { code, status, message, result } = await sendCodeToEmail(
-      email,
-      accessToken,
-      refreshPayload,
-    );
+  const submitEmail = async () => {
+    const data = await sendCodeToEmail(email, accessToken, refreshPayload);
+    const { code, status, message, result } = data;
     if (code === 5000) {
       setServerErrorMessage(ServerError.INCORRECT_FORMAT);
       return false;
     }
-    if (code === 5001) {
+    if (code === 5001 || message === '학교 이메일이 아닙니다.') {
       setServerErrorMessage(ServerError.NOT_SCHOOL_EMAIL);
       return false;
     }
@@ -55,15 +52,20 @@ export default function useEmail() {
       setServerErrorMessage(ServerError.ALREADY_IN_USE);
       return false;
     }
-    if (code === 1000) {
+    if (code === 1000 || status === 200) {
       const { emailId } = result;
       updateEmail(emailId);
       return true;
     }
+
+    if (status === 404) {
+      return false;
+    }
+
     return false;
   };
 
-  const onDeleteAll = () => {
+  const resetEmail = () => {
     setEmail('');
   };
 
@@ -71,8 +73,8 @@ export default function useEmail() {
     email,
     onEmailChange,
     isEmailValid,
-    onEmailSubmit,
+    resetEmail,
+    submitEmail,
     serverErrorMessage,
-    onDeleteAll,
   };
 }

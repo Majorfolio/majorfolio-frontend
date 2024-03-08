@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
+import { server } from 'typescript';
 import { ColorType } from '../../../../components/common/theme';
 import userStore from '../../../../store/userStore';
-import { checkIsNicknameUnique } from '../../../../apis/member';
+import { validateNickname } from '../../../../apis/member';
 import useAuthStore from '../../../../store/useAuthStore';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
@@ -12,74 +13,82 @@ const HELPER_TEXT = {
   ALREADY_IN_USE: '이미 사용중인 닉네임이에요',
   PREVIOUS_NAME: '기존 닉네임과 같아요',
   SUCCESS: '사용 가능한 닉네임입니다',
+  UNKNOWN: '알 수 없는 에러입니다. 잠시 후에 다시 시도해주세요.',
 };
 
-const KoreanEnglishAlphabetRegex = /^[가-힣a-zA-Z]+$/;
+export const KoreanAndEnglishRegex = /^[가-힣a-zA-Z]+$/;
+const whitespaceRegex = /\s/;
+
+const checkHasWhiteSpace = (nickname: string) => {
+  return whitespaceRegex.test(nickname);
+};
 
 export default function useSignupNaming() {
-  // TODO validate nickname
-  // length 2 - 8 UI에 표시하기
-  // letter: Korean or Alphabet
-  // check if it already exists on the app
-  // check if user is already using it
-  //  영어한글 > 등록된 닉네임 > 현재 닉네임
-
-  // "2~8자의 영어 또는 한글로 입력해주세요"
-  // 이미 사용중인 닉네임이에요
-  // 기존 닉네임과 같아요
-
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
   const [nickname, setNickname] = useState('');
-  const hasNicknameValidCharacters =
-    KoreanEnglishAlphabetRegex.test(nickname) && nickname.length > 2;
-
-  const hasTextfieldContent = nickname.length > 0;
-  const hasTextfieldError = hasTextfieldContent && !hasNicknameValidCharacters;
-
-  const [isNicknameUnique, setIsNicknameUnique] = useState<boolean | undefined>(
-    undefined,
+  const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
+    null,
   );
+  const [isNicknameVerifiedByServer, setIsNicknameVerifiedByServer] =
+    useState<boolean>(false);
 
-  const isNicknameValid = hasNicknameValidCharacters && isNicknameUnique;
+  const hasKoreanOrEnglishOnly = KoreanAndEnglishRegex.test(nickname);
+  const hasMinimumLength = nickname.length >= 2;
+  const isNicknameEmpty = nickname.length === 0;
+
+  const canNicknameBeSubmitted =
+    hasMinimumLength && hasKoreanOrEnglishOnly && !serverErrorMessage;
+  const hasTextfieldError = !isNicknameEmpty && !canNicknameBeSubmitted;
 
   const helperText =
-    (hasNicknameValidCharacters && HELPER_TEXT.SUCCESS) ||
-    (!hasNicknameValidCharacters && HELPER_TEXT.NONCOMPLIANT);
+    (!!serverErrorMessage && serverErrorMessage) ||
+    (canNicknameBeSubmitted && HELPER_TEXT.SUCCESS) ||
+    (!canNicknameBeSubmitted && HELPER_TEXT.NONCOMPLIANT);
 
-  const onNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const changeNickname = (event: ChangeEvent<HTMLInputElement>) => {
     const nextNickname = event.target.value;
-    const whitespaceRegex = /\s/;
     if (
-      whitespaceRegex.test(nextNickname) ||
+      checkHasWhiteSpace(nextNickname) ||
       nextNickname.length > NICKNAME_MAX_LENGTH
     ) {
       return;
     }
 
     setNickname(nextNickname);
-    setIsNicknameUnique(undefined);
+    setServerErrorMessage(null);
   };
 
   const refreshPayload = useRefreshPayload();
 
-  const validateNickname = async () => {
-    const nicknameAlreadyExists = await checkIsNicknameUnique(
+  const checkIsNicknameValid = async () => {
+    const { code } = await validateNickname(
       nickname,
       accessToken,
       refreshPayload,
     );
-    setIsNicknameUnique(nicknameAlreadyExists);
+
+    if (code === 1000) {
+      setIsNicknameVerifiedByServer(true);
+      return true;
+    }
+    if (code === 6002) {
+      setIsNicknameVerifiedByServer(false);
+      setServerErrorMessage(HELPER_TEXT.ALREADY_IN_USE);
+      return false;
+    }
+    setIsNicknameVerifiedByServer(false);
+    setServerErrorMessage(HELPER_TEXT.UNKNOWN);
+    return false;
   };
 
   return {
+    changeNickname,
     hasTextfieldError,
-    onNicknameChange,
+    canNicknameBeSubmitted,
     helperText,
-    hasTextfieldContent,
-    hasNicknameValidCharacters,
-    isNicknameValid,
-    validateNickname,
+    checkIsNicknameValid,
+    isNicknameVerifiedByServer,
     nickname,
   };
 }

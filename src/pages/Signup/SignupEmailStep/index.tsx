@@ -9,9 +9,10 @@ import {
   StyledTextContainer,
 } from '../../../components/common/HelperText/index.styles';
 import Button from '../../../components/common/Button';
-import { CancelDefaultIcon } from '../../../assets/icons';
+import { CancelDefaultIcon, ErrorDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
 import useEmail from './useEmail';
+import useFormSubmission from '../../../hooks/common/useFormSubmission';
 
 interface SignupPropsType {
   onNext: () => void;
@@ -26,11 +27,17 @@ export default function SignupEmailStep({
     email,
     onEmailChange,
     isEmailValid,
-    onEmailSubmit,
+    submitEmail,
+    resetEmail,
     serverErrorMessage,
-    onDeleteAll,
   } = useEmail();
   const navigate = useNavigate();
+  const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
+    const isSubmissionSuccessful = await submitEmail();
+    if (isSubmissionSuccessful) {
+      onNext();
+    }
+  });
 
   const transition = isEmailConfirmed ? (
     <Button type="submit" category="primary">
@@ -48,7 +55,7 @@ export default function SignupEmailStep({
       <Button
         type="submit"
         category="primary"
-        disabled={!isEmailValid && Boolean(serverErrorMessage)}
+        disabled={!isEmailValid || isSubmitting || Boolean(serverErrorMessage)}
       >
         <Text color="gray/gray400" size={16} weight="bold" lineHeight="sm">
           인증메일 전송
@@ -69,7 +76,7 @@ export default function SignupEmailStep({
       인증됨
     </Tag>
   ) : (
-    <button type="button" onClick={onDeleteAll} aria-label='deleteAll'>
+    <button type="button" onClick={resetEmail} aria-label="deleteAll">
       <CancelDefaultIcon />
     </button>
   );
@@ -81,15 +88,7 @@ export default function SignupEmailStep({
   );
 
   return (
-    <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-        const isSuccess = await onEmailSubmit();
-        if (isSuccess) {
-          onNext();
-        }
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <StyledTextContainer htmlFor="email">
         <Text as="div" size={22} lineHeight="lg">
           학교 인증을 위해
@@ -101,10 +100,17 @@ export default function SignupEmailStep({
       <TextField
         id="email"
         type="email"
-        icon={textfieldIcon}
+        icon={
+          email && (!isEmailValid || Boolean(serverErrorMessage)) ? (
+            <ErrorDefaultIcon />
+          ) : (
+            textfieldIcon
+          )
+        }
         placeholder="이메일"
         text={email}
         onTextChange={onEmailChange}
+        hasError={!!email && (!isEmailValid || Boolean(serverErrorMessage))}
       />
       {helperText}
       <StyledButtonContainer>{transition}</StyledButtonContainer>

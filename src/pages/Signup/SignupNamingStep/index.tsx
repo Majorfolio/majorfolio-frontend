@@ -8,8 +8,10 @@ import Button from '../../../components/common/Button';
 import StyledValidationContainer from './index.styles';
 import useSignupNaming from './useSignupNaming';
 import userStore from '../../../store/userStore';
-import { signup } from '../../../apis/member';
+import { sendNewUser } from '../../../apis/member';
 import useAuthStore from '../../../store/useAuthStore';
+import Description from '../../../components/common/Description';
+import Column from '../../../components/common/Column';
 
 interface SignupNamingStepType {
   onNext: () => void;
@@ -28,56 +30,51 @@ const KoreanEnglishAlphabetRegex = /^[가-힣a-zA-Z]+$/;
 
 export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
   const {
+    changeNickname,
     hasTextfieldError,
-    onNicknameChange,
     helperText,
-    hasTextfieldContent,
-    hasNicknameValidCharacters,
-    isNicknameValid,
-    validateNickname,
+    checkIsNicknameValid,
     nickname,
+    canNicknameBeSubmitted,
+    isNicknameVerifiedByServer,
   } = useSignupNaming();
   const updateNickname = userStore((state) => state.updateNickname);
 
-  const textfieldIcon =
-    hasTextfieldContent && !hasNicknameValidCharacters ? (
-      <ErrorDefaultIcon />
-    ) : (
-      <Text size={16} lineHeight="lg" color="gray/gray400">
-        {nickname.length} / {NICKNAME_MAX_LENGTH}
-      </Text>
-    );
+  const textfieldIcon = hasTextfieldError ? (
+    <ErrorDefaultIcon />
+  ) : (
+    <Text size={16} lineHeight="lg" color="gray/gray400">
+      {nickname.length} / {NICKNAME_MAX_LENGTH}
+    </Text>
+  );
 
   // TODO: adjeust margin of icon props
   return (
     <StyledTextContainer>
-      <Text as="div" size={22} lineHeight="lg">
-        나만의 독특한
-      </Text>
-      <Text as="div" size={22} weight="bold" lineHeight="lg">
-        닉네임을 입력해주세요
-      </Text>
-
-      <TextField
-        id="text"
-        type="text"
-        hasError={hasTextfieldContent && !hasNicknameValidCharacters}
-        icon={textfieldIcon}
-        placeholder="닉네임"
-        text={nickname}
-        onTextChange={onNicknameChange}
+      <Description
+        normalText="나만의 독특한"
+        boldText="닉네임을 입력해주세요"
       />
-      {hasTextfieldContent && hasNicknameValidCharacters && (
-        <HelperText type="checked">{helperText}</HelperText>
-      )}
-      {hasTextfieldContent && !hasNicknameValidCharacters && (
-        <HelperText type="error">{helperText}</HelperText>
-      )}
+      <Column pt={20} gap={4}>
+        <TextField
+          id="text"
+          type="text"
+          hasError={hasTextfieldError}
+          icon={textfieldIcon}
+          placeholder="닉네임"
+          text={nickname}
+          onTextChange={changeNickname}
+        />
+        {canNicknameBeSubmitted && (
+          <HelperText type="checked">{helperText}</HelperText>
+        )}
+      </Column>
+      {hasTextfieldError && <HelperText type="error">{helperText}</HelperText>}
       <StyledValidationContainer>
-        {isNicknameValid ? (
+        {isNicknameVerifiedByServer ? (
           <Button
             category="primary"
-            onClick={async () => {
+            onClick={() => {
               updateNickname(nickname);
               onNext();
             }}
@@ -89,14 +86,12 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
         ) : (
           <Button
             category="secondary"
-            disabled={!hasNicknameValidCharacters}
-            onClick={validateNickname}
+            disabled={!canNicknameBeSubmitted}
+            onClick={checkIsNicknameValid}
           >
             <Text
               color={
-                !hasNicknameValidCharacters
-                  ? 'gray/gray400'
-                  : 'main_color/blue_p'
+                !canNicknameBeSubmitted ? 'gray/gray400' : 'main_color/blue_p'
               }
               size={16}
               weight="bold"

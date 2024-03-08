@@ -58,11 +58,7 @@ export default function MyViewMore() {
       }),
     () => navigate('../notice-list'),
     () => navigate('../event-list'),
-    () =>
-      activateModal('TO_BE_UPDATED', {
-        primaryAction: () => {},
-        secondaryAction: () => {},
-      }),
+    () => navigate('../upload-guideline'),
     () => navigate('../contact-us'),
     () =>
       activateModal('SIGNOUT', {

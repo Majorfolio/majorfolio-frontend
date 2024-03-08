@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { access } from 'fs';
 import getIdToken from '../apis/auth';
 import { AuthResultType, getAuth } from '../apis/member';
 
@@ -9,40 +8,44 @@ const REFRESH_TOKEN = 'refreshToken';
 export enum AuthLevel {
   Guest,
   Unverified,
+  Verified,
   Member,
 }
 
 const initialState = {
-  isMember: false,
+  isWriteMemberDetailInfo: false,
   memberId: undefined,
   accessToken: undefined,
   refreshToken: undefined,
+  emailId: 0,
   authLevel: AuthLevel.Guest,
 };
 
 type AuthStateType = {
-  isMember: boolean;
+  isWriteMemberDetailInfo: boolean;
   memberId?: number;
+  emailId: number;
   accessToken?: string;
   refreshToken?: string;
   authLevel: AuthLevel;
   signin: (code: string) => Promise<AuthResultType>;
   signout: () => void;
   restoreCredentials: () => void;
-  updateTokens: (accessToken: string, refreshToken: string) => void;
+  refresh: (accessToken: string, refreshToken: string) => void;
   setIsMember: () => void;
 };
 
 const useAuthStore = create<AuthStateType>((set, get) => ({
   ...initialState,
 
-  updateTokens(accessToken: string, refreshToken: string) {
+  refresh(accessToken: string, refreshToken: string) {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     set((state) => ({
       ...state,
       accessToken,
       refreshToken,
+      authLevel: AuthLevel.Member,
     }));
   },
 
@@ -73,15 +76,34 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
     const idToken = await getIdToken(code);
     const auth = await getAuth(idToken);
 
-    set((state) => ({
-      ...state,
-      ...auth,
-      authLevel: auth.isMember ? AuthLevel.Member : AuthLevel.Unverified,
-    }));
+    if (auth.isWriteMemberDetailInfo) {
+      set((state) => ({
+        ...state,
+        ...auth,
+        authLevel: AuthLevel.Member,
+      }));
+      localStorage.setItem(ACCESS_TOKEN, auth.accessToken);
+      localStorage.setItem(REFRESH_TOKEN, auth.refreshToken);
+    } else if (auth.emailId) {
+      set((state) => ({
+        ...state,
+        ...auth,
+        authLevel: AuthLevel.Verified,
+      }));
+    } else if (!auth.emailId) {
+      set((state) => ({
+        ...state,
+        ...auth,
+        authLevel: AuthLevel.Unverified,
+      }));
+    } else {
+      set((state) => ({
+        ...state,
+        ...auth,
+        authLevel: AuthLevel.Guest,
+      }));
+    }
 
-    const { accessToken, refreshToken } = auth;
-    localStorage.setItem(ACCESS_TOKEN, accessToken);
-    localStorage.setItem(REFRESH_TOKEN, refreshToken);
     return auth;
   },
 
@@ -92,7 +114,7 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
   },
 
   setIsMember() {
-    set((state) => ({ ...state, isMember: true }));
+    set((state) => ({ ...state, isWriteMemberDetailInfo: true }));
   },
 
   clearAccessToken() {

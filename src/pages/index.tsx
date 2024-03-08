@@ -33,6 +33,8 @@ import EventList from './My/EventList';
 import { EventDetailById } from './My/EventDetail';
 import ContactUs from './My/ContactUs';
 import FAQList from './My/FAQList';
+import UploadGuideline from './My/UploadGuideline';
+import Caution from './My/Caution';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -135,6 +137,19 @@ const Router = () => {
             {
               path: 'FAQ',
               element: <FAQList />,
+            },
+            {
+              path: 'upload-guideline',
+              children: [
+                {
+                  index: true,
+                  element: <UploadGuideline />,
+                },
+                {
+                  path: 'caution',
+                  element: <Caution />,
+                },
+              ],
             },
           ],
         },

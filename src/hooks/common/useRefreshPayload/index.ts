@@ -5,14 +5,14 @@ import { RetryPayload } from '../../../apis/member';
 export default function useRefreshPayload() {
   const refreshToken = useAuthStore((state) => state.refreshToken)!;
   const signout = useAuthStore((state) => state.signout);
-  const updateTokens = useAuthStore((state) => state.updateTokens);
+  const refresh = useAuthStore((state) => state.refresh);
   const navigate = useNavigate();
 
   const onRetrySuccess = (newAccessToken: string, newRefreshToken: string) => {
     // alert(newAccessToken);
     // alert(newRefreshToken);
     signout();
-    updateTokens(newAccessToken, newRefreshToken);
+    refresh(newAccessToken, newRefreshToken);
   };
 
   const onRetryFail = () => {
