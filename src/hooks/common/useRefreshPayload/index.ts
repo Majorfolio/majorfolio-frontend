@@ -9,6 +9,10 @@ export default function useRefreshPayload() {
   const navigate = useNavigate();
 
   const onRetrySuccess = (newAccessToken: string, newRefreshToken: string) => {
+    if (!newAccessToken || !newRefreshToken) {
+      alert(newAccessToken);
+      alert(newRefreshToken);
+    }
     refresh(newAccessToken, newRefreshToken);
   };
 
