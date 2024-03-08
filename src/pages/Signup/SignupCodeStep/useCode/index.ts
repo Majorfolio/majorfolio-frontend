@@ -37,12 +37,12 @@ export default function useCode() {
     if (statusCode === 1000) {
       return true;
     }
-    if (statusCode === 5005 || message === '인증 시간이 지났습니다.') {
-      setServerErrorMessage(ServerError.EXPIRED);
+    if (statusCode === 5005) {
+      setServerErrorMessage(ServerError.INCORRECT);
       return false;
     }
-    if (statusCode === 5004 || message === '인증 코드가 다릅니다.') {
-      setServerErrorMessage(ServerError.INCORRECT);
+    if (statusCode === 5004) {
+      setServerErrorMessage(ServerError.EXPIRED);
       return false;
     }
     setServerErrorMessage(ServerError.UNKNOWN);
