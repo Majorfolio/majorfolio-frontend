@@ -17,32 +17,35 @@ const initialState = {
   memberId: undefined,
   accessToken: undefined,
   refreshToken: undefined,
+  emailId: 0,
   authLevel: AuthLevel.Guest,
 };
 
 type AuthStateType = {
   isWriteMemberDetailInfo: boolean;
   memberId?: number;
+  emailId: number;
   accessToken?: string;
   refreshToken?: string;
   authLevel: AuthLevel;
   signin: (code: string) => Promise<AuthResultType>;
   signout: () => void;
   restoreCredentials: () => void;
-  updateTokens: (accessToken: string, refreshToken: string) => void;
+  refresh: (accessToken: string, refreshToken: string) => void;
   setIsMember: () => void;
 };
 
 const useAuthStore = create<AuthStateType>((set, get) => ({
   ...initialState,
 
-  updateTokens(accessToken: string, refreshToken: string) {
+  refresh(accessToken: string, refreshToken: string) {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     set((state) => ({
       ...state,
       accessToken,
       refreshToken,
+      authLevel: AuthLevel.Member,
     }));
   },
 
