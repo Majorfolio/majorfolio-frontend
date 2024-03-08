@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import Dropdown from '../components/common/Dropdown';
+import SearchableDropdown from '../components/common/Dropdown';
 
 const meta = {
   title: 'Dropdown',
-  component: Dropdown,
+  component: SearchableDropdown,
   decorators: [
     (Story) => {
       const [searchQuery, setSearchQuery] = useState('');

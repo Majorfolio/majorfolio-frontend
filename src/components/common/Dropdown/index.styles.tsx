@@ -42,6 +42,30 @@ const StyledCombobox = styled(StyledText).attrs({
   }
 `;
 
+export const StyledComboboxButton = styled(StyledText).attrs({
+  as: 'button',
+})<StyledComboboxType>`
+  width: 100%;
+  height: 100%;
+  padding-left: 13px;
+  border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
+  border-radius: 6px;
+
+  background-color: ${theme.color['gray/white']};
+
+  cursor: pointer;
+  box-sizing: border-box;
+  outline-style: none;
+
+  &:focus {
+    border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
+  }
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+`;
+
 export const StyledDropdownIcon = styled.span`
   position: absolute;
   right: 6px;

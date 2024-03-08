@@ -1,7 +1,9 @@
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { StyledTextContainer } from '../../../components/common/HelperText/index.styles';
 import Text from '../../../components/common/Text';
-import Dropdown from '../../../components/common/Dropdown';
+import SearchableDropdown, {
+  Dropdown,
+} from '../../../components/common/Dropdown';
 import {
   StyledButtonContainer,
   StyledDropdownContainer,
@@ -11,6 +13,8 @@ import { HelperCancelIcon } from '../../../assets/icons';
 import useSearchQueries from './useSearchQueries.tsx';
 import StyledButton from './index.styles';
 import userStore from '../../../store/userStore';
+import TextField from '../../../components/common/TextField';
+import { KoreanAndEnglishRegex } from '../SignupNamingStep/useSignupNaming';
 
 interface SignupDetailsStepPropsType {
   onNext: () => void;
@@ -21,17 +25,6 @@ enum CATEGORIES {
   ADMISSION_YEAR_STR = '학번',
   MAJOR_STR = '본 전공',
   MINOR_STR = '제2 전공(선택)',
-}
-
-interface FormElements extends HTMLFormControlsCollection {
-  [CATEGORIES.SCHOOL_STR]: HTMLInputElement;
-  [CATEGORIES.ADMISSION_YEAR_STR]: HTMLInputElement;
-  [CATEGORIES.MAJOR_STR]: HTMLInputElement;
-  [CATEGORIES.MINOR_STR]: HTMLInputElement;
-}
-
-interface UserDetailsFormElement extends HTMLFormElement {
-  readonly elements: FormElements;
 }
 
 const CATEGORY_OPTIONS = {
@@ -68,27 +61,8 @@ export default function SignupDetailsStep({
     minor: true,
   });
 
-  const [previousFields, setPreviousFields] = useState<{
-    school: string;
-    admissionYear: string;
-    major: string;
-    minor: string;
-  }>({
-    school: '',
-    admissionYear: '',
-    major: '',
-    minor: '',
-  });
-
-  const handleSubmit = (event: FormEvent<UserDetailsFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userDetails = event.currentTarget.elements;
-    // const [school, admissionYear, major, minor] = [
-    //   userDetails[CATEGORIES.SCHOOL_STR].value,
-    //   userDetails[CATEGORIES.ADMISSION_YEAR_STR].value,
-    //   userDetails[CATEGORIES.MAJOR_STR].value,
-    //   userDetails[CATEGORIES.MINOR_STR].value,
-    // ];
 
     const isSchoolValid = CATEGORY_OPTIONS.SCHOOLS.some(
       (schoolOption) => school === schoolOption,
@@ -98,16 +72,10 @@ export default function SignupDetailsStep({
       (admissionYearOption) => admissionYearOption === admissionYear,
     );
 
-    const isMajorValid = CATEGORY_OPTIONS.DEPARTMENTS.some(
-      (departmentOption) => departmentOption === major,
-    );
+    const isMajorValid = KoreanAndEnglishRegex.test(major);
 
     const isMinorValid =
-      !minor ||
-      (minor !== major &&
-        CATEGORY_OPTIONS.DEPARTMENTS.some(
-          (departmentOption) => departmentOption === minor,
-        ));
+      !minor || (KoreanAndEnglishRegex.test(minor) && minor !== major);
 
     if (isSchoolValid && isAdmissionYearValid && isMajorValid && isMinorValid) {
       updateDetails({
@@ -138,7 +106,7 @@ export default function SignupDetailsStep({
         </Text>
       </StyledTextContainer>
       <StyledDropdownContainer>
-        <Dropdown
+        <SearchableDropdown
           category={CATEGORIES.SCHOOL_STR}
           options={CATEGORY_OPTIONS.SCHOOLS}
           borderColor={areFieldsValid.school ? undefined : 'error/error_color'}
@@ -164,49 +132,46 @@ export default function SignupDetailsStep({
           borderColorOnFocus={
             areFieldsValid.admissionYear ? undefined : 'error/error_color'
           }
-          icon={areFieldsValid.admissionYear ? undefined : <HelperCancelIcon />}
           onFocus={() =>
             setAreFieldsValid((previousAreFieldsValid) => ({
               ...previousAreFieldsValid,
               admissionYear: true,
             }))
           }
+          icon={areFieldsValid.admissionYear ? undefined : <HelperCancelIcon />}
           searchQuery={admissionYear}
           onSearchQueryUpdate={createSearchQueryUpdater('admissionYear')}
         />
-        <Dropdown
-          category={CATEGORIES.MAJOR_STR}
-          options={CATEGORY_OPTIONS.DEPARTMENTS}
-          borderColor={areFieldsValid.major ? undefined : 'error/error_color'}
-          borderColorOnFocus={
-            areFieldsValid.major ? undefined : 'error/error_color'
-          }
+
+        <TextField
+          id="text"
+          type="text"
           icon={areFieldsValid.major ? undefined : <HelperCancelIcon />}
-          onFocus={() =>
+          placeholder={CATEGORIES.MAJOR_STR}
+          text={major}
+          onTextChange={(event: ChangeEvent<HTMLInputElement>) => {
+            createSearchQueryUpdater('major')(event.target.value);
             setAreFieldsValid((previousAreFieldsValid) => ({
               ...previousAreFieldsValid,
               major: true,
-            }))
-          }
-          searchQuery={major}
-          onSearchQueryUpdate={createSearchQueryUpdater('major')}
+            }));
+          }}
+          hasError={!areFieldsValid.major}
         />
-        <Dropdown
-          category={CATEGORIES.MINOR_STR}
-          options={CATEGORY_OPTIONS.DEPARTMENTS}
-          borderColor={areFieldsValid.minor ? undefined : 'error/error_color'}
-          borderColorOnFocus={
-            areFieldsValid.minor ? undefined : 'error/error_color'
-          }
+        <TextField
+          id="text"
+          type="text"
           icon={areFieldsValid.minor ? undefined : <HelperCancelIcon />}
-          onFocus={() =>
+          placeholder={CATEGORIES.MINOR_STR}
+          text={minor}
+          onTextChange={(event: ChangeEvent<HTMLInputElement>) => {
+            createSearchQueryUpdater('minor')(event.target.value);
             setAreFieldsValid((previousAreFieldsValid) => ({
               ...previousAreFieldsValid,
               minor: true,
-            }))
-          }
-          searchQuery={minor}
-          onSearchQueryUpdate={createSearchQueryUpdater('minor')}
+            }));
+          }}
+          hasError={!areFieldsValid.minor}
         />
       </StyledDropdownContainer>
       <StyledButtonContainer>

@@ -44,7 +44,7 @@ const StyledTextField = styled(StyledText).attrs({
   }
 
   outline: none;
-  background-color: ${theme.color['gray/grayBG']};
+  background-color: ${theme.color['gray/white']};
   width: 100%;
   border-radius: 6px;
 `;
