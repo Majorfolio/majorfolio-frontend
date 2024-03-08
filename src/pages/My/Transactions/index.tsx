@@ -162,6 +162,7 @@ export default function Transactions() {
       onItemClick={(index) => setSelectedTab(index)}
     />
   );
+  console.log(selectedTab);
 
   const cardSection = (
     <>
