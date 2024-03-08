@@ -48,7 +48,6 @@ export default function useTransactions() {
   const {
     isLoading,
     nextPage,
-    hasLastPageReached,
     bottomRef,
     canLoadMore,
     startLoading,
@@ -68,8 +67,7 @@ export default function useTransactions() {
           accessToken,
           refreshPayload,
         );
-        console.log(data);
-        if (data.status === 404) {
+        if (data.code === 3000 || data.code === 8001) {
           finishLoading();
           reachLastPage();
           return;
@@ -100,7 +98,7 @@ export default function useTransactions() {
         }));
       } else {
         const data = await getSales(nextPage, 10, accessToken, refreshPayload);
-        if (data.code === 8001) {
+        if (data.code === 3000 || data.code === 8001) {
           return;
         }
         const newSales: SalesType = data;
@@ -136,13 +134,13 @@ export default function useTransactions() {
       observer.disconnect();
     };
   }, [
-    isLoading,
-    hasLastPageReached,
     canLoadMore,
     nextPage,
     startLoading,
     finishLoading,
     reachLastPage,
+    accessToken,
+    refreshPayload,
     sales,
     purchases,
     selectedTab,
