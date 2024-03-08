@@ -61,9 +61,10 @@ export async function fetchWithTokenRetry(
 
   // TODO set all the return type to body(response is useless)
   const response = await fetch(url, options);
-  const { code, ...result } = await response.json();
+  const data = await response.json();
+  const { code, result } = data;
   if (code !== 4005) {
-    return result;
+    return data;
   }
 
   const refreshResponse = await reissueAccessToken(refreshToken);
@@ -165,43 +166,19 @@ export const validateCode = async (
   accessToken: string,
   refreshPayload: RetryPayload,
 ) => {
-  try {
-    const { statusCode } = await fetchWithTokenRetry(
-      `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}/${emailId}/${code}`,
-      {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
+  const data = await fetchWithTokenRetry(
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}/${emailId}/${code}`,
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
       },
-      refreshPayload,
-    );
-
-    if (statusCode === 1000) {
-      return {
-        success: true,
-        code: statusCode,
-      };
-    }
-    if (statusCode === 5005) {
-      return {
-        success: false,
-        code: statusCode,
-      };
-    }
-    if (statusCode === 5004) {
-      return {
-        success: false,
-        code: statusCode,
-      };
-    }
-    throw new Error('에러 발생');
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+    },
+    refreshPayload,
+  );
+  return data;
 };
 
-export const signup = async (
+export const sendNewUser = async (
   user: Omit<UserStateType, 'updateEmail' | 'updateDetails' | 'updateNickname'>,
   accessToken: string,
   refreshPayload: RetryPayload,
@@ -227,12 +204,11 @@ interface VerifyNicknameResponseType {
   result: '사용가능한 닉네임 입니다.' | '중복된 닉네임 입니다.';
 }
 
-export const checkIsNicknameUnique = async (
+export const validateNickname = async (
   nickname: string,
   accessToken: string,
   refreshPayload: RetryPayload,
 ) => {
-  console.log(nickname);
   const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
     {
@@ -242,16 +218,7 @@ export const checkIsNicknameUnique = async (
     },
     refreshPayload,
   );
-
-  const { result } = data as VerifyNicknameResponseType;
-  if (result === '사용가능한 닉네임 입니다.') {
-    return true;
-  }
-  if (result === '중복된 닉네임 입니다.') {
-    return false;
-  }
-
-  return false;
+  return data;
 };
 
 export const getMy = async (
