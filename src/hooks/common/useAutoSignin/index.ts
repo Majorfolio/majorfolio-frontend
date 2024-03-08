@@ -10,7 +10,7 @@ export default function useAutoSignin() {
   useEffect(() => {
     restoreCredentials();
     setIsSigninDone(true);
-  }, [restoreCredentials]);
+  }, [restoreCredentials, setIsSigninDone]);
 
   return { isSigninDone };
 }
