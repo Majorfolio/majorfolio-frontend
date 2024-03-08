@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
 import useTokenExchange from './useTokenExchange';
 import Text from '../../components/common/Text';
 
