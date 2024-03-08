@@ -18,7 +18,7 @@ import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { ArrowBackDefaultIcon, ViewMoreIcon } from '../../../assets/icons';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
-import BottomBar from '../../../components/common/BottomBar';
+import BottomBar, { Path } from '../../../components/common/BottomBar';
 import Column from '../../../components/common/Column';
 import RowButton from '../../../components/common/RowButton';
 
@@ -102,7 +102,7 @@ export default function MyMain() {
         </Column>
       </StyledPageContainer>
 
-      <BottomBar />
+      <BottomBar currentPath={Path.My} />
     </>
   );
 }

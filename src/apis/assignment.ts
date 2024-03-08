@@ -7,6 +7,7 @@ const ASSIGNMENT_API_COMMON_SEGMENT = '/assignment';
 
 const ASSIGNMENT_API_SEGMENTS = {
   UPLOAD: '/assignment/upload',
+  DOWNLOAD: '/assignment/download'
 };
 
 const sendFile = async (
@@ -50,5 +51,30 @@ const sendFile = async (
     retryPayload,
   );
 };
+
+export const downloadFile = async (
+  materialId: number, 
+  authStore: string, 
+  retrypayload: RetryPayload,
+) => {
+  if (authStore && retrypayload) {
+    const requestOptions = {
+      headers: { Authorization: `Bearer ${authStore}` },
+    };
+
+
+    const data = await fetchWithTokenRetry(
+      `${process.env.REACT_APP_API_URL}${ASSIGNMENT_API_SEGMENTS.DOWNLOAD}/${materialId}`,
+      requestOptions,
+      retrypayload,
+    );
+
+    return data;    
+  }
+
+  return null;
+
+
+}
 
 export default sendFile;

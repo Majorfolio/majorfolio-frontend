@@ -34,8 +34,12 @@ export enum Path {
   Signup = '/signup',
 }
 
-export default function BottomBar() {
-  const [currentPage, setCurrentPage] = useState<Path>(Path.Home);
+interface BottomBarProps {
+  currentPath: Path;
+}
+
+export default function BottomBar({ currentPath }: BottomBarProps) {
+  const [currentPage, setCurrentPage] = useState<Path>(currentPath);
   const navigate = useNavigate();
   const {
     modalRef,

@@ -19,6 +19,7 @@ import HomeTagCardTitle from '../../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../../components/home/HomeMaterialCard';
 import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardSkeleton';
 import Text from '../../../components/common/Text';
+import MaterialSellerProfile from '../../../components/home/MaterialSellerProfile';
 
 interface MyBookmarkType {
   nickName: string;
@@ -148,6 +149,10 @@ export default function Bookmarks() {
                     id={0}
                     memberId={0}
                     semester="23-1"
+                    header={
+                      <MaterialSellerProfile nickname={material.nickName} hasReaction={false} />
+                    }
+                    onClick={() => {}}
                   />
                 );
               },

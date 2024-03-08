@@ -17,6 +17,7 @@ const meta = {
     semester: { control: 'text' },
     professor: { control: 'text' },
     like: { control: 'number' },
+    header: { control: 'ReactNode' },
   },
   decorators: [(Story) => <MemoryRouter><Story /></MemoryRouter>],
 } satisfies Meta;
@@ -38,6 +39,7 @@ export const Default: Story = {
     semester: "23-1",
     professor: "홍길동",
     like : 5,
+    header: "프로필",
   }
 };
 
@@ -53,6 +55,7 @@ export const SmallCard: Story = {
     major: "컴퓨터공학부",
     semester: "23-1",
     professor: "홍길동",
-    like : 5
+    like : 5,
+    header: "프로필",
   }
 };
