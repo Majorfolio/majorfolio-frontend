@@ -67,17 +67,18 @@ export async function fetchWithTokenRetry(
   }
 
   const refreshData = await reissueAccessToken(refreshToken);
-  const {
-    code: refreshCode,
-    accessToken: reissuedAccessToken,
-    refreshToken: reissuedRefreshToken,
-  } = refreshData.result;
+  const { code: refreshCode, result } = refreshData;
 
-  if (refreshCode === 4005) {
+  if (refreshCode === 4005 || refreshCode === 4003) {
     // signout and navigate
     onRetryFail();
     return refreshData;
   }
+
+  const {
+    accessToken: reissuedAccessToken,
+    refreshToken: reissuedRefreshToken,
+  } = result;
 
   onRetrySuccess(reissuedAccessToken, reissuedRefreshToken);
 
