@@ -11,6 +11,7 @@ const StyledAgreeAllRow = styled.div`
   border-radius: 8px;
   height: 61px;
   padding: 0px 10px;
+  margin-top: 32px;
 `;
 
 export const StyledConditionRow = styled.div`
