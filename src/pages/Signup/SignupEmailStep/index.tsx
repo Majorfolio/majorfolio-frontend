@@ -9,7 +9,7 @@ import {
   StyledTextContainer,
 } from '../../../components/common/HelperText/index.styles';
 import Button from '../../../components/common/Button';
-import { CancelDefaultIcon } from '../../../assets/icons';
+import { CancelDefaultIcon, ErrorDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
 import useEmail from './useEmail';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
@@ -100,10 +100,17 @@ export default function SignupEmailStep({
       <TextField
         id="email"
         type="email"
-        icon={textfieldIcon}
+        icon={
+          email && (!isEmailValid || Boolean(serverErrorMessage)) ? (
+            <ErrorDefaultIcon />
+          ) : (
+            textfieldIcon
+          )
+        }
         placeholder="이메일"
         text={email}
         onTextChange={onEmailChange}
+        hasError={!!email && (!isEmailValid || Boolean(serverErrorMessage))}
       />
       {helperText}
       <StyledButtonContainer>{transition}</StyledButtonContainer>

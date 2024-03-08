@@ -12,7 +12,7 @@ const validateEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-enum ServerError {
+export enum ServerError {
   NOT_SCHOOL_EMAIL = '학교 이메일이 아닙니다',
   INCORRECT_FORMAT = '올바르지 않은 이메일입니다.',
   ALREADY_IN_USE = '이미 인증한 이메일입니다.',
@@ -52,7 +52,7 @@ export default function useEmail() {
       setServerErrorMessage(ServerError.ALREADY_IN_USE);
       return false;
     }
-    if (code === 1000) {
+    if (code === 1000 || status === 200) {
       const { emailId } = result;
       updateEmail(emailId);
       return true;
@@ -61,7 +61,8 @@ export default function useEmail() {
     if (status === 404) {
       return false;
     }
-    return true;
+
+    return false;
   };
 
   const resetEmail = () => {
