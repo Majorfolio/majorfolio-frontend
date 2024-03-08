@@ -44,17 +44,17 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
   );
   const authLevel = useAuthStore((state) => state.authLevel);
 
-  if (!isAuthLevelSatisfied) {
-    return (
-      <>유효하지 않은 페이지로 이동하였습니다. 메인 화면으로 이동합니다.</>
-    );
-  }
-
   useEffect(() => {
     if (authLevel === AuthLevel.Verified) {
       setStep(SignupStep.Details);
     }
   }, [authLevel, setStep]);
+
+  if (!isAuthLevelSatisfied) {
+    return (
+      <>유효하지 않은 페이지로 이동하였습니다. 메인 화면으로 이동합니다.</>
+    );
+  }
 
   return (
     <>
