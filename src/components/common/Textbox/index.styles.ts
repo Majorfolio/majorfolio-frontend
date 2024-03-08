@@ -5,6 +5,7 @@ import { StyledTextFieldType } from '../TextField/index.types';
 import StyledText from '../Text/index.styles';
 import theme from '../theme';
 import { StyledTextboxType } from './index.types';
+import Row from '../Row';
 
 export const StyledContainer = styled.div`
   display: flex;
@@ -52,7 +53,9 @@ export const StyledTextbox = styled(StyledText).attrs({ as: 'textarea' })<
   }
 
   outline: none;
-  background-color: ${theme.color['gray/grayBG']};
+  && {
+    background-color: ${theme.color['gray/grayBG']};
+  }
 `;
 
 export const StyledTextbox2 = styled.textarea<Required<StyledTextboxType>>`
@@ -93,6 +96,16 @@ export const StyledTextbox2 = styled.textarea<Required<StyledTextboxType>>`
 
   outline: none;
   background-color: ${theme.color['gray/grayBG']};
+`;
+
+export const StyledTextboxContainer = styled(Row)`
+  position: relative;
+`;
+
+export const StyledIconContainer = styled.div`
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
 `;
 
 export default StyledTextField;

@@ -38,7 +38,6 @@ export default function UploadCollectPhoneNumberStep() {
     const first = phoneNumber.slice(0, 3);
     const second = phoneNumber.slice(3, 7);
     const last = phoneNumber.slice(7);
-    console.log(`${first}-${second}-${last}`);
     const { code } = await sendContact(
       `${first}-${second}-${last}`,
       accessToken,
@@ -69,6 +68,7 @@ export default function UploadCollectPhoneNumberStep() {
       type="button"
       category="primary"
       onClick={async () => {
+        console.log('안녕');
         await saveContact();
         navigate(`/upload/${UploadRoutes.Guideline}`);
       }}
