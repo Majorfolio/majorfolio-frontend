@@ -1,6 +1,6 @@
 import { access } from 'fs';
 import { Order } from '../components/home/Payment/index.types';
-import { HTTP_METHODS } from './constants';
+import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
 const PAYMENT_API_PATHS = {
@@ -19,8 +19,8 @@ export const updateBuyInfo = async (
     const requestOptions = {
       method: HTTP_METHODS.POST,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authStore}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify(buyInfo),
     };
@@ -43,7 +43,7 @@ export const getBuyInfo = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -63,10 +63,10 @@ export const updateCancel = async (
 ) => {
   try {
     const requestOptions = {
-      method: 'POST',
+      method: HTTP_METHODS.POST,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authStore}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify({}),
     };
@@ -90,7 +90,7 @@ export const getPurchases = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -112,7 +112,7 @@ export const getSales = async (
   // const authStore = useAuthStore((state) => state.accessToken);
   const requestOptions = {
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -135,8 +135,8 @@ export const cancelPayment = async (
     {
       method: HTTP_METHODS.POST,
       headers: {
-        authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
       },
       body: JSON.stringify({}),
     },

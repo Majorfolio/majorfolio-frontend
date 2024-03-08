@@ -6,8 +6,8 @@ export const HTTP_METHODS = {
 };
 
 export const HTTP_HEADERS = {
-  CONTENT_TYPE: 'Content-Type',
-  AUTHORIZATION: 'Authorization',
+  CONTENT_TYPE: 'content-type',
+  AUTHORIZATION: 'authorization',
   STATE: 'state',
   NONCE: 'nonce',
 };

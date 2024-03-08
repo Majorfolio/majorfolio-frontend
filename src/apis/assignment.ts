@@ -43,7 +43,7 @@ const sendFile = async (
     {
       method: HTTP_METHODS.PUT,
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
       },
       body: formData,
     },
