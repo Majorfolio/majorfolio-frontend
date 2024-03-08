@@ -72,7 +72,7 @@ export default function Bookmarks() {
 
     newMaterials = result;
 
-    if (status === 404 || code === 8001) {
+    if (status === 404 || code === 8001 || status === 500) {
       setHasLastPageReached(true);
       setIsLoading(false);
       return;
