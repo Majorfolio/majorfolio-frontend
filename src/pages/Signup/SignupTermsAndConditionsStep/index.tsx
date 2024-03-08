@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { access } from 'fs';
 import { CheckboxDefaultIcon, CheckboxFilledIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import StyledAgreeAllRow, {
@@ -10,8 +11,9 @@ import Button from '../../../components/common/Button';
 import CheckboxWithIcon from '../../../components/common/CheckboxWithIcon';
 import userStore from '../../../store/userStore';
 import useAuthStore from '../../../store/useAuthStore';
-import { signup } from '../../../apis/member';
+import { sendNewUser } from '../../../apis/member';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import useFormSubmission from '../../../hooks/common/useFormSubmission';
 
 interface SignupTermsAndConditionsStepPropsType {
   onNext?: () => void;
@@ -22,7 +24,7 @@ export default function SignupTermsAndConditionsStep({
 }: SignupTermsAndConditionsStepPropsType) {
   const [isFirstTermAgreed, setIsFirstTermAgreed] = useState<boolean>(false);
   const [isSecondTermAgreed, setIsSecondTermAgreed] = useState<boolean>(false);
-  // TODO update global state
+
   const {
     updateNickname,
     nickName,
@@ -31,11 +33,11 @@ export default function SignupTermsAndConditionsStep({
     studentId,
     major1,
     major2,
-    personalAgree,
-    serviceAgree,
-    marketingAgree,
   } = userStore((state) => state);
   const accessToken = useAuthStore((state) => state.accessToken)!;
+  const refreshToken = useAuthStore((state) => state.refreshToken)!;
+  const refresh = useAuthStore((state) => state.refresh);
+
   const setIsMember = useAuthStore((state) => state.setIsMember)!;
 
   const refreshPayload = useRefreshPayload();
@@ -54,10 +56,11 @@ export default function SignupTermsAndConditionsStep({
     onSecondTermChange();
   };
 
-  const onLogin = async (event: FormEvent) => {
-    event.preventDefault();
-    if (isFirstTermAgreed && isSecondTermAgreed) {
-      await signup(
+  const areAllTermsChecked = isFirstTermAgreed && isSecondTermAgreed;
+
+  const signup = async () => {
+    if (areAllTermsChecked) {
+      await sendNewUser(
         {
           nickName,
           emailId,
@@ -73,12 +76,17 @@ export default function SignupTermsAndConditionsStep({
         refreshPayload,
       );
       setIsMember();
-      onNext();
+      refresh(accessToken, refreshToken);
     }
   };
-  // TODO use Form submission
+
+  const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
+    await signup();
+    onNext();
+  });
+
   return (
-    <form onSubmit={onLogin}>
+    <form onSubmit={handleSubmit}>
       <StyledAgreeAllRow>
         <CheckboxWithIcon
           isChecked={isFirstTermAgreed && isSecondTermAgreed}
@@ -121,7 +129,11 @@ export default function SignupTermsAndConditionsStep({
         />
       </StyledConditionRow2>
       <StyledButtonContainer>
-        <Button category="primary" type="submit">
+        <Button
+          category="primary"
+          type="submit"
+          disabled={!areAllTermsChecked || isSubmitting}
+        >
           <Text size={16} weight="bold" color="gray/white" lineHeight="sm">
             로그인
           </Text>
