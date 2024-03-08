@@ -1,3 +1,4 @@
+import { HTTP_HEADERS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
 const LIBRARY_COMMON_SEGMENT = 'library';
@@ -22,7 +23,7 @@ export const getPurchaseInfo = async (
     `${process.env.REACT_APP_API_URL}${LIBRARY_PATH_SEGMENTS.PURCHASED}?${queryParams}`,
     {
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
       },
     },
     retryPayload,

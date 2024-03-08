@@ -16,7 +16,7 @@ const getMyProfile = async (
       `${process.env.REACT_APP_API_URL}${MY_API_PATH_SEGEMENTS.MY_PROFILE}`,
       {
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
         },
       },
       retryPayload,
@@ -37,7 +37,7 @@ export const getMyBookmarks = async (
 ) => {
   const requestOptions = {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
     },
   };
 
@@ -58,7 +58,7 @@ export const getMyLikes = async (
 ) => {
   const requestOptions = {
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 

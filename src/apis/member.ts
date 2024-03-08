@@ -1,5 +1,5 @@
 import { UserStateType } from '../store/userStore';
-import { HTTP_METHODS } from './constants';
+import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 
 const MEMBER_API_COMMON_SEGMENT = '/member';
 
@@ -31,8 +31,8 @@ export const reissueAccessToken = async (refreshToken: string) => {
   const requestOptions = {
     method: HTTP_METHODS.POST,
     headers: {
-      authorization: `Bearer ${refreshToken}`,
-      'content-type': 'application/json',
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${refreshToken}`,
+      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
     },
     body: JSON.stringify({}),
   };
@@ -43,7 +43,7 @@ export const reissueAccessToken = async (refreshToken: string) => {
   );
 
   // TODO signout when refresh token gets expired
-  return response;
+  return response.json();
 };
 
 export interface RetryPayload {
@@ -59,30 +59,33 @@ export async function fetchWithTokenRetry(
 ) {
   const { refreshToken, onRetrySuccess, onRetryFail } = retryPayload;
 
-  // TODO set all the return type to body(response is useless)
   const response = await fetch(url, options);
   const data = await response.json();
-  const { code, result } = data;
+  const { code } = data;
   if (code !== 4005) {
     return data;
   }
 
-  const refreshResponse = await reissueAccessToken(refreshToken);
-  const { refreshCode, ...refreshResult } = await refreshResponse.json();
+  const refreshData = await reissueAccessToken(refreshToken);
+  const {
+    code: refreshCode,
+    accessToken: reissuedAccessToken,
+    refreshToken: reissuedRefreshToken,
+  } = refreshData.result;
 
   if (refreshCode === 4005) {
     // signout and navigate
     onRetryFail();
-    return refreshResult;
+    return refreshData;
   }
-  const { newAccessToken, newRefreshToken } = result;
-  // signout and update tokens
-  onRetrySuccess(newAccessToken, newRefreshToken);
+
+  onRetrySuccess(reissuedAccessToken, reissuedRefreshToken);
+
   return fetch(url, {
     ...options,
     headers: {
       ...options.headers,
-      authorization: `Bearer ${newAccessToken}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${reissuedAccessToken}`,
     },
   }).then((retryResponse) => retryResponse.json());
 }
@@ -120,7 +123,7 @@ export const getAuth = async (idToken: string) => {
       {
         method: HTTP_METHODS.POST,
         headers: {
-          authorization: `Bearer ${idToken}`,
+          [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${idToken}`,
           state,
           nonce,
         },
@@ -147,8 +150,8 @@ export const sendCodeToEmail = async (
     {
       method: HTTP_METHODS.POST,
       headers: {
-        authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
       },
       body: JSON.stringify({
         email,
@@ -170,7 +173,7 @@ export const validateCode = async (
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.SCHOOL_EMAIL}/${emailId}/${code}`,
     {
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
       },
     },
     refreshPayload,
@@ -188,13 +191,14 @@ export const sendNewUser = async (
     {
       method: HTTP_METHODS.POST,
       headers: {
-        authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
       },
       body: JSON.stringify(user),
     },
     refreshPayload,
   );
+  return data;
 };
 
 interface VerifyNicknameResponseType {
@@ -213,7 +217,7 @@ export const validateNickname = async (
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
     {
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
       },
     },
     refreshPayload,
@@ -228,7 +232,7 @@ export const getMy = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -250,8 +254,8 @@ export const sendContact = async (
     {
       method: HTTP_METHODS.POST,
       headers: {
-        authorization: `Bearer ${accessToken}`,
-        'content-type': 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
       },
       body: JSON.stringify(phoneNumber),
     },
@@ -268,8 +272,8 @@ export const deleteAccount = async (
   const requestOptions = {
     method: HTTP_METHODS.POST,
     headers: {
-      authorization: `Bearer ${accessToken}`,
-      'content-type': 'application/json',
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
     },
   };
 

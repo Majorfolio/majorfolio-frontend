@@ -60,7 +60,7 @@ export default function SignupTermsAndConditionsStep({
 
   const signup = async () => {
     if (areAllTermsChecked) {
-      await sendNewUser(
+      const { code, status, result } = await sendNewUser(
         {
           nickName,
           emailId,
@@ -75,8 +75,11 @@ export default function SignupTermsAndConditionsStep({
         accessToken,
         refreshPayload,
       );
-      setIsMember();
-      refresh(accessToken, refreshToken);
+      if (code === 1000) {
+        const { accessToken: newAccessToken } = result;
+        setIsMember();
+        refresh(newAccessToken, refreshToken);
+      }
     }
   };
 

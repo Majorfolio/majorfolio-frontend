@@ -1,4 +1,5 @@
 import useRefreshPayload from '../hooks/common/useRefreshPayload';
+import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
 export const getAllUniv = async () => {
@@ -14,7 +15,7 @@ export const getMyUniv = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -34,7 +35,7 @@ export const getMyMajor = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -75,7 +76,7 @@ export const getMyUnivNewlyViewAll = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -97,7 +98,7 @@ export const getMyUnivBestViewAll = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -119,7 +120,7 @@ export const getMyMajorNewlyViewAll = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -141,7 +142,7 @@ export const getMyMajorBestViewAll = async (
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${authStore}`,
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
     },
   };
 
@@ -189,8 +190,8 @@ export const updateLike = async (
     const requestOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authStore}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify({}),
     };
@@ -211,10 +212,10 @@ export const updateBookmark = async (
 ) => {
   try {
     const requestOptions = {
-      method: 'POST',
+      method: HTTP_METHODS.POST,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authStore}`,
+        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify({}),
     };
