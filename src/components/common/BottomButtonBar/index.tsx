@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { FormEvent, MouseEvent } from 'react';
 import { BottomBarContainer, StickyContainer } from '../BottomBar/index.styles';
 import Button from '../Button';
 import Text from '../Text';
 import StyledBottomButtonBar from './index.styles';
 
-interface BottomButtonBarType {
-  transitions: { text: string; onAction: () => void; disabled?: boolean }[];
-}
+type BottomButtonBarType = {
+  transitions: {
+    text: string;
+    onAction:
+      | (() => void)
+      | ((
+          event?: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>,
+        ) => Promise<void>);
+    disabled?: boolean;
+  }[];
+};
 
 export default function BottomButtonBar({ transitions }: BottomButtonBarType) {
   if (transitions.length === 2) {

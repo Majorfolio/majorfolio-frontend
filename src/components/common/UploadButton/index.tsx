@@ -47,7 +47,7 @@ export default function UploadButton({
           id="uploadMaterial"
           onChange={onChange}
         />
-        :<FileDefaultIcon />
+        <FileDefaultIcon />
         {file ? (
           <StyledUploadTextSection hasFile={Boolean(file)}>
             <Text as="div">{file.name}</Text>

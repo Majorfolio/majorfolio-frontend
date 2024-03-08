@@ -1,5 +1,10 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from 'react';
-import { StyledTextbox, StyledTextbox2 } from './index.styles';
+import {
+  StyledIconContainer,
+  StyledTextbox,
+  StyledTextbox2,
+  StyledTextboxContainer,
+} from './index.styles';
 import Text from '../Text';
 import { TextFieldPropsType } from '../TextField/index.types';
 import { TextboxPropsType } from './index.types';
@@ -9,19 +14,23 @@ export default function Textbox({
   hasError = false,
   text,
   onTextChange,
+  icon,
   ...props
 }: TextboxPropsType) {
   return (
-    <StyledTextbox
-      hasError={hasError}
-      color="gray/gray900"
-      size={16}
-      weight="md"
-      lineHeight="lg"
-      disabled={disabled}
-      value={text}
-      onChange={onTextChange}
-      {...props}
-    />
+    <StyledTextboxContainer>
+      <StyledTextbox
+        hasError={hasError}
+        color="gray/gray900"
+        size={16}
+        weight="md"
+        lineHeight="lg"
+        disabled={disabled}
+        value={text}
+        onChange={onTextChange}
+        {...props}
+      />
+      <StyledIconContainer>{!!icon && icon}</StyledIconContainer>
+    </StyledTextboxContainer>
   );
 }

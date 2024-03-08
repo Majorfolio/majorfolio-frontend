@@ -15,6 +15,7 @@ export const StyledDescriptionSectionItem = styled.div`
   align-items: start;
   width: 100%;
   row-gap: 4px;
+  position: relative;
 `;
 
 export const SomeContainer = styled.div`
