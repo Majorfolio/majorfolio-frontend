@@ -24,14 +24,6 @@ export type PurchaseKeys =
 export type PurchasesType = Partial<
   Record<PurchaseKeys, TransactionMaterial[]>
 >;
-// {
-//   beforePay?: TransactionMaterial[];
-//   beforeRefund?: TransactionMaterial[];
-//   afterPay?: TransactionMaterial[];
-//   isDown?: TransactionMaterial[];
-//   cancel?: TransactionMaterial[];
-//   afterRefund?: TransactionMaterial[];
-// };
 
 export type SaleKeys = 'pending' | 'complete';
 
