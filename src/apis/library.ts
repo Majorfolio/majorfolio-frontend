@@ -7,7 +7,7 @@ const LIBRARY_PATH_SEGMENTS = {
   UPLOADED: '/library/upload',
 };
 
-const getPurchaseInfo = async (
+export const getPurchaseInfo = async (
   page: number,
   pageSize: number,
   accessToken: string,
@@ -30,4 +30,27 @@ const getPurchaseInfo = async (
 
   return data;
 };
-export default getPurchaseInfo;
+
+export const getUploadInfo = async (
+  page: number,
+  pageSize: number,
+  accessToken: string,
+  retryPayload: RetryPayload,
+) => {
+  const queryParams = new URLSearchParams({
+    page: page.toString(),
+    pageSize: pageSize.toString(),
+  });
+
+  const data = await fetchWithTokenRetry(
+    `${process.env.REACT_APP_API_URL}${LIBRARY_PATH_SEGMENTS.UPLOADED}?${queryParams}`,
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    },
+    retryPayload,
+  );
+
+  return data;
+};
