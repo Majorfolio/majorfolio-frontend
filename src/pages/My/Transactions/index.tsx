@@ -24,6 +24,7 @@ import useTransactions, {
 import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardSkeleton';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import StyledRow from '../ContactUs/index.styles';
+import { getPurchases, getSales } from '../../../apis/payment';
 
 type TransactionCardPropsType = {
   category: SaleKeys | PurchaseKeys;
@@ -130,13 +131,16 @@ export function TransactionCard({
 
 export default function Transactions() {
   const {
-    isLoading,
-    purchases,
-    sales,
-    selectedTab,
-    setSelectedTab,
-    bottomRef,
-  } = useTransactions();
+    isLoading: isSaleLoading,
+    transactions: sales,
+    bottomRef: salesBottomRef,
+  } = useTransactions(getSales);
+  const {
+    isLoading: isPurchaseLoading,
+    transactions: purchases,
+    bottomRef: purchasesBottomRef,
+  } = useTransactions(getPurchases);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const navigate = useNavigate();
 
@@ -162,7 +166,6 @@ export default function Transactions() {
       onItemClick={(index) => setSelectedTab(index)}
     />
   );
-  console.log(selectedTab);
 
   const cardSection = (
     <>
@@ -232,7 +235,7 @@ export default function Transactions() {
     </>
   );
 
-  const skeletonCardSection = isLoading && (
+  const skeletonCardSection = (
     <CardsWrapper>
       <HomeMaterialCardSkeleton isBig={false} />
       <HomeMaterialCardSkeleton isBig={false} />
@@ -248,8 +251,14 @@ export default function Transactions() {
       <StyledPageContainer>
         {tabBar}
         {cardSection}
-        {skeletonCardSection}
-        <div ref={bottomRef} style={{ height: '10px' }} />
+        {selectedTab === 0 && isPurchaseLoading && skeletonCardSection}
+        {selectedTab === 1 && isSaleLoading && skeletonCardSection}
+        {selectedTab === 0 && (
+          <div ref={purchasesBottomRef} style={{ height: '10px' }} />
+        )}
+        {selectedTab === 1 && (
+          <div ref={salesBottomRef} style={{ height: '10px' }} />
+        )}
       </StyledPageContainer>
     </>
   );

@@ -4,6 +4,7 @@ import Material from '../../../../components/home/Material/index.types';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 import { getPurchases, getSales } from '../../../../apis/payment';
 import usePagination from '../../../../hooks/common/usePagination';
+import { RetryPayload } from '../../../../apis/member';
 
 export type TransactionMaterial = Pick<
   Material,
@@ -29,13 +30,21 @@ export type SaleKeys = 'pending' | 'complete';
 
 export type SalesType = Partial<Record<SaleKeys, TransactionMaterial[]>>;
 
-export default function useTransactions() {
+export type TransactionsType = PurchasesType & SalesType;
+
+export default function useTransactions(
+  loadNextContent: (
+    pageNumber: number,
+    pageSize: number,
+    accessToken: string,
+    refreshPayload: RetryPayload,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) => Promise<any>,
+) {
   const accessToken = useAuthStore((store) => store.accessToken)!;
   const refreshPayload = useRefreshPayload();
-  const [selectedTab, setSelectedTab] = useState<number>(0);
 
-  const [purchases, setPurchases] = useState<PurchasesType>({});
-  const [sales, setSales] = useState<SalesType>({});
+  const [transactions, setTransactions] = useState<TransactionsType>({});
 
   const {
     isLoading,
@@ -52,63 +61,56 @@ export default function useTransactions() {
     if (target.isIntersecting && canLoadMore) {
       startLoading();
 
-      if (selectedTab === 0) {
-        const data = await getPurchases(
-          nextPage,
-          10,
-          accessToken,
-          refreshPayload,
-        );
-        if (data.code === 3000 || data.code === 8001) {
-          finishLoading();
-          reachLastPage();
-          return;
-        }
-        const newPurchases: PurchasesType = data;
-        setPurchases((currentPurchases) => ({
-          ...currentPurchases,
-          beforePay: [
-            ...(currentPurchases.beforePay || []),
-            ...(newPurchases.beforePay || []),
-          ],
-          afterPay: [
-            ...(currentPurchases.afterPay || []),
-            ...(newPurchases.afterPay || []),
-          ],
-          isDown: [
-            ...(currentPurchases.isDown || []),
-            ...(newPurchases.isDown || []),
-          ],
-          cancel: [
-            ...(currentPurchases.cancel || []),
-            ...(newPurchases.cancel || []),
-          ],
-          afterRefund: [
-            ...(currentPurchases.afterRefund || []),
-            ...(newPurchases.afterRefund || []),
-          ],
-        }));
-      } else {
-        const data = await getSales(nextPage, 10, accessToken, refreshPayload);
-        if (data.code === 3000 || data.code === 8001) {
-          return;
-        }
-        const newSales: SalesType = data;
-        setSales((currentSales) => ({
-          ...currentSales,
-          pending: [
-            ...(currentSales.pending || []),
-            ...(newSales.pending || []),
-          ],
-          complete: [
-            ...(currentSales.complete || []),
-            ...(newSales.complete || []),
-          ],
-        }));
+      const data = await loadNextContent(
+        nextPage,
+        10,
+        accessToken,
+        refreshPayload,
+      );
+      if (data.code === 3000 || data.code === 8001) {
+        finishLoading();
+        reachLastPage();
+        return;
       }
+      const newTransactions: PurchasesType & SalesType = data;
+      setTransactions((currentTransactions) => ({
+        ...currentTransactions,
+        beforePay: [
+          ...(currentTransactions?.beforePay || []),
+          ...(newTransactions?.beforePay || []),
+        ],
+        afterPay: [
+          ...(currentTransactions.afterPay || []),
+          ...(newTransactions?.afterPay || []),
+        ],
+        isDown: [
+          ...(currentTransactions.isDown || []),
+          ...(newTransactions?.isDown || []),
+        ],
+        cancel: [
+          ...(currentTransactions.cancel || []),
+          ...(newTransactions?.cancel || []),
+        ],
+        afterRefund: [
+          ...(currentTransactions.afterRefund || []),
+          ...(newTransactions?.afterRefund || []),
+        ],
+        pending: [
+          ...(currentTransactions.afterRefund || []),
+          ...(newTransactions?.afterRefund || []),
+        ],
+        complete: [
+          ...(currentTransactions.afterRefund || []),
+          ...(newTransactions?.afterRefund || []),
+        ],
+      }));
 
-      finishLoading();
+      if (data.end === true) {
+        reachLastPage();
+      }
     }
+
+    finishLoading();
   };
 
   useEffect(() => {
@@ -119,7 +121,11 @@ export default function useTransactions() {
     });
 
     if (bottomRef.current) {
-      observer.observe(bottomRef.current);
+      if (isLoading) {
+        observer.unobserve(bottomRef.current);
+      } else {
+        observer.observe(bottomRef.current);
+      }
     }
 
     return () => {
@@ -133,17 +139,14 @@ export default function useTransactions() {
     reachLastPage,
     accessToken,
     refreshPayload,
-    sales,
-    purchases,
-    selectedTab,
+    transactions,
   ]);
+
+  // fix remove dependencies and prevent multiple invokations before isLoading gets updated
 
   return {
     isLoading,
-    purchases,
-    sales,
-    selectedTab,
-    setSelectedTab,
+    transactions,
     bottomRef,
   };
 }
