@@ -11,7 +11,7 @@ export const StyledTextContainer = styled.label`
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  margin-top: 32px;
+  margin-top: 12px;
   margin-bottom: 28px;
 `;
 
