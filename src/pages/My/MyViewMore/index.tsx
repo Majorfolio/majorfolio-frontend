@@ -7,7 +7,6 @@ import Column from '../../../components/common/Column';
 import RowButton from '../../../components/common/RowButton';
 import Modal from '../../../components/common/Modal';
 import useModal from '../../../hooks/common/useModal';
-import BottomBar from '../../../components/common/BottomBar';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import useAuthStore from '../../../store/useAuthStore';
 
@@ -18,7 +17,7 @@ export default function MyViewMore() {
   const topbar = (
     <SecondaryTopbar
       transition={
-        <button type="button" onClick={() => navigate(-1)}>
+        <button type="button" onClick={() => navigate(-1)} aria-label="prev">
           <CloseDefaultIcon />
         </button>
       }

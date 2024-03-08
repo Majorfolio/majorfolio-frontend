@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
-import TextField from '../../components/common/TextField';
-import HelperText from '../../components/common/HelperText';
-import StyledSignup from './index.styles';
-import {
-  StyledButtonContainer,
-  StyledTextContainer,
-} from '../../components/common/HelperText/index.styles';
-import Button from '../../components/common/Button';
-import { ArrowBackDefaultIcon, CancelDefaultIcon } from '../../assets/icons';
-import Tag from '../../components/common/Tag';
+import { ArrowBackDefaultIcon } from '../../assets/icons';
 import SignupEmailStep from './SignupEmailStep';
 import SignupDetailsStep from './SignupDetailsStep';
 import SignupNamingStep from './SignupNamingStep';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
 import SignupCodeStep from './SignupCodeStep';
-import useUserStore from '../../store/userStore';
 import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import StyledPageContainer from '../Upload/UploadDefaultStep/index.styles';
 import SignupTermsAndConditionsStep from './SignupTermsAndConditionsStep';
-import useAutoSignin from '../../hooks/common/useAutoSignin';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 
 interface SignupPropsType {

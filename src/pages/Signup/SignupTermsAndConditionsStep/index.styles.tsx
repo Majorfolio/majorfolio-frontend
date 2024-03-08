@@ -1,8 +1,6 @@
 import { styled } from 'styled-components';
 import theme from '../../../components/common/theme';
 
-const StyledRowContainer = styled.div``;
-
 const StyledAgreeAllRow = styled.div`
   display: flex;
   justify-content: center;
