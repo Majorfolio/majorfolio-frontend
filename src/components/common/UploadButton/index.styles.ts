@@ -31,13 +31,15 @@ export const StyledUploadActionButton = styled(StyledUploadBaseButton)<{
   height: 320px;
   background-color: ${({ hasFile }) =>
     hasFile && theme.color['sub_color/indigo/c']};
+  border: 1px dashed ${theme.color['main_color/blue_p']};
 `;
 
 export const StyledUploadTextSection = styled.span<{
   hasFile: boolean;
 }>`
   && ${StyledText} {
-    color: ${({ hasFile }) => hasFile && theme.color['main_color/blue_p']};
+    color: ${theme.color['main_color/blue_p']};
+    text-align: center;
   }
 `;
 
