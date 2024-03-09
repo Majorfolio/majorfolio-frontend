@@ -31,7 +31,8 @@ export type ModalCategoryType =
   | 'CANCEL_ON_UPLOAD'
   | 'REQUIRE_SIGNIN'
   | 'FEEDBACK_INVALID_FORMAT'
-  | 'AVAILABLE_ON_MOBILE';
+  | 'AVAILABLE_ON_MOBILE'
+  | 'REGISTER_INCOMPLETE';
 
 interface ModalPropsType {
   category: ModalCategoryType | null;
@@ -153,6 +154,11 @@ const MODAL_TEXTS = {
     TITLE: '모바일로 접속해야 결제가 가능합니다.',
     BODY: 'PC에서는 결제할 수 없습니다. 모바일로 접속해주세요.',
     FOOTER: '홈으로 이동하기',
+  },
+  REGISTER_INCOMPLETE: {
+    TITLE: '현재 사용할 수 없는 기능입니다.',
+    BODY: '해당 기능은 상세정보 입력 및 약관동의가 완료된 후 사용할 수 있는 기능입니다. 이동할깡?',
+    FOOTER: ['나중에', '이동하기'],
   },
 };
 

@@ -54,9 +54,9 @@ function MaterialPostStatisticsNumber({
 }
 
 interface MyProifleStatisticsNumberPropsType {
-  upload: number | null;
-  sell: number | null;
-  follower: number | null;
+  upload?: number | null;
+  sell?: number | null;
+  follower?: number | null;
 }
 
 export function MyProfileStatisticsNumber({
@@ -69,7 +69,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {upload}{' '}
+          {upload || upload === 0 ? 0 : '-'}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           업로드
@@ -79,7 +79,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {sell}{' '}
+          {sell || sell === 0 ? sell : '-'}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           판매량
@@ -89,7 +89,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {follower}{' '}
+          {follower || follower === 0 ? follower : '-'}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           팔로워

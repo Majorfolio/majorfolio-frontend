@@ -57,6 +57,7 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
         activateModal('REQUIRE_SIGNIN', {
           primaryAction: () => navigate(Path.Signin),
         });
+        return;
       }
       setCurrentPage(path);
       navigate(path);

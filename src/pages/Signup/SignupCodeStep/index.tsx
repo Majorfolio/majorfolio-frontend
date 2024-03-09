@@ -13,6 +13,7 @@ import { CancelDefaultIcon, ErrorDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
 import useCode from './useCode';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
+import useAuthStore from '../../../store/useAuthStore';
 
 interface SignupPropsType {
   onNext: () => void;
@@ -27,9 +28,11 @@ export default function SignupCodeStep({
 }: SignupPropsType) {
   const { code, onCodeChange, submitCode, isCodeEmpty, serverErrorMessage } =
     useCode();
+  const elevateAuthLevel = useAuthStore((state) => state.elevateAuthLevel);
   const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
     const isSubmissionSuccessful = await submitCode();
     if (isSubmissionSuccessful) {
+      elevateAuthLevel();
       onNext();
     }
   });
