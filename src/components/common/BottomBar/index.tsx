@@ -52,7 +52,15 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
   const authLevel = useAuthStore((state) => state.authLevel);
 
   const redirect = (path: Path) => {
-    if (authLevel === AuthLevel.Guest) {
+    if (path === Path.My) {
+      if (authLevel === AuthLevel.Guest) {
+        activateModal('REQUIRE_SIGNIN', {
+          primaryAction: () => navigate(Path.Signin),
+        });
+      }
+      setCurrentPage(path);
+      navigate(path);
+    } else if (authLevel === AuthLevel.Guest) {
       activateModal('REQUIRE_SIGNIN', {
         primaryAction: () => navigate(Path.Signin),
       });
