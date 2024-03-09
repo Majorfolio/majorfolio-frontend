@@ -35,6 +35,7 @@ import ContactUs from './My/ContactUs';
 import FAQList from './My/FAQList';
 import UploadGuideline from './My/UploadGuideline';
 import Caution from './My/Caution';
+import My from './My';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -118,10 +119,10 @@ const Router = () => {
         },
         {
           path: 'my',
+          element: <My />,
           children: [
             { index: true, element: <MyMain /> },
             { path: 'view-more', element: <MyViewMore /> },
-            { path: 'signout', element: <span /> },
             { path: 'delete-account', element: <DeleteAccount /> },
             { path: 'bookmarks', element: <Bookmarks /> },
             { path: 'likes', element: <Likes /> },

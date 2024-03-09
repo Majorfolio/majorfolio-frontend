@@ -9,7 +9,7 @@ import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
 import TapMenu, { SelectableTapMenu } from '../../components/common/TapMenu';
 import BottomBar, { Path } from '../../components/common/BottomBar';
-import useAuthStore from '../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import { getPurchaseInfo, getUploadInfo } from '../../apis/library';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 import { PrimaryTopbar } from '../../components/common/TopBar';
@@ -19,6 +19,7 @@ import { CartDefaultIcon, NotificationDefaultIcon } from '../../assets/icons';
 import Text from '../../components/common/Text';
 import MaterialSellerProfile from '../../components/home/MaterialSellerProfile';
 import { downloadFile } from '../../apis/assignment';
+import useRequireAuth from '../../hooks/common/useRequireAuth';
 
 interface PurchasedItemType {
   id: number;
@@ -37,15 +38,20 @@ interface PurchasedItemType {
 
 const MaterialBox = () => {
   const accessToken = useAuthStore((state) => state.accessToken)!;
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Member,
+    AuthLevel.Member,
+  );
   const [materialsByState, setMaterialsByState] = useState<null | {
     beforePay: PurchasedItemType[];
     afterPay: PurchasedItemType[];
     downloadComplete: PurchasedItemType[];
   }>(null);
-  const [uploadedMaterialsByState, setUploadedMaterialsByState] = useState<null | {
-    stopList: PurchasedItemType[];
-    onSaleList: PurchasedItemType[];
-  }>(null);
+  const [uploadedMaterialsByState, setUploadedMaterialsByState] =
+    useState<null | {
+      stopList: PurchasedItemType[];
+      onSaleList: PurchasedItemType[];
+    }>(null);
   const {
     modalRef,
     category: modalCategory,
@@ -67,10 +73,14 @@ const MaterialBox = () => {
       primaryAction: () => {},
       secondaryAction: () => {
         downloadFile(materialId, accessToken, refreshPayload)
-          .then(downloadLink => {
-              window.open(downloadLink);
-          }).catch(error => {
-            console.error('다운로드 링크를 가져오는 중에 오류가 발생했습니다:', error);
+          .then((downloadLink) => {
+            window.open(downloadLink);
+          })
+          .catch((error) => {
+            console.error(
+              '다운로드 링크를 가져오는 중에 오류가 발생했습니다:',
+              error,
+            );
           });
       },
     });
@@ -83,10 +93,14 @@ const MaterialBox = () => {
       },
       secondaryAction: () => {
         downloadFile(materialId, accessToken, refreshPayload)
-          .then(downloadLink => {
-              window.open(downloadLink);
-          }).catch(error => {
-            console.error('다운로드 링크를 가져오는 중에 오류가 발생했습니다:', error);
+          .then((downloadLink) => {
+            window.open(downloadLink);
+          })
+          .catch((error) => {
+            console.error(
+              '다운로드 링크를 가져오는 중에 오류가 발생했습니다:',
+              error,
+            );
           });
       },
     });
@@ -129,10 +143,18 @@ const MaterialBox = () => {
     asyncEffect();
   }, []);
 
+  if (!isAuthLevelSatisfied) {
+    return <span />;
+  }
+
   return (
     <>
       <PrimaryTopbar
-        title={<Text size={18} weight='bold' lineHeight='sm' color='gray/gray900'>자료함</Text> }
+        title={
+          <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
+            자료함
+          </Text>
+        }
         icons={[
           <button
             type="button"
@@ -186,7 +208,14 @@ const MaterialBox = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} infoContent={material.updateDate.split('T')[0].replace(/-/g, '. ')} infoName='구매' />
+                    <MaterialSellerProfile
+                      nickname={material.nickname}
+                      hasReaction={false}
+                      infoContent={material.updateDate
+                        .split('T')[0]
+                        .replace(/-/g, '. ')}
+                      infoName="구매"
+                    />
                   }
                   onClick={() => handleBeforePayClick(material.id)}
                 />
@@ -212,12 +241,19 @@ const MaterialBox = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} infoContent={material.updateDate.split('T')[0].replace(/-/g, '. ')} infoName='판매' />
+                    <MaterialSellerProfile
+                      nickname={material.nickname}
+                      hasReaction={false}
+                      infoContent={material.updateDate
+                        .split('T')[0]
+                        .replace(/-/g, '. ')}
+                      infoName="판매"
+                    />
                   }
                   onClick={() => handleAfterPayClick(material.id)}
                 />
               ))}
-            </CardsWrapper>   
+            </CardsWrapper>
 
             <CardTitleWrapper>
               <HomeTagCardTitle title="구매 완료" isViewAll />
@@ -238,12 +274,19 @@ const MaterialBox = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} infoContent={material.updateDate.split('T')[0].replace(/-/g, '. ')} infoName='판매' />
+                    <MaterialSellerProfile
+                      nickname={material.nickname}
+                      hasReaction={false}
+                      infoContent={material.updateDate
+                        .split('T')[0]
+                        .replace(/-/g, '. ')}
+                      infoName="판매"
+                    />
                   }
                   onClick={() => handleDownloadCompleteClick(material.id)}
                 />
               ))}
-            </CardsWrapper>         
+            </CardsWrapper>
           </>
         )}
         {selectedTab === 1 && (
@@ -268,7 +311,14 @@ const MaterialBox = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} infoContent={material.updateDate.split('T')[0].replace(/-/g, '. ')} infoName='판매' />
+                    <MaterialSellerProfile
+                      nickname={material.nickname}
+                      hasReaction={false}
+                      infoContent={material.updateDate
+                        .split('T')[0]
+                        .replace(/-/g, '. ')}
+                      infoName="판매"
+                    />
                   }
                   onClick={handleStopListClick}
                 />
@@ -294,15 +344,21 @@ const MaterialBox = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} infoContent={material.updateDate.split('T')[0].replace(/-/g, '. ')} infoName='구매' />
+                    <MaterialSellerProfile
+                      nickname={material.nickname}
+                      hasReaction={false}
+                      infoContent={material.updateDate
+                        .split('T')[0]
+                        .replace(/-/g, '. ')}
+                      infoName="구매"
+                    />
                   }
                   onClick={handleOnSaleListClick}
                 />
               ))}
-            </CardsWrapper>          
+            </CardsWrapper>
           </>
         )}
-
       </MaterialBoxContainer>
 
       <BottomBar currentPath={Path.MaterialBox} />
