@@ -30,7 +30,8 @@ export type ModalCategoryType =
   | 'REQUIRE_SIGNUP'
   | 'CANCEL_ON_UPLOAD'
   | 'REQUIRE_SIGNIN'
-  | 'FEEDBACK_INVALID_FORMAT';
+  | 'FEEDBACK_INVALID_FORMAT'
+  | 'AVAILABLE_ON_MOBILE';
 
 interface ModalPropsType {
   category: ModalCategoryType | null;
@@ -147,6 +148,11 @@ const MODAL_TEXTS = {
     TITLE: '업로드가 불가능한 파일입니다.',
     BODY: 'PDF파일이 아닌 다른 양식의 파일 업로드는 추후 업데이트 때 사용할 수 있습니다.',
     FOOTER: '다시 업로드하기',
+  },
+  AVAILABLE_ON_MOBILE: {
+    TITLE: '모바일로 접속해야 결제가 가능합니다.',
+    BODY: 'PC에서는 결제할 수 없습니다. 모바일로 접속해주세요.',
+    FOOTER: '홈으로 이동하기',
   },
 };
 
