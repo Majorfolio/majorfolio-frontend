@@ -31,6 +31,7 @@ import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 
 const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
@@ -45,12 +46,20 @@ const HomeMaterialDetail = () => {
     closePrimarily,
     closeSecondarily,
   } = useModal();
+  const authLevel = useAuthStore((state) => state.authLevel);
+
+  const [hasUserMaterial, setHasUserMaterial] = useState<boolean>(true);
+
+  const canPurchaseMaterial = authLevel >= AuthLevel.Member && !hasUserMaterial;
 
   useEffect(() => {
     if (materialId) {
-      getMaterialDetail(parseInt(materialId, 10)).then((response) => {
-        if (response.result) {
-          setMaterialDetail(response.result);
+      getMaterialDetail(parseInt(materialId, 10)).then((data) => {
+        const { result } = data;
+        if (result) {
+          setMaterialDetail(result);
+          const { isMemberBookmark, isMemberBuy, isMemberLike } = result;
+          setHasUserMaterial(isMemberBuy);
         }
       });
     }
@@ -162,6 +171,7 @@ const HomeMaterialDetail = () => {
             onClick={() => {
               handleBuyNowClick();
             }}
+            disabled={!canPurchaseMaterial}
           >
             <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
               바로구매

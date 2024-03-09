@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { HelperInfoIcon } from '../../assets/icons';
+import Bowser from 'bowser';
+import { CloseDefaultIcon, HelperInfoIcon } from '../../assets/icons';
 import {
   AdviceContainer,
   CodeAdviceContainer,
@@ -18,12 +19,14 @@ import AllDivider from '../../components/common/AllDivider';
 import Text from '../../components/common/Text';
 import BottomPaymentAmount from '../../components/home/BottomPaymentAmount';
 import Button from '../../components/common/Button';
-import useAuthStore from '../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import { cancelPayment, getBuyInfo } from '../../apis/payment';
 import { OrderInfo } from '../../components/home/Payment/index.types';
 import useModal from '../../hooks/common/useModal';
 import Modal from '../../components/common/Modal';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
+import { SecondaryTopbar } from '../../components/common/TopBar';
+import useRequireAuth from '../../hooks/common/useRequireAuth';
 
 const RemittanceAdvice = () => {
   const location = useLocation();
@@ -34,11 +37,17 @@ const RemittanceAdvice = () => {
   const { activateModal, closePrimarily, closeSecondarily, ...modalProps } =
     useModal();
   const navigate = useNavigate();
+  const [isCodeCopied, setIsCodeCopied] = useState<boolean>(false);
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Member,
+    AuthLevel.Member,
+  );
 
   const hanelCopyClick = (code: string | undefined) => {
     try {
       if (code) {
         navigator.clipboard.writeText(code);
+        setIsCodeCopied(true);
       }
     } catch (error) {
       alert('클립보드 복사에 실패하였습니다.');
@@ -64,7 +73,17 @@ const RemittanceAdvice = () => {
   };
 
   const handleRemittanceClick = () => {
-    window.location.href = 'https://toss.me/majorfolio/4700';
+    const parser = Bowser.getParser(navigator.userAgent);
+    if (parser.getPlatformType() === 'mobile') {
+      window.location.replace('https://toss.me/majorfolio/4700');
+      return;
+    }
+
+    activateModal('AVAILABLE_ON_MOBILE', {
+      primaryAction: () => {
+        navigate('/');
+      },
+    });
   };
 
   useEffect(() => {
@@ -77,8 +96,24 @@ const RemittanceAdvice = () => {
     }
   }, [buyInfoId, authStore, setBuyInfo]);
 
+  if (!isAuthLevelSatisfied) {
+    return <span />;
+  }
+
   return (
     <>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <CloseDefaultIcon />
+          </button>
+        }
+        title={
+          <Text color="gray/gray900" size={18} weight="bold" lineHeight="sm">
+            송금 안내
+          </Text>
+        }
+      />
       <AdviceContainer>
         <RemittanceContainer>
           <MarginBottom4>
@@ -174,6 +209,7 @@ const RemittanceAdvice = () => {
             onClick={() => {
               handleRemittanceClick();
             }}
+            disabled={!isCodeCopied}
           >
             <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
               송금하기

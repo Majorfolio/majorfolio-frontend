@@ -12,19 +12,25 @@ import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import { Order } from '../../components/home/Payment/index.types';
 import { updateBuyInfo } from '../../apis/payment';
-import useAuthStore from '../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import { PageContainer } from '../../components/common/GlobalStyle/index.styles';
 import { SecondaryTopbar } from '../../components/common/TopBar';
 import { ArrowBackDefaultIcon } from '../../assets/icons';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 import AllDividerThin from '../../components/common/AllDividerThin';
+import useRequireAuth from '../../hooks/common/useRequireAuth';
 
 const BuyNow = () => {
   const { materialId } = useParams();
   const location = useLocation();
   const materialInfo = location.state;
   const navigate = useNavigate();
-  const authStore = useAuthStore((state) => state.accessToken);
+  const authLevel = useAuthStore((state) => state.authLevel);
+  const accessToken = useAuthStore((state) => state.accessToken)!;
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Member,
+    AuthLevel.Member,
+  );
 
   const refreshPayload = useRefreshPayload();
   const handlePayNowClick = async () => {
@@ -34,13 +40,20 @@ const BuyNow = () => {
       couponIdList: [],
       totalPrice: 4700,
     };
-    if (authStore) {
-      const data = await updateBuyInfo(authStore, order, refreshPayload);
-      navigate(`/RemittanceAdvice/${data.buyInfoId}`, { state: dataToSend });
+    if (authLevel === AuthLevel.Member) {
+      const data = await updateBuyInfo(accessToken, order, refreshPayload);
+      navigate(`/RemittanceAdvice/${data.buyInfoId}`, {
+        state: dataToSend,
+        replace: true,
+      });
     } else {
       navigate(`/RemittanceAdvice/${null}`, { state: dataToSend });
     }
   };
+
+  if (!isAuthLevelSatisfied) {
+    return <span />;
+  }
 
   return (
     <>
@@ -79,6 +92,7 @@ const BuyNow = () => {
             onClick={() => {
               handlePayNowClick();
             }}
+            disabled={authLevel < AuthLevel.Member}
           >
             <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
               바로 결제
