@@ -15,6 +15,8 @@ import {
 import Text from '../../components/common/Text';
 import UploadRoutes from '../index.types';
 import StyledPageContainer from './UploadDefaultStep/index.styles';
+import useRequireAuth from '../../hooks/common/useRequireAuth';
+import { AuthLevel } from '../../store/useAuthStore';
 
 type UploadContextType = {
   navigateToNextStep: () => void;
@@ -44,6 +46,11 @@ export default function Upload() {
 
   const navigateToHome = () => navigate('/');
 
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Member,
+    AuthLevel.Member,
+  );
+
   useEffect(() => {
     setStep(childSegment);
   }, [childSegment, setStep]);
@@ -71,6 +78,11 @@ export default function Upload() {
         <ArrowBackDefaultIcon />
       </button>
     );
+
+  if (!isAuthLevelSatisfied) {
+    return <span />;
+  }
+
   return (
     <>
       <SecondaryTopbar

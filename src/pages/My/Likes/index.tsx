@@ -5,7 +5,7 @@ import { getMyBookmarks, getMyLikes } from '../../../apis/my';
 import Material, {
   MaterialViewAll,
 } from '../../../components/home/Material/index.types';
-import useAuthStore from '../../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useModal from '../../../hooks/common/useModal';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
@@ -20,6 +20,7 @@ import HomeMaterialCard from '../../../components/home/HomeMaterialCard';
 import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardSkeleton';
 import Text from '../../../components/common/Text';
 import MaterialSellerProfile from '../../../components/home/MaterialSellerProfile';
+import useRequireAuth from '../../../hooks/common/useRequireAuth';
 
 interface MyBookmarkType {
   nickName: string;
@@ -37,6 +38,10 @@ interface MyMaterialListType {
 }
 
 export default function Bookmarks() {
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Member,
+    AuthLevel.Member,
+  );
   const [allMaterials, setAllMaterials] = useState<null | MyMaterialListType>(
     null,
   );
@@ -113,6 +118,10 @@ export default function Bookmarks() {
     };
   }, [isLoading, allMaterials]);
 
+  if (!isAuthLevelSatisfied) {
+    return <span />;
+  }
+
   return (
     <>
       <SecondaryTopbar
@@ -150,7 +159,10 @@ export default function Bookmarks() {
                     memberId={0}
                     semester="23-1"
                     header={
-                      <MaterialSellerProfile nickname={material.nickName} hasReaction={false} />
+                      <MaterialSellerProfile
+                        nickname={material.nickName}
+                        hasReaction={false}
+                      />
                     }
                     onClick={() => {}}
                   />

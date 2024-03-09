@@ -25,6 +25,8 @@ import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardS
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import StyledRow from '../ContactUs/index.styles';
 import { getPurchases, getSales } from '../../../apis/payment';
+import useRequireAuth from '../../../hooks/common/useRequireAuth';
+import { AuthLevel } from '../../../store/useAuthStore';
 
 type TransactionCardPropsType = {
   category: SaleKeys | PurchaseKeys;
@@ -130,6 +132,10 @@ export function TransactionCard({
 }
 
 export default function Transactions() {
+  const { isAuthLevelSatisfied } = useRequireAuth(
+    AuthLevel.Member,
+    AuthLevel.Member,
+  );
   const {
     isLoading: isSaleLoading,
     transactions: sales,
@@ -244,6 +250,10 @@ export default function Transactions() {
       <HomeMaterialCardSkeleton isBig={false} />
     </CardsWrapper>
   );
+
+  if (!isAuthLevelSatisfied) {
+    return <span />;
+  }
 
   return (
     <>
