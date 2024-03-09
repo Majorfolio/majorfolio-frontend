@@ -20,7 +20,7 @@ export const StyledDialog = styled.dialog`
   height: 220px;
   box-sizing: border-box;
   padding: 0;
-  border-radius: 16px;
+  border-radius: 6px;
   appearance: none;
 
   &&::backdrop {
@@ -32,7 +32,7 @@ export const StyledDialog = styled.dialog`
 export const StyledModalContainer = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 16px;
+
   padding: 28px 20px 20px 20px;
   box-sizing: border-box;
 `;
