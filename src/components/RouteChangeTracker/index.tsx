@@ -8,6 +8,8 @@ export default function RouteChangeTracker() {
 
   useEffect(() => {
     const currentURL = window.location.href;
+    console.log(currentURL);
+    console.log('hi');
     if (!currentURL.includes('localhost') && !currentURL.includes('vercel')) {
       const trackingID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRAKING_ID;
       console.log(process.env.REACT_APP_GOOGLE_ANALYTICS_TRAKING_ID);
@@ -20,6 +22,7 @@ export default function RouteChangeTracker() {
   }, []);
 
   useEffect(() => {
+    console.log('cache');
     if (initialized) {
       ReactGA.set({ page: pathname });
       ReactGA.send('pageview');
