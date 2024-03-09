@@ -1,5 +1,10 @@
 import { styled } from 'styled-components';
 import Button from '../../components/common/Button';
+import Row from '../../components/common/Row';
+
+export const StyledTextContainer = styled(Row)`
+  text-align: center;
+`;
 
 export const StyledSigninContainer = styled.div`
   display: flex;
