@@ -21,6 +21,7 @@ import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import BottomBar, { Path } from '../../../components/common/BottomBar';
 import Column from '../../../components/common/Column';
 import RowButton from '../../../components/common/RowButton';
+import Row from '../../../components/common/Row';
 
 export default function MyMain() {
   const { nickName, univName, major, image_url, upload, sell, follower } =
@@ -29,14 +30,14 @@ export default function MyMain() {
   const navigate = useNavigate();
 
   const welcomeText = (
-    <>
+    <Column pt={32}>
       <Text color="main_color/blue_p" size={22} weight="bold" lineHeight="lg">
-        {nickName}
+        {nickName} 님
       </Text>
       <Text color="gray/gray900" size={22} weight="bold" lineHeight="lg">
-        님 <br /> 안녕하세요!
+        안녕하세요!
       </Text>
-    </>
+    </Column>
   );
 
   const tags = (
@@ -68,7 +69,11 @@ export default function MyMain() {
           </Text>
         }
         icons={[
-          <button type="button" onClick={() => navigate('./view-more')}>
+          <button
+            type="button"
+            onClick={() => navigate('./view-more')}
+            aria-label="view-more"
+          >
             <ViewMoreIcon />
           </button>,
         ]}

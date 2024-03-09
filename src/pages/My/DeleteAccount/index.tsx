@@ -10,6 +10,7 @@ import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { CloseDefaultIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import StyledPageContainer from '../../../components/common/UploadSection/index.styles';
 
 export default function DeleteAccount() {
   const navigate = useNavigate();
@@ -51,10 +52,12 @@ export default function DeleteAccount() {
         }
       />
       <StyledBodyContainer>
-        <Description
-          normalText="메이저폴리오의"
-          boldText="탈퇴 사유를 선택해주세요"
-        />
+        <StyledPageContainer>
+          <Description
+            normalText="메이저폴리오의"
+            boldText="탈퇴 사유를 선택해주세요"
+          />
+        </StyledPageContainer>
       </StyledBodyContainer>
       <BottomButtonBar transitions={[secondaryTransition, primaryTransition]} />
     </PageContainer>

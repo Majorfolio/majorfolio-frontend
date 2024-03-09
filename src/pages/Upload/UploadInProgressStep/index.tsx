@@ -127,16 +127,7 @@ export default function UploadInProgresStep() {
     setHasFullScoreError(currentHasFullScoreError);
 
     setHasDescriptionError(currentHasDescriptionError);
-    console.log(currentHasFileError);
-    console.log(currentHasTitleError);
-    console.log(currentHasSubjectNameError);
-    console.log(currentHasSemesterError);
-    console.log(currentHasScoreError);
-    console.log(currentHasProfessorError);
-    console.log(currentHasMajorError);
-    console.log(currentHasGradeError);
-    console.log(currentHasFullScoreError);
-    console.log(currentHasDescriptionError);
+
     return !(
       currentHasFileError ||
       currentHasTitleError ||

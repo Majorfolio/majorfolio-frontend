@@ -1,0 +1,10 @@
+<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ico_file_upload">
+<mask id="mask0_7113_20534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
+<rect id="Bounding box" x="0.5" width="24" height="24" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_7113_20534)">
+<path id="folder_open" d="M4.5 20C3.95 20 3.47917 19.8042 3.0875 19.4125C2.69583 19.0208 2.5 18.55 2.5 18V6C2.5 5.45 2.69583 4.97917 3.0875 4.5875C3.47917 4.19583 3.95 4 4.5 4H10.5L12.5 6H20.5C21.05 6 21.5208 6.19583 21.9125 6.5875C22.3042 6.97917 22.5 7.45 22.5 8H4.5V18L6.9 10H24L21.425 18.575C21.2917 19.0083 21.0458 19.3542 20.6875 19.6125C20.3292 19.8708 19.9333 20 19.5 20H4.5Z" fill="#4340DB"/>
+</g>
+</g>
+</svg>

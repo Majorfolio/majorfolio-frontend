@@ -5,7 +5,11 @@ import {
   StyledUploadPreviewButton,
   StyledUploadTextSection,
 } from './index.styles';
-import { FileDefaultIcon, UploadPreviewIcon } from '../../../assets/icons';
+import {
+  FileDefaultIcon,
+  FilePrimaryIcon,
+  UploadPreviewIcon,
+} from '../../../assets/icons';
 import Text from '../Text';
 
 interface UploadButtonType {
@@ -22,6 +26,8 @@ export default function UploadButton({
   file,
   ...props
 }: UploadButtonType) {
+  const hasFile = Boolean(file);
+
   if (type === 'preview') {
     return (
       <StyledUploadPreviewButton onClick={onClick} {...props}>
@@ -39,7 +45,7 @@ export default function UploadButton({
         as="label"
         htmlFor="uploadMaterial"
         {...props}
-        hasFile={Boolean(file)}
+        hasFile={hasFile}
       >
         <StyledFileInput
           type="file"
@@ -47,11 +53,15 @@ export default function UploadButton({
           id="uploadMaterial"
           onChange={onChange}
         />
-        <FileDefaultIcon />
+        {hasFile ? <FilePrimaryIcon /> : <FileDefaultIcon />}
         {file ? (
           <StyledUploadTextSection hasFile={Boolean(file)}>
-            <Text as="div">{file.name}</Text>
-            <Text as="div">{Math.floor(file.size / 1024)}KB</Text>
+            <Text as="div" size={14} weight="bold" lineHeight="sm">
+              {file.name}
+            </Text>
+            <Text as="div" size={12} lineHeight="sm">
+              {Math.floor(file.size / 1024)}KB
+            </Text>
           </StyledUploadTextSection>
         ) : (
           <>
