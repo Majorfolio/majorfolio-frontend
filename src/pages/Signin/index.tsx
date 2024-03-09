@@ -7,11 +7,13 @@ import {
   StyledButtonContainer,
   StyledSigninContainer,
   StickyBottom,
+  StyledTextContainer,
 } from './index.styles';
 import Button, { KakaoButton } from '../../components/common/Button';
 import { AuthLevel } from '../../store/useAuthStore';
 
 import useRequireAuth from '../../hooks/common/useRequireAuth';
+import Row from '../../components/common/Row';
 
 const generateUniqueRandomValue = () => {
   const randomPart = window.crypto
@@ -55,10 +57,12 @@ export default function Signin() {
     <StyledSigninContainer>
       <StyledLogoContainer>
         <Logo />
-        <Text color="gray/gray900" size={16} lineHeight="lg">
-          우리끼리 만들어 더욱 강력한 <br />
-          전공 포트폴리오
-        </Text>
+        <StyledTextContainer justify="center">
+          <Text color="gray/gray900" size={16} lineHeight="lg">
+            우리끼리 만들어 더욱 강력한 <br />
+            전공 포트폴리오
+          </Text>
+        </StyledTextContainer>
       </StyledLogoContainer>
       <StickyBottom>
         <StyledButtonContainer>
