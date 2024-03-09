@@ -32,6 +32,7 @@ import Modal from '../../components/common/Modal';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
 
 const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
@@ -47,19 +48,45 @@ const HomeMaterialDetail = () => {
     closeSecondarily,
   } = useModal();
   const authLevel = useAuthStore((state) => state.authLevel);
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const refreshPayload = useRefreshPayload();
 
   const [hasUserMaterial, setHasUserMaterial] = useState<boolean>(true);
 
   const canPurchaseMaterial = authLevel >= AuthLevel.Member && !hasUserMaterial;
 
+  const [hasMemberLiked, setHasMemberLiked] = useState<boolean>(false);
+  const [hasMemberBookmarked, setHasMemberBookmarked] =
+    useState<boolean>(false);
+
+  const totalLikes =
+    (materialDetail?.like ? materialDetail.like : 0) + (hasMemberLiked ? 1 : 0);
+  const totalBookmarks =
+    (materialDetail?.like ? materialDetail.like : 0) +
+    (hasMemberBookmarked ? 1 : 0);
+  const reactions = totalLikes + totalBookmarks;
+
   useEffect(() => {
-    if (materialId) {
-      getMaterialDetail(parseInt(materialId, 10)).then((data) => {
+    if (authLevel === AuthLevel.Member && materialId) {
+      getMaterialDetail(
+        parseInt(materialId, 10),
+        accessToken,
+        refreshPayload,
+      ).then((data) => {
         const { result } = data;
         if (result) {
           setMaterialDetail(result);
           const { isMemberBookmark, isMemberBuy, isMemberLike } = result;
           setHasUserMaterial(isMemberBuy);
+          setHasMemberLiked(isMemberLike);
+          setHasMemberBookmarked(isMemberBookmark);
+        }
+      });
+    } else if (materialId) {
+      getMaterialDetail(parseInt(materialId, 10)).then((data) => {
+        const { result } = data;
+        if (result) {
+          setMaterialDetail(result);
         }
       });
     }
@@ -124,8 +151,20 @@ const HomeMaterialDetail = () => {
               id={materialDetail.id}
               nickname={materialDetail.nickName}
               hasReaction
-              like={materialDetail.like}
-              bookmark={materialDetail.bookmark}
+              like={totalLikes}
+              bookmark={totalBookmarks}
+              hasMemberLiked={hasMemberLiked}
+              hasMemberBookmarked={hasMemberBookmarked}
+              toggleLike={() =>
+                setHasMemberLiked(
+                  (previousHasMemberLiked) => !previousHasMemberLiked,
+                )
+              }
+              toggleBookmark={() =>
+                setHasMemberBookmarked(
+                  (previousHasMemberBookmarked) => !previousHasMemberBookmarked,
+                )
+              }
             />
           </ProfileWrapper>
           <AllDividerThin />
@@ -142,7 +181,7 @@ const HomeMaterialDetail = () => {
             <MaterialPostStatisticsNumber
               sell={materialDetail.sell}
               follower={materialDetail.follower}
-              reaction={materialDetail.bookmark + materialDetail.like}
+              reaction={reactions}
             />
           </StatisticsNumberWrapper>
 
