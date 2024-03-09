@@ -9,7 +9,7 @@ export default function My() {
     AuthLevel.Member,
     AuthLevel.Member,
   );
-  console.log(isAuthLevelSatisfied);
+
   if (!isAuthLevelSatisfied) {
     return <span />;
   }
