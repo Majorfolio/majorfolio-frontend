@@ -8,12 +8,11 @@ export default function RouteChangeTracker() {
 
   useEffect(() => {
     const currentURL = window.location.href;
-    if (
-      !currentURL.includes('localhost') &&
-      !currentURL.includes('localhost')
-    ) {
+    if (!currentURL.includes('localhost') && !currentURL.includes('vercel')) {
       const trackingID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRAKING_ID;
+      console.log(process.env.REACT_APP_GOOGLE_ANALYTICS_TRAKING_ID);
       if (trackingID) {
+        console.log('initialized');
         ReactGA.initialize(trackingID);
         setInitialized(true);
       }
