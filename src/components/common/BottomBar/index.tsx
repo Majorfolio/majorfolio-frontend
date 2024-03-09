@@ -52,12 +52,25 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
   const authLevel = useAuthStore((state) => state.authLevel);
 
   const redirect = (path: Path) => {
-    if (authLevel === AuthLevel.Guest) {
+    if (path === Path.My) {
+      if (authLevel === AuthLevel.Guest) {
+        activateModal('REQUIRE_SIGNIN', {
+          primaryAction: () => navigate(Path.Signin),
+        });
+        return;
+      }
+      setCurrentPage(path);
+      navigate(path);
+    } else if (authLevel === AuthLevel.Guest) {
       activateModal('REQUIRE_SIGNIN', {
         primaryAction: () => navigate(Path.Signin),
       });
     } else if (authLevel === AuthLevel.Unverified) {
-      activateModal('REQUIRE_SIGNUP', {
+      activateModal('REQUIRE_SCHOOL_VERIFICATION', {
+        primaryAction: () => navigate(Path.Signup),
+      });
+    } else if (authLevel === AuthLevel.Verified) {
+      activateModal('REGISTER_INCOMPLETE', {
         primaryAction: () => navigate(Path.Signup),
       });
     } else {

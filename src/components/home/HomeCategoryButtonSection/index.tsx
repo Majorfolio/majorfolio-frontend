@@ -59,7 +59,11 @@ function HomeCategoryButtonSection({
         primaryAction: () => navigate(Path.Signin),
       });
     } else if (authLevel === AuthLevel.Unverified) {
-      activateModal('REQUIRE_SIGNUP', {
+      activateModal('REQUIRE_SCHOOL_VERIFICATION', {
+        primaryAction: () => navigate(Path.Signup),
+      });
+    } else if (authLevel === AuthLevel.Verified) {
+      activateModal('REGISTER_INCOMPLETE', {
         primaryAction: () => navigate(Path.Signup),
       });
     } else {
