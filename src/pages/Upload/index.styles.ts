@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import theme from '../../components/common/theme';
 
 export const HelperTextWrapper = styled.div`
   width: 100%;
