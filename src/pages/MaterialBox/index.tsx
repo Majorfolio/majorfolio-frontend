@@ -193,7 +193,7 @@ const MaterialBox = () => {
               {}
             </CardTitleWrapper>
             <CardsWrapper>
-              {materialsByState?.beforePay.map((material) => (
+              {materialsByState?.beforePay?.map((material) => (
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -226,7 +226,7 @@ const MaterialBox = () => {
               <HomeTagCardTitle title="결제 완료" isViewAll />
             </CardTitleWrapper>
             <CardsWrapper>
-              {materialsByState?.afterPay.map((material) => (
+              {materialsByState?.afterPay?.map((material) => (
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -259,7 +259,7 @@ const MaterialBox = () => {
               <HomeTagCardTitle title="구매 완료" isViewAll />
             </CardTitleWrapper>
             <CardsWrapper>
-              {materialsByState?.downloadComplete.map((material) => (
+              {materialsByState?.downloadComplete?.map((material) => (
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -296,7 +296,7 @@ const MaterialBox = () => {
               {}
             </CardTitleWrapper>
             <CardsWrapper>
-              {uploadedMaterialsByState?.stopList.map((material) => (
+              {uploadedMaterialsByState?.stopList?.map((material) => (
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -329,7 +329,7 @@ const MaterialBox = () => {
               <HomeTagCardTitle title="판매중" isViewAll />
             </CardTitleWrapper>
             <CardsWrapper>
-              {uploadedMaterialsByState?.onSaleList.map((material) => (
+              {uploadedMaterialsByState?.onSaleList?.map((material) => (
                 <HomeMaterialCard
                   key={material.id}
                   isBig
