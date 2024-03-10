@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ProfileWrapper = styled.div`
   height: 24px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   align-items: center;
 `;
 

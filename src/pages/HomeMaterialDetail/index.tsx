@@ -38,7 +38,7 @@ const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
     null,
   );
-  const { materialId } = useParams();
+  const { materialId, memberId } = useParams();
   const navigate = useNavigate();
   const {
     modalRef,
@@ -165,6 +165,7 @@ const HomeMaterialDetail = () => {
                   (previousHasMemberBookmarked) => !previousHasMemberBookmarked,
                 )
               }
+              memberId={Number(memberId)}
             />
           </ProfileWrapper>
           <AllDividerThin />

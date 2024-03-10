@@ -36,6 +36,7 @@ import FAQList from './My/FAQList';
 import UploadGuideline from './My/UploadGuideline';
 import Caution from './My/Caution';
 import My from './My';
+import Seller from './Home/Seller';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -58,6 +59,10 @@ const Router = () => {
         {
           path: '/home-all/:category/:tag',
           element: <HomeViewAll />,
+        },
+        {
+          path: '/assignment/:materialId/detail/:memberId',
+          element: <HomeMaterialDetail />,
         },
         {
           path: '/assignment/:materialId/detail',
@@ -116,6 +121,10 @@ const Router = () => {
               element: <UploadCollectPhoneNumberStep />,
             },
           ],
+        },
+        {
+          path: 'seller/:sellerId',
+          element: <Seller />,
         },
         {
           path: 'my',

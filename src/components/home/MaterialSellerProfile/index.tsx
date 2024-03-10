@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import {
   BookmarkWrapper,
   InfoWrapper,
@@ -38,6 +39,7 @@ interface MaterialSellerProfileProps {
   hasMemberBookmarked?: boolean;
   toggleLike?: () => void;
   toggleBookmark?: () => void;
+  memberId?: number;
 }
 
 function MaterialSellerProfile({
@@ -52,9 +54,11 @@ function MaterialSellerProfile({
   toggleBookmark,
   infoContent,
   infoName,
+  memberId,
 }: MaterialSellerProfileProps) {
   const accessToken = useAuthStore((state) => state.accessToken);
   const refreshPayload = useRefreshPayload();
+  const navigate = useNavigate();
 
   const handleLikeClick = async () => {
     if (hasReaction && id && accessToken && toggleLike) {
@@ -72,15 +76,34 @@ function MaterialSellerProfile({
 
   return (
     <ProfileWrapper>
-      <SellerInfoWrapper>
-        <ProfileImageWrapper>
-          <CharacterSmall1Icon />
-        </ProfileImageWrapper>
-        <Text size={14} weight="bold" color="gray/gray900">
-          {' '}
-          {nickname}{' '}
-        </Text>
-      </SellerInfoWrapper>
+      {!!memberId && (
+        <SellerInfoWrapper
+          as="button"
+          type="button"
+          onClick={() => {
+            navigate(`/seller/${memberId}`);
+          }}
+        >
+          <ProfileImageWrapper>
+            <CharacterSmall1Icon />
+          </ProfileImageWrapper>
+          <Text size={14} weight="bold" color="gray/gray900">
+            {' '}
+            {nickname}{' '}
+          </Text>
+        </SellerInfoWrapper>
+      )}
+      {!memberId && (
+        <SellerInfoWrapper>
+          <ProfileImageWrapper>
+            <CharacterSmall1Icon />
+          </ProfileImageWrapper>
+          <Text size={14} weight="bold" color="gray/gray900">
+            {' '}
+            {nickname}{' '}
+          </Text>
+        </SellerInfoWrapper>
+      )}
 
       {hasReaction ? (
         <ReactionWrapper>
