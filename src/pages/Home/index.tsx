@@ -211,7 +211,6 @@ const Home = () => {
                           hasReaction={false}
                         />
                       }
-                      onClick={() => {}}
                     />
                   );
                 })
@@ -256,7 +255,6 @@ const Home = () => {
                           hasReaction={false}
                         />
                       }
-                      onClick={() => {}}
                     />
                   );
                 })
@@ -297,7 +295,6 @@ const Home = () => {
                           hasReaction={false}
                         />
                       }
-                      onClick={() => {}}
                     />
                   );
                 })
