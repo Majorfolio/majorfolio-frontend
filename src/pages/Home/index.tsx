@@ -209,6 +209,7 @@ const Home = () => {
                         <MaterialSellerProfile
                           nickname={material.nickname}
                           hasReaction={false}
+                          memberId={material.memberId}
                         />
                       }
                     />
@@ -253,6 +254,7 @@ const Home = () => {
                         <MaterialSellerProfile
                           nickname={material.nickname}
                           hasReaction={false}
+                          memberId={material.memberId}
                         />
                       }
                     />
@@ -293,6 +295,7 @@ const Home = () => {
                         <MaterialSellerProfile
                           nickname={material.nickname}
                           hasReaction={false}
+                          memberId={material.memberId}
                         />
                       }
                     />
