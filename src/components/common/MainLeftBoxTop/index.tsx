@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  BottomWrapper,
+  BottomBanner,
+  BottomBannerWrapper,
   DescriptionMainTextWrapper,
   LeftBoxTopContainer,
   LoginButton,
@@ -16,10 +17,16 @@ import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 const MainLeftBoxTop = () => {
   const navigate = useNavigate();
   const authLevel = useAuthStore((state) => state.authLevel);
+  const [bannerImages, setBannerImages] = useState<string[]>([]);
 
   const handleLoginButtonClick = () => {
     navigate('/signin');
   };
+
+  useEffect(() => {
+    // TODO: 배너 이미지 넘어오는 api 생길 경우 수정 필요
+    // setBannerImages(["http://placehold.co/240", "http://placehold.co/240"]);
+  }, [])
 
   return (
     <LeftBoxTopContainer>
@@ -47,8 +54,15 @@ const MainLeftBoxTop = () => {
           커피 한 잔에 나누는 A+ 비법, <br /> 과제 시간을 반으로 줄여보세요!
         </Text>
       </MiddleDescriptionWrapper>
-
-      <BottomWrapper />
+      
+      { bannerImages.length > 0 ? (
+        <BottomBannerWrapper>
+          {bannerImages.map((image: string) => {
+            return <BottomBanner src={image} alt='배너' />
+          })}
+        </BottomBannerWrapper>) : null
+      }
+      
     </LeftBoxTopContainer>
   );
 };
