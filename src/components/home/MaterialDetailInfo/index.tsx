@@ -34,7 +34,9 @@ function MaterialDetailInfo({ title, university, major, semester, subjectTitle, 
           <PostTitleDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>자료 제목</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'> {title} </Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> 
+          { title.length < 16 ? (title) : (`${title.slice(0, 16)}...`) }
+        </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -66,7 +68,9 @@ function MaterialDetailInfo({ title, university, major, semester, subjectTitle, 
           <ClassDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>수업</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'> {subjectTitle} </Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> 
+          { subjectTitle.length < 16 ? (subjectTitle) : (`${subjectTitle.slice(0, 16)}...`) }
+        </Text>
       </InfoWrapper>
 
       <InfoWrapper>
