@@ -181,6 +181,12 @@ export const getMaterialDetail = async (
   return data;
 };
 
+export const getPreviewImages = async (materialId: number) => {
+  const response = await fetch(`https://majorfolio-server.shop/assignment/${materialId}/previews`);
+  const data = await response.json();
+  return data;
+}
+
 export const updateLike = async (
   materialId: number,
   authStore: string,

@@ -5,6 +5,7 @@ import Landing from './Landing/Landing';
 import Home from './Home';
 import HomeViewAll from './HomeViewAll';
 import HomeMaterialDetail from './HomeMaterialDetail';
+import Preview from './Preview';
 import Cart from './Cart';
 import MaterialBox from './MaterialBox';
 import Signin from './Signin';
@@ -62,6 +63,10 @@ const Router = () => {
         {
           path: '/assignment/:materialId/detail',
           element: <HomeMaterialDetail />,
+        },
+        {
+          path: '/assignment/:materialId/preview',
+          element: <Preview />,
         },
         {
           path: '/buy-now/:materialId',

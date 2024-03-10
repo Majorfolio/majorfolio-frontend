@@ -117,7 +117,7 @@ const HomeMaterialDetail = () => {
 
       <DetailContainer>
         <HomeMaterialDetailContainer>
-          <MaterialDetailPreview image={materialDetail.imageUrl} />
+          <MaterialDetailPreview image={materialDetail.imageUrl} materialId={materialDetail.id} />
 
           <ProfileWrapper>
             <MaterialSellerProfile
@@ -183,7 +183,7 @@ const HomeMaterialDetail = () => {
   ) : (
     // skeleton
     <HomeMaterialDetailContainer>
-      <MaterialDetailPreview image="" />
+      <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
         <MaterialSellerProfile nickname="-" hasReaction={false} />
