@@ -1,8 +1,15 @@
 import React, { FormEvent, useState } from 'react';
 import { access } from 'fs';
-import { CheckboxDefaultIcon, CheckboxFilledIcon } from '../../../assets/icons';
+import { useNavigate } from 'react-router-dom';
+import {
+  ArrowRightDefaultIcon,
+  CheckboxDefaultIcon,
+  CheckboxFilledIcon,
+  CheckboxUnselectedIcon,
+} from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import StyledAgreeAllRow, {
+  StyledArrowButton,
   StyledButtonContainer,
   StyledConditionRow,
   StyledConditionRow2,
@@ -14,16 +21,25 @@ import useAuthStore from '../../../store/useAuthStore';
 import { sendNewUser } from '../../../apis/member';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
+import RowButton from '../../../components/common/RowButton';
+import StyledRow from '../../../components/common/Row/index.styles';
 
 interface SignupTermsAndConditionsStepPropsType {
   onNext?: () => void;
+  onDetails?: () => void;
+  changeSelectedTab?: (newTab: number) => void;
 }
 
 export default function SignupTermsAndConditionsStep({
   onNext = () => {},
+  onDetails = () => {},
+  changeSelectedTab,
 }: SignupTermsAndConditionsStepPropsType) {
   const [isFirstTermAgreed, setIsFirstTermAgreed] = useState<boolean>(false);
   const [isSecondTermAgreed, setIsSecondTermAgreed] = useState<boolean>(false);
+  const [isThirdTermAgreed, setIsThirdTermAgreed] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const {
     updateNickname,
@@ -49,6 +65,11 @@ export default function SignupTermsAndConditionsStep({
   const onSecondTermChange = () =>
     setIsSecondTermAgreed(
       (currentIsSecondTermAgreed) => !currentIsSecondTermAgreed,
+    );
+
+  const onThirdTermChange = () =>
+    setIsThirdTermAgreed(
+      (currentIsThirdTermAgreed) => !currentIsThirdTermAgreed,
     );
 
   const onBothTermsChange = () => {
@@ -97,7 +118,7 @@ export default function SignupTermsAndConditionsStep({
             isFirstTermAgreed && isSecondTermAgreed ? (
               <CheckboxFilledIcon />
             ) : (
-              <CheckboxDefaultIcon />
+              <CheckboxUnselectedIcon />
             )
           }
           text="전체 동의"
@@ -109,12 +130,27 @@ export default function SignupTermsAndConditionsStep({
         <CheckboxWithIcon
           isChecked={isFirstTermAgreed}
           icon={
-            isFirstTermAgreed ? <CheckboxFilledIcon /> : <CheckboxDefaultIcon />
+            isFirstTermAgreed ? (
+              <CheckboxFilledIcon />
+            ) : (
+              <CheckboxUnselectedIcon />
+            )
           }
-          text="개인정보 수집 동의(필수)"
-          id="개인정보 수집 동의(필수)"
+          text="서비스 이용약관 동의 (필수)"
+          id="서비스 이용약관 동의 (필수)"
           onCheckboxChange={onFirstTermChange}
         />
+        <StyledArrowButton
+          onClick={() => {
+            if (changeSelectedTab) {
+              changeSelectedTab(0);
+            }
+            onDetails();
+          }}
+          type="button"
+        >
+          <ArrowRightDefaultIcon />
+        </StyledArrowButton>
       </StyledConditionRow>
       <StyledConditionRow2>
         <CheckboxWithIcon
@@ -123,13 +159,50 @@ export default function SignupTermsAndConditionsStep({
             isSecondTermAgreed ? (
               <CheckboxFilledIcon />
             ) : (
-              <CheckboxDefaultIcon />
+              <CheckboxUnselectedIcon />
             )
           }
-          text="서비스 이용 약관 동의(필수)"
-          id="서비스 이용 약관 동의(필수)"
+          text="개인정보 수집 및 이용 동의 (필수)"
+          id="개인정보 수집 및 이용 동의 (필수)"
           onCheckboxChange={onSecondTermChange}
         />
+        <StyledArrowButton
+          onClick={() => {
+            if (changeSelectedTab) {
+              changeSelectedTab(1);
+            }
+            onDetails();
+          }}
+          type="button"
+        >
+          <ArrowRightDefaultIcon />
+        </StyledArrowButton>
+      </StyledConditionRow2>
+      <StyledConditionRow2>
+        <CheckboxWithIcon
+          isChecked={isThirdTermAgreed}
+          icon={
+            isThirdTermAgreed ? (
+              <CheckboxFilledIcon />
+            ) : (
+              <CheckboxUnselectedIcon />
+            )
+          }
+          text="광고성 정보 수신 동의 (선택)"
+          id="광고성 정보 수신 동의 (선택)"
+          onCheckboxChange={onThirdTermChange}
+        />
+        <StyledArrowButton
+          onClick={() => {
+            if (changeSelectedTab) {
+              changeSelectedTab(2);
+            }
+            onDetails();
+          }}
+          type="button"
+        >
+          <ArrowRightDefaultIcon />
+        </StyledArrowButton>
       </StyledConditionRow2>
       <StyledButtonContainer>
         <Button
@@ -138,7 +211,7 @@ export default function SignupTermsAndConditionsStep({
           disabled={!areAllTermsChecked || isSubmitting}
         >
           <Text size={16} weight="bold" color="gray/white" lineHeight="sm">
-            로그인
+            회원가입 완료
           </Text>
         </Button>
       </StyledButtonContainer>
