@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { access } from 'fs';
 import HOME_CATEGORY from '../../../components/home/HomeCategory/index.types';
 import { getMyBookmarks } from '../../../apis/my';
 import Material, {
@@ -21,8 +22,11 @@ import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardS
 import Text from '../../../components/common/Text';
 import MaterialSellerProfile from '../../../components/home/MaterialSellerProfile';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
+import { getSellerMaterial } from '../../../apis/seller';
+import materials from '../../../apis/materials-dummy';
 
 interface MyBookmarkType {
+  materialId: number;
   nickName: string;
   profileUrl: string;
   className: string;
@@ -61,6 +65,8 @@ export default function Bookmarks() {
     closePrimarily,
     closeSecondarily,
   } = useModal();
+
+  const [sellerId, setSellerId] = useState<number>(0);
 
   const refreshPayload = useRefreshPayload();
 
@@ -170,7 +176,9 @@ export default function Bookmarks() {
                         hasReaction={false}
                       />
                     }
-                    onClick={() => {}}
+                    onClick={() =>
+                      navigate(`/assignment/${material.materialId}/detail`)
+                    }
                   />
                 );
               },
