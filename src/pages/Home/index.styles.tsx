@@ -28,3 +28,10 @@ export const CardWrapper = styled.div`
   flex-wrap: nowrap;
   overflow-x: scroll;
 `;
+
+export const NoMaterialWrapper = styled.section`
+  padding: 148px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
