@@ -5,9 +5,13 @@ export const BlackBackground = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${theme.color['gray/black']};
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const PreviewConatainer = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
 `;
