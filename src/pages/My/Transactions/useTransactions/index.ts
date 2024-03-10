@@ -96,12 +96,12 @@ export default function useTransactions(
           ...(newTransactions?.afterRefund || []),
         ],
         pending: [
-          ...(currentTransactions.afterRefund || []),
-          ...(newTransactions?.afterRefund || []),
+          ...(currentTransactions.pending || []),
+          ...(newTransactions?.pending || []),
         ],
         complete: [
-          ...(currentTransactions.afterRefund || []),
-          ...(newTransactions?.afterRefund || []),
+          ...(currentTransactions.complete || []),
+          ...(newTransactions?.complete || []),
         ],
       }));
 
