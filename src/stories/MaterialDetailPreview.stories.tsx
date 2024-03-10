@@ -7,6 +7,7 @@ const meta = {
   component: MaterialDetailPreview,
   argTypes: {
     image: { control: 'image' },
+    materialId: { control: 'number' },
   },
 } satisfies Meta;
 
@@ -17,5 +18,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     image: 'http://placehold.co/400',
+    materialId: 0,
   }
 };

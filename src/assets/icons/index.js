@@ -26,6 +26,7 @@ export { ReactComponent as RadioUnselectedIcon } from './ico_choice-1.svg';
 export { ReactComponent as RadioSelectedIcon } from './ico_choice.svg';
 export { ReactComponent as ClassDefaultIcon } from './ico_class.svg';
 export { ReactComponent as CloseDefaultIcon } from './ico_close.svg';
+export { ReactComponent as CloseWhiteIcon } from './ico_close_white.svg';
 export { ReactComponent as CoffeeDefaultIcon } from './ico_coffee.svg';
 export { ReactComponent as CouponDefaultIcon } from './ico_coupon.svg';
 export { ReactComponent as CouponGreyIcon } from './ico_coupon_grey.svg';

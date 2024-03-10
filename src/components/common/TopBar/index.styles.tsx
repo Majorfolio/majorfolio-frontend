@@ -24,6 +24,13 @@ export const StyledSecondaryTopbarWrapper = styled(StyledPrimaryTopbarWrapper)`
   }
 `;
 
+export const StyledSecondaryBlackTopbarWrapper = styled(StyledPrimaryTopbarWrapper)`
+  background-color: ${theme.color['gray/black']};
+  && {
+    padding-left: 10px;
+  }
+`;
+
 export const StyledIconRow = styled.div`
   display: flex;
   justify-content: flex-end;

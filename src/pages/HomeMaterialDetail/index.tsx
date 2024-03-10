@@ -38,7 +38,7 @@ const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
     null,
   );
-  const { materialId } = useParams();
+  const { materialId, memberId } = useParams();
   const navigate = useNavigate();
   const {
     modalRef,
@@ -144,7 +144,7 @@ const HomeMaterialDetail = () => {
 
       <DetailContainer>
         <HomeMaterialDetailContainer>
-          <MaterialDetailPreview image={materialDetail.imageUrl} />
+          <MaterialDetailPreview image={materialDetail.imageUrl} materialId={materialDetail.id} />
 
           <ProfileWrapper>
             <MaterialSellerProfile
@@ -165,6 +165,7 @@ const HomeMaterialDetail = () => {
                   (previousHasMemberBookmarked) => !previousHasMemberBookmarked,
                 )
               }
+              memberId={Number(memberId)}
             />
           </ProfileWrapper>
           <AllDividerThin />
@@ -222,7 +223,7 @@ const HomeMaterialDetail = () => {
   ) : (
     // skeleton
     <HomeMaterialDetailContainer>
-      <MaterialDetailPreview image="" />
+      <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
         <MaterialSellerProfile nickname="-" hasReaction={false} />

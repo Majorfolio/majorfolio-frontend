@@ -6,6 +6,7 @@ import {
   StyledPrimaryTopbarWrapper,
   StyledSecondaryTopbarWrapper,
   StyledLeftSection,
+  StyledSecondaryBlackTopbarWrapper,
 } from './index.styles';
 import {
   AppLogoIcon,
@@ -48,6 +49,24 @@ export function SecondaryTopbar({ transition, title, icons }: TopBarPropsType) {
           ))}
         </StyledIconRow>
       </StyledSecondaryTopbarWrapper>
+    </StyledTopbarContainer>
+  );
+}
+
+export function SecondaryBlackTopbar({ transition, title, icons }: TopBarPropsType) {
+  return (
+    <StyledTopbarContainer>
+      <StyledSecondaryBlackTopbarWrapper>
+        <StyledLeftSection>
+          <StyledIconContainer>{transition}</StyledIconContainer>
+          {title}
+        </StyledLeftSection>
+        <StyledIconRow>
+          {icons?.map((icon) => (
+            <StyledIconContainer>{icon}</StyledIconContainer>
+          ))}
+        </StyledIconRow>
+      </StyledSecondaryBlackTopbarWrapper>
     </StyledTopbarContainer>
   );
 }
