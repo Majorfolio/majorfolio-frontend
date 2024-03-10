@@ -80,7 +80,7 @@ const HomeMaterialDetail = () => {
         }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            자세히보기
+            {materialDetail.subjectTitle}
           </Text>
         }
         icons={[
