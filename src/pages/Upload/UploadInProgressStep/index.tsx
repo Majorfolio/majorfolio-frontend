@@ -108,11 +108,11 @@ export default function UploadInProgresStep() {
       subjectName.length < 2 || subjectName.length >= 30;
     const currentHasProfessorError =
       professor.length < 2 || professor.length >= 30;
-    const currentHasGradeError = !grade && !GRADES.includes(grade);
+    const currentHasGradeError = !grade || !GRADES.includes(grade);
     const currentHasScoreError =
-      !!score || Number(score) < Number(fullScore) || Number(score) < 0;
+      !score || Number(score) > Number(fullScore) || Number(score) < 0;
     const currentHasFullScoreError =
-      !!fullScore || Number(score) < Number(fullScore) || Number(fullScore) < 0;
+      !fullScore || Number(score) > Number(fullScore) || Number(fullScore) < 0;
     const currentHasDescriptionError =
       description.length === 0 || description.length > 80;
 
@@ -156,7 +156,9 @@ export default function UploadInProgresStep() {
       return;
     }
     setCurrentFile(firstFile);
-    updateDraft({ file: firstFile || null });
+    if (firstFile) {
+      updateDraft({ file: firstFile });
+    }
   };
 
   const uploadFile = async () => {
@@ -240,7 +242,10 @@ export default function UploadInProgresStep() {
       type="text"
       placeholder="자료 제목 (필수)"
       text={title}
-      onTextChange={(event) => updateDraft({ title: event.target.value })}
+      onTextChange={(event) => {
+        updateDraft({ title: event.target.value });
+        setHasTitleError(false);
+      }}
       hasError={hasTitleError}
       icon={hasTitleError ? <ErrorDefaultIcon /> : <span />}
     />
@@ -267,7 +272,10 @@ export default function UploadInProgresStep() {
         type="text"
         placeholder="학과 (필수)"
         text={major}
-        onTextChange={(event) => updateDraft({ major: event.target.value })}
+        onTextChange={(event) => {
+          updateDraft({ major: event.target.value });
+          setHasMajorError(false);
+        }}
         hasError={hasMajorError}
         icon={hasMajorError ? <ErrorDefaultIcon /> : <span />}
       />
@@ -276,7 +284,10 @@ export default function UploadInProgresStep() {
         type="text"
         placeholder="시기 (필수)"
         text={semester}
-        onTextChange={(event) => updateDraft({ semester: event.target.value })}
+        onTextChange={(event) => {
+          updateDraft({ semester: event.target.value });
+          setHasSemesterError(false);
+        }}
         hasError={hasSemesterError}
         icon={hasSemesterError ? <ErrorDefaultIcon /> : <span />}
       />
@@ -285,9 +296,10 @@ export default function UploadInProgresStep() {
         type="text"
         placeholder="수업명 (필수)"
         text={subjectName}
-        onTextChange={(event) =>
-          updateDraft({ subjectName: event.target.value })
-        }
+        onTextChange={(event) => {
+          updateDraft({ subjectName: event.target.value });
+          setHasSubjectNameError(false);
+        }}
         hasError={hasSubjectNameError}
         icon={hasSubjectNameError ? <ErrorDefaultIcon /> : <span />}
       />
@@ -296,16 +308,22 @@ export default function UploadInProgresStep() {
         type="text"
         placeholder="교수명 (선택)"
         text={professor}
-        onTextChange={(event) => updateDraft({ professor: event.target.value })}
+        onTextChange={(event) => {
+          updateDraft({ professor: event.target.value });
+          setHasProfessorError(false);
+        }}
         hasError={hasProfessorError}
         icon={hasProfessorError ? <ErrorDefaultIcon /> : <span />}
       />
       <TextField
         id="title"
         type="text"
-        placeholder="학점 (선택)"
+        placeholder="학점 (필수)"
         text={grade}
-        onTextChange={(event) => updateDraft({ grade: event.target.value })}
+        onTextChange={(event) => {
+          updateDraft({ grade: event.target.value });
+          setHasGradeError(false);
+        }}
         hasError={hasGradeError}
         icon={hasGradeError ? <ErrorDefaultIcon /> : <span />}
       />
@@ -313,20 +331,24 @@ export default function UploadInProgresStep() {
         <TextField
           id="title"
           type="number"
-          placeholder="과제점수 (선택)"
+          placeholder="과제점수 (필수)"
           text={score}
-          onTextChange={(event) => updateDraft({ score: event.target.value })}
+          onTextChange={(event) => {
+            updateDraft({ score: event.target.value });
+            setHasScoreError(false);
+          }}
           hasError={hasScoreError}
           icon={hasScoreError ? <ErrorDefaultIcon /> : <span />}
         />
         <TextField
           id="title"
           type="number"
-          placeholder="만점 (선택)"
+          placeholder="만점 (필수)"
           text={fullScore}
-          onTextChange={(event) =>
-            updateDraft({ fullScore: event.target.value })
-          }
+          onTextChange={(event) => {
+            updateDraft({ fullScore: event.target.value });
+            setHasFullScoreError(false);
+          }}
           hasError={hasFullScoreError}
           icon={hasFullScoreError ? <ErrorDefaultIcon /> : <span />}
         />
@@ -346,9 +368,10 @@ export default function UploadInProgresStep() {
         id="title"
         placeholder="자료 설명"
         text={description}
-        onTextChange={(event) =>
-          updateDraft({ description: event.target.value })
-        }
+        onTextChange={(event) => {
+          updateDraft({ description: event.target.value });
+          setHasDescriptionError(false);
+        }}
         icon={hasDescriptionError ? <ErrorDefaultIcon /> : <span />}
         hasError={hasDescriptionError}
       />
