@@ -21,4 +21,7 @@ export interface OrderInfo {
   totalPrice: number;
   createDate: string; // 날짜 형식은 문자열로 가정합니다.
   code: string;
+  materialNameResponseList: {
+    assignmentName: string;
+  }[];
 }
