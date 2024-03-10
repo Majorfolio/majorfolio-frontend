@@ -41,7 +41,7 @@ export default function BottomButtonBar({ transitions }: BottomButtonBarType) {
             type="button"
             category="primary"
             onClick={primaryTransition.onAction}
-            disabled={secondaryTransition.disabled}
+            disabled={primaryTransition.disabled}
           >
             <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
               {primaryTransition.text}
@@ -57,7 +57,11 @@ export default function BottomButtonBar({ transitions }: BottomButtonBarType) {
     return (
       <StickyContainer>
         <StyledBottomButtonBar>
-          <Button onClick={primaryTransition.onAction} category="primary">
+          <Button
+            onClick={primaryTransition.onAction}
+            category="primary"
+            disabled={primaryTransition.disabled}
+          >
             <Text size={16} weight="bold" lineHeight="sm">
               {primaryTransition.text}
             </Text>

@@ -15,6 +15,11 @@ import {
 import UploadSection from '../../../components/common/UploadSection';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
 import { useNextStep } from '..';
+import useDraftStore from '../../../store/useDraftStore';
+import useAuthStore from '../../../store/useAuthStore';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import sendFile from '../../../apis/assignment';
+import useFormSubmission from '../../../hooks/common/useFormSubmission';
 
 interface UploadGuidelineStepType {
   onNext: () => void;
@@ -22,13 +27,50 @@ interface UploadGuidelineStepType {
 
 export default function UploadGuidelineStep() {
   const { navigateToNextStep, navigateToHome } = useNextStep();
+  const {
+    file,
+    title,
+    major,
+    semester,
+    subjectName,
+    professor,
+    grade,
+    fullScore,
+    score,
+    description,
+    reset,
+  } = useDraftStore();
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const refreshPayload = useRefreshPayload();
 
-  const description = (
+  const pageDescription = (
     <Description
       normalText="업로드 하기 전,"
       boldText="가이드라인을 읽어보세요."
     />
   );
+
+  const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
+    if (!file || !accessToken) return;
+    const { code, result } = await sendFile(
+      file,
+      {
+        title,
+        major,
+        semester,
+        subjectName,
+        professor,
+        grade,
+        fullScore: Number(fullScore),
+        score: Number(score),
+        description,
+      },
+      accessToken,
+      refreshPayload,
+    );
+    reset();
+    navigateToHome();
+  });
 
   const checklist = (
     <ul>
@@ -64,7 +106,13 @@ export default function UploadGuidelineStep() {
     </ul>
   );
 
-  const transitions = [{ text: '확인 및 동의', onAction: navigateToHome }];
+  const transitions = [
+    {
+      text: '확인 및 동의',
+      onAction: handleSubmit,
+      disabled: isSubmitting,
+    },
+  ];
 
   const notice = (
     <>
