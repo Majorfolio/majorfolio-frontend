@@ -188,13 +188,15 @@ const Home = () => {
             </NoMaterialWrapper>
             ) : (
             <>
-              <HomeTagCardTitle
-                title="신규 등록 자료"
-                tag="new"
-                category={currentCategory}
-              />
+              { homeMaterials?.newUpload && 
+                <HomeTagCardTitle
+                  title="신규 등록 자료"
+                  tag="new"
+                  category={currentCategory}
+                />              
+              }
               <HomeMaterialCardWrapper>
-                {homeMaterials?.newUpload ? (
+                { homeMaterials?.newUpload ? (
                   homeMaterials.newUpload
                     .filter((material) => material.nickname !== myNickname)
                     .map((material: Material) => {
@@ -233,13 +235,15 @@ const Home = () => {
                 )}
               </HomeMaterialCardWrapper>
 
-              <HomeTagCardTitle
-                title="베스트 자료"
-                tag="hot"
-                category={currentCategory}
-              />
+              { homeMaterials?.best &&
+                <HomeTagCardTitle
+                  title="베스트 자료"
+                  tag="hot"
+                  category={currentCategory}
+                />                
+              }
               <HomeMaterialCardWrapper>
-                {homeMaterials?.best ? (
+                { homeMaterials?.best ? (
                   homeMaterials.best
                     .filter((material) => material.nickname !== myNickname)
                     .map((material: Material) => {
@@ -278,9 +282,9 @@ const Home = () => {
                 )}
               </HomeMaterialCardWrapper>
 
-              <HomeTagCardTitle title="최근에 본 자료" category={currentCategory} />
+              { recentMaterials.length > 0 && <HomeTagCardTitle title="최근에 본 자료" category={currentCategory} /> }
               <HomeMaterialCardWrapper>
-                {recentMaterials ? (
+                { recentMaterials ? (
                   recentMaterials
                     .filter((material) => material.nickname !== myNickname)
                     .map((material: Material) => {
