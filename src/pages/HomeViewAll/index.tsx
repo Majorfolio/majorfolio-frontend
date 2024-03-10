@@ -302,7 +302,6 @@ const HomeViewAll = () => {
                       memberId={material.memberId}
                     />
                   }
-                  onClick={() => {}}
                 />
               );
             })}
