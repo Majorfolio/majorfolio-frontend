@@ -110,11 +110,6 @@ export default function MyMain() {
   return (
     <>
       <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
-            <ArrowBackDefaultIcon />
-          </button>
-        }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
             MY
