@@ -16,6 +16,8 @@ export const StyledPrimaryTopbarWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   background-color: ${theme.color['gray/grayBG']};
+  padding-top: 4px;
+  padding-bottom: 4px;
 `;
 
 export const StyledSecondaryTopbarWrapper = styled(StyledPrimaryTopbarWrapper)`
@@ -24,7 +26,9 @@ export const StyledSecondaryTopbarWrapper = styled(StyledPrimaryTopbarWrapper)`
   }
 `;
 
-export const StyledSecondaryBlackTopbarWrapper = styled(StyledPrimaryTopbarWrapper)`
+export const StyledSecondaryBlackTopbarWrapper = styled(
+  StyledPrimaryTopbarWrapper,
+)`
   background-color: ${theme.color['gray/black']};
   && {
     padding-left: 10px;
