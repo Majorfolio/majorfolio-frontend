@@ -23,6 +23,7 @@ import MaterialSellerProfile from '../../../components/home/MaterialSellerProfil
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 
 interface MyBookmarkType {
+  materialId: number;
   nickName: string;
   profileUrl: string;
   className: string;
@@ -164,7 +165,9 @@ export default function Bookmarks() {
                         hasReaction={false}
                       />
                     }
-                    onClick={() => {}}
+                    onClick={() =>
+                      navigate(`/assignment/${material.materialId}/detail`)
+                    }
                   />
                 );
               },

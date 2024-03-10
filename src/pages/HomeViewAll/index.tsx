@@ -296,7 +296,11 @@ const HomeViewAll = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} />
+                    <MaterialSellerProfile
+                      nickname={material.nickname}
+                      hasReaction={false}
+                      memberId={material.memberId}
+                    />
                   }
                   onClick={() => {}}
                 />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import {
   BookmarkWrapper,
   InfoWrapper,
@@ -34,6 +35,11 @@ interface MaterialSellerProfileProps {
   bookmark?: number;
   infoContent?: string;
   infoName?: string;
+  hasMemberLiked?: boolean;
+  hasMemberBookmarked?: boolean;
+  toggleLike?: () => void;
+  toggleBookmark?: () => void;
+  memberId?: number;
 }
 
 function MaterialSellerProfile({
@@ -42,78 +48,85 @@ function MaterialSellerProfile({
   hasReaction,
   like = 0,
   bookmark = 0,
+  hasMemberLiked,
+  hasMemberBookmarked,
+  toggleLike,
+  toggleBookmark,
   infoContent,
   infoName,
+  memberId,
 }: MaterialSellerProfileProps) {
-  const [likeChecked, setLikeChecked] = useState(false);
-  const [bookmarkChecked, setBookmarkChecked] = useState(false);
-  const [likeCount, setLikeCount] = useState(like);
-  const [bookmarkCount, setBookmarkCount] = useState(bookmark);
-  const authStore = useAuthStore((state) => state.accessToken);
+  const accessToken = useAuthStore((state) => state.accessToken);
   const refreshPayload = useRefreshPayload();
+  const navigate = useNavigate();
 
-  const handleLikeClick = () => {
-    // setLikeChecked(!likeChecked);
-    if (hasReaction && id && authStore) {
-      setLikeChecked(!likeChecked);
-      updateLike(id, authStore, refreshPayload);
-      getMaterialDetail(id, authStore).then((response) => {
-        setLikeCount(response.result.like);
-      });
+  const handleLikeClick = async () => {
+    if (hasReaction && id && accessToken && toggleLike) {
+      toggleLike();
+      await updateLike(id, accessToken, refreshPayload);
     }
   };
 
-  const handleBookmarkClick = () => {
-    if (hasReaction && id && authStore) {
-      setBookmarkChecked(!bookmarkChecked);
-      updateBookmark(id, authStore, refreshPayload);
-      getMaterialDetail(id, authStore).then((response) => {
-        setBookmarkCount(response.result.bookmark);
-      });
+  const handleBookmarkClick = async () => {
+    if (hasReaction && id && accessToken && toggleBookmark) {
+      toggleBookmark();
+      await updateBookmark(id, accessToken, refreshPayload);
     }
   };
-
-  useEffect(() => {
-    if (id && authStore) {
-      getMaterialDetail(id, authStore).then((response) => {
-        setLikeChecked(response.result.isMemberLike);
-        setLikeCount(response.result.like);
-        setBookmarkChecked(response.result.isMemberBookmark);
-        setBookmarkCount(response.result.bookmark);
-      });
-    }
-  }, [likeChecked, bookmarkChecked]);
 
   return (
     <ProfileWrapper>
-      <SellerInfoWrapper>
-        <ProfileImageWrapper>
-          <CharacterSmall1Icon />
-        </ProfileImageWrapper>
-        <Text size={14} weight="bold" color="gray/gray900">
-          {' '}
-          {nickname}{' '}
-        </Text>
-      </SellerInfoWrapper>
+      {!!memberId && (
+        <SellerInfoWrapper
+          as="button"
+          type="button"
+          onClick={() => {
+            navigate(`/seller/${memberId}`);
+          }}
+        >
+          <ProfileImageWrapper>
+            <CharacterSmall1Icon />
+          </ProfileImageWrapper>
+          <Text size={14} weight="bold" color="gray/gray900">
+            {' '}
+            {nickname}{' '}
+          </Text>
+        </SellerInfoWrapper>
+      )}
+      {!memberId && (
+        <SellerInfoWrapper>
+          <ProfileImageWrapper>
+            <CharacterSmall1Icon />
+          </ProfileImageWrapper>
+          <Text size={14} weight="bold" color="gray/gray900">
+            {' '}
+            {nickname}{' '}
+          </Text>
+        </SellerInfoWrapper>
+      )}
 
       {hasReaction ? (
         <ReactionWrapper>
           <LikeWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
               {' '}
-              {likeCount}{' '}
+              {like}{' '}
             </Text>
             <ReactionButton onClick={() => handleLikeClick()}>
-              {likeChecked ? <ReactionFilledIcon /> : <ReactionDefaultIcon />}
+              {hasMemberLiked ? (
+                <ReactionFilledIcon />
+              ) : (
+                <ReactionDefaultIcon />
+              )}
             </ReactionButton>
           </LikeWrapper>
           <BookmarkWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
               {' '}
-              {bookmarkCount}{' '}
+              {bookmark}{' '}
             </Text>
             <ReactionButton onClick={handleBookmarkClick}>
-              {bookmarkChecked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+              {hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
             </ReactionButton>
           </BookmarkWrapper>
         </ReactionWrapper>

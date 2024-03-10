@@ -69,7 +69,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {upload || upload === 0 ? 0 : '-'}{' '}
+          {upload || (upload === 0 ? 0 : '-')}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           업로드
@@ -79,7 +79,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {sell || sell === 0 ? sell : '-'}{' '}
+          {sell || (sell === 0 ? sell : '-')}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           판매량

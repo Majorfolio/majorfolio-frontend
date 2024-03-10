@@ -20,11 +20,13 @@ import Text from '../../components/common/Text';
 import MaterialSellerProfile from '../../components/home/MaterialSellerProfile';
 import { downloadFile } from '../../apis/assignment';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
+import Button from '../../components/common/Button';
+import Row from '../../components/common/Row';
 
 interface PurchasedItemType {
   id: number;
-  member_id: number;
-  member_profile_image: string;
+  memberId: number;
+  imageUrl: string;
   nickname: string;
   className: string;
   univ: string;
@@ -64,17 +66,18 @@ const MaterialBox = () => {
 
   const refreshPayload = useRefreshPayload();
 
-  const handleBeforePayClick = (materialId: number) => {
-    navigate(`/RemittanceAdvice/`); // TODO: 수정 필요 (RemittanceAdvice는 주문번호로 이동해야 함)
+  const handleBeforePayClick = (buyInfoId: number) => {
+    navigate(`/RemittanceAdvice/${buyInfoId}`);
   };
 
   const handleAfterPayClick = (materialId: number) => {
     activateModal('DOWNLOAD_PAID_MATERIAL', {
-      primaryAction: () => {},
-      secondaryAction: () => {
+      primaryAction: () => {
         downloadFile(materialId, accessToken, refreshPayload)
-          .then((downloadLink) => {
-            window.open(downloadLink);
+          .then((data) => {
+            const { result } = data;
+            const { url } = result;
+            window.open(url, '_blank', 'noopener,noreferrer');
           })
           .catch((error) => {
             console.error(
@@ -83,18 +86,18 @@ const MaterialBox = () => {
             );
           });
       },
+      secondaryAction: () => {},
     });
   };
 
   const handleDownloadCompleteClick = (materialId: number) => {
     activateModal('DOWNLOAD_PURCHASED_MATERIAL', {
       primaryAction: () => {
-        navigate(`/assignment/${materialId}/detail`);
-      },
-      secondaryAction: () => {
         downloadFile(materialId, accessToken, refreshPayload)
-          .then((downloadLink) => {
-            window.open(downloadLink);
+          .then((data) => {
+            const { result } = data;
+            const { url } = result;
+            window.open(url, '_blank', 'noopener,noreferrer');
           })
           .catch((error) => {
             console.error(
@@ -102,6 +105,9 @@ const MaterialBox = () => {
               error,
             );
           });
+      },
+      secondaryAction: () => {
+        navigate(`/assignment/${materialId}/detail`);
       },
     });
   };
@@ -198,8 +204,8 @@ const MaterialBox = () => {
                   key={material.id}
                   isBig
                   id={material.id}
-                  memberId={material.member_id}
-                  imageUrl={material.member_profile_image}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
                   nickname={material.nickname}
                   className={material.className}
                   univ={material.univ}
@@ -215,9 +221,10 @@ const MaterialBox = () => {
                         .split('T')[0]
                         .replace(/-/g, '. ')}
                       infoName="구매"
+                      memberId={material.memberId}
                     />
                   }
-                  onClick={() => handleBeforePayClick(material.id)}
+                  onClick={() => handleBeforePayClick(material.buyInfoId)}
                 />
               ))}
             </CardsWrapper>
@@ -231,8 +238,8 @@ const MaterialBox = () => {
                   key={material.id}
                   isBig
                   id={material.id}
-                  memberId={material.member_id}
-                  imageUrl={material.member_profile_image}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
                   nickname={material.nickname}
                   className={material.className}
                   univ={material.univ}
@@ -248,6 +255,7 @@ const MaterialBox = () => {
                         .split('T')[0]
                         .replace(/-/g, '. ')}
                       infoName="판매"
+                      memberId={material.memberId}
                     />
                   }
                   onClick={() => handleAfterPayClick(material.id)}
@@ -264,8 +272,8 @@ const MaterialBox = () => {
                   key={material.id}
                   isBig
                   id={material.id}
-                  memberId={material.member_id}
-                  imageUrl={material.member_profile_image}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
                   nickname={material.nickname}
                   className={material.className}
                   univ={material.univ}
@@ -281,6 +289,7 @@ const MaterialBox = () => {
                         .split('T')[0]
                         .replace(/-/g, '. ')}
                       infoName="판매"
+                      memberId={material.memberId}
                     />
                   }
                   onClick={() => handleDownloadCompleteClick(material.id)}
@@ -301,8 +310,8 @@ const MaterialBox = () => {
                   key={material.id}
                   isBig
                   id={material.id}
-                  memberId={material.member_id}
-                  imageUrl={material.member_profile_image}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
                   nickname={material.nickname}
                   className={material.className}
                   univ={material.univ}
@@ -318,6 +327,7 @@ const MaterialBox = () => {
                         .split('T')[0]
                         .replace(/-/g, '. ')}
                       infoName="판매"
+                      memberId={material.memberId}
                     />
                   }
                   onClick={handleStopListClick}
@@ -334,8 +344,8 @@ const MaterialBox = () => {
                   key={material.id}
                   isBig
                   id={material.id}
-                  memberId={material.member_id}
-                  imageUrl={material.member_profile_image}
+                  memberId={material.memberId}
+                  imageUrl={material.imageUrl}
                   nickname={material.nickname}
                   className={material.className}
                   univ={material.univ}
@@ -351,6 +361,7 @@ const MaterialBox = () => {
                         .split('T')[0]
                         .replace(/-/g, '. ')}
                       infoName="구매"
+                      memberId={material.memberId}
                     />
                   }
                   onClick={handleOnSaleListClick}

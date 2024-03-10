@@ -1,3 +1,4 @@
+import { access } from 'fs';
 import useRefreshPayload from '../hooks/common/useRefreshPayload';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
@@ -157,12 +158,14 @@ export const getMyMajorBestViewAll = async (
 
 export const getMaterialDetail = async (
   materialId: number,
-  authStore?: string,
+  accessToken?: string,
   refreshPayload?: RetryPayload,
 ) => {
-  if (authStore && refreshPayload) {
+  console.log(accessToken);
+  console.log(refreshPayload);
+  if (accessToken && refreshPayload) {
     const requestOptions = {
-      headers: { Authorization: `Bearer ${authStore}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     };
 
     const data = await fetchWithTokenRetry(
