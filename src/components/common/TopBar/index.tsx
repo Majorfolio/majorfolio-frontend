@@ -53,7 +53,11 @@ export function SecondaryTopbar({ transition, title, icons }: TopBarPropsType) {
   );
 }
 
-export function SecondaryBlackTopbar({ transition, title, icons }: TopBarPropsType) {
+export function SecondaryBlackTopbar({
+  transition,
+  title,
+  icons,
+}: TopBarPropsType) {
   return (
     <StyledTopbarContainer>
       <StyledSecondaryBlackTopbarWrapper>
