@@ -23,6 +23,8 @@ export const StyledPrimaryTopbarWrapper = styled.div`
 export const StyledSecondaryTopbarWrapper = styled(StyledPrimaryTopbarWrapper)`
   && {
     padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
 `;
 
