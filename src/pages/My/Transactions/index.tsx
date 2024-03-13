@@ -320,10 +320,10 @@ export default function Transactions() {
   return (
     <>
       {topBar}
-      <StyledPageContainer>
-        {tabBar}
-        {cardSection}
-      </StyledPageContainer>
+
+      {tabBar}
+      {cardSection}
+
       {tab}
     </>
   );
