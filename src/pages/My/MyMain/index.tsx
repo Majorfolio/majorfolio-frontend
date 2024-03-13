@@ -50,7 +50,7 @@ export default function MyMain() {
   };
 
   const welcomeText = (
-    <Column pt={32}>
+    <Column>
       {authLevel === AuthLevel.Unverified && (
         <>
           <Text color="gray/gray900" size={22} weight="bold" lineHeight="lg">
@@ -129,10 +129,11 @@ export default function MyMain() {
         <StyledProfileSection>
           <StyledProfileIntro>
             <StyledWelcomeSection>
-              <div>{welcomeText}</div>
+              <Row justify="center" pt={32}>
+                {welcomeText} <StyledPortrait />
+              </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
-            <StyledPortrait />
           </StyledProfileIntro>
           {countInfoRow}
         </StyledProfileSection>
