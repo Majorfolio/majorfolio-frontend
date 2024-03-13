@@ -143,12 +143,14 @@ export default function Transactions() {
     transactions: purchases,
     bottomRef: purchasesBottomRef,
     hasLastPageReached: hasLastPurchaseReached,
+    isLoading: isPurchaseLoading,
   } = useTransactions(getPurchases);
   const {
     canLoadMore: canLoadSaleMore,
     transactions: sales,
     bottomRef: salesBottomRef,
     hasLastPageReached: hasLastSaleReached,
+    isLoading: isSaleLoading,
   } = useTransactions(getSales);
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
@@ -291,7 +293,7 @@ export default function Transactions() {
     </>
   );
 
-  const skeletonCardSection = (
+  const skeletonCardSection = (isSaleLoading || isPurchaseLoading) && (
     <Column pt={16} gap={12}>
       <HomeMaterialCardSkeleton isBig={false} />
       <HomeMaterialCardSkeleton isBig={false} />
@@ -323,7 +325,7 @@ export default function Transactions() {
 
       {tabBar}
       {cardSection}
-
+      <CardsWrapper>{skeletonCardSection}</CardsWrapper>
       {tab}
     </>
   );

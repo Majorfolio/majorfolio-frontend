@@ -194,5 +194,6 @@ export default function useTransactions(
     canLoadMore,
     transactions,
     bottomRef,
+    isLoading,
   };
 }
