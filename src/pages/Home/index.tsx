@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { ContentPageContainer, HomeContainer, NoMaterialWrapper } from './index.styles';
+import {
+  ContentPageContainer,
+  HomeContainer,
+  NoMaterialWrapper,
+} from './index.styles';
 import AllDivider from '../../components/common/AllDivider';
 import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonSection';
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
@@ -182,21 +186,28 @@ const Home = () => {
         <ContentPageContainer>
           <HomeContentPageTitle title={title} />
 
-          { !homeMaterials?.newUpload && !homeMaterials?.best && recentMaterials.length !== 0 ? (
+          {!(
+            (homeMaterials?.newUpload && homeMaterials.newUpload.length > 0) ||
+            (homeMaterials?.best && homeMaterials.best.length > 0) ||
+            (homeMaterials?.newUpload && homeMaterials?.newUpload.length > 0) ||
+            recentMaterials.length > 0
+          ) ? (
             <NoMaterialWrapper>
-              <Text size={16} lineHeight='sm' color='gray/gray400'>보여줄 자료가 없어요</Text>
+              <Text size={16} lineHeight="sm" color="gray/gray400">
+                보여줄 자료가 없어요
+              </Text>
             </NoMaterialWrapper>
-            ) : (
+          ) : (
             <>
-              { homeMaterials?.newUpload && 
+              {homeMaterials?.newUpload && (
                 <HomeTagCardTitle
                   title="신규 등록 자료"
                   tag="new"
                   category={currentCategory}
-                />              
-              }
+                />
+              )}
               <HomeMaterialCardWrapper>
-                { homeMaterials?.newUpload ? (
+                {homeMaterials?.newUpload ? (
                   homeMaterials.newUpload
                     .filter((material) => material.nickname !== myNickname)
                     .map((material: Material) => {
@@ -235,15 +246,15 @@ const Home = () => {
                 )}
               </HomeMaterialCardWrapper>
 
-              { homeMaterials?.best &&
+              {homeMaterials?.best && (
                 <HomeTagCardTitle
                   title="베스트 자료"
                   tag="hot"
                   category={currentCategory}
-                />                
-              }
+                />
+              )}
               <HomeMaterialCardWrapper>
-                { homeMaterials?.best ? (
+                {homeMaterials?.best ? (
                   homeMaterials.best
                     .filter((material) => material.nickname !== myNickname)
                     .map((material: Material) => {
@@ -282,9 +293,14 @@ const Home = () => {
                 )}
               </HomeMaterialCardWrapper>
 
-              { recentMaterials.length > 0 && <HomeTagCardTitle title="최근에 본 자료" category={currentCategory} /> }
+              {recentMaterials.length > 0 && (
+                <HomeTagCardTitle
+                  title="최근에 본 자료"
+                  category={currentCategory}
+                />
+              )}
               <HomeMaterialCardWrapper>
-                { recentMaterials ? (
+                {recentMaterials ? (
                   recentMaterials
                     .filter((material) => material.nickname !== myNickname)
                     .map((material: Material) => {
@@ -321,11 +337,9 @@ const Home = () => {
                     <HomeMaterialCardSkeleton isBig={false} />
                   </>
                 )}
-              </HomeMaterialCardWrapper>                        
-            </>            
-            )
-          }
-
+              </HomeMaterialCardWrapper>
+            </>
+          )}
         </ContentPageContainer>
       </HomeContainer>
 

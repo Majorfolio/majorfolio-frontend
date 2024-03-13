@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { upload } from '@testing-library/user-event/dist/upload';
 import {
   CardTitleWrapper,
   CardsWrapper,
@@ -22,6 +23,7 @@ import { downloadFile } from '../../apis/assignment';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
 import Button from '../../components/common/Button';
 import Row from '../../components/common/Row';
+import EmptyMaterialWrapper from '../../components/common/EmptyContentWrapper';
 
 interface PurchasedItemType {
   id: number;
@@ -194,12 +196,32 @@ const MaterialBox = () => {
         />
         {selectedTab === 0 && (
           <>
-            <CardTitleWrapper>
-              <HomeTagCardTitle title="결제 대기" isViewAll />
-              {}
-            </CardTitleWrapper>
-            <CardsWrapper>
-              {materialsByState?.beforePay?.map((material) => (
+            {!(
+              (materialsByState?.beforePay &&
+                materialsByState.beforePay.length > 0) ||
+              (materialsByState?.downloadComplete &&
+                materialsByState?.downloadComplete.length > 0) ||
+              (materialsByState?.afterPay &&
+                materialsByState?.afterPay.length > 0) ||
+              (materialsByState?.downloadComplete &&
+                materialsByState?.downloadComplete.length > 0)
+            ) && (
+              <EmptyMaterialWrapper>
+                <Text color="gray/gray400" size={16} lineHeight="sm">
+                  자료함에 자료가 없어요.
+                </Text>
+              </EmptyMaterialWrapper>
+            )}
+            {materialsByState?.beforePay &&
+              materialsByState.beforePay.length > 0 && (
+                <CardTitleWrapper>
+                  <HomeTagCardTitle title="결제 대기" isViewAll />
+                  {}
+                </CardTitleWrapper>
+              )}
+
+            {materialsByState?.beforePay?.map((material) => (
+              <CardsWrapper>
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -226,14 +248,18 @@ const MaterialBox = () => {
                   }
                   onClick={() => handleBeforePayClick(material.buyInfoId)}
                 />
-              ))}
-            </CardsWrapper>
+              </CardsWrapper>
+            ))}
 
-            <CardTitleWrapper>
-              <HomeTagCardTitle title="결제 완료" isViewAll />
-            </CardTitleWrapper>
-            <CardsWrapper>
-              {materialsByState?.afterPay?.map((material) => (
+            {materialsByState?.afterPay &&
+              materialsByState?.afterPay.length > 0 && (
+                <CardTitleWrapper>
+                  <HomeTagCardTitle title="결제 완료" isViewAll />
+                </CardTitleWrapper>
+              )}
+
+            {materialsByState?.afterPay?.map((material) => (
+              <CardsWrapper>
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -260,14 +286,18 @@ const MaterialBox = () => {
                   }
                   onClick={() => handleAfterPayClick(material.id)}
                 />
-              ))}
-            </CardsWrapper>
+              </CardsWrapper>
+            ))}
 
-            <CardTitleWrapper>
-              <HomeTagCardTitle title="구매 완료" isViewAll />
-            </CardTitleWrapper>
-            <CardsWrapper>
-              {materialsByState?.downloadComplete?.map((material) => (
+            {materialsByState?.downloadComplete &&
+              materialsByState?.downloadComplete.length > 0 && (
+                <CardTitleWrapper>
+                  <HomeTagCardTitle title="구매 완료" isViewAll />
+                </CardTitleWrapper>
+              )}
+
+            {materialsByState?.downloadComplete?.map((material) => (
+              <CardsWrapper>
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -294,18 +324,21 @@ const MaterialBox = () => {
                   }
                   onClick={() => handleDownloadCompleteClick(material.id)}
                 />
-              ))}
-            </CardsWrapper>
+              </CardsWrapper>
+            ))}
           </>
         )}
         {selectedTab === 1 && (
           <>
-            <CardTitleWrapper>
-              <HomeTagCardTitle title="판매 대기" isViewAll />
-              {}
-            </CardTitleWrapper>
-            <CardsWrapper>
-              {uploadedMaterialsByState?.stopList?.map((material) => (
+            {uploadedMaterialsByState?.stopList &&
+              uploadedMaterialsByState?.stopList.length > 0 && (
+                <CardTitleWrapper>
+                  <HomeTagCardTitle title="판매 대기" isViewAll />
+                </CardTitleWrapper>
+              )}
+
+            {uploadedMaterialsByState?.stopList?.map((material) => (
+              <CardsWrapper>
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -332,14 +365,18 @@ const MaterialBox = () => {
                   }
                   onClick={handleStopListClick}
                 />
-              ))}
-            </CardsWrapper>
+              </CardsWrapper>
+            ))}
 
-            <CardTitleWrapper>
-              <HomeTagCardTitle title="판매중" isViewAll />
-            </CardTitleWrapper>
-            <CardsWrapper>
-              {uploadedMaterialsByState?.onSaleList?.map((material) => (
+            {uploadedMaterialsByState?.onSaleList &&
+              uploadedMaterialsByState?.onSaleList?.length > 0 && (
+                <CardTitleWrapper>
+                  <HomeTagCardTitle title="판매중" isViewAll />
+                </CardTitleWrapper>
+              )}
+
+            {uploadedMaterialsByState?.onSaleList?.map((material) => (
+              <CardsWrapper>
                 <HomeMaterialCard
                   key={material.id}
                   isBig
@@ -366,8 +403,8 @@ const MaterialBox = () => {
                   }
                   onClick={handleOnSaleListClick}
                 />
-              ))}
-            </CardsWrapper>
+              </CardsWrapper>
+            ))}
           </>
         )}
       </MaterialBoxContainer>
