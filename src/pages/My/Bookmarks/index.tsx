@@ -80,7 +80,6 @@ export default function Bookmarks() {
       refreshPayload,
     );
     const { code, result, status } = data;
-    console.log(data);
 
     newMaterials = result;
 

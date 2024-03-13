@@ -110,7 +110,6 @@ export default function Seller() {
       <AllTagBig text={`본 전공 - ${major}`} color="blue" />
     </>
   );
-  console.log(upload);
   const countInfoRow = (
     <MyProfileStatisticsNumber
       upload={upload}
