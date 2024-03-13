@@ -20,6 +20,7 @@ import useAuthStore from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import sendFile from '../../../apis/assignment';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
+import StyledPageContainer from '../UploadDefaultStep/index.styles';
 
 interface UploadGuidelineStepType {
   onNext: () => void;
@@ -138,13 +139,12 @@ export default function UploadGuidelineStep() {
   );
 
   return (
-    <>
-      <StyledBodyContainer>
-        {description}
-        {checklist}
-        <UploadSection items={[notice]} />
-      </StyledBodyContainer>
+    <StyledPageContainer>
+      {description}
+      {checklist}
+      <UploadSection items={[notice]} />
+
       <BottomButtonBar transitions={transitions} />
-    </>
+    </StyledPageContainer>
   );
 }
