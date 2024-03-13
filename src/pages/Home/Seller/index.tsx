@@ -27,6 +27,7 @@ import Material from '../../../components/home/Material/index.types';
 import HomeMaterialCard from '../../../components/home/HomeMaterialCard';
 import MaterialSellerProfile from '../../../components/home/MaterialSellerProfile';
 import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardSkeleton';
+import Row from '../../../components/common/Row';
 
 interface SellerProfile {
   nickName: string;
@@ -97,7 +98,7 @@ export default function Seller() {
   } = usePagination();
 
   const welcomeText = (
-    <Column pt={32}>
+    <Column>
       <Text color="gray/gray900" size={22} weight="bold" lineHeight="lg">
         {nickName}
       </Text>
@@ -196,10 +197,12 @@ export default function Seller() {
         <StyledProfileSection>
           <StyledProfileIntro>
             <StyledWelcomeSection>
-              <div>{welcomeText}</div>
+              <Row justify="space-between" pt={32}>
+                {welcomeText}
+                <StyledPortrait />
+              </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
-            <StyledPortrait />
           </StyledProfileIntro>
           {countInfoRow}
         </StyledProfileSection>
