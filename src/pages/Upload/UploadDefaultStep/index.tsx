@@ -50,7 +50,7 @@ export default function UploadDefaultStep() {
   );
 
   return (
-    <StyledPageContainer>
+    <>
       <UploadSection
         title={uploadSectionTitle}
         items={[<UploadButton type="preview" onClick={navigateToNextStep} />]}
@@ -58,6 +58,6 @@ export default function UploadDefaultStep() {
 
       <UploadSection title={draftSectionTitleRow} />
       {draftSecionContent}
-    </StyledPageContainer>
+    </>
   );
 }

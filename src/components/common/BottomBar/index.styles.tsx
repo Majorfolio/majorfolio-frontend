@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import theme from "../theme";
+import styled from 'styled-components';
+import theme from '../theme';
 
 export const StickyContainer = styled.div`
   position: sticky;
@@ -10,7 +10,8 @@ export const BottomBarContainer = styled.div`
   padding: 0 20px;
   position: relative;
   display: flex;
-  background-color: ${ theme.color['gray/grayBG'] };
+  background-color: ${theme.color['gray/grayBG']};
+  z-index: 3;
 `;
 
 export const RadioNavigationWrapper = styled.div`
@@ -26,7 +27,7 @@ export const CustomRadioNavigation = styled.input`
   margin: 0;
   flex: 1;
   appearance: none;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 `;
