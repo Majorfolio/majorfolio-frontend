@@ -50,7 +50,7 @@ export default function MyMain() {
   };
 
   const welcomeText = (
-    <Column pt={32}>
+    <Column>
       {authLevel === AuthLevel.Unverified && (
         <>
           <Text color="gray/gray900" size={22} weight="bold" lineHeight="lg">
@@ -110,11 +110,6 @@ export default function MyMain() {
   return (
     <>
       <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
-            <ArrowBackDefaultIcon />
-          </button>
-        }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
             MY
@@ -134,10 +129,11 @@ export default function MyMain() {
         <StyledProfileSection>
           <StyledProfileIntro>
             <StyledWelcomeSection>
-              <div>{welcomeText}</div>
+              <Row justify="center" pt={32}>
+                {welcomeText} <StyledPortrait />
+              </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
-            <StyledPortrait />
           </StyledProfileIntro>
           {countInfoRow}
         </StyledProfileSection>

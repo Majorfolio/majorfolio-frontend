@@ -161,8 +161,6 @@ export const getMaterialDetail = async (
   accessToken?: string,
   refreshPayload?: RetryPayload,
 ) => {
-  console.log(accessToken);
-  console.log(refreshPayload);
   if (accessToken && refreshPayload) {
     const requestOptions = {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -185,10 +183,12 @@ export const getMaterialDetail = async (
 };
 
 export const getPreviewImages = async (materialId: number) => {
-  const response = await fetch(`https://majorfolio-server.shop/assignment/${materialId}/previews`);
+  const response = await fetch(
+    `https://majorfolio-server.shop/assignment/${materialId}/previews`,
+  );
   const data = await response.json();
   return data;
-}
+};
 
 export const updateLike = async (
   materialId: number,

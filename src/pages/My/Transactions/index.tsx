@@ -27,6 +27,7 @@ import StyledRow from '../ContactUs/index.styles';
 import { getPurchases, getSales } from '../../../apis/payment';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 import { AuthLevel } from '../../../store/useAuthStore';
+import EmptyMaterialWrapper from '../../../components/common/EmptyContentWrapper';
 
 type TransactionCardPropsType = {
   category: SaleKeys | PurchaseKeys;
@@ -136,16 +137,21 @@ export default function Transactions() {
     AuthLevel.Member,
     AuthLevel.Member,
   );
+
   const {
-    isLoading: isSaleLoading,
-    transactions: sales,
-    bottomRef: salesBottomRef,
-  } = useTransactions(getSales);
-  const {
-    isLoading: isPurchaseLoading,
+    canLoadMore: canLoadPurchaseMore,
     transactions: purchases,
     bottomRef: purchasesBottomRef,
+    hasLastPageReached: hasLastPurchaseReached,
+    isLoading: isPurchaseLoading,
   } = useTransactions(getPurchases);
+  const {
+    canLoadMore: canLoadSaleMore,
+    transactions: sales,
+    bottomRef: salesBottomRef,
+    hasLastPageReached: hasLastSaleReached,
+    isLoading: isSaleLoading,
+  } = useTransactions(getSales);
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const navigate = useNavigate();
@@ -177,78 +183,136 @@ export default function Transactions() {
     <>
       {selectedTab === 0 && (
         <>
-          <CardTitleWrapper>
-            <HomeTagCardTitle title="진행중" isViewAll />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {purchases?.beforePay?.map((purchase) => (
+          {!(
+            (purchases?.beforePay && purchases?.beforePay?.length > 0) ||
+            (purchases?.beforeRefund && purchases?.beforeRefund?.length > 0) ||
+            (purchases?.afterPay && purchases?.afterPay?.length > 0) ||
+            (purchases?.isDown && purchases?.isDown?.length > 0) ||
+            (purchases?.cancel && purchases?.cancel?.length > 0) ||
+            (purchases?.afterRefund && purchases?.afterRefund?.length > 0)
+          ) && (
+            <EmptyMaterialWrapper>
+              <Text color="gray/gray400" size={16} lineHeight="sm">
+                구매내역에 자료가 없어요.
+              </Text>
+            </EmptyMaterialWrapper>
+          )}
+
+          {(purchases?.beforePay && purchases?.beforePay?.length > 0) ||
+            (purchases?.beforeRefund && purchases?.beforeRefund?.length > 0 && (
+              <CardTitleWrapper>
+                <HomeTagCardTitle title="진행중" isViewAll />
+              </CardTitleWrapper>
+            ))}
+
+          {purchases?.beforePay?.map((purchase) => (
+            <CardsWrapper>
               <TransactionCard category="beforePay" material={purchase} />
-            ))}
-          </CardsWrapper>
-          <CardsWrapper>
-            {purchases?.beforeRefund?.map((purchase) => (
+            </CardsWrapper>
+          ))}
+
+          {purchases?.beforeRefund?.map((purchase) => (
+            <CardsWrapper>
               <TransactionCard category="beforeRefund" material={purchase} />
+            </CardsWrapper>
+          ))}
+
+          {(purchases?.afterPay && purchases?.afterPay?.length > 0) ||
+            (purchases?.isDown && purchases?.isDown?.length > 0 && (
+              <CardTitleWrapper>
+                <HomeTagCardTitle title="구매 완료" isViewAll />
+              </CardTitleWrapper>
             ))}
-          </CardsWrapper>
-          <CardTitleWrapper>
-            <HomeTagCardTitle title="구매 완료" isViewAll />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {purchases?.afterPay?.map((purchase) => (
+
+          {purchases?.afterPay?.map((purchase) => (
+            <CardsWrapper>
               <TransactionCard category="afterPay" material={purchase} />
-            ))}
-          </CardsWrapper>
-          <CardsWrapper>
-            {purchases?.isDown?.map((purchase) => (
+            </CardsWrapper>
+          ))}
+
+          {purchases?.isDown?.map((purchase) => (
+            <CardsWrapper>
               <TransactionCard category="isDown" material={purchase} />
+            </CardsWrapper>
+          ))}
+
+          {(purchases?.cancel && purchases?.cancel?.length > 0) ||
+            (purchases?.afterRefund && purchases?.afterRefund?.length > 0 && (
+              <CardTitleWrapper>
+                <HomeTagCardTitle title="취소 및 환불" isViewAll />
+              </CardTitleWrapper>
             ))}
-          </CardsWrapper>
-          <CardTitleWrapper>
-            <HomeTagCardTitle title="취소 및 환불" isViewAll />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {purchases?.cancel?.map((purchase) => (
+
+          {purchases?.cancel?.map((purchase) => (
+            <CardsWrapper>
               <TransactionCard category="cancel" material={purchase} />
-            ))}
-          </CardsWrapper>
-          <CardsWrapper>
-            {purchases?.afterRefund?.map((purchase) => (
+            </CardsWrapper>
+          ))}
+
+          {purchases?.afterRefund?.map((purchase) => (
+            <CardsWrapper>
               <TransactionCard category="afterRefund" material={purchase} />
-            ))}
-          </CardsWrapper>
+            </CardsWrapper>
+          ))}
         </>
       )}
       {selectedTab === 1 && (
         <>
-          <CardTitleWrapper>
-            <HomeTagCardTitle title="결제 진행 중" isViewAll />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {sales?.pending?.map((sale) => (
+          {!(
+            (sales?.pending && sales?.pending?.length > 0) ||
+            (sales?.complete && sales?.complete?.length > 0)
+          ) && (
+            <EmptyMaterialWrapper>
+              <Text color="gray/gray400" size={16} lineHeight="sm">
+                판매내역에 자료가 없어요.
+              </Text>
+            </EmptyMaterialWrapper>
+          )}
+          {sales?.pending && sales?.pending?.length > 0 && (
+            <CardTitleWrapper>
+              <HomeTagCardTitle title="결제 진행 중" isViewAll />
+            </CardTitleWrapper>
+          )}
+          {sales?.pending?.map((sale) => (
+            <CardsWrapper>
               <TransactionCard category="pending" material={sale} />
-            ))}
-          </CardsWrapper>
-          <CardTitleWrapper>
-            <HomeTagCardTitle title="판매 완료" isViewAll />
-          </CardTitleWrapper>
-          <CardsWrapper>
-            {sales?.complete?.map((sale) => (
+            </CardsWrapper>
+          ))}
+          {sales?.complete && sales?.complete?.length > 0 && (
+            <CardTitleWrapper>
+              <HomeTagCardTitle title="판매 완료" isViewAll />
+            </CardTitleWrapper>
+          )}
+          {sales?.complete?.map((sale) => (
+            <CardsWrapper>
               <TransactionCard category="complete" material={sale} />
-            ))}
-          </CardsWrapper>
+            </CardsWrapper>
+          ))}
         </>
       )}
     </>
   );
 
-  const skeletonCardSection = (
-    <CardsWrapper>
+  const skeletonCardSection = (isSaleLoading || isPurchaseLoading) && (
+    <Column pt={16} gap={12}>
       <HomeMaterialCardSkeleton isBig={false} />
       <HomeMaterialCardSkeleton isBig={false} />
       <HomeMaterialCardSkeleton isBig={false} />
       <HomeMaterialCardSkeleton isBig={false} />
       <HomeMaterialCardSkeleton isBig={false} />
-    </CardsWrapper>
+    </Column>
+  );
+
+  const tab = (
+    <>
+      {canLoadSaleMore && skeletonCardSection}
+      {selectedTab === 0 && !canLoadPurchaseMore && (
+        <div ref={purchasesBottomRef} style={{ height: '30px' }} />
+      )}
+      {selectedTab === 1 && !canLoadSaleMore && (
+        <div ref={salesBottomRef} style={{ height: '30px' }} />
+      )}
+    </>
   );
 
   if (!isAuthLevelSatisfied) {
@@ -258,18 +322,11 @@ export default function Transactions() {
   return (
     <>
       {topBar}
-      <StyledPageContainer>
-        {tabBar}
-        {cardSection}
-        {selectedTab === 0 && isPurchaseLoading && skeletonCardSection}
-        {selectedTab === 1 && isSaleLoading && skeletonCardSection}
-        {selectedTab === 0 && (
-          <div ref={purchasesBottomRef} style={{ height: '10px' }} />
-        )}
-        {selectedTab === 1 && (
-          <div ref={salesBottomRef} style={{ height: '10px' }} />
-        )}
-      </StyledPageContainer>
+
+      {tabBar}
+      {cardSection}
+      <CardsWrapper>{skeletonCardSection}</CardsWrapper>
+      {tab}
     </>
   );
 }

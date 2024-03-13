@@ -12,8 +12,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    onNext: () => {
-      console.log('onNext invoked');
-    },
+    onNext: () => {},
   },
 };
