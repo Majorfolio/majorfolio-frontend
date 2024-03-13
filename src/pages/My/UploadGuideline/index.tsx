@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import {
   StyledBodyContainer,
@@ -7,11 +7,17 @@ import {
   StyledIconTextRow,
   StyledUnderlinedText,
 } from '../../Upload/UploadGuidelineStep/index.styles';
-import { UploadCheckDefaultIcon } from '../../../assets/icons';
+import {
+  CloseDefaultIcon,
+  UploadCheckDefaultIcon,
+} from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import UploadSection from '../../../components/common/UploadSection';
+import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
+import { SecondaryTopbar } from '../../../components/common/TopBar';
 
 export default function UploadGuideline() {
+  const navigate = useNavigate();
   const description = (
     <Description
       normalText="메이저폴리오의,"
@@ -77,10 +83,26 @@ export default function UploadGuideline() {
   );
 
   return (
-    <StyledBodyContainer>
-      {description}
-      {checklist}
-      <UploadSection items={[notice]} />
-    </StyledBodyContainer>
+    <>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <CloseDefaultIcon />
+          </button>
+        }
+        title={
+          <Text color="gray/gray900" size={18} weight="bold" lineHeight="sm">
+            업로드 가이드라인
+          </Text>
+        }
+      />
+      <StyledPageContainer>
+        <StyledBodyContainer>
+          {description}
+          {checklist}
+          <UploadSection items={[notice]} />
+        </StyledBodyContainer>
+      </StyledPageContainer>
+    </>
   );
 }
