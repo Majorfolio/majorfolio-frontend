@@ -24,7 +24,7 @@ import {
   updateBookmark,
   updateLike,
 } from '../../../apis/materials';
-import useAuthStore from '../../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface MaterialSellerProfileProps {
@@ -57,6 +57,8 @@ function MaterialSellerProfile({
   memberId,
 }: MaterialSellerProfileProps) {
   const accessToken = useAuthStore((state) => state.accessToken);
+  const authLevel = useAuthStore((state) => state.authLevel);
+
   const refreshPayload = useRefreshPayload();
   const navigate = useNavigate();
 
@@ -112,22 +114,31 @@ function MaterialSellerProfile({
               {' '}
               {like}{' '}
             </Text>
-            <ReactionButton onClick={() => handleLikeClick()}>
-              {hasMemberLiked ? (
+            {authLevel === AuthLevel.Member && (
+              <ReactionButton onClick={handleLikeClick}>
+                hasMemberLiked ? <ReactionFilledIcon /> :
+                <ReactionDefaultIcon />
+              </ReactionButton>
+            )}
+            {authLevel === AuthLevel.Member &&
+              (hasMemberLiked ? (
                 <ReactionFilledIcon />
               ) : (
                 <ReactionDefaultIcon />
-              )}
-            </ReactionButton>
+              ))}
           </LikeWrapper>
           <BookmarkWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
               {' '}
               {bookmark}{' '}
             </Text>
-            <ReactionButton onClick={handleBookmarkClick}>
-              {hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
-            </ReactionButton>
+            {authLevel === AuthLevel.Member && (
+              <ReactionButton onClick={handleBookmarkClick}>
+                hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />
+              </ReactionButton>
+            )}
+            {authLevel !== AuthLevel.Member &&
+              (hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />)}
           </BookmarkWrapper>
         </ReactionWrapper>
       ) : null}
