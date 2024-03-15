@@ -16,7 +16,7 @@ import {
 
 interface MaterialDetailInfoProps {
   title: string,
-  university: string,
+  univ: string,
   major: string,
   semester: string,
   subjectTitle: string,
@@ -26,7 +26,7 @@ interface MaterialDetailInfoProps {
   pages: number,
 }
 
-function MaterialDetailInfo({ title, university, major, semester, subjectTitle, professor, grade, score, pages }: MaterialDetailInfoProps) {
+function MaterialDetailInfo({ title, univ, major, semester, subjectTitle, professor, grade, score, pages }: MaterialDetailInfoProps) {
   return (
     <InfosWrapper>
       <InfoWrapper>
@@ -35,7 +35,7 @@ function MaterialDetailInfo({ title, university, major, semester, subjectTitle, 
           <Text size={14} lineHeight='sm' color='gray/gray500'>자료 제목</Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'> 
-          { title.length < 16 ? (title) : (`${title.slice(0, 16)}...`) }
+          { title?.length < 16 ? (title) : (`${title?.slice(0, 16)}...`) }
         </Text>
       </InfoWrapper>
 
@@ -44,7 +44,7 @@ function MaterialDetailInfo({ title, university, major, semester, subjectTitle, 
           <SchoolDefaultIcon />
           <Text size={14} lineHeight='sm' color='gray/gray500'>학교</Text>
         </InfoTitleWrapper>
-        <Text size={14} lineHeight='sm' color='gray/gray900'> {university} </Text>
+        <Text size={14} lineHeight='sm' color='gray/gray900'> {univ} </Text>
       </InfoWrapper>
 
       <InfoWrapper>
@@ -69,7 +69,7 @@ function MaterialDetailInfo({ title, university, major, semester, subjectTitle, 
           <Text size={14} lineHeight='sm' color='gray/gray500'>수업</Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight='sm' color='gray/gray900'> 
-          { subjectTitle.length < 16 ? (subjectTitle) : (`${subjectTitle.slice(0, 16)}...`) }
+          { subjectTitle?.length < 16 ? (subjectTitle) : (`${subjectTitle?.slice(0, 16)}...`) }
         </Text>
       </InfoWrapper>
 

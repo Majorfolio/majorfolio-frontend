@@ -107,7 +107,7 @@ const HomeMaterialDetail = () => {
         }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            {materialDetail.subjectTitle}
+            {materialDetail.className}
           </Text>
         }
         icons={[
@@ -190,10 +190,10 @@ const HomeMaterialDetail = () => {
 
           <MaterialDetailInfo
             title={materialDetail.title}
-            university={materialDetail.university}
+            univ={materialDetail.univ}
             major={materialDetail.major}
             semester={materialDetail.semester}
-            subjectTitle={materialDetail.subjectTitle}
+            subjectTitle={materialDetail.className}
             professor={materialDetail.professor}
             grade={materialDetail.grade}
             score={materialDetail.score}
@@ -242,7 +242,7 @@ const HomeMaterialDetail = () => {
 
       <MaterialDetailInfo
         title=""
-        university=""
+        univ=""
         major=""
         semester=""
         subjectTitle=""

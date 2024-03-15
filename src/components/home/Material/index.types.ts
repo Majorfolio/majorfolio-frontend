@@ -34,10 +34,10 @@ export interface MaterialDetail {
   description: string;
   sell: number;
   follower: number;
-  university: string;
+  univ: string;
   major: string;
   semester: string;
-  subjectTitle: string;
+  className: string;
   professor: string;
   grade: string;
   score: number;

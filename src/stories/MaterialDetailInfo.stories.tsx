@@ -7,7 +7,7 @@ const meta = {
   component: MaterialDetailInfo,
   argTypes: {
     title: { control: 'text' },
-    university: { control: 'text' },
+    univ: { control: 'text' },
     major: { control: 'text' },
     semester: { control: 'text' },
     subjectTitle: { control: 'text' },
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: '[과제] ALIDEA',
-    university: '국민대학교',
+    univ: '국민대학교',
     major: '공업디자인학과',
     semester: '23-1',
     subjectTitle: '게임디자인과 기획',
