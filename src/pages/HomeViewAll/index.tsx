@@ -288,7 +288,7 @@ const HomeViewAll = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -297,7 +297,7 @@ const HomeViewAll = () => {
                   like={material.like}
                   header={
                     <MaterialSellerProfile
-                      nickname={material.nickname}
+                      nickName={material.nickName}
                       hasReaction={false}
                       memberId={material.memberId}
                     />

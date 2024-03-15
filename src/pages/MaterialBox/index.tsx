@@ -27,7 +27,7 @@ interface PurchasedItemType {
   id: number;
   memberId: number;
   imageUrl: string;
-  nickname: string;
+  nickName: string;
   className: string;
   univ: string;
   major: string;
@@ -206,7 +206,7 @@ const MaterialBox = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -215,7 +215,7 @@ const MaterialBox = () => {
                   like={material.like}
                   header={
                     <MaterialSellerProfile
-                      nickname={material.nickname}
+                      nickName={material.nickName}
                       hasReaction={false}
                       infoContent={material.updateDate
                         .split('T')[0]
@@ -240,7 +240,7 @@ const MaterialBox = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -249,7 +249,7 @@ const MaterialBox = () => {
                   like={material.like}
                   header={
                     <MaterialSellerProfile
-                      nickname={material.nickname}
+                    nickName={material.nickName}
                       hasReaction={false}
                       infoContent={material.updateDate
                         .split('T')[0]
@@ -274,7 +274,7 @@ const MaterialBox = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -283,7 +283,7 @@ const MaterialBox = () => {
                   like={material.like}
                   header={
                     <MaterialSellerProfile
-                      nickname={material.nickname}
+                      nickName={material.nickName}
                       hasReaction={false}
                       infoContent={material.updateDate
                         .split('T')[0]
@@ -312,7 +312,7 @@ const MaterialBox = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -321,7 +321,7 @@ const MaterialBox = () => {
                   like={material.like}
                   header={
                     <MaterialSellerProfile
-                      nickname={material.nickname}
+                      nickName={material.nickName}
                       hasReaction={false}
                       infoContent={material.updateDate
                         .split('T')[0]
@@ -346,7 +346,7 @@ const MaterialBox = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -355,7 +355,7 @@ const MaterialBox = () => {
                   like={material.like}
                   header={
                     <MaterialSellerProfile
-                      nickname={material.nickname}
+                      nickName={material.nickName}
                       hasReaction={false}
                       infoContent={material.updateDate
                         .split('T')[0]

@@ -149,7 +149,7 @@ const HomeMaterialDetail = () => {
           <ProfileWrapper>
             <MaterialSellerProfile
               id={materialDetail.id}
-              nickname={materialDetail.nickName}
+              nickName={materialDetail.nickName}
               hasReaction
               like={totalLikes}
               bookmark={totalBookmarks}
@@ -226,7 +226,7 @@ const HomeMaterialDetail = () => {
       <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
-        <MaterialSellerProfile nickname="-" hasReaction={false} />
+        <MaterialSellerProfile nickName="-" hasReaction={false} />
       </ProfileWrapper>
       <AllDividerThin />
 

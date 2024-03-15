@@ -2,7 +2,7 @@ export default interface Material {
   id: number;
   memberId: number;
   imageUrl: string;
-  nickname: string;
+  nickName: string;
   className: string;
   univ: string;
   major: string;
