@@ -7,7 +7,7 @@ const ASSIGNMENT_API_COMMON_SEGMENT = '/assignment';
 
 const ASSIGNMENT_API_SEGMENTS = {
   UPLOAD: '/assignment/upload',
-  DOWNLOAD: '/assignment/download'
+  DOWNLOAD: '/assignment/download',
 };
 
 const sendFile = async (
@@ -20,7 +20,7 @@ const sendFile = async (
     title,
     major,
     semester,
-    subjectName,
+    className,
     professor,
     grade,
     fullScore,
@@ -32,7 +32,7 @@ const sendFile = async (
   formData.append('title', title);
   formData.append('major', major);
   formData.append('semester', semester);
-  formData.append('subjectName', subjectName);
+  formData.append('className', className);
   formData.append('professor', professor);
   formData.append('grade', grade);
   formData.append('fullScore', String(fullScore));
@@ -53,8 +53,8 @@ const sendFile = async (
 };
 
 export const downloadFile = async (
-  materialId: number, 
-  authStore: string, 
+  materialId: number,
+  authStore: string,
   retrypayload: RetryPayload,
 ) => {
   if (authStore && retrypayload) {
@@ -62,19 +62,16 @@ export const downloadFile = async (
       headers: { Authorization: `Bearer ${authStore}` },
     };
 
-
     const data = await fetchWithTokenRetry(
       `${process.env.REACT_APP_API_URL}${ASSIGNMENT_API_SEGMENTS.DOWNLOAD}/${materialId}`,
       requestOptions,
       retrypayload,
     );
 
-    return data;    
+    return data;
   }
 
   return null;
-
-
-}
+};
 
 export default sendFile;

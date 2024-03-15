@@ -31,7 +31,7 @@ interface MyBookmarkType {
   nickName: string;
   profileUrl: string;
   className: string;
-  university: string;
+  univ: string;
   major: string;
   type: 'pdf';
   totalRecommend: number;
@@ -183,10 +183,10 @@ export default function Bookmarks() {
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
                       isBig
-                      nickname={material.nickName}
+                      nickName={material.nickName}
                       imageUrl={material.profileUrl}
                       className={material.className}
-                      univ={material.university}
+                      univ={material.univ}
                       major={material.major}
                       like={material.totalRecommend}
                       id={0}
@@ -194,7 +194,7 @@ export default function Bookmarks() {
                       semester="23-1"
                       header={
                         <MaterialSellerProfile
-                          nickname={material.nickName}
+                          nickName={material.nickName}
                           hasReaction={false}
                         />
                       }

@@ -27,7 +27,7 @@ interface HomeMaterialCardProps {
   id: number;
   memberId: number;
   imageUrl: string;
-  nickname: string;
+  nickName: string;
   className: string;
   univ: string;
   major: string;
@@ -44,7 +44,7 @@ function HomeMaterialCard({
   id,
   memberId,
   imageUrl,
-  nickname,
+  nickName,
   className,
   univ,
   major,
@@ -102,7 +102,7 @@ function HomeMaterialCard({
         id,
         memberId,
         imageUrl,
-        nickname,
+        nickName,
         className,
         univ,
         major,

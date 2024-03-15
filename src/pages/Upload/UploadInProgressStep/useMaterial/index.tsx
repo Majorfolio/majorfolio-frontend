@@ -5,7 +5,7 @@ export default function useMaterial() {
   const titleState = useText('title');
   const majorState = useText('major');
   const semesterState = useText('semester');
-  const subjectNameState = useText('subjectName');
+  const classNameState = useText('className');
   const professorState = useText('professor');
   const gradeState = useText('grade');
   const fullScoreState = useText('fullScore');
@@ -16,7 +16,7 @@ export default function useMaterial() {
     titleState,
     majorState,
     semesterState,
-    subjectNameState,
+    classNameState,
     professorState,
     gradeState,
     fullScoreState,

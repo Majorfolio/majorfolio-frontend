@@ -73,13 +73,13 @@ const Home = () => {
   const accessToken = useAuthStore((state) => state.accessToken);
   const authLevel = useAuthStore((state) => state.authLevel);
 
-  const [myNickname, setMyNickname] = useState<string>('');
+  const [myNickName, setMyNickName] = useState<string>('');
 
   useEffect(() => {
     const asyncEffect = async () => {
       if (authLevel === AuthLevel.Member && accessToken) {
-        const { nickname } = await getMy(accessToken, refreshPayload);
-        setMyNickname(nickname);
+        const { nickName } = await getMy(accessToken, refreshPayload);
+        setMyNickName(nickName);
       }
     };
     asyncEffect();
@@ -209,7 +209,7 @@ const Home = () => {
               <HomeMaterialCardWrapper>
                 {homeMaterials?.newUpload ? (
                   homeMaterials.newUpload
-                    .filter((material) => material.nickname !== myNickname)
+                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -218,7 +218,7 @@ const Home = () => {
                           id={material.id}
                           memberId={material.memberId}
                           imageUrl={material.imageUrl}
-                          nickname={material.nickname}
+                          nickName={material.nickName}
                           className={material.className}
                           univ={material.univ}
                           major={material.major}
@@ -227,7 +227,7 @@ const Home = () => {
                           like={material.like}
                           header={
                             <MaterialSellerProfile
-                              nickname={material.nickname}
+                              nickName={material.nickName}
                               hasReaction={false}
                               memberId={material.memberId}
                             />
@@ -256,7 +256,7 @@ const Home = () => {
               <HomeMaterialCardWrapper>
                 {homeMaterials?.best ? (
                   homeMaterials.best
-                    .filter((material) => material.nickname !== myNickname)
+                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -265,7 +265,7 @@ const Home = () => {
                           id={material.id}
                           memberId={material.memberId}
                           imageUrl={material.imageUrl}
-                          nickname={material.nickname}
+                          nickName={material.nickName}
                           className={material.className}
                           univ={material.univ}
                           major={material.major}
@@ -274,7 +274,7 @@ const Home = () => {
                           like={material.like}
                           header={
                             <MaterialSellerProfile
-                              nickname={material.nickname}
+                              nickName={material.nickName}
                               hasReaction={false}
                               memberId={material.memberId}
                             />
@@ -302,7 +302,7 @@ const Home = () => {
               <HomeMaterialCardWrapper>
                 {recentMaterials ? (
                   recentMaterials
-                    .filter((material) => material.nickname !== myNickname)
+                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -311,7 +311,7 @@ const Home = () => {
                           id={material.id}
                           memberId={material.memberId}
                           imageUrl={material.imageUrl}
-                          nickname={material.nickname}
+                          nickName={material.nickName}
                           className={material.className}
                           univ={material.univ}
                           major={material.major}
@@ -320,7 +320,7 @@ const Home = () => {
                           like={material.like}
                           header={
                             <MaterialSellerProfile
-                              nickname={material.nickname}
+                              nickName={material.nickName}
                               hasReaction={false}
                               memberId={material.memberId}
                             />

@@ -41,15 +41,8 @@ export default function SignupTermsAndConditionsStep({
 
   const navigate = useNavigate();
 
-  const {
-    updateNickname,
-    nickName,
-    emailId,
-    universityName,
-    studentId,
-    major1,
-    major2,
-  } = userStore((state) => state);
+  const { updateNickName, nickName, emailId, univ, studentId, major1, major2 } =
+    userStore((state) => state);
   const accessToken = useAuthStore((state) => state.accessToken)!;
   const refreshToken = useAuthStore((state) => state.refreshToken)!;
   const refresh = useAuthStore((state) => state.refresh);
@@ -85,7 +78,7 @@ export default function SignupTermsAndConditionsStep({
         {
           nickName,
           emailId,
-          universityName,
+          univ,
           studentId,
           major1,
           major2,

@@ -107,7 +107,7 @@ const HomeMaterialDetail = () => {
         }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            {materialDetail.subjectTitle}
+            {materialDetail.className}
           </Text>
         }
         icons={[
@@ -144,12 +144,15 @@ const HomeMaterialDetail = () => {
 
       <DetailContainer>
         <HomeMaterialDetailContainer>
-          <MaterialDetailPreview image={materialDetail.imageUrl} materialId={materialDetail.id} />
+          <MaterialDetailPreview
+            image={materialDetail.imageUrl}
+            materialId={materialDetail.id}
+          />
 
           <ProfileWrapper>
             <MaterialSellerProfile
               id={materialDetail.id}
-              nickname={materialDetail.nickName}
+              nickName={materialDetail.nickName}
               hasReaction
               like={totalLikes}
               bookmark={totalBookmarks}
@@ -190,10 +193,10 @@ const HomeMaterialDetail = () => {
 
           <MaterialDetailInfo
             title={materialDetail.title}
-            university={materialDetail.university}
+            univ={materialDetail.univ}
             major={materialDetail.major}
             semester={materialDetail.semester}
-            subjectTitle={materialDetail.subjectTitle}
+            className={materialDetail.className}
             professor={materialDetail.professor}
             grade={materialDetail.grade}
             score={materialDetail.score}
@@ -226,7 +229,7 @@ const HomeMaterialDetail = () => {
       <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
-        <MaterialSellerProfile nickname="-" hasReaction={false} />
+        <MaterialSellerProfile nickName="-" hasReaction={false} />
       </ProfileWrapper>
       <AllDividerThin />
 
@@ -242,10 +245,10 @@ const HomeMaterialDetail = () => {
 
       <MaterialDetailInfo
         title=""
-        university=""
+        univ=""
         major=""
         semester=""
-        subjectTitle=""
+        className=""
         professor=""
         grade=""
         score={0}

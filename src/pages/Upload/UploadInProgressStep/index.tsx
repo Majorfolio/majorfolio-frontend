@@ -40,7 +40,7 @@ export default function UploadInProgresStep() {
     title,
     major,
     semester,
-    subjectName,
+    className,
     professor,
     grade,
     fullScore,
@@ -72,8 +72,7 @@ export default function UploadInProgresStep() {
   const [hasTitleError, setHasTitleError] = useState<boolean>(false);
   const [hasMajorError, setHasMajorError] = useState<boolean>(false);
   const [hasSemesterError, setHasSemesterError] = useState<boolean>(false);
-  const [hasSubjectNameError, setHasSubjectNameError] =
-    useState<boolean>(false);
+  const [hasClassNameError, setHasClassNameError] = useState<boolean>(false);
   const [hasProfessorError, setHasProfessorError] = useState<boolean>(false);
   const [hasGradeError, setHasGradeError] = useState<boolean>(false);
   const [hasFullScoreError, setHasFullScoreError] = useState<boolean>(false);
@@ -105,8 +104,8 @@ export default function UploadInProgresStep() {
     const currentHasMajorError = major.length < 2 || major.length >= 30;
     const currentHasSemesterError =
       semester.length < 2 || semester.length >= 30;
-    const currentHasSubjectNameError =
-      subjectName.length < 2 || subjectName.length >= 30;
+    const currentHasClassNameError =
+      className.length < 2 || className.length >= 30;
     const currentHasProfessorError =
       professor.length < 2 || professor.length >= 30;
     const currentHasGradeError = !grade || !GRADES.includes(grade);
@@ -120,7 +119,7 @@ export default function UploadInProgresStep() {
     setHasTitleError(currentHasTitleError);
     setHasMajorError(currentHasMajorError);
     setHasSemesterError(currentHasSemesterError);
-    setHasSubjectNameError(currentHasSubjectNameError);
+    setHasClassNameError(currentHasClassNameError);
 
     setHasProfessorError(currentHasProfessorError);
     setHasGradeError(currentHasGradeError);
@@ -132,7 +131,7 @@ export default function UploadInProgresStep() {
     return !(
       currentHasFileError ||
       currentHasTitleError ||
-      currentHasSubjectNameError ||
+      currentHasClassNameError ||
       currentHasSemesterError ||
       currentHasScoreError ||
       currentHasProfessorError ||
@@ -170,7 +169,7 @@ export default function UploadInProgresStep() {
         title,
         major,
         semester,
-        subjectName,
+        className,
         professor,
         grade,
         fullScore: Number(fullScore),
@@ -317,13 +316,13 @@ export default function UploadInProgresStep() {
         id="title"
         type="text"
         placeholder="수업명 (필수)"
-        text={subjectName}
+        text={className}
         onTextChange={(event) => {
-          updateDraft({ subjectName: event.target.value });
-          setHasSubjectNameError(false);
+          updateDraft({ className: event.target.value });
+          setHasClassNameError(false);
         }}
-        hasError={hasSubjectNameError}
-        icon={hasSubjectNameError ? <ErrorDefaultIcon /> : <span />}
+        hasError={hasClassNameError}
+        icon={hasClassNameError ? <ErrorDefaultIcon /> : <span />}
       />
       <TextField
         id="title"

@@ -29,7 +29,7 @@ import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface MaterialSellerProfileProps {
   id?: number;
-  nickname: string;
+  nickName: string;
   hasReaction: boolean;
   like?: number;
   bookmark?: number;
@@ -44,7 +44,7 @@ interface MaterialSellerProfileProps {
 
 function MaterialSellerProfile({
   id,
-  nickname,
+  nickName: nickname,
   hasReaction,
   like = 0,
   bookmark = 0,

@@ -4,7 +4,7 @@ export interface MaterialType {
   title: string;
   major: string;
   semester: string;
-  subjectName: string;
+  className: string;
   professor: string;
   grade: string;
   fullScore: number | null;
@@ -20,7 +20,7 @@ const initialState = {
   title: '',
   major: '',
   semester: '',
-  subjectName: '',
+  className: '',
   professor: '',
   grade: '',
   fullScore: null,

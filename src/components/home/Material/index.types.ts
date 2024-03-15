@@ -2,7 +2,7 @@ export default interface Material {
   id: number;
   memberId: number;
   imageUrl: string;
-  nickname: string;
+  nickName: string;
   className: string;
   univ: string;
   major: string;
@@ -12,14 +12,14 @@ export default interface Material {
 }
 
 export interface MaterialCategory {
-  "newUpload": Material[];
-  "best": Material[];
-  "latest": Material[];
+  newUpload: Material[];
+  best: Material[];
+  latest: Material[];
 }
 
 export interface MaterialViewAll {
   page: number;
-  "materialResponseList": Material[];
+  materialResponseList: Material[];
   end: boolean;
 }
 
@@ -34,10 +34,10 @@ export interface MaterialDetail {
   description: string;
   sell: number;
   follower: number;
-  university: string;
+  univ: string;
   major: string;
   semester: string;
-  subjectTitle: string;
+  className: string;
   professor: string;
   grade: string;
   score: number;

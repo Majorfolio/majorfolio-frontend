@@ -21,7 +21,7 @@ enum SignupStep {
   Email,
   Code,
   Details,
-  Nickname,
+  NickName,
   TermsAndConditions,
   TermsAndConditionsDetails,
 }
@@ -99,9 +99,9 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
           />
         )}
         {step === SignupStep.Details && (
-          <SignupDetailsStep onNext={() => setStep(SignupStep.Nickname)} />
+          <SignupDetailsStep onNext={() => setStep(SignupStep.NickName)} />
         )}
-        {step === SignupStep.Nickname && (
+        {step === SignupStep.NickName && (
           <SignupNamingStep
             onNext={() => setStep(SignupStep.TermsAndConditions)}
           />
