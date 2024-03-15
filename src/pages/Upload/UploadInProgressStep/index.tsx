@@ -25,6 +25,7 @@ import { ErrorDefaultIcon } from '../../../assets/icons';
 import Row from '../../../components/common/Row';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
 import useDraftStore from '../../../store/useDraftStore';
+import { Dropdown } from '../../../components/common/Dropdown';
 
 interface IFile {
   url: string;
@@ -201,6 +202,7 @@ export default function UploadInProgresStep() {
       const isUploadSuccessful = await uploadFile();
       if (isUploadSuccessful) {
         navigateToNextStep();
+        console.log();
       }
     }
   });
@@ -279,16 +281,36 @@ export default function UploadInProgresStep() {
         hasError={hasMajorError}
         icon={hasMajorError ? <ErrorDefaultIcon /> : <span />}
       />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="시기 (필수)"
-        text={semester}
-        onTextChange={(event) => {
-          updateDraft({ semester: event.target.value });
+      <Dropdown
+        hasError={hasSemesterError}
+        category="학기 (필수)"
+        options={[
+          '23-2',
+          '23-1',
+          '22-2',
+          '22-1',
+          '21-2',
+          '21-1',
+          '20-2',
+          '20-1',
+          '19-2',
+          '19-1',
+          '18-2',
+          '18-1',
+          '17-2',
+          '17-1',
+          '16-2',
+          '16-1',
+          '15-2',
+          '15-1',
+          '14-2',
+          '14-1',
+        ]}
+        searchQuery={semester}
+        onSearchQueryUpdate={(newSemester) => {
+          updateDraft({ semester: newSemester });
           setHasSemesterError(false);
         }}
-        hasError={hasSemesterError}
         icon={hasSemesterError ? <ErrorDefaultIcon /> : <span />}
       />
       <TextField
@@ -315,17 +337,30 @@ export default function UploadInProgresStep() {
         hasError={hasProfessorError}
         icon={hasProfessorError ? <ErrorDefaultIcon /> : <span />}
       />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="학점 (필수)"
-        text={grade}
-        onTextChange={(event) => {
-          updateDraft({ grade: event.target.value });
-          setHasGradeError(false);
+      <Dropdown
+        hasError={hasScoreError}
+        category="학점(필수)"
+        options={[
+          'A+',
+          'A',
+          'A-',
+          'B+',
+          'B',
+          'B-',
+          'C+',
+          'C',
+          'C-',
+          'D',
+          'F',
+          'NP',
+          'P',
+        ]}
+        searchQuery={score}
+        onSearchQueryUpdate={(newScore) => {
+          updateDraft({ score: newScore });
+          setHasScoreError(false);
         }}
-        hasError={hasGradeError}
-        icon={hasGradeError ? <ErrorDefaultIcon /> : <span />}
+        icon={hasScoreError ? <ErrorDefaultIcon /> : <span />}
       />
       <ScoreRow>
         <TextField
