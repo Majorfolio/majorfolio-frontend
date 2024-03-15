@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import SignupDetailsStep from '../pages/Signup/SignupDetailsStep';
 
 const meta = {
-  title: 'SignupDetailsStep',
+  title: 'Pages/Signup/SignupDetailsStep',
   component: SignupDetailsStep,
   tags: ['autodocs'],
 } satisfies Meta;

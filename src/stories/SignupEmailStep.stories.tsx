@@ -5,7 +5,7 @@ import Signup from '../pages/Signup';
 import SignupEmailStep from '../pages/Signup/SignupEmailStep';
 
 const meta = {
-  title: 'SignupEmailStep',
+  title: 'Pages/Signup/SignupEmailStep',
   component: SignupEmailStep,
   decorators: [
     (Story) => {
