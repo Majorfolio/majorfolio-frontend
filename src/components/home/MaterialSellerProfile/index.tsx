@@ -111,34 +111,23 @@ function MaterialSellerProfile({
         <ReactionWrapper>
           <LikeWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
-              {' '}
-              {like}{' '}
+              {like}
             </Text>
-            {authLevel === AuthLevel.Member && (
-              <ReactionButton onClick={handleLikeClick}>
-                hasMemberLiked ? <ReactionFilledIcon /> :
-                <ReactionDefaultIcon />
-              </ReactionButton>
-            )}
-            {authLevel === AuthLevel.Member &&
-              (hasMemberLiked ? (
+            <ReactionButton onClick={handleLikeClick}>
+              {hasMemberLiked ? (
                 <ReactionFilledIcon />
               ) : (
                 <ReactionDefaultIcon />
-              ))}
+              )}
+            </ReactionButton>
           </LikeWrapper>
           <BookmarkWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
-              {' '}
-              {bookmark}{' '}
+              {bookmark}
             </Text>
-            {authLevel === AuthLevel.Member && (
-              <ReactionButton onClick={handleBookmarkClick}>
-                hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />
-              </ReactionButton>
-            )}
-            {authLevel !== AuthLevel.Member &&
-              (hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />)}
+            <ReactionButton onClick={handleBookmarkClick}>
+              {hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+            </ReactionButton>
           </BookmarkWrapper>
         </ReactionWrapper>
       ) : null}
