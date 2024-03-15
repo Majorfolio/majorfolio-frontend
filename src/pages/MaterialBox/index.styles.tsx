@@ -16,3 +16,9 @@ export const CardsWrapper = styled.div`
   flex-direction: column;
   gap: 12px;
 `;
+
+export const NoMaterialTextWrapper = styled.div`
+  padding-top: 295px;
+  display: flex;
+  justify-content: center;
+`;
