@@ -55,16 +55,12 @@ const HomeMaterialDetail = () => {
 
   const canPurchaseMaterial = authLevel >= AuthLevel.Member && !hasUserMaterial;
 
+  const [likes, setLikes] = useState<number>(0);
+  const [bookmarks, setBookmarks] = useState<number>(0);
   const [hasMemberLiked, setHasMemberLiked] = useState<boolean>(false);
   const [hasMemberBookmarked, setHasMemberBookmarked] =
     useState<boolean>(false);
-
-  const totalLikes =
-    (materialDetail?.like ? materialDetail.like : 0) + (hasMemberLiked ? 1 : 0);
-  const totalBookmarks =
-    (materialDetail?.like ? materialDetail.like : 0) +
-    (hasMemberBookmarked ? 1 : 0);
-  const reactions = totalLikes + totalBookmarks;
+  const reactions = likes + bookmarks;
 
   useEffect(() => {
     if (authLevel === AuthLevel.Member && materialId) {
@@ -78,6 +74,8 @@ const HomeMaterialDetail = () => {
           setMaterialDetail(result);
           const { isMemberBookmark, isMemberBuy, isMemberLike } = result;
           setHasUserMaterial(isMemberBuy);
+          setLikes(result.like);
+          setBookmarks(result.bookmark);
           setHasMemberLiked(isMemberLike);
           setHasMemberBookmarked(isMemberBookmark);
         }
@@ -154,20 +152,28 @@ const HomeMaterialDetail = () => {
               id={materialDetail.id}
               nickName={materialDetail.nickName}
               hasReaction
-              like={totalLikes}
-              bookmark={totalBookmarks}
+              like={likes}
+              bookmark={bookmarks}
               hasMemberLiked={hasMemberLiked}
               hasMemberBookmarked={hasMemberBookmarked}
-              toggleLike={() =>
-                setHasMemberLiked(
-                  (previousHasMemberLiked) => !previousHasMemberLiked,
-                )
-              }
-              toggleBookmark={() =>
-                setHasMemberBookmarked(
-                  (previousHasMemberBookmarked) => !previousHasMemberBookmarked,
-                )
-              }
+              toggleLike={() => {
+                const newLikeStatus = !hasMemberLiked;
+                setHasMemberLiked(newLikeStatus);
+                setLikes((currentLikes) =>
+                  newLikeStatus
+                    ? currentLikes + 1
+                    : Math.max(0, currentLikes - 1),
+                );
+              }}
+              toggleBookmark={() => {
+                const newBookmarkStatus = !hasMemberBookmarked;
+                setHasMemberBookmarked(newBookmarkStatus);
+                setBookmarks((currentBookmarks) =>
+                  newBookmarkStatus
+                    ? currentBookmarks + 1
+                    : Math.max(0, currentBookmarks - 1),
+                );
+              }}
               memberId={Number(memberId)}
             />
           </ProfileWrapper>
