@@ -154,7 +154,11 @@ export default function MyMain() {
             <RowButton
               type="button"
               text="쿠폰함"
-              onClick={() => navigate('/')}
+              onClick={() =>
+                activateModal('TO_BE_UPDATED', {
+                  primaryAction: () => {},
+                })
+              }
             />
           </>
         </Column>
