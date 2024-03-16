@@ -34,7 +34,7 @@ type TransactionCardPropsType = {
   material: TransactionMaterial;
 };
 
-enum Category {
+export enum Category {
   beforePay = '결제대기',
   beforeRefund = '환불요청',
   afterPay = '결제완료',

@@ -45,7 +45,7 @@ interface SellerMaterial {
     id: number;
     memberId: number;
     imageUrl: string;
-    nickname: string;
+    nickName: string;
     name: string;
     univ: string;
     major: string;
@@ -220,7 +220,7 @@ export default function Seller() {
                     id={material.id}
                     memberId={material.memberId}
                     imageUrl={material.imageUrl}
-                    nickname={material.nickname}
+                    nickName={material.nickName}
                     className={material.name}
                     univ={material.univ}
                     major={material.major}
@@ -229,7 +229,7 @@ export default function Seller() {
                     like={material.like}
                     header={
                       <MaterialSellerProfile
-                        nickname={material.nickname}
+                        nickName={material.nickName}
                         hasReaction={false}
                         memberId={material.memberId}
                       />

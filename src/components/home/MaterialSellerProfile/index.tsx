@@ -24,12 +24,12 @@ import {
   updateBookmark,
   updateLike,
 } from '../../../apis/materials';
-import useAuthStore from '../../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface MaterialSellerProfileProps {
   id?: number;
-  nickname: string;
+  nickName: string;
   hasReaction: boolean;
   like?: number;
   bookmark?: number;
@@ -44,7 +44,7 @@ interface MaterialSellerProfileProps {
 
 function MaterialSellerProfile({
   id,
-  nickname,
+  nickName: nickname,
   hasReaction,
   like = 0,
   bookmark = 0,
@@ -57,6 +57,8 @@ function MaterialSellerProfile({
   memberId,
 }: MaterialSellerProfileProps) {
   const accessToken = useAuthStore((state) => state.accessToken);
+  const authLevel = useAuthStore((state) => state.authLevel);
+
   const refreshPayload = useRefreshPayload();
   const navigate = useNavigate();
 
@@ -109,10 +111,9 @@ function MaterialSellerProfile({
         <ReactionWrapper>
           <LikeWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
-              {' '}
-              {like}{' '}
+              {like}
             </Text>
-            <ReactionButton onClick={() => handleLikeClick()}>
+            <ReactionButton onClick={handleLikeClick}>
               {hasMemberLiked ? (
                 <ReactionFilledIcon />
               ) : (
@@ -122,8 +123,7 @@ function MaterialSellerProfile({
           </LikeWrapper>
           <BookmarkWrapper>
             <Text size={14} lineHeight="sm" color="gray/gray900">
-              {' '}
-              {bookmark}{' '}
+              {bookmark}
             </Text>
             <ReactionButton onClick={handleBookmarkClick}>
               {hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}

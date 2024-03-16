@@ -6,7 +6,7 @@ interface DraftSlice {
   title: string;
   major: string;
   semester: string;
-  subjectName: string;
+  className: string;
   professor: string;
   grade: string;
   fullScore: string;
@@ -27,7 +27,7 @@ const initialState: DraftSlice = {
   title: '',
   major: '',
   semester: '',
-  subjectName: '',
+  className: '',
   professor: '',
   grade: '',
   fullScore: '',
