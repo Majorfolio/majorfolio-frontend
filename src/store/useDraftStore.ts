@@ -1,5 +1,5 @@
 import { StateCreator, create } from 'zustand';
-import { PersistOptions, persist } from 'zustand/middleware';
+import { PersistOptions, devtools, persist } from 'zustand/middleware';
 
 interface DraftSlice {
   file: null | File;
@@ -51,9 +51,6 @@ const useDraftStore = create<DraftSlice>(
       reset: () => {
         set({
           ...initialState,
-          updateDraft: initialState.updateDraft,
-          reset: initialState.reset,
-          updateDraftProp: initialState.updateDraftProp,
         });
       },
       updateDraftProp: (draftProp, fieldValue) => {
