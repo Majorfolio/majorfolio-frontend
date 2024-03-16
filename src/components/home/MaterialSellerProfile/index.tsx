@@ -26,6 +26,8 @@ import {
 } from '../../../apis/materials';
 import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import useModal from '../../../hooks/common/useModal';
+import Modal from '../../common/Modal';
 
 interface MaterialSellerProfileProps {
   id?: number;
@@ -56,93 +58,140 @@ function MaterialSellerProfile({
   infoName,
   memberId,
 }: MaterialSellerProfileProps) {
-  const accessToken = useAuthStore((state) => state.accessToken);
+  const accessToken = useAuthStore((state) => state.accessToken)!;
   const authLevel = useAuthStore((state) => state.authLevel);
 
   const refreshPayload = useRefreshPayload();
   const navigate = useNavigate();
+  const { activateModal, closePrimarily, closeSecondarily, ...modalProps } =
+    useModal();
 
   const handleLikeClick = async () => {
-    if (hasReaction && id && accessToken && toggleLike) {
+    if (authLevel === AuthLevel.Guest) {
+      activateModal('REQUIRE_SIGNIN', {
+        primaryAction: () => navigate('/signin'),
+      });
+    } else if (authLevel === AuthLevel.Unverified) {
+      activateModal('REQUIRE_SCHOOL_VERIFICATION', {
+        primaryAction: () => navigate('/signin'),
+      });
+    } else if (authLevel === AuthLevel.Verified) {
+      activateModal('REGISTER_INCOMPLETE', {
+        primaryAction: () => navigate('/signin'),
+      });
+    } else if (
+      authLevel === AuthLevel.Member &&
+      hasReaction &&
+      id &&
+      toggleLike
+    ) {
       toggleLike();
       await updateLike(id, accessToken, refreshPayload);
     }
   };
 
   const handleBookmarkClick = async () => {
-    if (hasReaction && id && accessToken && toggleBookmark) {
+    if (authLevel === AuthLevel.Guest) {
+      activateModal('REQUIRE_SIGNIN', {
+        primaryAction: () => navigate('/signin'),
+      });
+    } else if (authLevel === AuthLevel.Unverified) {
+      activateModal('REQUIRE_SCHOOL_VERIFICATION', {
+        primaryAction: () => navigate('/signin'),
+      });
+    } else if (authLevel === AuthLevel.Verified) {
+      activateModal('REGISTER_INCOMPLETE', {
+        primaryAction: () => navigate('/signin'),
+      });
+    } else if (
+      authLevel === AuthLevel.Member &&
+      hasReaction &&
+      id &&
+      toggleBookmark
+    ) {
       toggleBookmark();
       await updateBookmark(id, accessToken, refreshPayload);
     }
   };
 
   return (
-    <ProfileWrapper>
-      {!!memberId && (
-        <SellerInfoWrapper
-          as="button"
-          type="button"
-          onClick={() => {
-            navigate(`/seller/${memberId}`);
-          }}
-        >
-          <ProfileImageWrapper>
-            <CharacterSmall1Icon />
-          </ProfileImageWrapper>
-          <Text size={14} weight="bold" color="gray/gray900">
-            {' '}
-            {nickname}{' '}
-          </Text>
-        </SellerInfoWrapper>
-      )}
-      {!memberId && (
-        <SellerInfoWrapper>
-          <ProfileImageWrapper>
-            <CharacterSmall1Icon />
-          </ProfileImageWrapper>
-          <Text size={14} weight="bold" color="gray/gray900">
-            {' '}
-            {nickname}{' '}
-          </Text>
-        </SellerInfoWrapper>
-      )}
-
-      {hasReaction ? (
-        <ReactionWrapper>
-          <LikeWrapper>
-            <Text size={14} lineHeight="sm" color="gray/gray900">
-              {like}
+    <>
+      <Modal
+        {...modalProps}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
+      <ProfileWrapper>
+        {!!memberId && (
+          <SellerInfoWrapper
+            as="button"
+            type="button"
+            onClick={() => {
+              navigate(`/seller/${memberId}`);
+            }}
+          >
+            <ProfileImageWrapper>
+              <CharacterSmall1Icon />
+            </ProfileImageWrapper>
+            <Text size={14} weight="bold" color="gray/gray900">
+              {' '}
+              {nickname}{' '}
             </Text>
-            <ReactionButton onClick={handleLikeClick}>
-              {hasMemberLiked ? (
-                <ReactionFilledIcon />
-              ) : (
-                <ReactionDefaultIcon />
-              )}
-            </ReactionButton>
-          </LikeWrapper>
-          <BookmarkWrapper>
-            <Text size={14} lineHeight="sm" color="gray/gray900">
-              {bookmark}
+          </SellerInfoWrapper>
+        )}
+        {!memberId && (
+          <SellerInfoWrapper>
+            <ProfileImageWrapper>
+              <CharacterSmall1Icon />
+            </ProfileImageWrapper>
+            <Text size={14} weight="bold" color="gray/gray900">
+              {' '}
+              {nickname}{' '}
             </Text>
-            <ReactionButton onClick={handleBookmarkClick}>
-              {hasMemberBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
-            </ReactionButton>
-          </BookmarkWrapper>
-        </ReactionWrapper>
-      ) : null}
+          </SellerInfoWrapper>
+        )}
 
-      {infoName ? (
-        <InfoWrapper>
-          <Text size={14} color="gray/gray500">
-            {infoContent}
-          </Text>
-          <Text size={14} weight="bold" color="gray/gray900">
-            {infoName}
-          </Text>
-        </InfoWrapper>
-      ) : null}
-    </ProfileWrapper>
+        {hasReaction ? (
+          <ReactionWrapper>
+            <LikeWrapper>
+              <Text size={14} lineHeight="sm" color="gray/gray900">
+                {like}
+              </Text>
+              <ReactionButton onClick={handleLikeClick}>
+                {hasMemberLiked ? (
+                  <ReactionFilledIcon />
+                ) : (
+                  <ReactionDefaultIcon />
+                )}
+              </ReactionButton>
+            </LikeWrapper>
+            <BookmarkWrapper>
+              <Text size={14} lineHeight="sm" color="gray/gray900">
+                {bookmark}
+              </Text>
+              <ReactionButton onClick={handleBookmarkClick}>
+                {hasMemberBookmarked ? (
+                  <BookmarkFilledIcon />
+                ) : (
+                  <BookmarkIcon />
+                )}
+              </ReactionButton>
+            </BookmarkWrapper>
+          </ReactionWrapper>
+        ) : null}
+
+        {infoName ? (
+          <InfoWrapper>
+            <Text size={14} color="gray/gray500">
+              {infoContent}
+            </Text>
+            <Text size={14} weight="bold" color="gray/gray900">
+              {infoName}
+            </Text>
+          </InfoWrapper>
+        ) : null}
+      </ProfileWrapper>
+    </>
   );
 }
 
