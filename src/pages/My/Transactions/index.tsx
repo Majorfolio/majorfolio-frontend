@@ -441,12 +441,7 @@ export default function Transactions() {
                 category="isDown"
                 material={purchase}
                 onClick={() => {
-                  console.log(modalRef.current);
-                  setIsModalOpen(true);
-                  modalRef.current?.showModal();
-                  setMaterialId(purchase.id);
-                  // console.log('????');
-                  // handleDownloadCompleteClick(purchase.id);
+                  handleDownloadCompleteClick(purchase.id);
                 }}
               />
             </CardsWrapper>
