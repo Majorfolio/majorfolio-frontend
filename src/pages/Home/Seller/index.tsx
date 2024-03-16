@@ -52,6 +52,7 @@ interface SellerMaterial {
     semester: string;
     professor: string;
     like: number;
+    title?: string;
   }[];
 }
 
@@ -221,7 +222,7 @@ export default function Seller() {
                     memberId={material.memberId}
                     imageUrl={material.imageUrl}
                     nickName={material.nickName}
-                    className={material.name}
+                    className={material.title as string}
                     univ={material.univ}
                     major={material.major}
                     semester={material.semester}
@@ -234,7 +235,6 @@ export default function Seller() {
                         memberId={material.memberId}
                       />
                     }
-                    onClick={() => {}}
                   />
                 );
               })}
