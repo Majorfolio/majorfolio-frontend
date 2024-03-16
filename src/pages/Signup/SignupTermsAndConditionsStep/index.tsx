@@ -65,9 +65,10 @@ export default function SignupTermsAndConditionsStep({
       (currentIsThirdTermAgreed) => !currentIsThirdTermAgreed,
     );
 
-  const onBothTermsChange = () => {
-    onFirstTermChange();
-    onSecondTermChange();
+  const agreeBothTerms = () => {
+    setIsFirstTermAgreed(true);
+    setIsSecondTermAgreed(true);
+    setIsThirdTermAgreed(true);
   };
 
   const areAllTermsChecked = isFirstTermAgreed && isSecondTermAgreed;
@@ -84,7 +85,7 @@ export default function SignupTermsAndConditionsStep({
           major2,
           personalAgree: isFirstTermAgreed,
           serviceAgree: isSecondTermAgreed,
-          marketingAgree: true,
+          marketingAgree: isThirdTermAgreed,
         },
         accessToken,
         refreshPayload,
@@ -116,7 +117,7 @@ export default function SignupTermsAndConditionsStep({
           }
           text="전체 동의"
           id="전체 동의"
-          onCheckboxChange={onBothTermsChange}
+          onCheckboxChange={agreeBothTerms}
         />
       </StyledAgreeAllRow>
       <StyledConditionRow>
