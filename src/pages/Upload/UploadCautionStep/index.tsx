@@ -1,7 +1,13 @@
 import React, { ReactNode } from 'react';
 import UploadSection from '../../../components/common/UploadSection';
 import Text from '../../../components/common/Text';
-import StyledCondition from './index.styles';
+import StyledCondition, {
+  StyledImage,
+  StyledImageContainer,
+  StyledImageRow,
+} from './index.styles';
+import CopyRightImage from '../../../assets/images/landing/korea_copyright_commission.png';
+import PoliceImage from '../../../assets/images/landing/경찰청.png';
 
 interface CautionTextType {
   children: ReactNode;
@@ -32,10 +38,14 @@ export default function UploadCautionStep() {
 
   // TODO add images
   const organizationImages = (
-    <>
-      <img alt="한국저작권위원회" />
-      <img alt="경찰청" />
-    </>
+    <StyledImageRow>
+      <StyledImageContainer>
+        <StyledImage src={CopyRightImage} alt="한국저작권위원회" />
+      </StyledImageContainer>
+      <StyledImageContainer>
+        <StyledImage src={PoliceImage} alt="경찰청" />
+      </StyledImageContainer>
+    </StyledImageRow>
   );
 
   const refundPolicyIntroduction = (
