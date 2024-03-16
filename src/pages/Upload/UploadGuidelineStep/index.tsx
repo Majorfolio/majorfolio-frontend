@@ -140,7 +140,7 @@ export default function UploadGuidelineStep() {
 
   return (
     <StyledPageContainer>
-      {description}
+      {pageDescription}
       {checklist}
       <UploadSection items={[notice]} />
 
