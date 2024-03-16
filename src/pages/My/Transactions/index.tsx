@@ -28,6 +28,7 @@ import { getPurchases, getSales } from '../../../apis/payment';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 import { AuthLevel } from '../../../store/useAuthStore';
 import EmptyMaterialWrapper from '../../../components/common/EmptyContentWrapper';
+import { ColorType } from '../../../components/common/theme';
 
 type TransactionCardPropsType = {
   category: SaleKeys | PurchaseKeys;
@@ -52,12 +53,42 @@ export function TransactionCard({
   const tagText = Category[category];
   const navigate = useNavigate();
 
+  let tagBackgroundColor;
+  let tagColor;
+  switch (category) {
+    case 'beforePay':
+    case 'beforeRefund':
+    case 'pending':
+      tagBackgroundColor = 'sub_color/yellow/c';
+      tagColor = 'main_color/yellow_s';
+      break;
+    case 'afterPay':
+      tagBackgroundColor = 'sub_color/indigo/c';
+      tagColor = 'sub_color/indigo/p';
+      break;
+    case 'isDown':
+    case 'afterRefund':
+    case 'complete':
+      tagBackgroundColor = 'sub_color/green/c';
+      tagColor = 'sub_color/green/p';
+      break;
+    case 'cancel':
+      tagBackgroundColor = 'sub_color/red/c';
+      tagColor = 'sub_color/red/p';
+      break;
+    default:
+      tagBackgroundColor = 'sub_color/yellow/c';
+      tagColor = 'main_color/yellow_s';
+      break;
+  }
+  const b = tagBackgroundColor;
+
   const header = (
     <>
       <Row gap={11} pb={16}>
         <SmallTag
-          backgroundColor="sub_color/yellow/c"
-          color="main_color/yellow_s"
+          backgroundColor={tagBackgroundColor as ColorType}
+          color={tagColor as ColorType}
           weight="bold"
           size={10}
         >
