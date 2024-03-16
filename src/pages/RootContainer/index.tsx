@@ -8,9 +8,11 @@ import {
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 import RouteChangeTracker from '../../components/RouteChangeTracker';
+import useScrollToTop from '../../hooks/common/useScrollToTop';
 
 export default function RootContainer() {
   RouteChangeTracker();
+  useScrollToTop();
 
   return (
     <PageContainer>
