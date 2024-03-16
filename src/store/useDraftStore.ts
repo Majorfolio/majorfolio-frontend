@@ -1,5 +1,5 @@
 import { StateCreator, create } from 'zustand';
-import { PersistOptions, devtools, persist } from 'zustand/middleware';
+import { PersistOptions, persist } from 'zustand/middleware';
 
 interface DraftSlice {
   file: null | File;
