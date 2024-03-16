@@ -113,7 +113,7 @@ export function TransactionCard({
           자료 금액
         </Text>
         <Text color="gray/gray900" size={16} weight="bold">
-          {material.price}
+          {material.price.toLocaleString()}원
         </Text>
       </Row>
     </>
