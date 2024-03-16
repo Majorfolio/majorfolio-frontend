@@ -354,9 +354,9 @@ export default function UploadInProgresStep() {
           'NP',
           'P',
         ]}
-        searchQuery={score}
-        onSearchQueryUpdate={(newScore) => {
-          updateDraft({ score: newScore });
+        searchQuery={grade}
+        onSearchQueryUpdate={(newGrade) => {
+          updateDraft({ grade: newGrade });
           setHasScoreError(false);
         }}
         icon={hasScoreError ? <ErrorDefaultIcon /> : <span />}
