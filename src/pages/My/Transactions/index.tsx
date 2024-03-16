@@ -198,12 +198,13 @@ export default function Transactions() {
             </EmptyMaterialWrapper>
           )}
 
-          {(purchases?.beforePay && purchases?.beforePay?.length > 0) ||
-            (purchases?.beforeRefund && purchases?.beforeRefund?.length > 0 && (
-              <CardTitleWrapper>
-                <HomeTagCardTitle title="진행중" isViewAll />
-              </CardTitleWrapper>
-            ))}
+          {((purchases?.beforePay && purchases?.beforePay?.length > 0) ||
+            (purchases?.beforeRefund &&
+              purchases?.beforeRefund?.length > 0)) && (
+            <CardTitleWrapper>
+              <HomeTagCardTitle title="진행중" isViewAll />
+            </CardTitleWrapper>
+          )}
 
           {purchases?.beforePay?.map((purchase) => (
             <CardsWrapper>
@@ -217,12 +218,12 @@ export default function Transactions() {
             </CardsWrapper>
           ))}
 
-          {(purchases?.afterPay && purchases?.afterPay?.length > 0) ||
-            (purchases?.isDown && purchases?.isDown?.length > 0 && (
-              <CardTitleWrapper>
-                <HomeTagCardTitle title="구매 완료" isViewAll />
-              </CardTitleWrapper>
-            ))}
+          {((purchases?.afterPay && purchases?.afterPay?.length > 0) ||
+            (purchases?.isDown && purchases?.isDown?.length > 0)) && (
+            <CardTitleWrapper>
+              <HomeTagCardTitle title="구매 완료" isViewAll />
+            </CardTitleWrapper>
+          )}
 
           {purchases?.afterPay?.map((purchase) => (
             <CardsWrapper>
@@ -236,12 +237,12 @@ export default function Transactions() {
             </CardsWrapper>
           ))}
 
-          {(purchases?.cancel && purchases?.cancel?.length > 0) ||
-            (purchases?.afterRefund && purchases?.afterRefund?.length > 0 && (
-              <CardTitleWrapper>
-                <HomeTagCardTitle title="취소 및 환불" isViewAll />
-              </CardTitleWrapper>
-            ))}
+          {((purchases?.cancel && purchases?.cancel?.length > 0) ||
+            (purchases?.afterRefund && purchases?.afterRefund?.length > 0)) && (
+            <CardTitleWrapper>
+              <HomeTagCardTitle title="취소 및 환불" isViewAll />
+            </CardTitleWrapper>
+          )}
 
           {purchases?.cancel?.map((purchase) => (
             <CardsWrapper>
