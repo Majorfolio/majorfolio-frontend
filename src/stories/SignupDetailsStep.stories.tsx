@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import SignupDetailsStep from '../pages/Signup/SignupDetailsStep';
 
 const meta = {
-  title: 'SignupDetailsStep',
+  title: 'Pages/Signup/SignupDetailsStep',
   component: SignupDetailsStep,
   tags: ['autodocs'],
 } satisfies Meta;
@@ -12,8 +12,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    onNext: () => {
-      console.log('onNext invoked');
-    },
+    onNext: () => {},
   },
 };

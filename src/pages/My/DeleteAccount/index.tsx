@@ -10,7 +10,11 @@ import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { CloseDefaultIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
-import StyledPageContainer from '../../../components/common/UploadSection/index.styles';
+import { StyledBodyContianer } from '../../../components/common/Modal/index.styles';
+import StyledBottomButtonBar from '../../../components/common/BottomButtonBar/index.styles';
+import StyledButtonBarContainer from './index.styles';
+import { SomeContainer } from '../../Upload/UploadInProgressStep/index.styles';
+import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
 export default function DeleteAccount() {
   const navigate = useNavigate();
@@ -38,7 +42,7 @@ export default function DeleteAccount() {
   };
 
   return (
-    <PageContainer>
+    <>
       <SecondaryTopbar
         transition={
           <button type="button" onClick={() => navigate('../')}>
@@ -51,15 +55,17 @@ export default function DeleteAccount() {
           </Text>
         }
       />
-      <StyledBodyContainer>
-        <StyledPageContainer>
+      <StyledPageContainer>
+        <SomeContainer>
           <Description
             normalText="메이저폴리오의"
             boldText="탈퇴 사유를 선택해주세요"
           />
-        </StyledPageContainer>
-      </StyledBodyContainer>
-      <BottomButtonBar transitions={[secondaryTransition, primaryTransition]} />
-    </PageContainer>
+        </SomeContainer>
+        <BottomButtonBar
+          transitions={[secondaryTransition, primaryTransition]}
+        />
+      </StyledPageContainer>
+    </>
   );
 }

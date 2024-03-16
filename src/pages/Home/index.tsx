@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { ContentPageContainer, HomeContainer, NoMaterialWrapper } from './index.styles';
+import {
+  ContentPageContainer,
+  HomeContainer,
+  NoMaterialWrapper,
+} from './index.styles';
 import AllDivider from '../../components/common/AllDivider';
 import HomeCategoryButtonSection from '../../components/home/HomeCategoryButtonSection';
 import HomeContentPageTitle from '../../components/home/HomeContentPageTitle';
@@ -71,13 +75,17 @@ const Home = () => {
   const accessToken = useAuthStore((state) => state.accessToken);
   const authLevel = useAuthStore((state) => state.authLevel);
 
-  const [myNickname, setMyNickname] = useState<string>('');
+  const [myNickName, setMyNickName] = useState<string>('');
 
   useEffect(() => {
     const asyncEffect = async () => {
       if (authLevel === AuthLevel.Member && accessToken) {
         const { nickName } = await getMy(accessToken, refreshPayload);
+<<<<<<< HEAD
         setMyNickname(nickName);
+=======
+        setMyNickName(nickName);
+>>>>>>> main
       }
     };
     asyncEffect();
@@ -98,10 +106,16 @@ const Home = () => {
         break;
       case HOME_CATEGORY.MY_UNIV: // 1
         if (authStore) {
+<<<<<<< HEAD
           getMyUniv(authStore, refreshPayload).then((value) => {
             setHomeMaterials(value);
             setLoading(false);
           });
+=======
+          getMyUniv(authStore, refreshPayload).then((value) =>
+            setHomeMaterials(value),
+          );
+>>>>>>> main
           getMy(authStore, refreshPayload).then(({ univ }) => {
             setTitle(univ);
             recentMyUniv = materials
@@ -208,16 +222,34 @@ const Home = () => {
           <ContentPageContainer>
             <HomeContentPageTitle title={title} />
 
+<<<<<<< HEAD
             { homeMaterials.newUpload.length !== 0 ? (
               console.log(homeMaterials.newUpload.filter((material) => material.nickName !== myNickname)),
               console.log(myNickname),
               console.log(title),
               <>
+=======
+          {!(
+            (homeMaterials?.newUpload && homeMaterials.newUpload.length > 0) ||
+            (homeMaterials?.best && homeMaterials.best.length > 0) ||
+            (homeMaterials?.newUpload && homeMaterials?.newUpload.length > 0) ||
+            recentMaterials.length > 0
+          ) ? (
+            <NoMaterialWrapper>
+              <Text size={16} lineHeight="sm" color="gray/gray400">
+                보여줄 자료가 없어요
+              </Text>
+            </NoMaterialWrapper>
+          ) : (
+            <>
+              {homeMaterials?.newUpload && (
+>>>>>>> main
                 <HomeTagCardTitle
                   title="신규 등록 자료"
                   tag="new"
                   category={currentCategory}
                 />
+<<<<<<< HEAD
                 <HomeMaterialCardWrapper>
                   { homeMaterials.newUpload
                       .filter((material) => material.nickName !== myNickname)
@@ -346,11 +378,56 @@ const Home = () => {
                   <HomeMaterialCardSkeleton isBig={false} />
                   <HomeMaterialCardSkeleton isBig={false} />
                 </HomeMaterialCardWrapper>
+=======
+              )}
+              <HomeMaterialCardWrapper>
+                {homeMaterials?.newUpload ? (
+                  homeMaterials.newUpload
+                    .filter((material) => material.nickName !== myNickName)
+                    .map((material: Material) => {
+                      return (
+                        <HomeMaterialCard
+                          key={material.id}
+                          isBig={false}
+                          id={material.id}
+                          memberId={material.memberId}
+                          imageUrl={material.imageUrl}
+                          nickName={material.nickName}
+                          className={material.className}
+                          univ={material.univ}
+                          major={material.major}
+                          semester={material.semester}
+                          professor={material.professor}
+                          like={material.like}
+                          header={
+                            <MaterialSellerProfile
+                              nickName={material.nickName}
+                              hasReaction={false}
+                              memberId={material.memberId}
+                            />
+                          }
+                        />
+                      );
+                    })
+                ) : (
+                  <>
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                  </>
+                )}
+              </HomeMaterialCardWrapper>
+
+              {homeMaterials?.best && (
+>>>>>>> main
                 <HomeTagCardTitle
                   title="베스트 자료"
                   tag="hot"
                   category={currentCategory}
                 />
+<<<<<<< HEAD
                 <HomeMaterialCardWrapper>
                   <HomeMaterialCardSkeleton isBig={false} />
                   <HomeMaterialCardSkeleton isBig={false} />
@@ -390,6 +467,97 @@ const Home = () => {
           null
         )}
 
+=======
+              )}
+              <HomeMaterialCardWrapper>
+                {homeMaterials?.best ? (
+                  homeMaterials.best
+                    .filter((material) => material.nickName !== myNickName)
+                    .map((material: Material) => {
+                      return (
+                        <HomeMaterialCard
+                          key={material.id}
+                          isBig={false}
+                          id={material.id}
+                          memberId={material.memberId}
+                          imageUrl={material.imageUrl}
+                          nickName={material.nickName}
+                          className={material.className}
+                          univ={material.univ}
+                          major={material.major}
+                          semester={material.semester}
+                          professor={material.professor}
+                          like={material.like}
+                          header={
+                            <MaterialSellerProfile
+                              nickName={material.nickName}
+                              hasReaction={false}
+                              memberId={material.memberId}
+                            />
+                          }
+                        />
+                      );
+                    })
+                ) : (
+                  <>
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                  </>
+                )}
+              </HomeMaterialCardWrapper>
+
+              {recentMaterials.length > 0 && (
+                <HomeTagCardTitle
+                  title="최근에 본 자료"
+                  category={currentCategory}
+                />
+              )}
+              <HomeMaterialCardWrapper>
+                {recentMaterials ? (
+                  recentMaterials
+                    .filter((material) => material.nickName !== myNickName)
+                    .map((material: Material) => {
+                      return (
+                        <HomeMaterialCard
+                          key={material.id}
+                          isBig={false}
+                          id={material.id}
+                          memberId={material.memberId}
+                          imageUrl={material.imageUrl}
+                          nickName={material.nickName}
+                          className={material.className}
+                          univ={material.univ}
+                          major={material.major}
+                          semester={material.semester}
+                          professor={material.professor}
+                          like={material.like}
+                          header={
+                            <MaterialSellerProfile
+                              nickName={material.nickName}
+                              hasReaction={false}
+                              memberId={material.memberId}
+                            />
+                          }
+                        />
+                      );
+                    })
+                ) : (
+                  <>
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                    <HomeMaterialCardSkeleton isBig={false} />
+                  </>
+                )}
+              </HomeMaterialCardWrapper>
+            </>
+          )}
+        </ContentPageContainer>
+>>>>>>> main
       </HomeContainer>
 
       <BottomBar currentPath={Path.Home} />

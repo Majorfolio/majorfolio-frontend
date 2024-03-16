@@ -62,6 +62,8 @@ const RemittanceAdvice = () => {
           authStore,
           refreshPayload,
         );
+
+        navigate('/my/transactions');
         // TODO navigate to the previous page
         if (code === 9001) {
           alert('이미 송금을 한 구매 정보입니다.');

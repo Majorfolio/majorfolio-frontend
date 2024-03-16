@@ -19,7 +19,13 @@ const meta = {
     like: { control: 'number' },
     header: { control: 'ReactNode' },
   },
-  decorators: [(Story) => <MemoryRouter><Story /></MemoryRouter>],
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 } satisfies Meta;
 
 export default meta;
@@ -31,16 +37,16 @@ export const Default: Story = {
     isBig: true,
     id: 1,
     memberId: 1,
-    imageUrl: "null",
-    nickName: "엘사네올라프",
-    className: "게임 디자인과 기획",
-    univ: "건국대학교",
-    major: "컴퓨터공학부",
-    semester: "23-1",
-    professor: "홍길동",
-    like : 5,
-    header: "프로필",
-  }
+    imageUrl: 'null',
+    nickName: '엘사네올라프',
+    className: '게임 디자인과 기획',
+    univ: '건국대학교',
+    major: '컴퓨터공학부',
+    semester: '23-1',
+    professor: '홍길동',
+    like: 5,
+    header: '프로필',
+  },
 };
 
 export const SmallCard: Story = {
@@ -48,14 +54,14 @@ export const SmallCard: Story = {
     isBig: false,
     id: 1,
     memberId: 1,
-    imageUrl: "null",
-    nickName: "엘사네올라프",
-    className: "게임 디자인과 기획",
-    univ: "건국대학교",
-    major: "컴퓨터공학부",
-    semester: "23-1",
-    professor: "홍길동",
-    like : 5,
-    header: "프로필",
-  }
+    imageUrl: 'null',
+    nickName: '엘사네올라프',
+    className: '게임 디자인과 기획',
+    univ: '건국대학교',
+    major: '컴퓨터공학부',
+    semester: '23-1',
+    professor: '홍길동',
+    like: 5,
+    header: '프로필',
+  },
 };

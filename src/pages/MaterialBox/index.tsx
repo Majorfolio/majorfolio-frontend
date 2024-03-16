@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { upload } from '@testing-library/user-event/dist/upload';
 import {
   CardTitleWrapper,
   CardsWrapper,
@@ -23,6 +24,7 @@ import { downloadFile } from '../../apis/assignment';
 import useRequireAuth from '../../hooks/common/useRequireAuth';
 import Button from '../../components/common/Button';
 import Row from '../../components/common/Row';
+import EmptyMaterialWrapper from '../../components/common/EmptyContentWrapper';
 
 interface PurchasedItemType {
   id: number;
@@ -195,15 +197,18 @@ const MaterialBox = () => {
         />
         {selectedTab === 0 && (
           <div>
-            { !materialsByState?.beforePay &&
-              !materialsByState?.afterPay && 
-              !materialsByState?.downloadComplete ? (
-                <NoMaterialTextWrapper>
-                  <Text size={16} lineHeight='sm' color='gray/gray400'>자료함에 자료가 없어요.</Text>
-                </NoMaterialTextWrapper>
-              ) : (
-                <div>
-                  { materialsByState?.beforePay && materialsByState?.beforePay.length !== 0 &&
+            {!materialsByState?.beforePay &&
+            !materialsByState?.afterPay &&
+            !materialsByState?.downloadComplete ? (
+              <NoMaterialTextWrapper>
+                <Text size={16} lineHeight="sm" color="gray/gray400">
+                  자료함에 자료가 없어요.
+                </Text>
+              </NoMaterialTextWrapper>
+            ) : (
+              <div>
+                {materialsByState?.beforePay &&
+                  materialsByState?.beforePay.length !== 0 && (
                     <>
                       <CardTitleWrapper>
                         <HomeTagCardTitle title="결제 대기" isViewAll />
@@ -235,14 +240,17 @@ const MaterialBox = () => {
                                 memberId={material.memberId}
                               />
                             }
-                            onClick={() => handleBeforePayClick(material.buyInfoId)}
+                            onClick={() =>
+                              handleBeforePayClick(material.buyInfoId)
+                            }
                           />
                         ))}
-                      </CardsWrapper>              
+                      </CardsWrapper>
                     </>
-                  }
+                  )}
 
-                  { materialsByState?.afterPay && materialsByState?.afterPay.length !== 0 &&
+                {materialsByState?.afterPay &&
+                  materialsByState?.afterPay.length !== 0 && (
                     <>
                       <CardTitleWrapper>
                         <HomeTagCardTitle title="결제 완료" isViewAll />
@@ -264,7 +272,7 @@ const MaterialBox = () => {
                             like={material.like}
                             header={
                               <MaterialSellerProfile
-                              nickName={material.nickName}
+                                nickName={material.nickName}
                                 hasReaction={false}
                                 infoContent={material.updateDate
                                   .split('T')[0]
@@ -276,11 +284,12 @@ const MaterialBox = () => {
                             onClick={() => handleAfterPayClick(material.id)}
                           />
                         ))}
-                      </CardsWrapper>              
+                      </CardsWrapper>
                     </>
-                  }
+                  )}
 
-                  { materialsByState?.downloadComplete && materialsByState?.downloadComplete.length !== 0 &&
+                {materialsByState?.downloadComplete &&
+                  materialsByState?.downloadComplete.length !== 0 && (
                     <>
                       <CardTitleWrapper>
                         <HomeTagCardTitle title="구매 완료" isViewAll />
@@ -311,29 +320,32 @@ const MaterialBox = () => {
                                 memberId={material.memberId}
                               />
                             }
-                            onClick={() => handleDownloadCompleteClick(material.id)}
+                            onClick={() =>
+                              handleDownloadCompleteClick(material.id)
+                            }
                           />
                         ))}
-                      </CardsWrapper>              
+                      </CardsWrapper>
                     </>
-                  }                
-                </div>
-
-              )
-            }
+                  )}
+              </div>
+            )}
           </div>
         )}
 
         {selectedTab === 1 && (
           <div>
-            { uploadedMaterialsByState?.stopList?.length === 0 &&
-              uploadedMaterialsByState?.onSaleList?.length === 0 ? (
-                <NoMaterialTextWrapper>
-                  <Text size={16} lineHeight='sm' color='gray/gray400'>자료함에 자료가 없어요.</Text>
-                </NoMaterialTextWrapper>
-              ) : (
-                <div>
-                  { uploadedMaterialsByState?.stopList && uploadedMaterialsByState?.stopList.length !== 0 &&
+            {uploadedMaterialsByState?.stopList?.length === 0 &&
+            uploadedMaterialsByState?.onSaleList?.length === 0 ? (
+              <NoMaterialTextWrapper>
+                <Text size={16} lineHeight="sm" color="gray/gray400">
+                  자료함에 자료가 없어요.
+                </Text>
+              </NoMaterialTextWrapper>
+            ) : (
+              <div>
+                {uploadedMaterialsByState?.stopList &&
+                  uploadedMaterialsByState?.stopList.length !== 0 && (
                     <>
                       <CardTitleWrapper>
                         <HomeTagCardTitle title="판매 대기" isViewAll />
@@ -368,50 +380,52 @@ const MaterialBox = () => {
                             onClick={handleStopListClick}
                           />
                         ))}
-                      </CardsWrapper>              
+                      </CardsWrapper>
                     </>
-                  }
+                  )}
 
-                  { uploadedMaterialsByState?.onSaleList && uploadedMaterialsByState?.onSaleList.length !== 0 &&
+                {uploadedMaterialsByState?.onSaleList &&
+                  uploadedMaterialsByState?.onSaleList.length !== 0 && (
                     <>
                       <CardTitleWrapper>
                         <HomeTagCardTitle title="판매중" isViewAll />
                       </CardTitleWrapper>
                       <CardsWrapper>
-                        {uploadedMaterialsByState?.onSaleList?.map((material) => (
-                          <HomeMaterialCard
-                            key={material.id}
-                            isBig
-                            id={material.id}
-                            memberId={material.memberId}
-                            imageUrl={material.imageUrl}
-                            nickName={material.nickName}
-                            className={material.className}
-                            univ={material.univ}
-                            major={material.major}
-                            semester={material.semester}
-                            professor={material.professor}
-                            like={material.like}
-                            header={
-                              <MaterialSellerProfile
-                                nickName={material.nickName}
-                                hasReaction={false}
-                                infoContent={material.updateDate
-                                  .split('T')[0]
-                                  .replace(/-/g, '. ')}
-                                infoName="구매"
-                                memberId={material.memberId}
-                              />
-                            }
-                            onClick={handleOnSaleListClick}
-                          />
-                        ))}
-                      </CardsWrapper>                
+                        {uploadedMaterialsByState?.onSaleList?.map(
+                          (material) => (
+                            <HomeMaterialCard
+                              key={material.id}
+                              isBig
+                              id={material.id}
+                              memberId={material.memberId}
+                              imageUrl={material.imageUrl}
+                              nickName={material.nickName}
+                              className={material.className}
+                              univ={material.univ}
+                              major={material.major}
+                              semester={material.semester}
+                              professor={material.professor}
+                              like={material.like}
+                              header={
+                                <MaterialSellerProfile
+                                  nickName={material.nickName}
+                                  hasReaction={false}
+                                  infoContent={material.updateDate
+                                    .split('T')[0]
+                                    .replace(/-/g, '. ')}
+                                  infoName="구매"
+                                  memberId={material.memberId}
+                                />
+                              }
+                              onClick={handleOnSaleListClick}
+                            />
+                          ),
+                        )}
+                      </CardsWrapper>
                     </>
-                  }
-                </div>
-              )}
-
+                  )}
+              </div>
+            )}
           </div>
         )}
       </MaterialBoxContainer>

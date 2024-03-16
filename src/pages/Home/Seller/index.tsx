@@ -27,10 +27,11 @@ import Material from '../../../components/home/Material/index.types';
 import HomeMaterialCard from '../../../components/home/HomeMaterialCard';
 import MaterialSellerProfile from '../../../components/home/MaterialSellerProfile';
 import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardSkeleton';
+import Row from '../../../components/common/Row';
 
 interface SellerProfile {
   nickName: string;
-  univName: string;
+  univ: string;
   major: string;
   image_url: string;
   upload: number;
@@ -56,7 +57,7 @@ interface SellerMaterial {
 
 const initialProfile = {
   nickName: '',
-  univName: '',
+  univ: '',
   major: '',
   image_url: '',
   upload: 0,
@@ -75,7 +76,7 @@ export default function Seller() {
   );
   const navigate = useNavigate();
 
-  const { nickName, univName, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, image_url, upload, sell, follower } =
     sellerProfile!;
 
   useEffect(() => {
@@ -97,7 +98,7 @@ export default function Seller() {
   } = usePagination();
 
   const welcomeText = (
-    <Column pt={32}>
+    <Column>
       <Text color="gray/gray900" size={22} weight="bold" lineHeight="lg">
         {nickName}
       </Text>
@@ -106,11 +107,10 @@ export default function Seller() {
 
   const tags = (
     <>
-      <AllTagBig text={univName} color="blue" />
+      <AllTagBig text={univ} color="blue" />
       <AllTagBig text={`본 전공 - ${major}`} color="blue" />
     </>
   );
-  console.log(upload);
   const countInfoRow = (
     <MyProfileStatisticsNumber
       upload={upload}
@@ -197,10 +197,12 @@ export default function Seller() {
         <StyledProfileSection>
           <StyledProfileIntro>
             <StyledWelcomeSection>
-              <div>{welcomeText}</div>
+              <Row justify="space-between" pt={32}>
+                {welcomeText}
+                <StyledPortrait />
+              </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
-            <StyledPortrait />
           </StyledProfileIntro>
           {countInfoRow}
         </StyledProfileSection>

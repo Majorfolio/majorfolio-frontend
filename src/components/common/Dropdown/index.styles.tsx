@@ -51,7 +51,9 @@ export const StyledComboboxButton = styled(StyledText).attrs({
   border: ${(props) => `1px ${theme.color[props.borderColor]} solid`};
   border-radius: 6px;
 
-  background-color: ${theme.color['gray/white']};
+  && {
+    background-color: ${theme.color['gray/grayBG']};
+  }
 
   cursor: pointer;
   box-sizing: border-box;

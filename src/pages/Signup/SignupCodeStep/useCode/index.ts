@@ -32,7 +32,6 @@ export default function useCode() {
   const submitCode = async () => {
     const data = await validateCode(emailId, code, accessToken, refreshPayload);
     const { success, code: statusCode, message } = data;
-    console.log(data);
 
     if (statusCode === 1000) {
       return true;

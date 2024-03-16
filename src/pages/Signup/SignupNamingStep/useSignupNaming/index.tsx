@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { server } from 'typescript';
 import { ColorType } from '../../../../components/common/theme';
 import userStore from '../../../../store/userStore';
-import { validateNickname } from '../../../../apis/member';
+import { validateNickName } from '../../../../apis/member';
 import useAuthStore from '../../../../store/useAuthStore';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
@@ -19,76 +19,76 @@ const HELPER_TEXT = {
 export const KoreanAndEnglishRegex = /^[가-힣a-zA-Z]+$/;
 const whitespaceRegex = /\s/;
 
-const checkHasWhiteSpace = (nickname: string) => {
-  return whitespaceRegex.test(nickname);
+const checkHasWhiteSpace = (nickName: string) => {
+  return whitespaceRegex.test(nickName);
 };
 
 export default function useSignupNaming() {
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
-  const [nickname, setNickname] = useState('');
+  const [nickName, setNickName] = useState('');
   const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
     null,
   );
-  const [isNicknameVerifiedByServer, setIsNicknameVerifiedByServer] =
+  const [isNickNameVerifiedByServer, setIsNickNameVerifiedByServer] =
     useState<boolean>(false);
 
-  const hasKoreanOrEnglishOnly = KoreanAndEnglishRegex.test(nickname);
-  const hasMinimumLength = nickname.length >= 2;
-  const isNicknameEmpty = nickname.length === 0;
+  const hasKoreanOrEnglishOnly = KoreanAndEnglishRegex.test(nickName);
+  const hasMinimumLength = nickName.length >= 2;
+  const isNickNameEmpty = nickName.length === 0;
 
-  const canNicknameBeSubmitted =
+  const canNickNameBeSubmitted =
     hasMinimumLength && hasKoreanOrEnglishOnly && !serverErrorMessage;
-  const hasTextfieldError = !isNicknameEmpty && !canNicknameBeSubmitted;
+  const hasTextfieldError = !isNickNameEmpty && !canNickNameBeSubmitted;
 
   const helperText =
     (!!serverErrorMessage && serverErrorMessage) ||
-    (canNicknameBeSubmitted && HELPER_TEXT.SUCCESS) ||
-    (!canNicknameBeSubmitted && HELPER_TEXT.NONCOMPLIANT);
+    (canNickNameBeSubmitted && HELPER_TEXT.SUCCESS) ||
+    (!canNickNameBeSubmitted && HELPER_TEXT.NONCOMPLIANT);
 
-  const changeNickname = (event: ChangeEvent<HTMLInputElement>) => {
-    const nextNickname = event.target.value;
+  const changeNickName = (event: ChangeEvent<HTMLInputElement>) => {
+    const nextNickName = event.target.value;
     if (
-      checkHasWhiteSpace(nextNickname) ||
-      nextNickname.length > NICKNAME_MAX_LENGTH
+      checkHasWhiteSpace(nextNickName) ||
+      nextNickName.length > NICKNAME_MAX_LENGTH
     ) {
       return;
     }
 
-    setNickname(nextNickname);
+    setNickName(nextNickName);
     setServerErrorMessage(null);
   };
 
   const refreshPayload = useRefreshPayload();
 
-  const checkIsNicknameValid = async () => {
-    const { code } = await validateNickname(
-      nickname,
+  const checkIsNickNameValid = async () => {
+    const { code } = await validateNickName(
+      nickName,
       accessToken,
       refreshPayload,
     );
 
     if (code === 1000) {
-      setIsNicknameVerifiedByServer(true);
+      setIsNickNameVerifiedByServer(true);
       return true;
     }
     if (code === 6002) {
-      setIsNicknameVerifiedByServer(false);
+      setIsNickNameVerifiedByServer(false);
       setServerErrorMessage(HELPER_TEXT.ALREADY_IN_USE);
       return false;
     }
-    setIsNicknameVerifiedByServer(false);
+    setIsNickNameVerifiedByServer(false);
     setServerErrorMessage(HELPER_TEXT.UNKNOWN);
     return false;
   };
 
   return {
-    changeNickname,
+    changeNickName,
     hasTextfieldError,
-    canNicknameBeSubmitted,
+    canNickNameBeSubmitted,
     helperText,
-    checkIsNicknameValid,
-    isNicknameVerifiedByServer,
-    nickname,
+    checkIsNickNameValid,
+    isNickNameVerifiedByServer,
+    nickName,
   };
 }

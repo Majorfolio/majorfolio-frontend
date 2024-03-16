@@ -28,7 +28,7 @@ import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
 
 export default function MyMain() {
-  const { nickName, univName, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, image_url, upload, sell, follower } =
     useMyProfile();
   const navigate = useNavigate();
   const authLevel = useAuthStore((state) => state.authLevel);
@@ -50,7 +50,7 @@ export default function MyMain() {
   };
 
   const welcomeText = (
-    <Column pt={32}>
+    <Column>
       {authLevel === AuthLevel.Unverified && (
         <>
           <Text color="gray/gray900" size={22} weight="bold" lineHeight="lg">
@@ -91,7 +91,7 @@ export default function MyMain() {
 
   const tags = authLevel >= AuthLevel.Member && (
     <>
-      <AllTagBig text={univName} color="blue" />
+      <AllTagBig text={univ} color="blue" />
       <AllTagBig text={`본 전공 - ${major}`} color="blue" />
     </>
   );
@@ -110,11 +110,6 @@ export default function MyMain() {
   return (
     <>
       <SecondaryTopbar
-        transition={
-          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
-            <ArrowBackDefaultIcon />
-          </button>
-        }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
             MY
@@ -134,10 +129,11 @@ export default function MyMain() {
         <StyledProfileSection>
           <StyledProfileIntro>
             <StyledWelcomeSection>
-              <div>{welcomeText}</div>
+              <Row justify="center" pt={32}>
+                {welcomeText} <StyledPortrait />
+              </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
-            <StyledPortrait />
           </StyledProfileIntro>
           {countInfoRow}
         </StyledProfileSection>
@@ -158,7 +154,11 @@ export default function MyMain() {
             <RowButton
               type="button"
               text="쿠폰함"
-              onClick={() => navigate('/')}
+              onClick={() =>
+                activateModal('TO_BE_UPDATED', {
+                  primaryAction: () => {},
+                })
+              }
             />
           </>
         </Column>

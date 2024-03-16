@@ -24,13 +24,14 @@ import MaterialSellerProfile from '../../../components/home/MaterialSellerProfil
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
 import { getSellerMaterial } from '../../../apis/seller';
 import materials from '../../../apis/materials-dummy';
+import EmptyMaterialWrapper from '../../../components/common/EmptyContentWrapper';
 
 interface MyBookmarkType {
   materialId: number;
   nickName: string;
   profileUrl: string;
   className: string;
-  university: string;
+  univ: string;
   major: string;
   type: 'pdf';
   totalRecommend: number;
@@ -67,6 +68,7 @@ export default function Bookmarks() {
   } = useModal();
 
   const [sellerId, setSellerId] = useState<number>(0);
+  const canLoadMore = !isLoading && !hasLastPageReached;
 
   const refreshPayload = useRefreshPayload();
 
@@ -80,13 +82,11 @@ export default function Bookmarks() {
       refreshPayload,
     );
     const { code, result, status } = data;
-    console.log(data);
 
     newMaterials = result;
 
     if (status === 404 || code === 8001 || status === 500) {
       setHasLastPageReached(true);
-      setIsLoading(false);
       return;
     }
     // if (newMaterials?.end) setHasLastPageReached(true);
@@ -102,15 +102,15 @@ export default function Bookmarks() {
     }
 
     setPage(nextPage);
-    setIsLoading(false);
   };
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting && !isLoading && !hasLastPageReached) {
+    if (target.isIntersecting && canLoadMore) {
       setIsLoading(true);
       // 다음 페이지의 자료 불러오기
       loadMoreMaterials();
+      setIsLoading(false);
     }
   };
 
@@ -128,7 +128,18 @@ export default function Bookmarks() {
     return () => {
       observer.disconnect();
     };
-  }, [isLoading, allMaterials]);
+  }, [bottomRef.current]);
+
+  useEffect(() => {
+    console.log('bookmarks');
+    const asyncEffect = async () => {
+      setIsLoading(true);
+      // 다음 페이지의 자료 불러오기
+      loadMoreMaterials();
+      setIsLoading(false);
+    };
+    asyncEffect();
+  }, []);
 
   if (!isAuthLevelSatisfied) {
     return <span />;
@@ -148,53 +159,65 @@ export default function Bookmarks() {
           </Text>
         }
       />
-      <ViewAllContainer>
-        <CardTitleWrapper>
-          <HomeTagCardTitle title={tagCardTitle} tag="new" isViewAll />
-        </CardTitleWrapper>
-        <CardsWrapper>
-          {allMaterials?.myMaterialList &&
-            allMaterials.myMaterialList.map(
-              (material: MyBookmarkType, index) => {
-                return (
-                  <HomeMaterialCard
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    isBig
-                    nickName={material.nickName}
-                    imageUrl={material.profileUrl}
-                    className={material.className}
-                    univ={material.university}
-                    major={material.major}
-                    like={material.totalRecommend}
-                    id={0}
-                    memberId={0}
-                    semester="23-1"
-                    header={
-                      <MaterialSellerProfile
-                        nickName={material.nickName}
-                        hasReaction={false}
-                      />
-                    }
-                    onClick={() =>
-                      navigate(`/assignment/${material.materialId}/detail`)
-                    }
-                  />
-                );
-              },
+
+      {!(
+        allMaterials?.myMaterialList && allMaterials.myMaterialList.length
+      ) && (
+        <EmptyMaterialWrapper>
+          <Text size={16} lineHeight="sm" color="gray/gray400">
+            북마크한 자료가 없어요.
+          </Text>
+        </EmptyMaterialWrapper>
+      )}
+      {allMaterials?.myMaterialList && allMaterials.myMaterialList.length && (
+        <ViewAllContainer>
+          <CardTitleWrapper>
+            <HomeTagCardTitle title={tagCardTitle} tag="new" isViewAll />
+          </CardTitleWrapper>
+          <CardsWrapper>
+            {allMaterials?.myMaterialList &&
+              allMaterials.myMaterialList.map(
+                (material: MyBookmarkType, index) => {
+                  return (
+                    <HomeMaterialCard
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      isBig
+                      nickName={material.nickName}
+                      imageUrl={material.profileUrl}
+                      className={material.className}
+                      univ={material.univ}
+                      major={material.major}
+                      like={material.totalRecommend}
+                      id={0}
+                      memberId={0}
+                      semester="23-1"
+                      header={
+                        <MaterialSellerProfile
+                          nickName={material.nickName}
+                          hasReaction={false}
+                        />
+                      }
+                      onClick={() =>
+                        navigate(`/assignment/${material.materialId}/detail`)
+                      }
+                    />
+                  );
+                },
+              )}
+            {isLoading && (
+              <>
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+                <HomeMaterialCardSkeleton isBig />
+              </>
             )}
-          {isLoading && (
-            <>
-              <HomeMaterialCardSkeleton isBig />
-              <HomeMaterialCardSkeleton isBig />
-              <HomeMaterialCardSkeleton isBig />
-              <HomeMaterialCardSkeleton isBig />
-              <HomeMaterialCardSkeleton isBig />
-            </>
-          )}
-        </CardsWrapper>
-        <div ref={bottomRef} style={{ height: '10px' }} />
-      </ViewAllContainer>
+          </CardsWrapper>
+          {canLoadMore && <div ref={bottomRef} style={{ height: '10px' }} />}
+        </ViewAllContainer>
+      )}
     </>
   );
 }

@@ -1,7 +1,13 @@
 import React, { ReactNode } from 'react';
 import UploadSection from '../../../components/common/UploadSection';
 import Text from '../../../components/common/Text';
-import StyledCondition from './index.styles';
+import StyledCondition, {
+  StyledImage,
+  StyledImageContainer,
+  StyledImageRow,
+} from './index.styles';
+import CopyRightImage from '../../../assets/images/landing/korea_copyright_commission.png';
+import PoliceImage from '../../../assets/images/landing/경찰청.png';
 
 interface CautionTextType {
   children: ReactNode;
@@ -25,17 +31,40 @@ export default function UploadCautionStep() {
       자료의 정보 및 내용의 진실성에 대하여 메이저폴리오는 보증하지 않으며, 해당
       정보 및 게시물 저작권과 기타 법적 책임은 자료 등록자에게 있습니다. 자료 및
       게시물 내용의 불법적 이용, 무단 전재∙배포는 금지되어 있습니다. 저작권침해,
-      명예훼손 등 분쟁 요소 발견 시 한국저작권위원회와 사이버경찰청을 이용해
-      주시기 바랍니다.
+      명예훼손 등 분쟁 요소 발견 시{' '}
+      <Text color="gray/gray900" size={14} lineHeight="lg" weight="bold">
+        <a
+          href="http://www.copyright.or.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          한국저작권위원회
+        </a>
+      </Text>
+      와{' '}
+      <Text color="gray/gray900" size={14} lineHeight="lg" weight="bold">
+        <a
+          href="https://www.police.go.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          사이버경찰청
+        </a>
+      </Text>
+      을 이용해 주시기 바랍니다.
     </CautionText>
   );
 
   // TODO add images
   const organizationImages = (
-    <>
-      <img alt="한국저작권위원회" />
-      <img alt="경찰청" />
-    </>
+    <StyledImageRow>
+      <StyledImageContainer>
+        <StyledImage src={CopyRightImage} alt="한국저작권위원회" />
+      </StyledImageContainer>
+      <StyledImageContainer>
+        <StyledImage src={PoliceImage} alt="경찰청" />
+      </StyledImageContainer>
+    </StyledImageRow>
   );
 
   const refundPolicyIntroduction = (

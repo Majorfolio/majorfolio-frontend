@@ -79,7 +79,7 @@ export default function SignupDetailsStep({
 
     if (isSchoolValid && isAdmissionYearValid && isMajorValid && isMinorValid) {
       updateDetails({
-        universityName: school,
+        univ: school,
         studentId: Number(admissionYear.slice(0, 2)),
         major1: major,
         major2: minor,
