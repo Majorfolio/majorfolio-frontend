@@ -46,11 +46,7 @@ interface MaterialSellerProfileProps {
 
 function MaterialSellerProfile({
   id,
-<<<<<<< HEAD
   nickName,
-=======
-  nickName: nickname,
->>>>>>> main
   hasReaction,
   like = 0,
   bookmark = 0,
@@ -119,42 +115,6 @@ function MaterialSellerProfile({
   };
 
   return (
-<<<<<<< HEAD
-    <ProfileWrapper>
-      {!!memberId && (
-        <SellerInfoWrapper
-          as="button"
-          type="button"
-          onClick={() => {
-            navigate(`/seller/${memberId}`);
-          }}
-        >
-          <ProfileImageWrapper>
-            <CharacterSmall1Icon />
-          </ProfileImageWrapper>
-          <Text size={14} weight="bold" color="gray/gray900">
-            {' '}
-            {nickName}{' '}
-          </Text>
-        </SellerInfoWrapper>
-      )}
-      {!memberId && (
-        <SellerInfoWrapper>
-          <ProfileImageWrapper>
-            <CharacterSmall1Icon />
-          </ProfileImageWrapper>
-          <Text size={14} weight="bold" color="gray/gray900">
-            {' '}
-            {nickName}{' '}
-          </Text>
-        </SellerInfoWrapper>
-      )}
-
-      {hasReaction ? (
-        <ReactionWrapper>
-          <LikeWrapper>
-            <Text size={14} lineHeight="sm" color="gray/gray900">
-=======
     <>
       <Modal
         {...modalProps}
@@ -174,9 +134,8 @@ function MaterialSellerProfile({
               <CharacterSmall1Icon />
             </ProfileImageWrapper>
             <Text size={14} weight="bold" color="gray/gray900">
->>>>>>> main
               {' '}
-              {nickname}{' '}
+              {nickName}{' '}
             </Text>
           </SellerInfoWrapper>
         )}
@@ -187,7 +146,7 @@ function MaterialSellerProfile({
             </ProfileImageWrapper>
             <Text size={14} weight="bold" color="gray/gray900">
               {' '}
-              {nickname}{' '}
+              {nickName}{' '}
             </Text>
           </SellerInfoWrapper>
         )}
