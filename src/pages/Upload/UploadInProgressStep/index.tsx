@@ -188,7 +188,7 @@ export default function UploadInProgresStep() {
     if (code === 10012) {
       activateModal('REQUIRE_PHONE_NUMBER', {
         primaryAction: () => navigate(`../${UploadRoutes.PhoneNumber}`),
-        secondaryAction: () => navigate(-1),
+        secondaryAction: () => {},
       });
       return false;
     }
