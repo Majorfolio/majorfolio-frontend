@@ -53,6 +53,52 @@ function MaterialPostStatisticsNumber({
   );
 }
 
+interface SellerMaterialPostStatisticsNumberPropsType {
+  sell?: number | null;
+  view?: number | null;
+  reaction?: number | null;
+}
+
+export function SellerMaterialPostStatisticsNumber({
+  sell,
+  view,
+  reaction,
+}: SellerMaterialPostStatisticsNumberPropsType) {
+  return (
+    <StyledMyProfileNumberContainer>
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {sell || (sell === 0 ? 0 : '-')}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          판매
+        </Text>
+      </NumberWrapper>
+
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {view || (view === 0 ? view : '-')}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          조회
+        </Text>
+      </NumberWrapper>
+
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {reaction || reaction === 0 ? reaction : '-'}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          반응
+        </Text>
+      </NumberWrapper>
+    </StyledMyProfileNumberContainer>
+  );
+}
+
 interface MyProifleStatisticsNumberPropsType {
   upload?: number | null;
   sell?: number | null;

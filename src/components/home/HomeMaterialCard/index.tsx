@@ -1,4 +1,4 @@
-import React, { useRef, useState, MouseEvent, ReactNode } from 'react';
+import React, { useRef, useState, MouseEvent, ReactNode, useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -21,6 +21,9 @@ import {
   ReactionSmallIcon,
 } from '../../../assets/icons';
 import { addToLocalStorageArrayWithUniqueID } from '../LocalStorageUtils';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
+import { getMy } from '../../../apis/member';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 interface HomeMaterialCardProps {
   isBig?: boolean;
@@ -65,6 +68,13 @@ function HomeMaterialCard({
   } else {
     cardSize = '270px';
   }
+
+  const refreshPayload = useRefreshPayload();
+
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const authLevel = useAuthStore((state) => state.authLevel);
+
+  const [myNickName, setMyNickName] = useState<string>('');
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -112,9 +122,26 @@ function HomeMaterialCard({
       };
       addToLocalStorageArrayWithUniqueID('recent-materials', materialObj);
 
-      navigate(`/assignment/${id}/detail/${memberId}`);
+      // navigate(`/assignment/my/8/detail/5`); // 테스트용
+
+
+      if (nickName !== myNickName) {
+        navigate(`/assignment/${id}/detail/${memberId}`);
+      } else {
+        navigate(`/assignment/my/${id}/detail/${memberId}`);
+      }
     }
   };
+
+  useEffect(() => {
+    const asyncEffect = async () => {
+      if (authLevel === AuthLevel.Member && accessToken) {
+        const { nickName: fetchedNickName } = await getMy(accessToken, refreshPayload);
+        setMyNickName(fetchedNickName);
+      }
+    };
+    asyncEffect();
+  }, []);
 
   return (
     <CardWrapper

@@ -32,7 +32,10 @@ export type ModalCategoryType =
   | 'REQUIRE_SIGNIN'
   | 'FEEDBACK_INVALID_FORMAT'
   | 'AVAILABLE_ON_MOBILE'
-  | 'REGISTER_INCOMPLETE';
+  | 'REGISTER_INCOMPLETE'
+  | 'SALE_RESUME'
+  | 'SALE_REVIEW'
+  | 'SALE_PEND';
 
 interface ModalPropsType {
   category: ModalCategoryType | null;
@@ -57,6 +60,9 @@ const HIGHLIGHTED_WORDS = [
   '회원가입',
   '임시저장',
   '로그인',
+  '판매 중지',
+  '판매 검토 중',
+  '판매 보류',
 ];
 
 const MODAL_TEXTS = {
@@ -127,7 +133,7 @@ const MODAL_TEXTS = {
   },
   REQUIRE_SCHOOL_VERIFICATION: {
     TITLE: '학교 인증이 필요한 기능입니다.',
-    BODY: '믿을 수 있는 자료 공유이ㅡ 첫걸음. 학교인증을 통해 다양한 기능을 만나보세요.',
+    BODY: '믿을 수 있는 자료 공유의 첫걸음. 학교인증을 통해 다양한 기능을 만나보세요.',
     FOOTER: ['취소하기', '학교인증하기'],
   },
   REQUIRE_SIGNUP: {
@@ -159,6 +165,21 @@ const MODAL_TEXTS = {
     TITLE: '현재 사용할 수 없는 기능입니다.',
     BODY: '해당 기능은 상세정보 입력 및 약관동의가 완료된 후 사용할 수 있는 기능입니다. 이동할까요?',
     FOOTER: ['나중에', '이동하기'],
+  },
+  SALE_RESUME: {
+    TITLE: '이 자료는 판매 중지된 자료입니다.',
+    BODY: '상세페이지 하단의 판매 재개 버튼을 통해 언제든지 다시 판매할 수 있습니다.',
+    FOOTER: '확인하기',
+  },
+  SALE_REVIEW: {
+    TITLE: '이 자료는 판매 검토중인 자료입니다.',
+    BODY: '이 자료는 최근 업로드된 자료이며, 메이저폴리오 측에서 검토 중인 자료입니다.',
+    FOOTER: '확인하기',
+  },
+  SALE_PEND: {
+    TITLE: '이 자료는 판매 보류된 자료입니다.',
+    BODY: '이 자료는 메이저폴리오에 의해 판매가 보류된 자료입니다. 고객센터를 통해 문의해주세요.',
+    FOOTER: '확인하기',
   },
 };
 
