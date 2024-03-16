@@ -69,7 +69,7 @@ export default function UploadCollectPhoneNumberStep() {
       category="primary"
       onClick={async () => {
         await saveContact();
-        navigate(`/upload/${UploadRoutes.Guideline}`);
+        navigate(`/upload/${UploadRoutes.Guideline}`, { replace: true });
       }}
       disabled={!isContactValid}
     >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Description from '../../../components/common/Description';
 import {
   CheckboxDefaultIcon,
@@ -28,6 +28,7 @@ interface UploadGuidelineStepType {
 
 export default function UploadGuidelineStep() {
   const { navigateToNextStep, navigateToHome } = useNextStep();
+  const navigate = useNavigate();
   const {
     file,
     title,
@@ -70,7 +71,7 @@ export default function UploadGuidelineStep() {
       refreshPayload,
     );
     reset();
-    navigateToHome();
+    navigate('/', { replace: true });
   });
 
   const checklist = (
