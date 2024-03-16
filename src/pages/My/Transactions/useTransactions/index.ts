@@ -12,6 +12,7 @@ export type TransactionMaterial = Pick<
 > & {
   price: number;
   updateAt: string;
+  buyInfoId: number;
 };
 
 export type PurchaseKeys =
