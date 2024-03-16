@@ -31,7 +31,7 @@ import Row from '../../../components/common/Row';
 
 interface SellerProfile {
   nickName: string;
-  univName: string;
+  univ: string;
   major: string;
   image_url: string;
   upload: number;
@@ -57,7 +57,7 @@ interface SellerMaterial {
 
 const initialProfile = {
   nickName: '',
-  univName: '',
+  univ: '',
   major: '',
   image_url: '',
   upload: 0,
@@ -76,7 +76,7 @@ export default function Seller() {
   );
   const navigate = useNavigate();
 
-  const { nickName, univName, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, image_url, upload, sell, follower } =
     sellerProfile!;
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export default function Seller() {
 
   const tags = (
     <>
-      <AllTagBig text={univName} color="blue" />
+      <AllTagBig text={univ} color="blue" />
       <AllTagBig text={`본 전공 - ${major}`} color="blue" />
     </>
   );

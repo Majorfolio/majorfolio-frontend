@@ -28,7 +28,7 @@ import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
 
 export default function MyMain() {
-  const { nickName, univName, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, image_url, upload, sell, follower } =
     useMyProfile();
   const navigate = useNavigate();
   const authLevel = useAuthStore((state) => state.authLevel);
@@ -91,7 +91,7 @@ export default function MyMain() {
 
   const tags = authLevel >= AuthLevel.Member && (
     <>
-      <AllTagBig text={univName} color="blue" />
+      <AllTagBig text={univ} color="blue" />
       <AllTagBig text={`본 전공 - ${major}`} color="blue" />
     </>
   );

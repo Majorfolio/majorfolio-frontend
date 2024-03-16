@@ -125,11 +125,11 @@ const HomeViewAll = () => {
             );
           } else if (tag === 'undefined') {
             if (authStore) {
-              getMy(authStore, refreshPayload).then(({ univName }) => {
+              getMy(authStore, refreshPayload).then(({ univ }) => {
                 const recentMyUnivViewAll: MaterialViewAll = {
                   page: 1,
                   materialResponseList: recentMaterials
-                    .filter((item) => item.univ === univName)
+                    .filter((item) => item.univ === univ)
                     .slice(0, 10),
                   end: true,
                 };

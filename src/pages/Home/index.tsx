@@ -97,10 +97,10 @@ const Home = () => {
           getMyUniv(authStore, refreshPayload).then((value) =>
             setHomeMaterials(value),
           );
-          getMy(authStore, refreshPayload).then(({ univName }) => {
-            setTitle(univName);
+          getMy(authStore, refreshPayload).then(({ univ }) => {
+            setTitle(univ);
             recentMyUniv = materials
-              .filter((item) => item.univ === univName)
+              .filter((item) => item.univ === univ)
               .slice(0, 5);
             setRecentMaterials(recentMyUniv);
           });

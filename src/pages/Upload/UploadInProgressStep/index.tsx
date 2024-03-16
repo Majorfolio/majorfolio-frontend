@@ -54,7 +54,7 @@ export default function UploadInProgresStep() {
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
-  const { univName } = useMyProfile();
+  const { univ } = useMyProfile();
 
   const navigate = useNavigate();
   const { navigateToNextStep } = useNextStep();
@@ -263,7 +263,7 @@ export default function UploadInProgresStep() {
       <TextField
         id="title"
         type="text"
-        placeholder={univName}
+        placeholder={univ}
         text=""
         onTextChange={() => {}}
         disabled
