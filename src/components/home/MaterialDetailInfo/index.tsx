@@ -47,7 +47,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {title.length < 16 ? title : `${title.slice(0, 16)}...`}
+          {title?.length < 16 ? title : `${title.slice(0, 16)}...`}
         </Text>
       </InfoWrapper>
 
@@ -59,8 +59,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {univ}{' '}
+          {univ}
         </Text>
       </InfoWrapper>
 
@@ -72,8 +71,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {major}{' '}
+          {major}
         </Text>
       </InfoWrapper>
 
@@ -85,8 +83,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {semester}{' '}
+          {semester}
         </Text>
       </InfoWrapper>
 
@@ -110,8 +107,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {professor}{' '}
+          {professor}
         </Text>
       </InfoWrapper>
 
@@ -123,8 +119,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {grade}{' '}
+          {grade}
         </Text>
       </InfoWrapper>
 
@@ -136,8 +131,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {score}{' '}
+          {score}
         </Text>
       </InfoWrapper>
 
@@ -149,8 +143,7 @@ function MaterialDetailInfo({
           </Text>
         </InfoTitleWrapper>
         <Text size={14} lineHeight="sm" color="gray/gray900">
-          {' '}
-          {pages}{' '}
+          {pages}
         </Text>
       </InfoWrapper>
     </InfosWrapper>

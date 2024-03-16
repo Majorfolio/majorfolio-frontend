@@ -46,7 +46,7 @@ interface MaterialSellerProfileProps {
 
 function MaterialSellerProfile({
   id,
-  nickName: nickname,
+  nickName,
   hasReaction,
   like = 0,
   bookmark = 0,
@@ -135,7 +135,7 @@ function MaterialSellerProfile({
             </ProfileImageWrapper>
             <Text size={14} weight="bold" color="gray/gray900">
               {' '}
-              {nickname}{' '}
+              {nickName}{' '}
             </Text>
           </SellerInfoWrapper>
         )}
@@ -146,7 +146,7 @@ function MaterialSellerProfile({
             </ProfileImageWrapper>
             <Text size={14} weight="bold" color="gray/gray900">
               {' '}
-              {nickname}{' '}
+              {nickName}{' '}
             </Text>
           </SellerInfoWrapper>
         )}
