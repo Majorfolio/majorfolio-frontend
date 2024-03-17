@@ -7,7 +7,7 @@ import { ErrorDefaultIcon } from '../../../assets/icons';
 import Button from '../../../components/common/Button';
 import StyledValidationContainer from './index.styles';
 import useSignupNaming from './useSignupNaming';
-import userStore from '../../../store/userStore';
+import userStore from '../../../store/useUserStore';
 import { sendNewUser } from '../../../apis/member';
 import useAuthStore from '../../../store/useAuthStore';
 import Description from '../../../components/common/Description';

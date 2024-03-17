@@ -3,26 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import {
   StyledPortrait,
-  StyledProfileCountRow,
   StyledProfileIntro,
   StyledProfileSection,
   StyledTagSection,
   StyledWelcomeSection,
 } from './index.styles';
 import AllTagBig from '../../../components/common/AllTagBig';
-import MaterialPostStatisticsNumber, {
-  MyProfileStatisticsNumber,
-} from '../../../components/home/MaterialPostStatisticsNumber';
+import { MyProfileStatisticsNumber } from '../../../components/home/MaterialPostStatisticsNumber';
 import useMyProfile from './useMyProfile';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
-import { ArrowBackDefaultIcon, ViewMoreIcon } from '../../../assets/icons';
+import { ViewMoreIcon } from '../../../assets/icons';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
 import BottomBar, { Path } from '../../../components/common/BottomBar';
 import Column from '../../../components/common/Column';
 import RowButton from '../../../components/common/RowButton';
 import Row from '../../../components/common/Row';
-import useRequireAuth from '../../../hooks/common/useRequireAuth';
 import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';

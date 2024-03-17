@@ -12,7 +12,7 @@ import Button from '../../../components/common/Button';
 import { HelperCancelIcon } from '../../../assets/icons';
 import useSearchQueries from './useSearchQueries.tsx';
 import StyledButton from './index.styles';
-import userStore from '../../../store/userStore';
+import userStore from '../../../store/useUserStore';
 import TextField from '../../../components/common/TextField';
 import { KoreanAndEnglishRegex } from '../SignupNamingStep/useSignupNaming';
 

@@ -3,7 +3,7 @@ import useText from '../../../../hooks/common/useText';
 import useAuthStore from '../../../../store/useAuthStore';
 import { sendCodeToEmail, validateCode } from '../../../../apis/member';
 import useEmailStore from '../../../../store/useEmailStore';
-import useUserStore from '../../../../store/userStore';
+import useUserStore from '../../../../store/useUserStore';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 const validateEmail = (email: string): boolean => {

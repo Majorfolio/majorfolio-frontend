@@ -16,13 +16,14 @@ import StyledAgreeAllRow, {
 } from './index.styles';
 import Button from '../../../components/common/Button';
 import CheckboxWithIcon from '../../../components/common/CheckboxWithIcon';
-import userStore from '../../../store/userStore';
+import userStore from '../../../store/useUserStore';
 import useAuthStore from '../../../store/useAuthStore';
 import { sendNewUser } from '../../../apis/member';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
 import RowButton from '../../../components/common/RowButton';
 import StyledRow from '../../../components/common/Row/index.styles';
+import { changeProfileImage } from '../../../apis/my';
 
 interface SignupTermsAndConditionsStepPropsType {
   onNext?: () => void;
@@ -95,6 +96,7 @@ export default function SignupTermsAndConditionsStep({
         const { accessToken: newAccessToken } = result;
         setIsMember();
         refresh(newAccessToken, refreshToken);
+        await changeProfileImage(Math.floor(Math.random() * 8), newAccessToken);
       }
     }
   };

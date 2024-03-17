@@ -3,7 +3,7 @@ import { Server } from 'http';
 import { validateCode } from '../../../../apis/member';
 import useAuthStore from '../../../../store/useAuthStore';
 import useText from '../../../../hooks/common/useText';
-import useUserStore from '../../../../store/userStore';
+import useUserStore from '../../../../store/useUserStore';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 export enum ServerError {

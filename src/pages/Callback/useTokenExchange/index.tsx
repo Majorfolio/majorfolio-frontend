@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuthStore from '../../../store/useAuthStore';
-import useUserStore from '../../../store/userStore';
+import useUserStore from '../../../store/useUserStore';
 
 interface AuthType {
   isMember: boolean;

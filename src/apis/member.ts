@@ -1,4 +1,4 @@
-import { UserStateType } from '../store/userStore';
+import { UserStateType } from '../store/useUserStore';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 
 const MEMBER_API_COMMON_SEGMENT = '/member';

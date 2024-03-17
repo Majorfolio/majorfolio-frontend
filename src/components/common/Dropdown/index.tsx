@@ -133,6 +133,7 @@ export function Dropdown({
       aria-selected="false"
       onClick={() => {
         onSearchQueryUpdate(option);
+        setListboxToggle((currentListboxStatus) => !currentListboxStatus);
       }}
       onMouseDown={(event) => {
         event.preventDefault();
@@ -167,15 +168,18 @@ export function Dropdown({
           aria-haspopup="listbox"
           aria-expanded="false"
           aria-controls="select-dropdown"
-          onFocus={() => {
-            setListboxToggle(true);
-            if (onFocus !== undefined) {
-              onFocus();
-            }
+          onClick={() => {
+            setListboxToggle((currentListboxStatus) => !currentListboxStatus);
           }}
-          onBlur={() => {
-            setListboxToggle(false);
-          }}
+          // onFocus={() => {
+          //   setListboxToggle(true);
+          //   if (onFocus !== undefined) {
+          //     onFocus();
+          //   }
+          // }}
+          // onBlur={() => {
+          //   setListboxToggle(false);
+          // }}
           // onClick={() => {
           //   setListboxToggle((currentToggle) => !currentToggle);
           //   // if (onFocus !== undefined) {
