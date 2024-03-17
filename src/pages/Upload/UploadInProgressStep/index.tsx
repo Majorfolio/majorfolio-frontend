@@ -258,8 +258,10 @@ export default function UploadInProgresStep() {
       placeholder="자료 제목 (필수)"
       text={title}
       onTextChange={(event) => {
-        updateDraft({ title: event.target.value });
-        setHasTitleError(false);
+        if (event.target.value.length <= 15) {
+          updateDraft({ title: event.target.value });
+          setHasTitleError(false);
+        }
       }}
       hasError={hasTitleError}
       icon={
@@ -303,8 +305,10 @@ export default function UploadInProgresStep() {
         placeholder="학과 (필수)"
         text={major}
         onTextChange={(event) => {
-          updateDraft({ major: event.target.value });
-          setHasMajorError(false);
+          if (event.target.value.length <= 15) {
+            updateDraft({ major: event.target.value });
+            setHasMajorError(false);
+          }
         }}
         hasError={hasMajorError}
         icon={
@@ -377,8 +381,10 @@ export default function UploadInProgresStep() {
         placeholder="수업명 (필수)"
         text={className}
         onTextChange={(event) => {
-          updateDraft({ className: event.target.value });
-          setHasClassNameError(false);
+          if (event.target.value.length <= 15) {
+            updateDraft({ className: event.target.value });
+            setHasClassNameError(false);
+          }
         }}
         hasError={hasClassNameError}
         icon={
@@ -404,8 +410,10 @@ export default function UploadInProgresStep() {
         placeholder="교수명 (선택)"
         text={professor}
         onTextChange={(event) => {
-          updateDraft({ professor: event.target.value });
-          setHasProfessorError(false);
+          if (event.target.value.length <= 15) {
+            updateDraft({ professor: event.target.value });
+            setHasProfessorError(false);
+          }
         }}
         hasError={hasProfessorError}
         icon={
@@ -537,8 +545,10 @@ export default function UploadInProgresStep() {
         placeholder="자료 설명"
         text={description}
         onTextChange={(event) => {
-          updateDraft({ description: event.target.value });
-          setHasDescriptionError(false);
+          if (event.target.value.length <= 80) {
+            updateDraft({ description: event.target.value });
+            setHasDescriptionError(false);
+          }
         }}
         icon={
           hasDescriptionError ? (
