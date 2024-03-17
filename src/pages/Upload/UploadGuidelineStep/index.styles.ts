@@ -16,7 +16,6 @@ export const StyledContentSection = styled.div`
 
 export const StyledBodyContainer = styled.div`
   flex: 1;
-  height: 100%;
 `;
 
 export const StyledIconTextRow = styled.li`

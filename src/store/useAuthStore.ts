@@ -33,6 +33,7 @@ type AuthStateType = {
   restoreCredentials: () => void;
   refresh: (accessToken: string, refreshToken: string) => void;
   setIsMember: () => void;
+  elevateAuthLevel: () => void;
 };
 
 const useAuthStore = create<AuthStateType>((set, get) => ({
@@ -122,6 +123,13 @@ const useAuthStore = create<AuthStateType>((set, get) => ({
       ...state,
       accessToken: undefined,
       authLevel: AuthLevel.Guest,
+    }));
+  },
+
+  elevateAuthLevel() {
+    set((state) => ({
+      ...state,
+      authLevel: get().authLevel + 1,
     }));
   },
 }));

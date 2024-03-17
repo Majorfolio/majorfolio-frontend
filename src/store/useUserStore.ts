@@ -1,9 +1,11 @@
 import { create } from 'zustand';
 
+// TODO change universityName to univ
 export interface UserStateType {
   emailId: null | number;
   nickName: string;
-  universityName: string;
+  univ: string;
+  universityName?: string;
   studentId: null | number;
   major1: string;
   major2: string;
@@ -12,17 +14,14 @@ export interface UserStateType {
   marketingAgree: boolean;
   updateEmail: (newEmailId: number) => void;
   updateDetails: (
-    details: Pick<
-      UserStateType,
-      'universityName' | 'studentId' | 'major1' | 'major2'
-    >,
+    details: Pick<UserStateType, 'studentId' | 'major1' | 'major2' | 'univ'>,
   ) => void;
-  updateNickname: (nickname: string) => void;
+  updateNickName: (nickName: string) => void;
 }
 
 const initialState = {
   nickName: '',
-  universityName: '',
+  univ: '',
   studentId: null,
   major1: '',
   major2: '',
@@ -42,17 +41,17 @@ const useUserStore = create<UserStateType>((set, get) => ({
     }));
   },
 
-  updateDetails({ universityName, studentId, major1, major2 }) {
+  updateDetails({ univ, studentId, major1, major2 }) {
     set((state) => ({
       ...state,
-      universityName,
+      univ,
       studentId,
       major1,
       major2,
     }));
   },
 
-  updateNickname(newNickName: string) {
+  updateNickName(newNickName: string) {
     set((state) => ({
       ...state,
       nickName: newNickName,

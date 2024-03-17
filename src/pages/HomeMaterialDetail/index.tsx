@@ -32,12 +32,14 @@ import Modal from '../../components/common/Modal';
 import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
+import useRefreshPayload from '../../hooks/common/useRefreshPayload';
+import MaterialPostStatisticsDescription from '../../components/home/MaterialPostStatisticsDescription';
 
 const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
     null,
   );
-  const { materialId } = useParams();
+  const { materialId, memberId } = useParams();
   const navigate = useNavigate();
   const {
     modalRef,
@@ -47,19 +49,44 @@ const HomeMaterialDetail = () => {
     closeSecondarily,
   } = useModal();
   const authLevel = useAuthStore((state) => state.authLevel);
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const refreshPayload = useRefreshPayload();
 
   const [hasUserMaterial, setHasUserMaterial] = useState<boolean>(true);
 
   const canPurchaseMaterial = authLevel >= AuthLevel.Member && !hasUserMaterial;
 
+  const [likes, setLikes] = useState<number>(0);
+  const [bookmarks, setBookmarks] = useState<number>(0);
+  const [hasMemberLiked, setHasMemberLiked] = useState<boolean>(false);
+  const [hasMemberBookmarked, setHasMemberBookmarked] =
+    useState<boolean>(false);
+  const reactions = likes + bookmarks;
+
   useEffect(() => {
-    if (materialId) {
-      getMaterialDetail(parseInt(materialId, 10)).then((data) => {
+    window.scrollTo(0, 0);
+    if (authLevel === AuthLevel.Member && materialId) {
+      getMaterialDetail(
+        parseInt(materialId, 10),
+        accessToken,
+        refreshPayload,
+      ).then((data) => {
         const { result } = data;
         if (result) {
           setMaterialDetail(result);
           const { isMemberBookmark, isMemberBuy, isMemberLike } = result;
           setHasUserMaterial(isMemberBuy);
+          setLikes(result.like);
+          setBookmarks(result.bookmark);
+          setHasMemberLiked(isMemberLike);
+          setHasMemberBookmarked(isMemberBookmark);
+        }
+      });
+    } else if (materialId) {
+      getMaterialDetail(parseInt(materialId, 10)).then((data) => {
+        const { result } = data;
+        if (result) {
+          setMaterialDetail(result);
         }
       });
     }
@@ -80,7 +107,7 @@ const HomeMaterialDetail = () => {
         }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            자세히보기
+            {materialDetail.className}
           </Text>
         }
         icons={[
@@ -117,15 +144,39 @@ const HomeMaterialDetail = () => {
 
       <DetailContainer>
         <HomeMaterialDetailContainer>
-          <MaterialDetailPreview image={materialDetail.imageUrl} />
+          <MaterialDetailPreview
+            image={materialDetail.imageUrl}
+            materialId={materialDetail.id}
+          />
 
           <ProfileWrapper>
             <MaterialSellerProfile
               id={materialDetail.id}
-              nickname={materialDetail.nickName}
+              nickName={materialDetail.nickName}
               hasReaction
-              like={materialDetail.like}
-              bookmark={materialDetail.bookmark}
+              like={likes}
+              bookmark={bookmarks}
+              hasMemberLiked={hasMemberLiked}
+              hasMemberBookmarked={hasMemberBookmarked}
+              toggleLike={() => {
+                const newLikeStatus = !hasMemberLiked;
+                setHasMemberLiked(newLikeStatus);
+                setLikes((currentLikes) =>
+                  newLikeStatus
+                    ? currentLikes + 1
+                    : Math.max(0, currentLikes - 1),
+                );
+              }}
+              toggleBookmark={() => {
+                const newBookmarkStatus = !hasMemberBookmarked;
+                setHasMemberBookmarked(newBookmarkStatus);
+                setBookmarks((currentBookmarks) =>
+                  newBookmarkStatus
+                    ? currentBookmarks + 1
+                    : Math.max(0, currentBookmarks - 1),
+                );
+              }}
+              memberId={Number(memberId)}
             />
           </ProfileWrapper>
           <AllDividerThin />
@@ -142,7 +193,7 @@ const HomeMaterialDetail = () => {
             <MaterialPostStatisticsNumber
               sell={materialDetail.sell}
               follower={materialDetail.follower}
-              reaction={materialDetail.bookmark + materialDetail.like}
+              reaction={reactions}
             />
           </StatisticsNumberWrapper>
 
@@ -150,10 +201,10 @@ const HomeMaterialDetail = () => {
 
           <MaterialDetailInfo
             title={materialDetail.title}
-            university={materialDetail.university}
+            univ={materialDetail.univ}
             major={materialDetail.major}
             semester={materialDetail.semester}
-            subjectTitle={materialDetail.subjectTitle}
+            className={materialDetail.className}
             professor={materialDetail.professor}
             grade={materialDetail.grade}
             score={materialDetail.score}
@@ -183,10 +234,20 @@ const HomeMaterialDetail = () => {
   ) : (
     // skeleton
     <HomeMaterialDetailContainer>
-      <MaterialDetailPreview image="" />
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title=""
+        icons={["", "",]}
+      />
+
+      <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
-        <MaterialSellerProfile nickname="-" hasReaction={false} />
+        <MaterialSellerProfile nickName="-" hasReaction={false} />
       </ProfileWrapper>
       <AllDividerThin />
 
@@ -202,10 +263,10 @@ const HomeMaterialDetail = () => {
 
       <MaterialDetailInfo
         title=""
-        university=""
+        univ=""
         major=""
         semester=""
-        subjectTitle=""
+        className=""
         professor=""
         grade=""
         score={0}

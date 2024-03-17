@@ -1,8 +1,9 @@
-import React, { FormEvent, MouseEvent } from 'react';
+import React, { FormEvent, MouseEvent, ReactNode } from 'react';
 import { BottomBarContainer, StickyContainer } from '../BottomBar/index.styles';
 import Button from '../Button';
 import Text from '../Text';
-import StyledBottomButtonBar from './index.styles';
+import StyledBottomButtonBar, { StyledDividerContainer } from './index.styles';
+import AllDividerThin from '../AllDividerThin';
 
 type BottomButtonBarType = {
   transitions: {
@@ -16,11 +17,18 @@ type BottomButtonBarType = {
   }[];
 };
 
+export function BottomBar({ children }: { children: ReactNode }) {
+  return <StickyContainer>{children}</StickyContainer>;
+}
+
 export default function BottomButtonBar({ transitions }: BottomButtonBarType) {
   if (transitions.length === 2) {
     const [secondaryTransition, primaryTransition] = transitions;
     return (
       <StickyContainer>
+        <StyledDividerContainer>
+          <AllDividerThin />
+        </StyledDividerContainer>
         <StyledBottomButtonBar>
           <Button
             type="button"
@@ -41,7 +49,7 @@ export default function BottomButtonBar({ transitions }: BottomButtonBarType) {
             type="button"
             category="primary"
             onClick={primaryTransition.onAction}
-            disabled={secondaryTransition.disabled}
+            disabled={primaryTransition.disabled}
           >
             <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
               {primaryTransition.text}
@@ -57,7 +65,11 @@ export default function BottomButtonBar({ transitions }: BottomButtonBarType) {
     return (
       <StickyContainer>
         <StyledBottomButtonBar>
-          <Button onClick={primaryTransition.onAction} category="primary">
+          <Button
+            onClick={primaryTransition.onAction}
+            category="primary"
+            disabled={primaryTransition.disabled}
+          >
             <Text size={16} weight="bold" lineHeight="sm">
               {primaryTransition.text}
             </Text>

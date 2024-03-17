@@ -11,6 +11,7 @@ import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import StyledPageContainer from '../Upload/UploadDefaultStep/index.styles';
 import SignupTermsAndConditionsStep from './SignupTermsAndConditionsStep';
 import { SecondaryTopbar } from '../../components/common/TopBar';
+import TermsAndConditionsDetailStep from './TermsAndConditionsDetailStep';
 
 interface SignupPropsType {
   isEmailConfirmed?: boolean;
@@ -20,8 +21,9 @@ enum SignupStep {
   Email,
   Code,
   Details,
-  Nickname,
+  NickName,
   TermsAndConditions,
+  TermsAndConditionsDetails,
 }
 
 export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
@@ -32,6 +34,18 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
     AuthLevel.Verified,
   );
   const authLevel = useAuthStore((state) => state.authLevel);
+  const [selectedTab, setSelectedTab] = useState<number>(-1);
+
+  const title =
+    selectedTab === -1
+      ? '개인정보'
+      : selectedTab === 0
+        ? '서비스 이용약관'
+        : selectedTab === 1
+          ? '개인정보처리방식'
+          : selectedTab === 2
+            ? '광고성 마케팅 수신'
+            : '개인정보';
 
   useEffect(() => {
     if (authLevel === AuthLevel.Verified) {
@@ -45,17 +59,32 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
     );
   }
 
+  const changeSelectedTab = (newTab: number) => {
+    setSelectedTab(newTab);
+  };
+
   return (
     <>
       <SecondaryTopbar
         transition={
-          <button type="button" onClick={() => navigate('/')} aria-label="prev">
+          <button
+            type="button"
+            onClick={() => {
+              if (selectedTab >= 0) {
+                setStep(SignupStep.TermsAndConditions);
+                setSelectedTab(-1);
+                return;
+              }
+              navigate('/');
+            }}
+            aria-label="prev"
+          >
             <ArrowBackDefaultIcon />
           </button>
         }
         title={
           <Text size={18} weight="bold" lineHeight="sm" color="gray/gray900">
-            개인정보
+            {title}
           </Text>
         }
       />
@@ -70,9 +99,9 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
           />
         )}
         {step === SignupStep.Details && (
-          <SignupDetailsStep onNext={() => setStep(SignupStep.Nickname)} />
+          <SignupDetailsStep onNext={() => setStep(SignupStep.NickName)} />
         )}
-        {step === SignupStep.Nickname && (
+        {step === SignupStep.NickName && (
           <SignupNamingStep
             onNext={() => setStep(SignupStep.TermsAndConditions)}
           />
@@ -80,6 +109,17 @@ export default function Signup({ isEmailConfirmed = false }: SignupPropsType) {
         {step === SignupStep.TermsAndConditions && (
           <SignupTermsAndConditionsStep
             onNext={() => navigate('/', { replace: true })}
+            onDetails={() => setStep(SignupStep.TermsAndConditionsDetails)}
+            changeSelectedTab={changeSelectedTab}
+          />
+        )}
+        {step === SignupStep.TermsAndConditionsDetails && (
+          <TermsAndConditionsDetailStep
+            selectedTab={selectedTab}
+            onPrevious={() => {
+              setStep(SignupStep.TermsAndConditions);
+              setSelectedTab(-1);
+            }}
           />
         )}
       </StyledPageContainer>

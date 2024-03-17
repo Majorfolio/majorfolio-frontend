@@ -5,6 +5,7 @@ import Landing from './Landing/Landing';
 import Home from './Home';
 import HomeViewAll from './HomeViewAll';
 import HomeMaterialDetail from './HomeMaterialDetail';
+import Preview from './Preview';
 import Cart from './Cart';
 import MaterialBox from './MaterialBox';
 import Signin from './Signin';
@@ -36,6 +37,8 @@ import FAQList from './My/FAQList';
 import UploadGuideline from './My/UploadGuideline';
 import Caution from './My/Caution';
 import My from './My';
+import Seller from './Home/Seller';
+import SellerMaterialDetail from './HomeMaterialDetail/SellerMaterialDetail';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -60,8 +63,24 @@ const Router = () => {
           element: <HomeViewAll />,
         },
         {
+          path: '/assignment/:materialId/detail/:memberId',
+          element: <HomeMaterialDetail />,
+        },
+        {
           path: '/assignment/:materialId/detail',
           element: <HomeMaterialDetail />,
+        },
+        {
+          path: '/assignment/my/:materialId/detail/:memberId',
+          element: <SellerMaterialDetail />,
+        },
+        {
+          path: '/assignment/my/:materialId/detail',
+          element: <SellerMaterialDetail />,
+        },
+        {
+          path: '/assignment/:materialId/preview',
+          element: <Preview />,
         },
         {
           path: '/buy-now/:materialId',
@@ -116,6 +135,10 @@ const Router = () => {
               element: <UploadCollectPhoneNumberStep />,
             },
           ],
+        },
+        {
+          path: 'seller/:sellerId',
+          element: <Seller />,
         },
         {
           path: 'my',

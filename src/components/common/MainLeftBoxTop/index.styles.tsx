@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "../theme";
 
 export const LeftBoxTopContainer = styled.section`
+  width: 468px;
   height: 720px;
   display: flex;
   flex-direction: column;
@@ -34,9 +35,24 @@ export const DescriptionMainTextWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const BottomWrapper = styled.div`
+export const BottomBanner = styled.img`
+  width: 468px;
+  min-width: 100%;
+  height: 108px;
+  border-radius: 6px;
+  object-fit: cover;
+  scroll-snap-align: start;
+`;
+
+export const BottomBannerWrapper = styled.div`
   width: 468px;
   height: 108px;
   border-radius: 6px;
   background-color: ${ theme.color['sub_color/indigo/s'] };
+  display: flex;
+
+  /* 좌우 스크롤 설정 */
+  flex-direction: row;
+  overflow: auto hidden;
+  scroll-snap-type: x mandatory;
 `;

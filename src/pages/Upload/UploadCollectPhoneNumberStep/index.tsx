@@ -68,9 +68,8 @@ export default function UploadCollectPhoneNumberStep() {
       type="button"
       category="primary"
       onClick={async () => {
-        console.log('안녕');
         await saveContact();
-        navigate(`/upload/${UploadRoutes.Guideline}`);
+        navigate(`/upload/${UploadRoutes.Guideline}`, { replace: true });
       }}
       disabled={!isContactValid}
     >

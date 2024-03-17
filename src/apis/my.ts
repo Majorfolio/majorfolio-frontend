@@ -5,6 +5,8 @@ const MY_API_COMMON_SEGMENT = '/my';
 
 const MY_API_PATH_SEGEMENTS = {
   MY_PROFILE: '/my/',
+  CHANGE_PROFILE_IMAGE: '/my/image',
+  CHANGE_PROFILE: '/my/change',
 };
 
 const getMyProfile = async (
@@ -64,6 +66,63 @@ export const getMyLikes = async (
 
   const data = await fetchWithTokenRetry(
     `${process.env.REACT_APP_API_URL}/my/like?page=${page}&pageSize=${pageSize}`,
+    requestOptions,
+    refreshPayload,
+  );
+
+  return data;
+};
+
+export const changeProfileImage = async (
+  imageIndex: number,
+  accessToken: string,
+) => {
+  const body = {
+    profile_image: imageIndex,
+  };
+
+  const requestOptions = {
+    method: HTTP_METHODS.PATCH,
+    headers: {
+      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(body),
+  };
+
+  const data = await fetch(
+    `${process.env.REACT_APP_API_URL}${MY_API_PATH_SEGEMENTS.CHANGE_PROFILE_IMAGE}`,
+    requestOptions,
+  );
+
+  return data;
+};
+
+export interface Profile {
+  nickName: string;
+  major1: string;
+  major2: string;
+  studentId: number;
+  phoneNumber: string;
+  profile_image: number | string;
+}
+
+export const editProfile = async (
+  profile: Partial<Omit<Profile, 'profile_image'>>,
+  accessToken: string,
+  refreshPayload: RetryPayload,
+) => {
+  const requestOptions = {
+    method: HTTP_METHODS.PATCH,
+    headers: {
+      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+      [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(profile),
+  };
+
+  const data = await fetchWithTokenRetry(
+    `${process.env.REACT_APP_API_URL}${MY_API_PATH_SEGEMENTS.CHANGE_PROFILE}`,
     requestOptions,
     refreshPayload,
   );

@@ -18,6 +18,15 @@ export { ReactComponent as CharacterSmall5Icon } from './ico_character_small_05.
 export { ReactComponent as CharacterSmall6Icon } from './ico_character_small_06.svg';
 export { ReactComponent as CharacterSmall7Icon } from './ico_character_small_07.svg';
 export { ReactComponent as CharacterSmall8Icon } from './ico_character_small_08.svg';
+export { ReactComponent as CharacterLarge1Icon } from './ico_character_large_01.svg';
+export { ReactComponent as CharacterLarge2Icon } from './ico_character_large_02.svg';
+export { ReactComponent as CharacterLarge3Icon } from './ico_character_large_03.svg';
+export { ReactComponent as CharacterLarge4Icon } from './ico_character_large_04.svg';
+export { ReactComponent as CharacterLarge5Icon } from './ico_character_large_05.svg';
+export { ReactComponent as CharacterLarge6Icon } from './ico_character_large_06.svg';
+export { ReactComponent as CharacterLarge7Icon } from './ico_character_large_07.svg';
+export { ReactComponent as CharacterLarge8Icon } from './ico_character_large_08.svg';
+
 export { ReactComponent as CheckboxUnselectedIcon } from './ico_check_box_outline_blank.svg';
 export { ReactComponent as CheckboxDefaultIcon } from './ico_check_box-2.svg';
 export { ReactComponent as CheckboxFilledIcon } from './ico_check_box-1.svg';
@@ -26,6 +35,7 @@ export { ReactComponent as RadioUnselectedIcon } from './ico_choice-1.svg';
 export { ReactComponent as RadioSelectedIcon } from './ico_choice.svg';
 export { ReactComponent as ClassDefaultIcon } from './ico_class.svg';
 export { ReactComponent as CloseDefaultIcon } from './ico_close.svg';
+export { ReactComponent as CloseWhiteIcon } from './ico_close_white.svg';
 export { ReactComponent as CoffeeDefaultIcon } from './ico_coffee.svg';
 export { ReactComponent as CouponDefaultIcon } from './ico_coupon.svg';
 export { ReactComponent as CouponGreyIcon } from './ico_coupon_grey.svg';

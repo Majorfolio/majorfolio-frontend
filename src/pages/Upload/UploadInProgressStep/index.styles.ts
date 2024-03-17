@@ -18,6 +18,7 @@ export const StyledDescriptionSectionItem = styled.div`
   position: relative;
 `;
 
+// TODO render buttombuttonbar without expanding sibling
 export const SomeContainer = styled.div`
   flex: 1;
 `;

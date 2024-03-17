@@ -20,6 +20,7 @@ interface DropdownPropsType {
   onFocus?: () => void;
   searchQuery: string;
   onSearchQueryUpdate: (value: string) => void;
+  hasError?: boolean;
 }
 
 export default function SearchableDropdown({
@@ -27,6 +28,7 @@ export default function SearchableDropdown({
   options,
   borderColor = 'gray/gray100',
   borderColorOnFocus = 'main_color/blue_p',
+  hasError,
   icon = <ArrowDownDefaultIcon />,
   onFocus,
   searchQuery,
@@ -109,6 +111,7 @@ export function Dropdown({
   onFocus,
   searchQuery,
   onSearchQueryUpdate,
+  hasError,
 }: Pick<
   DropdownPropsType,
   | 'options'
@@ -119,6 +122,7 @@ export function Dropdown({
   | 'onSearchQueryUpdate'
   | 'category'
   | 'onFocus'
+  | 'hasError'
 >) {
   const [listBoxToggle, setListboxToggle] = useState<boolean>(false);
 
@@ -129,6 +133,7 @@ export function Dropdown({
       aria-selected="false"
       onClick={() => {
         onSearchQueryUpdate(option);
+        setListboxToggle((currentListboxStatus) => !currentListboxStatus);
       }}
       onMouseDown={(event) => {
         event.preventDefault();
@@ -151,8 +156,10 @@ export function Dropdown({
       <StyledComoboxContainer>
         <StyledComboboxButton
           color="gray/gray900"
-          borderColor={borderColor}
-          borderColorOnFocus={borderColorOnFocus}
+          borderColor={hasError ? 'error/error_color' : borderColor}
+          borderColorOnFocus={
+            hasError ? 'error/error_color' : borderColorOnFocus
+          }
           size={16}
           weight="md"
           lineHeight="lg"
@@ -161,15 +168,18 @@ export function Dropdown({
           aria-haspopup="listbox"
           aria-expanded="false"
           aria-controls="select-dropdown"
-          onFocus={() => {
-            setListboxToggle(true);
-            if (onFocus !== undefined) {
-              onFocus();
-            }
+          onClick={() => {
+            setListboxToggle((currentListboxStatus) => !currentListboxStatus);
           }}
-          onBlur={() => {
-            setListboxToggle(false);
-          }}
+          // onFocus={() => {
+          //   setListboxToggle(true);
+          //   if (onFocus !== undefined) {
+          //     onFocus();
+          //   }
+          // }}
+          // onBlur={() => {
+          //   setListboxToggle(false);
+          // }}
           // onClick={() => {
           //   setListboxToggle((currentToggle) => !currentToggle);
           //   // if (onFocus !== undefined) {

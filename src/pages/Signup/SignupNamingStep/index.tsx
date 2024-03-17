@@ -7,7 +7,7 @@ import { ErrorDefaultIcon } from '../../../assets/icons';
 import Button from '../../../components/common/Button';
 import StyledValidationContainer from './index.styles';
 import useSignupNaming from './useSignupNaming';
-import userStore from '../../../store/userStore';
+import userStore from '../../../store/useUserStore';
 import { sendNewUser } from '../../../apis/member';
 import useAuthStore from '../../../store/useAuthStore';
 import Description from '../../../components/common/Description';
@@ -30,21 +30,21 @@ const KoreanEnglishAlphabetRegex = /^[가-힣a-zA-Z]+$/;
 
 export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
   const {
-    changeNickname,
+    changeNickName,
     hasTextfieldError,
     helperText,
-    checkIsNicknameValid,
-    nickname,
-    canNicknameBeSubmitted,
-    isNicknameVerifiedByServer,
+    checkIsNickNameValid,
+    nickName,
+    canNickNameBeSubmitted,
+    isNickNameVerifiedByServer,
   } = useSignupNaming();
-  const updateNickname = userStore((state) => state.updateNickname);
+  const updateNickname = userStore((state) => state.updateNickName);
 
   const textfieldIcon = hasTextfieldError ? (
     <ErrorDefaultIcon />
   ) : (
     <Text size={16} lineHeight="lg" color="gray/gray400">
-      {nickname.length} / {NICKNAME_MAX_LENGTH}
+      {nickName.length} / {NICKNAME_MAX_LENGTH}
     </Text>
   );
 
@@ -62,20 +62,20 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
           hasError={hasTextfieldError}
           icon={textfieldIcon}
           placeholder="닉네임"
-          text={nickname}
-          onTextChange={changeNickname}
+          text={nickName}
+          onTextChange={changeNickName}
         />
-        {canNicknameBeSubmitted && (
+        {canNickNameBeSubmitted && (
           <HelperText type="checked">{helperText}</HelperText>
         )}
       </Column>
       {hasTextfieldError && <HelperText type="error">{helperText}</HelperText>}
       <StyledValidationContainer>
-        {isNicknameVerifiedByServer ? (
+        {isNickNameVerifiedByServer ? (
           <Button
             category="primary"
             onClick={() => {
-              updateNickname(nickname);
+              updateNickname(nickName);
               onNext();
             }}
           >
@@ -86,12 +86,12 @@ export default function SignupNamingStep({ onNext }: SignupNamingStepType) {
         ) : (
           <Button
             category="secondary"
-            disabled={!canNicknameBeSubmitted}
-            onClick={checkIsNicknameValid}
+            disabled={!canNickNameBeSubmitted}
+            onClick={checkIsNickNameValid}
           >
             <Text
               color={
-                !canNicknameBeSubmitted ? 'gray/gray400' : 'main_color/blue_p'
+                !canNickNameBeSubmitted ? 'gray/gray400' : 'main_color/blue_p'
               }
               size={16}
               weight="bold"

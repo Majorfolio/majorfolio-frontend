@@ -125,11 +125,11 @@ const HomeViewAll = () => {
             );
           } else if (tag === 'undefined') {
             if (authStore) {
-              getMy(authStore, refreshPayload).then(({ univName }) => {
+              getMy(authStore, refreshPayload).then(({ univ }) => {
                 const recentMyUnivViewAll: MaterialViewAll = {
                   page: 1,
                   materialResponseList: recentMaterials
-                    .filter((item) => item.univ === univName)
+                    .filter((item) => item.univ === univ)
                     .slice(0, 10),
                   end: true,
                 };
@@ -288,7 +288,7 @@ const HomeViewAll = () => {
                   id={material.id}
                   memberId={material.memberId}
                   imageUrl={material.imageUrl}
-                  nickname={material.nickname}
+                  nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
                   major={material.major}
@@ -296,9 +296,12 @@ const HomeViewAll = () => {
                   professor={material.professor}
                   like={material.like}
                   header={
-                    <MaterialSellerProfile nickname={material.nickname} hasReaction={false} />
+                    <MaterialSellerProfile
+                      nickName={material.nickName}
+                      hasReaction={false}
+                      memberId={material.memberId}
+                    />
                   }
-                  onClick={() => {}}
                 />
               );
             })}

@@ -53,10 +53,56 @@ function MaterialPostStatisticsNumber({
   );
 }
 
+interface SellerMaterialPostStatisticsNumberPropsType {
+  sell?: number | null;
+  view?: number | null;
+  reaction?: number | null;
+}
+
+export function SellerMaterialPostStatisticsNumber({
+  sell,
+  view,
+  reaction,
+}: SellerMaterialPostStatisticsNumberPropsType) {
+  return (
+    <NumbersContainer>
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {sell || (sell === 0 ? 0 : '-')}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          판매
+        </Text>
+      </NumberWrapper>
+
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {view || (view === 0 ? view : '-')}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          조회
+        </Text>
+      </NumberWrapper>
+
+      <NumberWrapper>
+        <Text size={18} weight="bold" lineHeight="sm">
+          {' '}
+          {reaction || reaction === 0 ? reaction : '-'}{' '}
+        </Text>
+        <Text size={14} lineHeight="sm">
+          반응
+        </Text>
+      </NumberWrapper>
+    </NumbersContainer>
+  );
+}
+
 interface MyProifleStatisticsNumberPropsType {
-  upload: number | null;
-  sell: number | null;
-  follower: number | null;
+  upload?: number | null;
+  sell?: number | null;
+  follower?: number | null;
 }
 
 export function MyProfileStatisticsNumber({
@@ -69,7 +115,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {upload}{' '}
+          {upload || (upload === 0 ? 0 : '-')}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           업로드
@@ -79,7 +125,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {sell}{' '}
+          {sell || (sell === 0 ? sell : '-')}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           판매량
@@ -89,7 +135,7 @@ export function MyProfileStatisticsNumber({
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
-          {follower}{' '}
+          {follower || follower === 0 ? follower : '-'}{' '}
         </Text>
         <Text size={14} lineHeight="sm">
           팔로워

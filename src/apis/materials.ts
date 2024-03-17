@@ -1,3 +1,4 @@
+import { access } from 'fs';
 import useRefreshPayload from '../hooks/common/useRefreshPayload';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
@@ -157,12 +158,12 @@ export const getMyMajorBestViewAll = async (
 
 export const getMaterialDetail = async (
   materialId: number,
-  authStore?: string,
+  accessToken?: string,
   refreshPayload?: RetryPayload,
 ) => {
-  if (authStore && refreshPayload) {
+  if (accessToken && refreshPayload) {
     const requestOptions = {
-      headers: { Authorization: `Bearer ${authStore}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     };
 
     const data = await fetchWithTokenRetry(
@@ -176,6 +177,66 @@ export const getMaterialDetail = async (
 
   const response = await fetch(
     `https://majorfolio-server.shop/assignment/${materialId}/detail`,
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getMyMaterialDetail = async (
+  materialId: number,
+  accessToken?: string,
+  refreshPayload?: RetryPayload,
+) => {
+  if (accessToken && refreshPayload) {
+    const requestOptions = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+
+    const data = await fetchWithTokenRetry(
+      `https://majorfolio-server.shop/assignment/my/${materialId}/detail/info`,
+      requestOptions,
+      refreshPayload,
+    );
+
+    return data;
+  }
+
+  const response = await fetch(
+    `https://majorfolio-server.shop/assignment/my/${materialId}/detail/info`,
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getMyMaterialDetailStats = async (
+  materialId: number,
+  accessToken?: string,
+  refreshPayload?: RetryPayload,
+) => {
+  if (accessToken && refreshPayload) {
+    const requestOptions = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+
+    const data = await fetchWithTokenRetry(
+      `https://majorfolio-server.shop/assignment/my/${materialId}/detail/stats`,
+      requestOptions,
+      refreshPayload,
+    );
+
+    return data;
+  }
+
+  const response = await fetch(
+    `https://majorfolio-server.shop/assignment/my/${materialId}/detail/stats`,
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getPreviewImages = async (materialId: number) => {
+  const response = await fetch(
+    `https://majorfolio-server.shop/assignment/${materialId}/previews`,
   );
   const data = await response.json();
   return data;

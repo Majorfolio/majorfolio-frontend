@@ -14,6 +14,10 @@ export const PostTitleWrapper = styled.div`
   gap: 8px;
 `;
 
+export const PostTitleTextWrapper = styled.div`
+  padding-right: 35px;
+`;
+
 export const TagWrapper = styled.span`
   position: absolute;
   display: flex;

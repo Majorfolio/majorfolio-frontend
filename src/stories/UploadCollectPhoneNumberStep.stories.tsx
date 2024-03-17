@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import UploadCollectPhoneNumberStep from '../pages/Upload/UploadCollectPhoneNumberStep';
 
 const meta = {
-  title: 'UploadCollectPhoneNumberStep',
+  title: 'Pages/Upload/UploadCollectPhoneNumberStep',
   component: UploadCollectPhoneNumberStep,
   tags: ['autodocs'],
 } satisfies Meta;

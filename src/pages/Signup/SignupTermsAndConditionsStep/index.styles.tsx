@@ -35,4 +35,8 @@ export const StyledButtonContainer = styled.div`
   align-items: center;
 `;
 
+export const StyledArrowButton = styled.button`
+  padding: 10px;
+`;
+
 export default StyledAgreeAllRow;

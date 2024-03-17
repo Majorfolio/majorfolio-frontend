@@ -3,7 +3,7 @@ import { Server } from 'http';
 import { validateCode } from '../../../../apis/member';
 import useAuthStore from '../../../../store/useAuthStore';
 import useText from '../../../../hooks/common/useText';
-import useUserStore from '../../../../store/userStore';
+import useUserStore from '../../../../store/useUserStore';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 export enum ServerError {
@@ -32,7 +32,6 @@ export default function useCode() {
   const submitCode = async () => {
     const data = await validateCode(emailId, code, accessToken, refreshPayload);
     const { success, code: statusCode, message } = data;
-    console.log(data);
 
     if (statusCode === 1000) {
       return true;

@@ -13,7 +13,9 @@ import ScoreRow, {
   StyledDescriptionSectionItem,
 } from './index.styles';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import sendFile from '../../../apis/assignment';
+import sendFile, {
+  checkIsPhoneNumberSubmitted,
+} from '../../../apis/assignment';
 import useAuthStore from '../../../store/useAuthStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
@@ -21,10 +23,16 @@ import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import useMyProfile from '../../My/MyMain/useMyProfile';
-import { ErrorDefaultIcon } from '../../../assets/icons';
+import {
+  CancelDefaultIcon,
+  CloseDefaultIcon,
+  ErrorDefaultIcon,
+} from '../../../assets/icons';
 import Row from '../../../components/common/Row';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
 import useDraftStore from '../../../store/useDraftStore';
+import { Dropdown } from '../../../components/common/Dropdown';
+import Column from '../../../components/common/Column';
 
 interface IFile {
   url: string;
@@ -39,7 +47,7 @@ export default function UploadInProgresStep() {
     title,
     major,
     semester,
-    subjectName,
+    className,
     professor,
     grade,
     fullScore,
@@ -53,7 +61,7 @@ export default function UploadInProgresStep() {
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const accessToken = useAuthStore((state) => state.accessToken)!;
 
-  const { univName } = useMyProfile();
+  const { univ } = useMyProfile();
 
   const navigate = useNavigate();
   const { navigateToNextStep } = useNextStep();
@@ -71,8 +79,7 @@ export default function UploadInProgresStep() {
   const [hasTitleError, setHasTitleError] = useState<boolean>(false);
   const [hasMajorError, setHasMajorError] = useState<boolean>(false);
   const [hasSemesterError, setHasSemesterError] = useState<boolean>(false);
-  const [hasSubjectNameError, setHasSubjectNameError] =
-    useState<boolean>(false);
+  const [hasClassNameError, setHasClassNameError] = useState<boolean>(false);
   const [hasProfessorError, setHasProfessorError] = useState<boolean>(false);
   const [hasGradeError, setHasGradeError] = useState<boolean>(false);
   const [hasFullScoreError, setHasFullScoreError] = useState<boolean>(false);
@@ -99,27 +106,27 @@ export default function UploadInProgresStep() {
       'NP',
     ];
 
-    const currentHasFileError = !currentFile;
+    const currentHasFileError = !file;
     const currentHasTitleError = title.length < 2 || title.length >= 30;
     const currentHasMajorError = major.length < 2 || major.length >= 30;
     const currentHasSemesterError =
       semester.length < 2 || semester.length >= 30;
-    const currentHasSubjectNameError =
-      subjectName.length < 2 || subjectName.length >= 30;
+    const currentHasClassNameError =
+      className.length < 2 || className.length >= 30;
     const currentHasProfessorError =
       professor.length < 2 || professor.length >= 30;
-    const currentHasGradeError = !grade && !GRADES.includes(grade);
+    const currentHasGradeError = !grade || !GRADES.includes(grade);
     const currentHasScoreError =
-      !!score || Number(score) < Number(fullScore) || Number(score) < 0;
+      !score || Number(score) > Number(fullScore) || Number(score) < 0;
     const currentHasFullScoreError =
-      !!fullScore || Number(score) < Number(fullScore) || Number(fullScore) < 0;
+      !fullScore || Number(score) > Number(fullScore) || Number(fullScore) < 0;
     const currentHasDescriptionError =
       description.length === 0 || description.length > 80;
 
     setHasTitleError(currentHasTitleError);
     setHasMajorError(currentHasMajorError);
     setHasSemesterError(currentHasSemesterError);
-    setHasSubjectNameError(currentHasSubjectNameError);
+    setHasClassNameError(currentHasClassNameError);
 
     setHasProfessorError(currentHasProfessorError);
     setHasGradeError(currentHasGradeError);
@@ -131,7 +138,7 @@ export default function UploadInProgresStep() {
     return !(
       currentHasFileError ||
       currentHasTitleError ||
-      currentHasSubjectNameError ||
+      currentHasClassNameError ||
       currentHasSemesterError ||
       currentHasScoreError ||
       currentHasProfessorError ||
@@ -156,18 +163,20 @@ export default function UploadInProgresStep() {
       return;
     }
     setCurrentFile(firstFile);
-    updateDraft({ file: firstFile || null });
+    if (firstFile) {
+      updateDraft({ file: firstFile });
+    }
   };
 
   const uploadFile = async () => {
-    if (!currentFile) return false;
+    if (!file) return false;
     const { code, result } = await sendFile(
-      currentFile,
+      file,
       {
         title,
         major,
         semester,
-        subjectName,
+        className,
         professor,
         grade,
         fullScore: Number(fullScore),
@@ -186,7 +195,7 @@ export default function UploadInProgresStep() {
     if (code === 10012) {
       activateModal('REQUIRE_PHONE_NUMBER', {
         primaryAction: () => navigate(`../${UploadRoutes.PhoneNumber}`),
-        secondaryAction: () => navigate(-1),
+        secondaryAction: () => {},
       });
       return false;
     }
@@ -196,9 +205,17 @@ export default function UploadInProgresStep() {
   const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
     const areFieldValid = validateFields();
     if (areFieldValid) {
-      const isUploadSuccessful = await uploadFile();
-      if (isUploadSuccessful) {
+      const { code, result } = await checkIsPhoneNumberSubmitted(
+        accessToken,
+        refreshPayload,
+      );
+      if (result) {
         navigateToNextStep();
+      } else {
+        activateModal('REQUIRE_PHONE_NUMBER', {
+          primaryAction: () => navigate(`../${UploadRoutes.PhoneNumber}`),
+          secondaryAction: () => {},
+        });
       }
     }
   });
@@ -212,6 +229,7 @@ export default function UploadInProgresStep() {
     hasFullScoreError ||
     hasScoreError ||
     hasDescriptionError;
+  console.log(hasError);
 
   const fileSectionTitle = (
     <Text color="gray/gray900" size={16} weight="bold" lineHeight="sm">
@@ -221,7 +239,7 @@ export default function UploadInProgresStep() {
 
   const fileSectionItem = (
     <UploadItemWrapper>
-      <UploadButton type="action" onChange={selectFile} file={currentFile} />
+      <UploadButton type="action" onChange={selectFile} file={file} />
       <HelperTextWrapper>
         <HelperText>파일 업로드 시, PDF파일로 업로드해주세요.</HelperText>
       </HelperTextWrapper>
@@ -235,15 +253,40 @@ export default function UploadInProgresStep() {
   );
 
   const titleSectionItem = (
-    <TextField
-      id="title"
-      type="text"
-      placeholder="자료 제목 (필수)"
-      text={title}
-      onTextChange={(event) => updateDraft({ title: event.target.value })}
-      hasError={hasTitleError}
-      icon={hasTitleError ? <ErrorDefaultIcon /> : <span />}
-    />
+    <Column gap={4}>
+      <TextField
+        id="title"
+        type="text"
+        placeholder="자료 제목 (필수)"
+        text={title}
+        onTextChange={(event) => {
+          if (event.target.value.length <= 15) {
+            updateDraft({ title: event.target.value });
+            setHasTitleError(false);
+          }
+        }}
+        hasError={hasTitleError}
+        icon={
+          hasTitleError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ title: '' });
+                setHasTitleError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
+      />
+      {hasTitleError && (
+        <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+      )}
+    </Column>
   );
 
   const otherSectionTitle = (
@@ -257,79 +300,275 @@ export default function UploadInProgresStep() {
       <TextField
         id="title"
         type="text"
-        placeholder={univName}
+        placeholder={univ}
         text=""
         onTextChange={() => {}}
         disabled
       />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="학과 (필수)"
-        text={major}
-        onTextChange={(event) => updateDraft({ major: event.target.value })}
-        hasError={hasMajorError}
-        icon={hasMajorError ? <ErrorDefaultIcon /> : <span />}
-      />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="시기 (필수)"
-        text={semester}
-        onTextChange={(event) => updateDraft({ semester: event.target.value })}
-        hasError={hasSemesterError}
-        icon={hasSemesterError ? <ErrorDefaultIcon /> : <span />}
-      />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="수업명 (필수)"
-        text={subjectName}
-        onTextChange={(event) =>
-          updateDraft({ subjectName: event.target.value })
-        }
-        hasError={hasSubjectNameError}
-        icon={hasSubjectNameError ? <ErrorDefaultIcon /> : <span />}
-      />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="교수명 (선택)"
-        text={professor}
-        onTextChange={(event) => updateDraft({ professor: event.target.value })}
-        hasError={hasProfessorError}
-        icon={hasProfessorError ? <ErrorDefaultIcon /> : <span />}
-      />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="학점 (선택)"
-        text={grade}
-        onTextChange={(event) => updateDraft({ grade: event.target.value })}
-        hasError={hasGradeError}
-        icon={hasGradeError ? <ErrorDefaultIcon /> : <span />}
-      />
-      <ScoreRow>
+      <Column gap={4}>
         <TextField
           id="title"
-          type="number"
-          placeholder="과제점수 (선택)"
-          text={score}
-          onTextChange={(event) => updateDraft({ score: event.target.value })}
-          hasError={hasScoreError}
-          icon={hasScoreError ? <ErrorDefaultIcon /> : <span />}
-        />
-        <TextField
-          id="title"
-          type="number"
-          placeholder="만점 (선택)"
-          text={fullScore}
-          onTextChange={(event) =>
-            updateDraft({ fullScore: event.target.value })
+          type="text"
+          placeholder="학과 (필수)"
+          text={major}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 15) {
+              updateDraft({ major: event.target.value });
+              setHasMajorError(false);
+            }
+          }}
+          hasError={hasMajorError}
+          icon={
+            hasMajorError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ major: '' });
+                  setHasMajorError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
           }
-          hasError={hasFullScoreError}
-          icon={hasFullScoreError ? <ErrorDefaultIcon /> : <span />}
         />
+        {hasMajorError && (
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <Dropdown
+          hasError={hasSemesterError}
+          category="학기 (필수)"
+          options={[
+            '23-2',
+            '23-1',
+            '22-2',
+            '22-1',
+            '21-2',
+            '21-1',
+            '20-2',
+            '20-1',
+            '19-2',
+            '19-1',
+            '18-2',
+            '18-1',
+            '17-2',
+            '17-1',
+            '16-2',
+            '16-1',
+            '15-2',
+            '15-1',
+            '14-2',
+            '14-1',
+          ]}
+          searchQuery={semester}
+          onSearchQueryUpdate={(newSemester) => {
+            updateDraft({ semester: newSemester });
+            setHasSemesterError(false);
+          }}
+          icon={
+            hasSemesterError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ semester: '' });
+                  setHasSemesterError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasSemesterError && (
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <TextField
+          id="title"
+          type="text"
+          placeholder="수업명 (필수)"
+          text={className}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 15) {
+              updateDraft({ className: event.target.value });
+              setHasClassNameError(false);
+            }
+          }}
+          hasError={hasClassNameError}
+          icon={
+            hasClassNameError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ className: '' });
+                  setHasClassNameError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasClassNameError && (
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <TextField
+          id="title"
+          type="text"
+          placeholder="교수명 (필수)"
+          text={professor}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 15) {
+              updateDraft({ professor: event.target.value });
+              setHasProfessorError(false);
+            }
+          }}
+          hasError={hasProfessorError}
+          icon={
+            hasProfessorError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ professor: '' });
+                  setHasProfessorError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasProfessorError && (
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <Dropdown
+          hasError={hasScoreError}
+          category="학점(필수)"
+          options={[
+            'A+',
+            'A',
+            'A-',
+            'B+',
+            'B',
+            'B-',
+            'C+',
+            'C',
+            'C-',
+            'D',
+            'F',
+            'NP',
+            'P',
+          ]}
+          searchQuery={grade}
+          onSearchQueryUpdate={(newGrade) => {
+            updateDraft({ grade: newGrade });
+            setHasGradeError(false);
+          }}
+          icon={
+            hasScoreError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ grade: '' });
+                  setHasGradeError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasGradeError && (
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+        )}
+      </Column>
+      <ScoreRow>
+        <Column gap={4}>
+          <TextField
+            id="title"
+            type="number"
+            placeholder="과제점수 (필수)"
+            text={score}
+            onTextChange={(event) => {
+              updateDraft({ score: event.target.value });
+              setHasScoreError(false);
+            }}
+            hasError={hasScoreError}
+            icon={
+              hasScoreError ? (
+                <ErrorDefaultIcon />
+              ) : (
+                <button
+                  aria-label="remove-all"
+                  type="button"
+                  onClick={() => {
+                    updateDraft({ score: '' });
+                    setHasScoreError(false);
+                  }}
+                >
+                  <CancelDefaultIcon />
+                </button>
+              )
+            }
+          />
+          {hasScoreError && (
+            <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+          )}
+        </Column>
+        <Column gap={4}>
+          <TextField
+            id="title"
+            type="number"
+            placeholder="만점 (필수)"
+            text={fullScore}
+            onTextChange={(event) => {
+              updateDraft({ fullScore: event.target.value });
+              setHasFullScoreError(false);
+            }}
+            hasError={hasFullScoreError}
+            icon={
+              hasFullScoreError ? (
+                <ErrorDefaultIcon />
+              ) : (
+                <button
+                  aria-label="remove-all"
+                  type="button"
+                  onClick={() => {
+                    updateDraft({ fullScore: '' });
+                    setHasFullScoreError(false);
+                  }}
+                >
+                  <CancelDefaultIcon />
+                </button>
+              )
+            }
+          />
+          {hasFullScoreError && (
+            <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+          )}
+        </Column>
       </ScoreRow>
     </>
   );
@@ -342,17 +581,41 @@ export default function UploadInProgresStep() {
 
   const descriptionSectionItem = (
     <StyledDescriptionSectionItem>
-      <Textbox
-        id="title"
-        placeholder="자료 설명"
-        text={description}
-        onTextChange={(event) =>
-          updateDraft({ description: event.target.value })
-        }
-        icon={hasDescriptionError ? <ErrorDefaultIcon /> : <span />}
-        hasError={hasDescriptionError}
-      />
-      <HelperText type="info">80자 이내로 작성해주세요.</HelperText>
+      <Column gap={4}>
+        <Textbox
+          id="title"
+          placeholder="자료 설명"
+          text={description}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 80) {
+              updateDraft({ description: event.target.value });
+              setHasDescriptionError(false);
+            }
+          }}
+          icon={
+            hasDescriptionError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ description: '' });
+                  setHasDescriptionError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+          hasError={hasDescriptionError}
+        />
+        {hasDescriptionError ? (
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
+        ) : (
+          <HelperText type="info">80자 이내로 작성해주세요.</HelperText>
+        )}
+      </Column>
     </StyledDescriptionSectionItem>
   );
 

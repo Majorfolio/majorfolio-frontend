@@ -30,7 +30,6 @@ import useRequireAuth from '../../hooks/common/useRequireAuth';
 
 const RemittanceAdvice = () => {
   const location = useLocation();
-  const materialInfo = location.state;
   const { buyInfoId } = useParams();
   const authStore = useAuthStore((state) => state.accessToken)!;
   const [buyInfo, setBuyInfo] = useState<OrderInfo>();
@@ -63,6 +62,8 @@ const RemittanceAdvice = () => {
           authStore,
           refreshPayload,
         );
+
+        navigate('/my/transactions');
         // TODO navigate to the previous page
         if (code === 9001) {
           alert('이미 송금을 한 구매 정보입니다.');
@@ -89,12 +90,15 @@ const RemittanceAdvice = () => {
   useEffect(() => {
     if (buyInfoId && authStore) {
       getBuyInfo(authStore, parseInt(buyInfoId, 10), refreshPayload).then(
-        (response) => {
-          setBuyInfo(response);
+        (data) => {
+          setBuyInfo(data);
+          const { materialNameResponseList } = data as {
+            materialNameResponseList: { assignmentName: string }[];
+          };
         },
       );
     }
-  }, [buyInfoId, authStore, setBuyInfo]);
+  }, []);
 
   if (!isAuthLevelSatisfied) {
     return <span />;
@@ -128,7 +132,7 @@ const RemittanceAdvice = () => {
           </MarginBottom4>
           <Text weight="bold" lineHeight="sm" color="gray/gray900">
             {' '}
-            {materialInfo.title}{' '}
+            {buyInfo?.materialNameResponseList[0].assignmentName}{' '}
           </Text>
           <Text size={12} color="gray/gray500">
             14일 이내로 송금해주세요 (요청일 : {buyInfo?.createDate})<br />

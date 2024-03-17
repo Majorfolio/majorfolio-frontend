@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import theme from "../../common/theme";
+import styled from 'styled-components';
+import theme from '../../common/theme';
 
 export const CardWrapper = styled.div`
   min-width: 272px;
-  background: ${ theme.color['gray/white'] };
+  background: ${theme.color['gray/white']};
   border-radius: 6px;
   box-shadow: 0px 0px 16px rgba(35, 38, 41, 0.04);
-  -ms-user-select: none; 
+  -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -15,7 +15,7 @@ export const CardWrapper = styled.div`
 
 export const ProfileWrapper = styled.div`
   padding: 16px;
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 
 export const MaterialWrapper = styled.div`

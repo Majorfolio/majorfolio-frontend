@@ -38,7 +38,7 @@ function PaymentPostCard({ isCart, materialInfo }: PaymentPostCardProps) {
           <SchoolDefaultIcon />
           <Text size={14} color="gray/gray500">
             {' '}
-            {materialInfo.university}{' '}
+            {materialInfo.univ}{' '}
           </Text>
         </InfoWrapper>
 
@@ -62,7 +62,7 @@ function PaymentPostCard({ isCart, materialInfo }: PaymentPostCardProps) {
           <ClassDefaultIcon />
           <Text size={14} color="gray/gray500">
             {' '}
-            {materialInfo.subjectTitle}{' '}
+            {materialInfo.className}{' '}
           </Text>
         </InfoWrapper>
       </InfosWrapper>

@@ -1,4 +1,4 @@
-import { UserStateType } from '../store/userStore';
+import { UserStateType } from '../store/useUserStore';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 
 const MEMBER_API_COMMON_SEGMENT = '/member';
@@ -183,7 +183,7 @@ export const validateCode = async (
 };
 
 export const sendNewUser = async (
-  user: Omit<UserStateType, 'updateEmail' | 'updateDetails' | 'updateNickname'>,
+  user: Omit<UserStateType, 'updateEmail' | 'updateDetails' | 'updateNickName'>,
   accessToken: string,
   refreshPayload: RetryPayload,
 ) => {
@@ -202,20 +202,20 @@ export const sendNewUser = async (
   return data;
 };
 
-interface VerifyNicknameResponseType {
+interface VerifyNickNameResponseType {
   code: number;
   status: number;
   message: string;
   result: '사용가능한 닉네임 입니다.' | '중복된 닉네임 입니다.';
 }
 
-export const validateNickname = async (
-  nickname: string,
+export const validateNickName = async (
+  nickName: string,
   accessToken: string,
   refreshPayload: RetryPayload,
 ) => {
   const data = await fetchWithTokenRetry(
-    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickname}`,
+    `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.CHECK_NICKNAME}/${nickName}`,
     {
       headers: {
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,

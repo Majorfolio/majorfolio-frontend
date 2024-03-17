@@ -12,6 +12,7 @@ export type TransactionMaterial = Pick<
 > & {
   price: number;
   updateAt: string;
+  buyInfoId: number;
 };
 
 export type PurchaseKeys =
@@ -54,11 +55,12 @@ export default function useTransactions(
     startLoading,
     finishLoading,
     reachLastPage,
+    hasLastPageReached,
   } = usePagination();
 
   const handleIntersection = async (entries: IntersectionObserverEntry[]) => {
-    const target = entries[0];
-    if (target.isIntersecting && canLoadMore) {
+    const currentTarget = entries[0];
+    if (currentTarget.isIntersecting && canLoadMore) {
       startLoading();
 
       const data = await loadNextContent(
@@ -67,6 +69,7 @@ export default function useTransactions(
         accessToken,
         refreshPayload,
       );
+
       if (data.code === 3000 || data.code === 8001) {
         finishLoading();
         reachLastPage();
@@ -96,57 +99,102 @@ export default function useTransactions(
           ...(newTransactions?.afterRefund || []),
         ],
         pending: [
-          ...(currentTransactions.afterRefund || []),
-          ...(newTransactions?.afterRefund || []),
+          ...(currentTransactions.pending || []),
+          ...(newTransactions?.pending || []),
         ],
         complete: [
-          ...(currentTransactions.afterRefund || []),
-          ...(newTransactions?.afterRefund || []),
+          ...(currentTransactions.complete || []),
+          ...(newTransactions?.complete || []),
         ],
       }));
 
       if (data.end === true) {
         reachLastPage();
       }
+      finishLoading();
     }
-
-    finishLoading();
   };
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: '0px',
-      threshold: 1.0,
+      threshold: 0.5,
     });
-
     if (bottomRef.current) {
-      if (isLoading) {
-        observer.unobserve(bottomRef.current);
-      } else {
-        observer.observe(bottomRef.current);
-      }
+      observer.observe(bottomRef.current);
     }
 
     return () => {
       observer.disconnect();
     };
-  }, [
-    canLoadMore,
-    nextPage,
-    startLoading,
-    finishLoading,
-    reachLastPage,
-    accessToken,
-    refreshPayload,
-    transactions,
-  ]);
+  }, [bottomRef.current]);
+
+  useEffect(() => {
+    const asyncEffect = async () => {
+      startLoading();
+
+      const data = await loadNextContent(
+        nextPage,
+        10,
+        accessToken,
+        refreshPayload,
+      );
+
+      if (data.code === 3000 || data.code === 8001) {
+        finishLoading();
+        reachLastPage();
+        return;
+      }
+      const newTransactions: PurchasesType & SalesType = data;
+      setTransactions((currentTransactions) => ({
+        ...currentTransactions,
+        beforePay: [
+          ...(currentTransactions?.beforePay || []),
+          ...(newTransactions?.beforePay || []),
+        ],
+        afterPay: [
+          ...(currentTransactions.afterPay || []),
+          ...(newTransactions?.afterPay || []),
+        ],
+        isDown: [
+          ...(currentTransactions.isDown || []),
+          ...(newTransactions?.isDown || []),
+        ],
+        cancel: [
+          ...(currentTransactions.cancel || []),
+          ...(newTransactions?.cancel || []),
+        ],
+        afterRefund: [
+          ...(currentTransactions.afterRefund || []),
+          ...(newTransactions?.afterRefund || []),
+        ],
+        pending: [
+          ...(currentTransactions.pending || []),
+          ...(newTransactions?.pending || []),
+        ],
+        complete: [
+          ...(currentTransactions.complete || []),
+          ...(newTransactions?.complete || []),
+        ],
+      }));
+
+      if (data.end === true) {
+        reachLastPage();
+      }
+      finishLoading();
+    };
+
+    asyncEffect();
+  }, []);
 
   // fix remove dependencies and prevent multiple invokations before isLoading gets updated
 
   return {
-    isLoading,
+    hasLastPageReached,
+    canLoadMore,
     transactions,
     bottomRef,
+    isLoading,
   };
 }

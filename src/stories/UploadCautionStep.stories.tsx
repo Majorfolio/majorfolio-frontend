@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import UploadCautionStep from '../pages/Upload/UploadCautionStep';
 
 const meta = {
-  title: 'UploadCautionStep',
+  title: 'Pages/Upload/UploadCautionStep',
   component: UploadCautionStep,
   tags: ['autodocs'],
 } satisfies Meta;

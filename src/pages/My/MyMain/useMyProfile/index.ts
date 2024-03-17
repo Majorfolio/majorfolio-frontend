@@ -5,7 +5,7 @@ import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
 
 interface MyProfileType {
   nickName: string;
-  univName: string;
+  univ: string;
   major: string;
   image_url: string;
   upload: null | number;
@@ -16,7 +16,7 @@ interface MyProfileType {
 export default function useMyProfile() {
   const [myProfile, setMyProfile] = useState<MyProfileType>({
     nickName: '',
-    univName: '',
+    univ: '',
     major: '',
     image_url: '',
     upload: null,
@@ -34,7 +34,7 @@ export default function useMyProfile() {
 
     asyncEffect();
   }, []);
-  const { nickName, univName, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, image_url, upload, sell, follower } =
     myProfile;
-  return { nickName, univName, major, image_url, upload, sell, follower };
+  return { nickName, univ, major, image_url, upload, sell, follower };
 }
