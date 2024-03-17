@@ -15,6 +15,7 @@ interface DraftSlice {
   updateDraft: (draft: Partial<DraftSlice>) => void;
   reset: () => void;
   updateDraftProp: (draftProp: keyof DraftSlice, fieldValue: string) => void;
+  resetFile: () => void;
 }
 
 type MyPersist = (
@@ -36,6 +37,7 @@ const initialState: DraftSlice = {
   updateDraft: () => undefined,
   reset: () => undefined,
   updateDraftProp: () => undefined,
+  resetFile: () => undefined,
 };
 
 const useDraftStore = create<DraftSlice>(
@@ -66,6 +68,12 @@ const useDraftStore = create<DraftSlice>(
         set((state) => ({
           ...state,
           [draftProp]: fieldValue,
+        }));
+      },
+      resetFile: () => {
+        set((state) => ({
+          ...state,
+          file: null,
         }));
       },
     }),
