@@ -5,6 +5,7 @@ export interface UserStateType {
   emailId: null | number;
   nickName: string;
   univ: string;
+  universityName?: string;
   studentId: null | number;
   major1: string;
   major2: string;
