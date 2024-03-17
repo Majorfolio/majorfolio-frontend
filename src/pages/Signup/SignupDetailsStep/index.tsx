@@ -39,7 +39,7 @@ export default function SignupDetailsStep({
   onNext,
 }: SignupDetailsStepPropsType) {
   const {
-    school,
+    univ,
     admissionYear,
     major,
     minor,
@@ -50,12 +50,12 @@ export default function SignupDetailsStep({
   const { updateDetails } = userStore();
 
   const [areFieldsValid, setAreFieldsValid] = useState<{
-    school: boolean;
+    univ: boolean;
     admissionYear: boolean;
     major: boolean;
     minor: boolean;
   }>({
-    school: true,
+    univ: true,
     admissionYear: true,
     major: true,
     minor: true,
@@ -64,8 +64,8 @@ export default function SignupDetailsStep({
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isSchoolValid = CATEGORY_OPTIONS.SCHOOLS.some(
-      (schoolOption) => school === schoolOption,
+    const isUnivValid = CATEGORY_OPTIONS.SCHOOLS.some(
+      (schoolOption) => univ === schoolOption,
     );
 
     const isAdmissionYearValid = CATEGORY_OPTIONS.ADMISSION_YEARS.some(
@@ -77,9 +77,9 @@ export default function SignupDetailsStep({
     const isMinorValid =
       !minor || (KoreanAndEnglishRegex.test(minor) && minor !== major);
 
-    if (isSchoolValid && isAdmissionYearValid && isMajorValid && isMinorValid) {
+    if (isUnivValid && isAdmissionYearValid && isMajorValid && isMinorValid) {
       updateDetails({
-        univ: school,
+        univ,
         studentId: Number(admissionYear.slice(0, 2)),
         major1: major,
         major2: minor,
@@ -88,7 +88,7 @@ export default function SignupDetailsStep({
     }
 
     setAreFieldsValid({
-      school: isSchoolValid,
+      univ: isUnivValid,
       admissionYear: isAdmissionYearValid,
       major: isMajorValid,
       minor: isMinorValid,
@@ -109,19 +109,19 @@ export default function SignupDetailsStep({
         <SearchableDropdown
           category={CATEGORIES.SCHOOL_STR}
           options={CATEGORY_OPTIONS.SCHOOLS}
-          borderColor={areFieldsValid.school ? undefined : 'error/error_color'}
+          borderColor={areFieldsValid.univ ? undefined : 'error/error_color'}
           borderColorOnFocus={
-            areFieldsValid.school ? undefined : 'error/error_color'
+            areFieldsValid.univ ? undefined : 'error/error_color'
           }
-          icon={areFieldsValid.school ? undefined : <HelperCancelIcon />}
+          icon={areFieldsValid.univ ? undefined : <HelperCancelIcon />}
           onFocus={() =>
             setAreFieldsValid((previousAreFieldsValid) => ({
               ...previousAreFieldsValid,
-              school: true,
+              univ: true,
             }))
           }
-          searchQuery={school}
-          onSearchQueryUpdate={createSearchQueryUpdater('school')}
+          searchQuery={univ}
+          onSearchQueryUpdate={createSearchQueryUpdater('univ')}
         />
         <Dropdown
           category={CATEGORIES.ADMISSION_YEAR_STR}

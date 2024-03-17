@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+// TODO change universityName to univ
 export interface UserStateType {
   emailId: null | number;
   nickName: string;
@@ -12,7 +13,7 @@ export interface UserStateType {
   marketingAgree: boolean;
   updateEmail: (newEmailId: number) => void;
   updateDetails: (
-    details: Pick<UserStateType, 'univ' | 'studentId' | 'major1' | 'major2'>,
+    details: Pick<UserStateType, 'studentId' | 'major1' | 'major2' | 'univ'>,
   ) => void;
   updateNickName: (nickName: string) => void;
 }

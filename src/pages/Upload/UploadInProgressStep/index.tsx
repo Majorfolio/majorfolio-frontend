@@ -13,7 +13,9 @@ import ScoreRow, {
   StyledDescriptionSectionItem,
 } from './index.styles';
 import BottomButtonBar from '../../../components/common/BottomButtonBar';
-import sendFile from '../../../apis/assignment';
+import sendFile, {
+  checkIsPhoneNumberSubmitted,
+} from '../../../apis/assignment';
 import useAuthStore from '../../../store/useAuthStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
@@ -99,7 +101,7 @@ export default function UploadInProgresStep() {
       'NP',
     ];
 
-    const currentHasFileError = !currentFile;
+    const currentHasFileError = !file;
     const currentHasTitleError = title.length < 2 || title.length >= 30;
     const currentHasMajorError = major.length < 2 || major.length >= 30;
     const currentHasSemesterError =
@@ -162,9 +164,9 @@ export default function UploadInProgresStep() {
   };
 
   const uploadFile = async () => {
-    if (!currentFile) return false;
+    if (!file) return false;
     const { code, result } = await sendFile(
-      currentFile,
+      file,
       {
         title,
         major,
@@ -198,10 +200,17 @@ export default function UploadInProgresStep() {
   const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
     const areFieldValid = validateFields();
     if (areFieldValid) {
-      const isUploadSuccessful = await uploadFile();
-      if (isUploadSuccessful) {
+      const { code, result } = await checkIsPhoneNumberSubmitted(
+        accessToken,
+        refreshPayload,
+      );
+      if (result) {
         navigateToNextStep();
-        console.log();
+      } else {
+        activateModal('REQUIRE_PHONE_NUMBER', {
+          primaryAction: () => navigate(`../${UploadRoutes.PhoneNumber}`),
+          secondaryAction: () => {},
+        });
       }
     }
   });
@@ -224,7 +233,7 @@ export default function UploadInProgresStep() {
 
   const fileSectionItem = (
     <UploadItemWrapper>
-      <UploadButton type="action" onChange={selectFile} file={currentFile} />
+      <UploadButton type="action" onChange={selectFile} file={file} />
       <HelperTextWrapper>
         <HelperText>파일 업로드 시, PDF파일로 업로드해주세요.</HelperText>
       </HelperTextWrapper>

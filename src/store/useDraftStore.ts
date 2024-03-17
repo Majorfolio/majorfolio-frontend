@@ -50,10 +50,16 @@ const useDraftStore = create<DraftSlice>(
       },
       reset: () => {
         set({
-          ...initialState,
-          updateDraft: initialState.updateDraft,
-          reset: initialState.reset,
-          updateDraftProp: initialState.updateDraftProp,
+          file: null,
+          title: '',
+          major: '',
+          semester: '',
+          className: '',
+          professor: '',
+          grade: '',
+          fullScore: '',
+          score: '',
+          description: '',
         });
       },
       updateDraftProp: (draftProp, fieldValue) => {
