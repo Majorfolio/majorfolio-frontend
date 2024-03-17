@@ -72,7 +72,7 @@ export default function SignupTermsAndConditionsStep({
   };
 
   const areAllTermsChecked = isFirstTermAgreed && isSecondTermAgreed;
-
+  // TODO not send universityName
   const signup = async () => {
     if (areAllTermsChecked) {
       const { code, status, result } = await sendNewUser(
@@ -80,6 +80,7 @@ export default function SignupTermsAndConditionsStep({
           nickName,
           emailId,
           univ,
+          universityName: univ,
           studentId,
           major1,
           major2,
