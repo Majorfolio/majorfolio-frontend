@@ -24,6 +24,7 @@ export const Default: Story = {
       major: '컴퓨터공학부',
       price: 2300,
       updateAt: '2023-01-01',
+      buyInfoId: 0,
     },
   },
 };

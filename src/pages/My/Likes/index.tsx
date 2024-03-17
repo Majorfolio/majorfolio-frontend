@@ -147,15 +147,16 @@ export default function Bookmarks() {
         }
       />
 
-      {!(
-        allMaterials?.myMaterialList && allMaterials.myMaterialList.length
-      ) && (
-        <EmptyMaterialWrapper>
-          <Text size={16} lineHeight="sm" color="gray/gray400">
-            좋아요한 자료가 없어요.
-          </Text>
-        </EmptyMaterialWrapper>
-      )}
+      {!isLoading &&
+        !(
+          allMaterials?.myMaterialList && allMaterials.myMaterialList.length
+        ) && (
+          <EmptyMaterialWrapper>
+            <Text size={16} lineHeight="sm" color="gray/gray400">
+              좋아요한 자료가 없어요.
+            </Text>
+          </EmptyMaterialWrapper>
+        )}
 
       {allMaterials?.myMaterialList && allMaterials.myMaterialList.length && (
         <ViewAllContainer>

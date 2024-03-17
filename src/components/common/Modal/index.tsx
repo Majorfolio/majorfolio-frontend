@@ -1,9 +1,10 @@
-import React, { RefObject, forwardRef, useState } from 'react';
+import React, { ReactNode, RefObject, forwardRef, useState } from 'react';
 import Card from '../Card';
 import Text from '../Text';
 import { NotificationDefaultIcon } from '../../../assets/icons';
 import Button from '../Button';
 import {
+  StyledBaseDialog,
   StyledBodyContianer,
   StyledButtonWrapper,
   StyledDialog,
@@ -11,6 +12,7 @@ import {
   StyledTitleRow,
 } from './index.styles';
 import { CloseActionsType } from '../../../hooks/common/useModal/index.types';
+import Row from '../Row';
 
 export type ModalCategoryType =
   | 'TO_BE_UPDATED'
@@ -65,7 +67,7 @@ const HIGHLIGHTED_WORDS = [
   '판매 보류',
 ];
 
-const MODAL_TEXTS = {
+export const MODAL_TEXTS = {
   TO_BE_UPDATED: {
     TITLE: '아직 업데이트되지 않은 기능입니다.',
     BODY: '이 기능은 추후 업데이트될 예정입니다. 공지사항을 통해 업데이트 소식을 만나보세요.',
@@ -79,7 +81,7 @@ const MODAL_TEXTS = {
   DOWNLOAD_PURCHASED_MATERIAL: {
     TITLE: '이 자료를 다운로드할 수 있습니다.',
     BODY: '구매가 완료된 자료이니,이 자료를 다운로드 받아 이용할 수 있습니다.',
-    FOOTER: ['환불하기', '자료 다운로드'],
+    FOOTER: ['나중에', '자료 다운로드'],
   },
   CANCEL_PURCHASE: {
     TITLE: '이 자료를 결제 취소할 수 있습니다.',
@@ -257,5 +259,27 @@ export default function Modal({ modalRef, ...props }: ModalPropsType) {
     <StyledDialog ref={modalRef}>
       <ModalCard {...props} />
     </StyledDialog>
+  );
+}
+
+export function BaseModalCard({
+  title,
+  body,
+  footer,
+  modalRef,
+}: {
+  title?: ReactNode;
+  body: ReactNode;
+  footer: ReactNode;
+  modalRef: RefObject<HTMLDialogElement>;
+}) {
+  return (
+    <StyledBaseDialog ref={modalRef}>
+      <StyledModalContainer>
+        {title}
+        {body}
+        {footer}
+      </StyledModalContainer>
+    </StyledBaseDialog>
   );
 }

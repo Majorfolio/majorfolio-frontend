@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { RefObject, useRef, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
 import {
   ArrowBackDefaultIcon,
   DepartmentSmallIcon,
+  NotificationDefaultIcon,
   SchoolSmallIcon,
 } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
@@ -26,12 +27,22 @@ import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import StyledRow from '../ContactUs/index.styles';
 import { getPurchases, getSales } from '../../../apis/payment';
 import useRequireAuth from '../../../hooks/common/useRequireAuth';
-import { AuthLevel } from '../../../store/useAuthStore';
+import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import EmptyMaterialWrapper from '../../../components/common/EmptyContentWrapper';
+import { ColorType } from '../../../components/common/theme';
+import Modal, {
+  BaseModalCard,
+  MODAL_TEXTS,
+} from '../../../components/common/Modal';
+import Button from '../../../components/common/Button';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import { downloadFile } from '../../../apis/assignment';
+import useModal from '../../../hooks/common/useModal';
 
 type TransactionCardPropsType = {
   category: SaleKeys | PurchaseKeys;
   material: TransactionMaterial;
+  onClick?: () => void;
 };
 
 export enum Category {
@@ -45,19 +56,132 @@ export enum Category {
   complete = '판매완료',
 }
 
+function TransactionModal({
+  materialId,
+  closeModal,
+  refund,
+  download,
+  ...props
+}: {
+  materialId: number;
+  closeModal: () => void;
+  refund: () => void;
+  download: (materialId: number) => void;
+  modalRef: RefObject<HTMLDialogElement>;
+}) {
+  const titleText = MODAL_TEXTS.DOWNLOAD_PAID_MATERIAL.TITLE;
+  const bodyText = MODAL_TEXTS.DOWNLOAD_PAID_MATERIAL.BODY;
+
+  const title = (
+    <Row gap={8} justify="start">
+      <NotificationDefaultIcon />
+      <Row justify="start">
+        <Text size={16} weight="bold" lineHeight="sm" color="gray/gray900">
+          {titleText.split('다운로드')[0]}
+        </Text>{' '}
+        <Text size={16} weight="bold" lineHeight="sm" color="main_color/blue_p">
+          다운로드
+        </Text>
+        <Text size={16} weight="bold" lineHeight="sm" color="gray/gray900">
+          {titleText.split('다운로드')[1]}
+        </Text>
+      </Row>
+    </Row>
+  );
+
+  const body = (
+    <Row pt={12} pb={40} justify="start">
+      <Text size={14} lineHeight="lg" color="gray/gray400">
+        {bodyText.split(',')[0]},
+        <br />
+        {bodyText.split(',')[1]}
+      </Text>
+    </Row>
+  );
+
+  const footer = (
+    <Column gap={8}>
+      <Row gap={12} justify="center">
+        <Button category="secondary" type="button" onClick={() => closeModal()}>
+          <Text size={16} weight="bold" lineHeight="sm">
+            나중에
+          </Text>
+        </Button>
+        <Button
+          category="secondary"
+          type="button"
+          onClick={() => {
+            closeModal();
+          }}
+        >
+          <Text size={16} weight="bold" lineHeight="sm">
+            환불 요청
+          </Text>
+        </Button>
+      </Row>
+      <Row>
+        <Button
+          category="primary"
+          type="button"
+          onClick={() => {
+            download(materialId);
+            closeModal();
+          }}
+        >
+          <Text size={16} weight="bold" lineHeight="sm">
+            자료 다운로드
+          </Text>
+        </Button>
+      </Row>
+    </Column>
+  );
+
+  return <BaseModalCard {...props} title={title} body={body} footer={footer} />;
+}
+
 export function TransactionCard({
   category,
   material,
+  onClick = () => {},
 }: TransactionCardPropsType) {
   const tagText = Category[category];
   const navigate = useNavigate();
+
+  let tagBackgroundColor;
+  let tagColor;
+  switch (category) {
+    case 'beforePay':
+    case 'beforeRefund':
+    case 'pending':
+      tagBackgroundColor = 'sub_color/yellow/c';
+      tagColor = 'main_color/yellow_s';
+      break;
+    case 'afterPay':
+      tagBackgroundColor = 'sub_color/indigo/c';
+      tagColor = 'sub_color/indigo/p';
+      break;
+    case 'isDown':
+    case 'afterRefund':
+    case 'complete':
+      tagBackgroundColor = 'sub_color/green/c';
+      tagColor = 'sub_color/green/p';
+      break;
+    case 'cancel':
+      tagBackgroundColor = 'sub_color/red/c';
+      tagColor = 'sub_color/red/p';
+      break;
+    default:
+      tagBackgroundColor = 'sub_color/yellow/c';
+      tagColor = 'main_color/yellow_s';
+      break;
+  }
 
   const header = (
     <>
       <Row gap={11} pb={16}>
         <SmallTag
-          backgroundColor="sub_color/yellow/c"
-          color="main_color/yellow_s"
+          backgroundColor={tagBackgroundColor as ColorType}
+          color={tagColor as ColorType}
           weight="bold"
           size={10}
         >
@@ -125,7 +249,7 @@ export function TransactionCard({
       padding="16px"
       radius={6}
       background="gray/white"
-      onClick={() => navigate(`/assignment/${material.id}/detail`)}
+      onClick={onClick}
     >
       <Card header={header} title={title} body={body} footer={footer} />
     </StyledTransactionCardContainer>
@@ -155,6 +279,68 @@ export default function Transactions() {
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const modalRef = useRef<null | HTMLDialogElement>(null);
+  const refreshPayload = useRefreshPayload();
+  const accessToken = useAuthStore((state) => state.accessToken)!;
+  const { activateModal, closePrimarily, closeSecondarily, ...modalProps } =
+    useModal();
+  const [materialId, setMaterialId] = useState<number>(0);
+
+  const handleBeforePayClick = (buyInfoId: number) => {
+    navigate(`/RemittanceAdvice/${buyInfoId}`);
+  };
+
+  const handleAfterPayClick = (currentMaterialId: number) => {
+    activateModal('DOWNLOAD_PAID_MATERIAL', {
+      primaryAction: () => {
+        downloadFile(currentMaterialId, accessToken, refreshPayload)
+          .then((data) => {
+            const { result } = data;
+            const { url } = result;
+            window.open(url, '_blank', 'noopener,noreferrer');
+          })
+          .catch((error) => {
+            console.error(
+              '다운로드 링크를 가져오는 중에 오류가 발생했습니다:',
+              error,
+            );
+          });
+      },
+      secondaryAction: () => {},
+    });
+  };
+
+  const handleDownloadCompleteClick = (currentMaterialId: number) => {
+    activateModal('DOWNLOAD_PURCHASED_MATERIAL', {
+      primaryAction: () => {
+        downloadFile(currentMaterialId, accessToken, refreshPayload)
+          .then((data) => {
+            const { result } = data;
+            const { url } = result;
+            window.open(url, '_blank', 'noopener,noreferrer');
+          })
+          .catch((error) => {
+            console.error(
+              '다운로드 링크를 가져오는 중에 오류가 발생했습니다:',
+              error,
+            );
+          });
+      },
+      secondaryAction: () => {
+        navigate(`/assignment/${currentMaterialId}/detail`);
+      },
+    });
+  };
+
+  const handleStopListClick = () => {
+    // 자료수정으로 이동
+  };
+
+  const handleOnSaleListClick = () => {
+    // 자료수정으로 이동
+  };
 
   const topBar = (
     <SecondaryTopbar
@@ -208,13 +394,23 @@ export default function Transactions() {
 
           {purchases?.beforePay?.map((purchase) => (
             <CardsWrapper>
-              <TransactionCard category="beforePay" material={purchase} />
+              <TransactionCard
+                category="beforePay"
+                material={purchase}
+                onClick={() =>
+                  navigate(`/RemittanceAdvice/${purchase.buyInfoId}`)
+                }
+              />
             </CardsWrapper>
           ))}
 
           {purchases?.beforeRefund?.map((purchase) => (
             <CardsWrapper>
-              <TransactionCard category="beforeRefund" material={purchase} />
+              <TransactionCard
+                category="beforeRefund"
+                material={purchase}
+                onClick={() => navigate(`/assignment/${purchase.id}/detail`)}
+              />
             </CardsWrapper>
           ))}
 
@@ -227,13 +423,27 @@ export default function Transactions() {
 
           {purchases?.afterPay?.map((purchase) => (
             <CardsWrapper>
-              <TransactionCard category="afterPay" material={purchase} />
+              <TransactionCard
+                category="afterPay"
+                material={purchase}
+                onClick={() => {
+                  setIsModalOpen(true);
+                  modalRef.current?.showModal();
+                  setMaterialId(purchase.id);
+                }}
+              />
             </CardsWrapper>
           ))}
 
           {purchases?.isDown?.map((purchase) => (
             <CardsWrapper>
-              <TransactionCard category="isDown" material={purchase} />
+              <TransactionCard
+                category="isDown"
+                material={purchase}
+                onClick={() => {
+                  handleDownloadCompleteClick(purchase.id);
+                }}
+              />
             </CardsWrapper>
           ))}
 
@@ -246,13 +456,21 @@ export default function Transactions() {
 
           {purchases?.cancel?.map((purchase) => (
             <CardsWrapper>
-              <TransactionCard category="cancel" material={purchase} />
+              <TransactionCard
+                category="cancel"
+                material={purchase}
+                onClick={() => navigate(`/assignment/${purchase.id}/detail`)}
+              />
             </CardsWrapper>
           ))}
 
           {purchases?.afterRefund?.map((purchase) => (
             <CardsWrapper>
-              <TransactionCard category="afterRefund" material={purchase} />
+              <TransactionCard
+                category="afterRefund"
+                material={purchase}
+                onClick={() => navigate(`/assignment/${purchase.id}/detail`)}
+              />
             </CardsWrapper>
           ))}
         </>
@@ -328,6 +546,35 @@ export default function Transactions() {
       {cardSection}
       <CardsWrapper>{skeletonCardSection}</CardsWrapper>
       {tab}
+      {isModalOpen && (
+        <TransactionModal
+          modalRef={modalRef}
+          materialId={materialId}
+          closeModal={() => {
+            modalRef.current?.close();
+          }}
+          refund={() => {}}
+          download={(currentMaterialId) => {
+            downloadFile(currentMaterialId, accessToken, refreshPayload)
+              .then((data) => {
+                const { result } = data;
+                const { url } = result;
+                window.open(url, '_blank', 'noopener,noreferrer');
+              })
+              .catch((error) => {
+                console.error(
+                  '다운로드 링크를 가져오는 중에 오류가 발생했습니다:',
+                  error,
+                );
+              });
+          }}
+        />
+      )}
+      <Modal
+        {...modalProps}
+        onPrimaryAction={closePrimarily}
+        onSecondaryAction={closeSecondarily}
+      />
     </>
   );
 }

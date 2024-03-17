@@ -65,13 +65,14 @@ export default function SignupTermsAndConditionsStep({
       (currentIsThirdTermAgreed) => !currentIsThirdTermAgreed,
     );
 
-  const onBothTermsChange = () => {
-    onFirstTermChange();
-    onSecondTermChange();
+  const agreeBothTerms = () => {
+    setIsFirstTermAgreed(true);
+    setIsSecondTermAgreed(true);
+    setIsThirdTermAgreed(true);
   };
 
   const areAllTermsChecked = isFirstTermAgreed && isSecondTermAgreed;
-
+  // TODO not send universityName
   const signup = async () => {
     if (areAllTermsChecked) {
       const { code, status, result } = await sendNewUser(
@@ -79,12 +80,13 @@ export default function SignupTermsAndConditionsStep({
           nickName,
           emailId,
           univ,
+          universityName: univ,
           studentId,
           major1,
           major2,
           personalAgree: isFirstTermAgreed,
           serviceAgree: isSecondTermAgreed,
-          marketingAgree: true,
+          marketingAgree: isThirdTermAgreed,
         },
         accessToken,
         refreshPayload,
@@ -116,7 +118,7 @@ export default function SignupTermsAndConditionsStep({
           }
           text="전체 동의"
           id="전체 동의"
-          onCheckboxChange={onBothTermsChange}
+          onCheckboxChange={agreeBothTerms}
         />
       </StyledAgreeAllRow>
       <StyledConditionRow>

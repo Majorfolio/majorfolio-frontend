@@ -5,6 +5,7 @@ import {
   CardTitleWrapper,
   CardsWrapper,
   MaterialBoxContainer,
+  NoMaterialTextWrapper,
 } from './index.styles';
 import HomeTagCardTitle from '../../components/home/HomeTagCardTitle';
 import HomeMaterialCard from '../../components/home/HomeMaterialCard';
@@ -195,217 +196,237 @@ const MaterialBox = () => {
           onItemClick={(index) => setSelectedTab(index)}
         />
         {selectedTab === 0 && (
-          <>
-            {!(
-              (materialsByState?.beforePay &&
-                materialsByState.beforePay.length > 0) ||
-              (materialsByState?.downloadComplete &&
-                materialsByState?.downloadComplete.length > 0) ||
-              (materialsByState?.afterPay &&
-                materialsByState?.afterPay.length > 0) ||
-              (materialsByState?.downloadComplete &&
-                materialsByState?.downloadComplete.length > 0)
-            ) && (
-              <EmptyMaterialWrapper>
-                <Text color="gray/gray400" size={16} lineHeight="sm">
+          <div>
+            {!materialsByState?.beforePay &&
+            !materialsByState?.afterPay &&
+            !materialsByState?.downloadComplete ? (
+              <NoMaterialTextWrapper>
+                <Text size={16} lineHeight="sm" color="gray/gray400">
                   자료함에 자료가 없어요.
                 </Text>
-              </EmptyMaterialWrapper>
+              </NoMaterialTextWrapper>
+            ) : (
+              <div>
+                {materialsByState?.beforePay &&
+                  materialsByState?.beforePay.length !== 0 && (
+                    <>
+                      <CardTitleWrapper>
+                        <HomeTagCardTitle title="결제 대기" isViewAll />
+                        {}
+                      </CardTitleWrapper>
+                      <CardsWrapper>
+                        {materialsByState?.beforePay?.map((material) => (
+                          <HomeMaterialCard
+                            key={material.id}
+                            isBig
+                            id={material.id}
+                            memberId={material.memberId}
+                            imageUrl={material.imageUrl}
+                            nickName={material.nickName}
+                            className={material.className}
+                            univ={material.univ}
+                            major={material.major}
+                            semester={material.semester}
+                            professor={material.professor}
+                            like={material.like}
+                            header={
+                              <MaterialSellerProfile
+                                nickName={material.nickName}
+                                hasReaction={false}
+                                infoContent={material.updateDate
+                                  .split('T')[0]
+                                  .replace(/-/g, '. ')}
+                                infoName="구매"
+                                memberId={material.memberId}
+                              />
+                            }
+                            onClick={() =>
+                              handleBeforePayClick(material.buyInfoId)
+                            }
+                          />
+                        ))}
+                      </CardsWrapper>
+                    </>
+                  )}
+
+                {materialsByState?.afterPay &&
+                  materialsByState?.afterPay.length !== 0 && (
+                    <>
+                      <CardTitleWrapper>
+                        <HomeTagCardTitle title="결제 완료" isViewAll />
+                      </CardTitleWrapper>
+                      <CardsWrapper>
+                        {materialsByState?.afterPay?.map((material) => (
+                          <HomeMaterialCard
+                            key={material.id}
+                            isBig
+                            id={material.id}
+                            memberId={material.memberId}
+                            imageUrl={material.imageUrl}
+                            nickName={material.nickName}
+                            className={material.className}
+                            univ={material.univ}
+                            major={material.major}
+                            semester={material.semester}
+                            professor={material.professor}
+                            like={material.like}
+                            header={
+                              <MaterialSellerProfile
+                                nickName={material.nickName}
+                                hasReaction={false}
+                                infoContent={material.updateDate
+                                  .split('T')[0]
+                                  .replace(/-/g, '. ')}
+                                infoName="판매"
+                                memberId={material.memberId}
+                              />
+                            }
+                            onClick={() => handleAfterPayClick(material.id)}
+                          />
+                        ))}
+                      </CardsWrapper>
+                    </>
+                  )}
+
+                {materialsByState?.downloadComplete &&
+                  materialsByState?.downloadComplete.length !== 0 && (
+                    <>
+                      <CardTitleWrapper>
+                        <HomeTagCardTitle title="구매 완료" isViewAll />
+                      </CardTitleWrapper>
+                      <CardsWrapper>
+                        {materialsByState?.downloadComplete?.map((material) => (
+                          <HomeMaterialCard
+                            key={material.id}
+                            isBig
+                            id={material.id}
+                            memberId={material.memberId}
+                            imageUrl={material.imageUrl}
+                            nickName={material.nickName}
+                            className={material.className}
+                            univ={material.univ}
+                            major={material.major}
+                            semester={material.semester}
+                            professor={material.professor}
+                            like={material.like}
+                            header={
+                              <MaterialSellerProfile
+                                nickName={material.nickName}
+                                hasReaction={false}
+                                infoContent={material.updateDate
+                                  .split('T')[0]
+                                  .replace(/-/g, '. ')}
+                                infoName="판매"
+                                memberId={material.memberId}
+                              />
+                            }
+                            onClick={() =>
+                              handleDownloadCompleteClick(material.id)
+                            }
+                          />
+                        ))}
+                      </CardsWrapper>
+                    </>
+                  )}
+              </div>
             )}
-            {materialsByState?.beforePay &&
-              materialsByState.beforePay.length > 0 && (
-                <CardTitleWrapper>
-                  <HomeTagCardTitle title="결제 대기" isViewAll />
-                  {}
-                </CardTitleWrapper>
-              )}
-
-            {materialsByState?.beforePay?.map((material) => (
-              <CardsWrapper>
-                <HomeMaterialCard
-                  key={material.id}
-                  isBig
-                  id={material.id}
-                  memberId={material.memberId}
-                  imageUrl={material.imageUrl}
-                  nickName={material.nickName}
-                  className={material.className}
-                  univ={material.univ}
-                  major={material.major}
-                  semester={material.semester}
-                  professor={material.professor}
-                  like={material.like}
-                  header={
-                    <MaterialSellerProfile
-                      nickName={material.nickName}
-                      hasReaction={false}
-                      infoContent={material.updateDate
-                        .split('T')[0]
-                        .replace(/-/g, '. ')}
-                      infoName="구매"
-                      memberId={material.memberId}
-                    />
-                  }
-                  onClick={() => handleBeforePayClick(material.buyInfoId)}
-                />
-              </CardsWrapper>
-            ))}
-
-            {materialsByState?.afterPay &&
-              materialsByState?.afterPay.length > 0 && (
-                <CardTitleWrapper>
-                  <HomeTagCardTitle title="결제 완료" isViewAll />
-                </CardTitleWrapper>
-              )}
-
-            {materialsByState?.afterPay?.map((material) => (
-              <CardsWrapper>
-                <HomeMaterialCard
-                  key={material.id}
-                  isBig
-                  id={material.id}
-                  memberId={material.memberId}
-                  imageUrl={material.imageUrl}
-                  nickName={material.nickName}
-                  className={material.className}
-                  univ={material.univ}
-                  major={material.major}
-                  semester={material.semester}
-                  professor={material.professor}
-                  like={material.like}
-                  header={
-                    <MaterialSellerProfile
-                      nickName={material.nickName}
-                      hasReaction={false}
-                      infoContent={material.updateDate
-                        .split('T')[0]
-                        .replace(/-/g, '. ')}
-                      infoName="판매"
-                      memberId={material.memberId}
-                    />
-                  }
-                  onClick={() => handleAfterPayClick(material.id)}
-                />
-              </CardsWrapper>
-            ))}
-
-            {materialsByState?.downloadComplete &&
-              materialsByState?.downloadComplete.length > 0 && (
-                <CardTitleWrapper>
-                  <HomeTagCardTitle title="구매 완료" isViewAll />
-                </CardTitleWrapper>
-              )}
-
-            {materialsByState?.downloadComplete?.map((material) => (
-              <CardsWrapper>
-                <HomeMaterialCard
-                  key={material.id}
-                  isBig
-                  id={material.id}
-                  memberId={material.memberId}
-                  imageUrl={material.imageUrl}
-                  nickName={material.nickName}
-                  className={material.className}
-                  univ={material.univ}
-                  major={material.major}
-                  semester={material.semester}
-                  professor={material.professor}
-                  like={material.like}
-                  header={
-                    <MaterialSellerProfile
-                      nickName={material.nickName}
-                      hasReaction={false}
-                      infoContent={material.updateDate
-                        .split('T')[0]
-                        .replace(/-/g, '. ')}
-                      infoName="판매"
-                      memberId={material.memberId}
-                    />
-                  }
-                  onClick={() => handleDownloadCompleteClick(material.id)}
-                />
-              </CardsWrapper>
-            ))}
-          </>
+          </div>
         )}
+
         {selectedTab === 1 && (
-          <>
-            {uploadedMaterialsByState?.stopList &&
-              uploadedMaterialsByState?.stopList.length > 0 && (
-                <CardTitleWrapper>
-                  <HomeTagCardTitle title="판매 대기" isViewAll />
-                </CardTitleWrapper>
-              )}
+          <div>
+            {uploadedMaterialsByState?.stopList?.length === 0 &&
+            uploadedMaterialsByState?.onSaleList?.length === 0 ? (
+              <NoMaterialTextWrapper>
+                <Text size={16} lineHeight="sm" color="gray/gray400">
+                  자료함에 자료가 없어요.
+                </Text>
+              </NoMaterialTextWrapper>
+            ) : (
+              <div>
+                {uploadedMaterialsByState?.stopList &&
+                  uploadedMaterialsByState?.stopList.length !== 0 && (
+                    <>
+                      <CardTitleWrapper>
+                        <HomeTagCardTitle title="판매 대기" isViewAll />
+                        {}
+                      </CardTitleWrapper>
+                      <CardsWrapper>
+                        {uploadedMaterialsByState?.stopList?.map((material) => (
+                          <HomeMaterialCard
+                            key={material.id}
+                            isBig
+                            id={material.id}
+                            memberId={material.memberId}
+                            imageUrl={material.imageUrl}
+                            nickName={material.nickName}
+                            className={material.className}
+                            univ={material.univ}
+                            major={material.major}
+                            semester={material.semester}
+                            professor={material.professor}
+                            like={material.like}
+                            header={
+                              <MaterialSellerProfile
+                                nickName={material.nickName}
+                                hasReaction={false}
+                                infoContent={material.updateDate
+                                  .split('T')[0]
+                                  .replace(/-/g, '. ')}
+                                infoName="판매"
+                                memberId={material.memberId}
+                              />
+                            }
+                            onClick={handleStopListClick}
+                          />
+                        ))}
+                      </CardsWrapper>
+                    </>
+                  )}
 
-            {uploadedMaterialsByState?.stopList?.map((material) => (
-              <CardsWrapper>
-                <HomeMaterialCard
-                  key={material.id}
-                  isBig
-                  id={material.id}
-                  memberId={material.memberId}
-                  imageUrl={material.imageUrl}
-                  nickName={material.nickName}
-                  className={material.className}
-                  univ={material.univ}
-                  major={material.major}
-                  semester={material.semester}
-                  professor={material.professor}
-                  like={material.like}
-                  header={
-                    <MaterialSellerProfile
-                      nickName={material.nickName}
-                      hasReaction={false}
-                      infoContent={material.updateDate
-                        .split('T')[0]
-                        .replace(/-/g, '. ')}
-                      infoName="판매"
-                      memberId={material.memberId}
-                    />
-                  }
-                  onClick={handleStopListClick}
-                />
-              </CardsWrapper>
-            ))}
-
-            {uploadedMaterialsByState?.onSaleList &&
-              uploadedMaterialsByState?.onSaleList?.length > 0 && (
-                <CardTitleWrapper>
-                  <HomeTagCardTitle title="판매중" isViewAll />
-                </CardTitleWrapper>
-              )}
-
-            {uploadedMaterialsByState?.onSaleList?.map((material) => (
-              <CardsWrapper>
-                <HomeMaterialCard
-                  key={material.id}
-                  isBig
-                  id={material.id}
-                  memberId={material.memberId}
-                  imageUrl={material.imageUrl}
-                  nickName={material.nickName}
-                  className={material.className}
-                  univ={material.univ}
-                  major={material.major}
-                  semester={material.semester}
-                  professor={material.professor}
-                  like={material.like}
-                  header={
-                    <MaterialSellerProfile
-                      nickName={material.nickName}
-                      hasReaction={false}
-                      infoContent={material.updateDate
-                        .split('T')[0]
-                        .replace(/-/g, '. ')}
-                      infoName="판매"
-                      memberId={material.memberId}
-                    />
-                  }
-                  onClick={handleOnSaleListClick}
-                />
-              </CardsWrapper>
-            ))}
-          </>
+                {uploadedMaterialsByState?.onSaleList &&
+                  uploadedMaterialsByState?.onSaleList.length !== 0 && (
+                    <>
+                      <CardTitleWrapper>
+                        <HomeTagCardTitle title="판매중" isViewAll />
+                      </CardTitleWrapper>
+                      <CardsWrapper>
+                        {uploadedMaterialsByState?.onSaleList?.map(
+                          (material) => (
+                            <HomeMaterialCard
+                              key={material.id}
+                              isBig
+                              id={material.id}
+                              memberId={material.memberId}
+                              imageUrl={material.imageUrl}
+                              nickName={material.nickName}
+                              className={material.className}
+                              univ={material.univ}
+                              major={material.major}
+                              semester={material.semester}
+                              professor={material.professor}
+                              like={material.like}
+                              header={
+                                <MaterialSellerProfile
+                                  nickName={material.nickName}
+                                  hasReaction={false}
+                                  infoContent={material.updateDate
+                                    .split('T')[0]
+                                    .replace(/-/g, '. ')}
+                                  infoName="판매"
+                                  memberId={material.memberId}
+                                />
+                              }
+                              onClick={handleOnSaleListClick}
+                            />
+                          ),
+                        )}
+                      </CardsWrapper>
+                    </>
+                  )}
+              </div>
+            )}
+          </div>
         )}
       </MaterialBoxContainer>
 

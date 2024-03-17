@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import theme from '../theme';
 
 export const StyledButtonWrapper = styled.div`
   display: flex;
@@ -29,11 +30,18 @@ export const StyledDialog = styled.dialog`
   }
 `;
 
+export const StyledBaseDialog = styled(StyledDialog)`
+  && {
+    height: 280px;
+  }
+`;
+
 export const StyledModalContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 28px 20px 20px 20px;
   box-sizing: border-box;
+  background-color: ${theme.color['gray/white']};
 `;
 
 export const StyledTitleRow = styled.div`

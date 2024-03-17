@@ -8,6 +8,7 @@ const ASSIGNMENT_API_COMMON_SEGMENT = '/assignment';
 const ASSIGNMENT_API_SEGMENTS = {
   UPLOAD: '/assignment/upload',
   DOWNLOAD: '/assignment/download',
+  CHECK_PHONE_NUMBER_SUBMITTED: '/member/phone-number',
 };
 
 const sendFile = async (
@@ -72,6 +73,22 @@ export const downloadFile = async (
   }
 
   return null;
+};
+
+export const checkIsPhoneNumberSubmitted = async (
+  accessToken: string,
+  retrypayload: RetryPayload,
+) => {
+  const requestOptions = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
+
+  const data = await fetchWithTokenRetry(
+    `${process.env.REACT_APP_API_URL}${ASSIGNMENT_API_SEGMENTS.CHECK_PHONE_NUMBER_SUBMITTED}`,
+    requestOptions,
+    retrypayload,
+  );
+  return data;
 };
 
 export default sendFile;
