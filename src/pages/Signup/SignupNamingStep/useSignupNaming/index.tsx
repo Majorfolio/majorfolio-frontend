@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { server } from 'typescript';
 import { ColorType } from '../../../../components/common/theme';
-import userStore from '../../../../store/userStore';
+import userStore from '../../../../store/useUserStore';
 import { validateNickName } from '../../../../apis/member';
 import useAuthStore from '../../../../store/useAuthStore';
 import useRefreshPayload from '../../../../hooks/common/useRefreshPayload';
