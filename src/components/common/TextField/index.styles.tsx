@@ -15,7 +15,7 @@ export const StyledContainer = styled.div`
 const StyledTextField = styled(StyledText).attrs({
   as: 'input',
 })<Required<StyledTextFieldType>>`
-  padding: 13px 16px;
+  padding: 13px 44px 13px 16px;
   border: 1px solid
     ${({ hasError }) =>
       !hasError
@@ -47,6 +47,9 @@ const StyledTextField = styled(StyledText).attrs({
   background-color: ${theme.color['gray/grayBG']};
   width: 100%;
   border-radius: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
 `;
 
 export const StyledButton = styled.button`
