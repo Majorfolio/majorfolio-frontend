@@ -429,7 +429,7 @@ export default function UploadInProgresStep() {
         <TextField
           id="title"
           type="text"
-          placeholder="교수명 (선택)"
+          placeholder="교수명 (필수)"
           text={professor}
           onTextChange={(event) => {
             if (event.target.value.length <= 15) {
