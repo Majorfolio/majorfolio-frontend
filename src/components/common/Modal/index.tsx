@@ -34,7 +34,8 @@ export type ModalCategoryType =
   | 'REQUIRE_SIGNIN'
   | 'FEEDBACK_INVALID_FORMAT'
   | 'AVAILABLE_ON_MOBILE'
-  | 'REGISTER_INCOMPLETE';
+  | 'REGISTER_INCOMPLETE'
+  | 'DELETE_ACCOUNT';
 
 interface ModalPropsType {
   category: ModalCategoryType | null;
@@ -161,6 +162,11 @@ export const MODAL_TEXTS = {
     TITLE: '현재 사용할 수 없는 기능입니다.',
     BODY: '해당 기능은 상세정보 입력 및 약관동의가 완료된 후 사용할 수 있는 기능입니다. 이동할까요?',
     FOOTER: ['나중에', '이동하기'],
+  },
+  DELETE_ACCOUNT: {
+    TITLE: '메이저폴리오를 탈퇴하시겠어요?',
+    BODY: '메이저폴리오를 떠나시겠어요?',
+    FOOTER: ['나중에', '탈퇴하기'],
   },
 };
 

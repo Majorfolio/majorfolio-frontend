@@ -9,10 +9,14 @@ import Modal from '../../../components/common/Modal';
 import useModal from '../../../hooks/common/useModal';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import useAuthStore from '../../../store/useAuthStore';
+import { deleteAccount } from '../../../apis/member';
+import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 
 export default function MyViewMore() {
   const navigate = useNavigate();
   const signout = useAuthStore((state) => state.signout);
+  const accessToken = useAuthStore((state) => state.accessToken)!;
+  const refreshPayload = useRefreshPayload();
 
   const topbar = (
     <SecondaryTopbar
@@ -55,8 +59,20 @@ export default function MyViewMore() {
         primaryAction: () => {},
         secondaryAction: () => {},
       }),
-    () => navigate('../notice-list'),
-    () => navigate('../event-list'),
+    () => {
+      activateModal('TO_BE_UPDATED', {
+        primaryAction: () => {},
+        secondaryAction: () => {},
+      });
+      // navigate('../notice-list');
+    },
+    () => {
+      activateModal('TO_BE_UPDATED', {
+        primaryAction: () => {},
+        secondaryAction: () => {},
+      });
+      // navigate('../event-list');
+    },
     () => navigate('../upload-guideline'),
     () => navigate('../contact-us'),
     () =>
@@ -67,7 +83,16 @@ export default function MyViewMore() {
         },
         secondaryAction: () => {},
       }),
-    () => navigate('../delete-account'),
+    () => {
+      activateModal('DELETE_ACCOUNT', {
+        primaryAction: async () => {
+          await deleteAccount(accessToken, refreshPayload);
+          signout();
+          navigate('/signin');
+        },
+        secondaryAction: () => {},
+      });
+    },
   ];
 
   const rowButtons = rowTexts.map((rowText, index) => (
