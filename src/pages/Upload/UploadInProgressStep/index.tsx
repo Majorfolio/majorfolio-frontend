@@ -32,6 +32,7 @@ import Row from '../../../components/common/Row';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
 import useDraftStore from '../../../store/useDraftStore';
 import { Dropdown } from '../../../components/common/Dropdown';
+import Column from '../../../components/common/Column';
 
 interface IFile {
   url: string;
@@ -252,35 +253,40 @@ export default function UploadInProgresStep() {
   );
 
   const titleSectionItem = (
-    <TextField
-      id="title"
-      type="text"
-      placeholder="자료 제목 (필수)"
-      text={title}
-      onTextChange={(event) => {
-        if (event.target.value.length <= 15) {
-          updateDraft({ title: event.target.value });
-          setHasTitleError(false);
+    <Column gap={4}>
+      <TextField
+        id="title"
+        type="text"
+        placeholder="자료 제목 (필수)"
+        text={title}
+        onTextChange={(event) => {
+          if (event.target.value.length <= 15) {
+            updateDraft({ title: event.target.value });
+            setHasTitleError(false);
+          }
+        }}
+        hasError={hasTitleError}
+        icon={
+          hasTitleError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ title: '' });
+                setHasTitleError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
         }
-      }}
-      hasError={hasTitleError}
-      icon={
-        hasTitleError ? (
-          <ErrorDefaultIcon />
-        ) : (
-          <button
-            aria-label="remove-all"
-            type="button"
-            onClick={() => {
-              updateDraft({ title: '' });
-              setHasTitleError(false);
-            }}
-          >
-            <CancelDefaultIcon />
-          </button>
-        )
-      }
-    />
+      />
+      {hasTitleError && (
+        <HelperText type="error">잘못된 언어입니다.</HelperText>
+      )}
+    </Column>
   );
 
   const otherSectionTitle = (
@@ -299,191 +305,184 @@ export default function UploadInProgresStep() {
         onTextChange={() => {}}
         disabled
       />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="학과 (필수)"
-        text={major}
-        onTextChange={(event) => {
-          if (event.target.value.length <= 15) {
-            updateDraft({ major: event.target.value });
-            setHasMajorError(false);
-          }
-        }}
-        hasError={hasMajorError}
-        icon={
-          hasMajorError ? (
-            <ErrorDefaultIcon />
-          ) : (
-            <button
-              aria-label="remove-all"
-              type="button"
-              onClick={() => {
-                updateDraft({ major: '' });
-                setHasMajorError(false);
-              }}
-            >
-              <CancelDefaultIcon />
-            </button>
-          )
-        }
-      />
-      <Dropdown
-        hasError={hasSemesterError}
-        category="학기 (필수)"
-        options={[
-          '23-2',
-          '23-1',
-          '22-2',
-          '22-1',
-          '21-2',
-          '21-1',
-          '20-2',
-          '20-1',
-          '19-2',
-          '19-1',
-          '18-2',
-          '18-1',
-          '17-2',
-          '17-1',
-          '16-2',
-          '16-1',
-          '15-2',
-          '15-1',
-          '14-2',
-          '14-1',
-        ]}
-        searchQuery={semester}
-        onSearchQueryUpdate={(newSemester) => {
-          updateDraft({ semester: newSemester });
-          setHasSemesterError(false);
-        }}
-        icon={
-          hasSemesterError ? (
-            <ErrorDefaultIcon />
-          ) : (
-            <button
-              aria-label="remove-all"
-              type="button"
-              onClick={() => {
-                updateDraft({ semester: '' });
-                setHasSemesterError(false);
-              }}
-            >
-              <CancelDefaultIcon />
-            </button>
-          )
-        }
-      />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="수업명 (필수)"
-        text={className}
-        onTextChange={(event) => {
-          if (event.target.value.length <= 15) {
-            updateDraft({ className: event.target.value });
-            setHasClassNameError(false);
-          }
-        }}
-        hasError={hasClassNameError}
-        icon={
-          hasClassNameError ? (
-            <ErrorDefaultIcon />
-          ) : (
-            <button
-              aria-label="remove-all"
-              type="button"
-              onClick={() => {
-                updateDraft({ className: '' });
-                setHasClassNameError(false);
-              }}
-            >
-              <CancelDefaultIcon />
-            </button>
-          )
-        }
-      />
-      <TextField
-        id="title"
-        type="text"
-        placeholder="교수명 (선택)"
-        text={professor}
-        onTextChange={(event) => {
-          if (event.target.value.length <= 15) {
-            updateDraft({ professor: event.target.value });
-            setHasProfessorError(false);
-          }
-        }}
-        hasError={hasProfessorError}
-        icon={
-          hasProfessorError ? (
-            <ErrorDefaultIcon />
-          ) : (
-            <button
-              aria-label="remove-all"
-              type="button"
-              onClick={() => {
-                updateDraft({ professor: '' });
-                setHasProfessorError(false);
-              }}
-            >
-              <CancelDefaultIcon />
-            </button>
-          )
-        }
-      />
-      <Dropdown
-        hasError={hasScoreError}
-        category="학점(필수)"
-        options={[
-          'A+',
-          'A',
-          'A-',
-          'B+',
-          'B',
-          'B-',
-          'C+',
-          'C',
-          'C-',
-          'D',
-          'F',
-          'NP',
-          'P',
-        ]}
-        searchQuery={grade}
-        onSearchQueryUpdate={(newGrade) => {
-          updateDraft({ grade: newGrade });
-          setHasGradeError(false);
-        }}
-        icon={
-          hasScoreError ? (
-            <ErrorDefaultIcon />
-          ) : (
-            <button
-              aria-label="remove-all"
-              type="button"
-              onClick={() => {
-                updateDraft({ grade: '' });
-                setHasGradeError(false);
-              }}
-            >
-              <CancelDefaultIcon />
-            </button>
-          )
-        }
-      />
-      <ScoreRow>
+      <Column gap={4}>
         <TextField
           id="title"
-          type="number"
-          placeholder="과제점수 (필수)"
-          text={score}
+          type="text"
+          placeholder="학과 (필수)"
+          text={major}
           onTextChange={(event) => {
-            updateDraft({ score: event.target.value });
-            setHasScoreError(false);
+            if (event.target.value.length <= 15) {
+              updateDraft({ major: event.target.value });
+              setHasMajorError(false);
+            }
           }}
+          hasError={hasMajorError}
+          icon={
+            hasMajorError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ major: '' });
+                  setHasMajorError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasMajorError && (
+          <HelperText type="error">잘못된 언어입니다.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <Dropdown
+          hasError={hasSemesterError}
+          category="학기 (필수)"
+          options={[
+            '23-2',
+            '23-1',
+            '22-2',
+            '22-1',
+            '21-2',
+            '21-1',
+            '20-2',
+            '20-1',
+            '19-2',
+            '19-1',
+            '18-2',
+            '18-1',
+            '17-2',
+            '17-1',
+            '16-2',
+            '16-1',
+            '15-2',
+            '15-1',
+            '14-2',
+            '14-1',
+          ]}
+          searchQuery={semester}
+          onSearchQueryUpdate={(newSemester) => {
+            updateDraft({ semester: newSemester });
+            setHasSemesterError(false);
+          }}
+          icon={
+            hasSemesterError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ semester: '' });
+                  setHasSemesterError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasSemesterError && (
+          <HelperText type="error">잘못된 언어입니다.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <TextField
+          id="title"
+          type="text"
+          placeholder="수업명 (필수)"
+          text={className}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 15) {
+              updateDraft({ className: event.target.value });
+              setHasClassNameError(false);
+            }
+          }}
+          hasError={hasClassNameError}
+          icon={
+            hasClassNameError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ className: '' });
+                  setHasClassNameError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasClassNameError && (
+          <HelperText type="error">잘못된 언어입니다.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <TextField
+          id="title"
+          type="text"
+          placeholder="교수명 (선택)"
+          text={professor}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 15) {
+              updateDraft({ professor: event.target.value });
+              setHasProfessorError(false);
+            }
+          }}
+          hasError={hasProfessorError}
+          icon={
+            hasProfessorError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ professor: '' });
+                  setHasProfessorError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
+        />
+        {hasProfessorError && (
+          <HelperText type="error">잘못된 언어입니다.</HelperText>
+        )}
+      </Column>
+      <Column gap={4}>
+        <Dropdown
           hasError={hasScoreError}
+          category="학점(필수)"
+          options={[
+            'A+',
+            'A',
+            'A-',
+            'B+',
+            'B',
+            'B-',
+            'C+',
+            'C',
+            'C-',
+            'D',
+            'F',
+            'NP',
+            'P',
+          ]}
+          searchQuery={grade}
+          onSearchQueryUpdate={(newGrade) => {
+            updateDraft({ grade: newGrade });
+            setHasGradeError(false);
+          }}
           icon={
             hasScoreError ? (
               <ErrorDefaultIcon />
@@ -492,8 +491,8 @@ export default function UploadInProgresStep() {
                 aria-label="remove-all"
                 type="button"
                 onClick={() => {
-                  updateDraft({ score: '' });
-                  setHasScoreError(false);
+                  updateDraft({ grade: '' });
+                  setHasGradeError(false);
                 }}
               >
                 <CancelDefaultIcon />
@@ -501,33 +500,75 @@ export default function UploadInProgresStep() {
             )
           }
         />
-        <TextField
-          id="title"
-          type="number"
-          placeholder="만점 (필수)"
-          text={fullScore}
-          onTextChange={(event) => {
-            updateDraft({ fullScore: event.target.value });
-            setHasFullScoreError(false);
-          }}
-          hasError={hasFullScoreError}
-          icon={
-            hasFullScoreError ? (
-              <ErrorDefaultIcon />
-            ) : (
-              <button
-                aria-label="remove-all"
-                type="button"
-                onClick={() => {
-                  updateDraft({ fullScore: '' });
-                  setHasFullScoreError(false);
-                }}
-              >
-                <CancelDefaultIcon />
-              </button>
-            )
-          }
-        />
+        {hasGradeError && (
+          <HelperText type="error">잘못된 언어입니다.</HelperText>
+        )}
+      </Column>
+      <ScoreRow>
+        <Column gap={4}>
+          <TextField
+            id="title"
+            type="number"
+            placeholder="과제점수 (필수)"
+            text={score}
+            onTextChange={(event) => {
+              updateDraft({ score: event.target.value });
+              setHasScoreError(false);
+            }}
+            hasError={hasScoreError}
+            icon={
+              hasScoreError ? (
+                <ErrorDefaultIcon />
+              ) : (
+                <button
+                  aria-label="remove-all"
+                  type="button"
+                  onClick={() => {
+                    updateDraft({ score: '' });
+                    setHasScoreError(false);
+                  }}
+                >
+                  <CancelDefaultIcon />
+                </button>
+              )
+            }
+          />
+          {hasScoreError && (
+            <HelperText type="error">잘못된 언어입니다.</HelperText>
+          )}
+        </Column>
+        <Column gap={4}>
+          <TextField
+            id="title"
+            type="number"
+            placeholder="만점 (필수)"
+            text={fullScore}
+            onTextChange={(event) => {
+              updateDraft({ fullScore: event.target.value });
+              setHasFullScoreError(false);
+            }}
+            hasError={hasFullScoreError}
+            icon={
+              hasFullScoreError ? (
+                <ErrorDefaultIcon />
+              ) : (
+                <button
+                  aria-label="remove-all"
+                  type="button"
+                  onClick={() => {
+                    updateDraft({ fullScore: '' });
+                    setHasFullScoreError(false);
+                  }}
+                >
+                  <CancelDefaultIcon />
+                </button>
+              )
+            }
+          />
+          {hasFullScoreError && (
+            <HelperText type="error">잘못된 언어입니다.</HelperText>
+          )}
+        </Column>
       </ScoreRow>
     </>
   );
@@ -540,35 +581,41 @@ export default function UploadInProgresStep() {
 
   const descriptionSectionItem = (
     <StyledDescriptionSectionItem>
-      <Textbox
-        id="title"
-        placeholder="자료 설명"
-        text={description}
-        onTextChange={(event) => {
-          if (event.target.value.length <= 80) {
-            updateDraft({ description: event.target.value });
-            setHasDescriptionError(false);
+      <Column gap={4}>
+        <Textbox
+          id="title"
+          placeholder="자료 설명"
+          text={description}
+          onTextChange={(event) => {
+            if (event.target.value.length <= 80) {
+              updateDraft({ description: event.target.value });
+              setHasDescriptionError(false);
+            }
+          }}
+          icon={
+            hasDescriptionError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ description: '' });
+                  setHasDescriptionError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
           }
-        }}
-        icon={
-          hasDescriptionError ? (
-            <ErrorDefaultIcon />
-          ) : (
-            <button
-              aria-label="remove-all"
-              type="button"
-              onClick={() => {
-                updateDraft({ description: '' });
-                setHasDescriptionError(false);
-              }}
-            >
-              <CancelDefaultIcon />
-            </button>
-          )
-        }
-        hasError={hasDescriptionError}
-      />
-      <HelperText type="info">80자 이내로 작성해주세요.</HelperText>
+          hasError={hasDescriptionError}
+        />
+        {hasDescriptionError ? (
+          <HelperText type="error">잘못된 언어입니다.</HelperText>
+        ) : (
+          <HelperText type="info">80자 이내로 작성해주세요.</HelperText>
+        )}
+      </Column>
     </StyledDescriptionSectionItem>
   );
 
