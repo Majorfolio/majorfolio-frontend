@@ -197,9 +197,15 @@ export function ModalCard({
   onSecondaryAction: onSecondaryClose = () => {},
 }: Omit<ModalPropsType, 'modalRef'>) {
   // TODO Highlight the words with the primary color
+
   if (!category) {
     return <span />;
   }
+  const {
+    TITLE: titleText,
+    BODY: bodyText,
+    FOOTER: footerTexts,
+  } = MODAL_TEXTS[category];
 
   const title = (
     <Text color="gray/gray900" size={16} weight="bold" lineHeight="sm">
