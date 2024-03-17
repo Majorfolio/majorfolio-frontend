@@ -70,9 +70,15 @@ export const StyledComboboxButton = styled(StyledText).attrs({
 
 export const StyledDropdownIcon = styled.span`
   position: absolute;
-  right: 6px;
+  right: 0px;
   padding: 10px;
   height: 24px;
+
+  background-color: transparent;
+  line-height: 0;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const StyledListbox = styled.ul`

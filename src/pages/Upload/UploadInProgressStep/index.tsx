@@ -23,7 +23,11 @@ import { useNextStep } from '..';
 import UploadRoutes from '../../index.types';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import useMyProfile from '../../My/MyMain/useMyProfile';
-import { ErrorDefaultIcon } from '../../../assets/icons';
+import {
+  CancelDefaultIcon,
+  CloseDefaultIcon,
+  ErrorDefaultIcon,
+} from '../../../assets/icons';
 import Row from '../../../components/common/Row';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
 import useDraftStore from '../../../store/useDraftStore';
@@ -224,6 +228,7 @@ export default function UploadInProgresStep() {
     hasFullScoreError ||
     hasScoreError ||
     hasDescriptionError;
+  console.log(hasError);
 
   const fileSectionTitle = (
     <Text color="gray/gray900" size={16} weight="bold" lineHeight="sm">
@@ -253,11 +258,28 @@ export default function UploadInProgresStep() {
       placeholder="자료 제목 (필수)"
       text={title}
       onTextChange={(event) => {
-        updateDraft({ title: event.target.value });
-        setHasTitleError(false);
+        if (event.target.value.length <= 15) {
+          updateDraft({ title: event.target.value });
+          setHasTitleError(false);
+        }
       }}
       hasError={hasTitleError}
-      icon={hasTitleError ? <ErrorDefaultIcon /> : <span />}
+      icon={
+        hasTitleError ? (
+          <ErrorDefaultIcon />
+        ) : (
+          <button
+            aria-label="remove-all"
+            type="button"
+            onClick={() => {
+              updateDraft({ title: '' });
+              setHasTitleError(false);
+            }}
+          >
+            <CancelDefaultIcon />
+          </button>
+        )
+      }
     />
   );
 
@@ -283,11 +305,28 @@ export default function UploadInProgresStep() {
         placeholder="학과 (필수)"
         text={major}
         onTextChange={(event) => {
-          updateDraft({ major: event.target.value });
-          setHasMajorError(false);
+          if (event.target.value.length <= 15) {
+            updateDraft({ major: event.target.value });
+            setHasMajorError(false);
+          }
         }}
         hasError={hasMajorError}
-        icon={hasMajorError ? <ErrorDefaultIcon /> : <span />}
+        icon={
+          hasMajorError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ major: '' });
+                setHasMajorError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
       />
       <Dropdown
         hasError={hasSemesterError}
@@ -319,7 +358,22 @@ export default function UploadInProgresStep() {
           updateDraft({ semester: newSemester });
           setHasSemesterError(false);
         }}
-        icon={hasSemesterError ? <ErrorDefaultIcon /> : <span />}
+        icon={
+          hasSemesterError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ semester: '' });
+                setHasSemesterError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
       />
       <TextField
         id="title"
@@ -327,11 +381,28 @@ export default function UploadInProgresStep() {
         placeholder="수업명 (필수)"
         text={className}
         onTextChange={(event) => {
-          updateDraft({ className: event.target.value });
-          setHasClassNameError(false);
+          if (event.target.value.length <= 15) {
+            updateDraft({ className: event.target.value });
+            setHasClassNameError(false);
+          }
         }}
         hasError={hasClassNameError}
-        icon={hasClassNameError ? <ErrorDefaultIcon /> : <span />}
+        icon={
+          hasClassNameError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ className: '' });
+                setHasClassNameError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
       />
       <TextField
         id="title"
@@ -339,11 +410,28 @@ export default function UploadInProgresStep() {
         placeholder="교수명 (선택)"
         text={professor}
         onTextChange={(event) => {
-          updateDraft({ professor: event.target.value });
-          setHasProfessorError(false);
+          if (event.target.value.length <= 15) {
+            updateDraft({ professor: event.target.value });
+            setHasProfessorError(false);
+          }
         }}
         hasError={hasProfessorError}
-        icon={hasProfessorError ? <ErrorDefaultIcon /> : <span />}
+        icon={
+          hasProfessorError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ professor: '' });
+                setHasProfessorError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
       />
       <Dropdown
         hasError={hasScoreError}
@@ -366,9 +454,24 @@ export default function UploadInProgresStep() {
         searchQuery={grade}
         onSearchQueryUpdate={(newGrade) => {
           updateDraft({ grade: newGrade });
-          setHasScoreError(false);
+          setHasGradeError(false);
         }}
-        icon={hasScoreError ? <ErrorDefaultIcon /> : <span />}
+        icon={
+          hasScoreError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ grade: '' });
+                setHasGradeError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
       />
       <ScoreRow>
         <TextField
@@ -381,7 +484,22 @@ export default function UploadInProgresStep() {
             setHasScoreError(false);
           }}
           hasError={hasScoreError}
-          icon={hasScoreError ? <ErrorDefaultIcon /> : <span />}
+          icon={
+            hasScoreError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ score: '' });
+                  setHasScoreError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
         />
         <TextField
           id="title"
@@ -393,7 +511,22 @@ export default function UploadInProgresStep() {
             setHasFullScoreError(false);
           }}
           hasError={hasFullScoreError}
-          icon={hasFullScoreError ? <ErrorDefaultIcon /> : <span />}
+          icon={
+            hasFullScoreError ? (
+              <ErrorDefaultIcon />
+            ) : (
+              <button
+                aria-label="remove-all"
+                type="button"
+                onClick={() => {
+                  updateDraft({ fullScore: '' });
+                  setHasFullScoreError(false);
+                }}
+              >
+                <CancelDefaultIcon />
+              </button>
+            )
+          }
         />
       </ScoreRow>
     </>
@@ -412,10 +545,27 @@ export default function UploadInProgresStep() {
         placeholder="자료 설명"
         text={description}
         onTextChange={(event) => {
-          updateDraft({ description: event.target.value });
-          setHasDescriptionError(false);
+          if (event.target.value.length <= 80) {
+            updateDraft({ description: event.target.value });
+            setHasDescriptionError(false);
+          }
         }}
-        icon={hasDescriptionError ? <ErrorDefaultIcon /> : <span />}
+        icon={
+          hasDescriptionError ? (
+            <ErrorDefaultIcon />
+          ) : (
+            <button
+              aria-label="remove-all"
+              type="button"
+              onClick={() => {
+                updateDraft({ description: '' });
+                setHasDescriptionError(false);
+              }}
+            >
+              <CancelDefaultIcon />
+            </button>
+          )
+        }
         hasError={hasDescriptionError}
       />
       <HelperText type="info">80자 이내로 작성해주세요.</HelperText>
