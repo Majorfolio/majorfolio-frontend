@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 
 export default function useSearchQueries() {
   const [searchQueries, setSearchQueries] = useState<{
-    school: string;
+    univ: string;
     admissionYear: string;
     major: string;
     minor: string;
   }>({
-    school: '',
+    univ: '',
     admissionYear: '',
     major: '',
     minor: '',
   });
 
-  const { school, admissionYear, major, minor } = searchQueries;
+  const { univ, admissionYear, major, minor } = searchQueries;
 
   const createSearchQueryUpdater = (field: string) => (value: string) => {
     setSearchQueries((currentState) => ({
@@ -22,10 +22,10 @@ export default function useSearchQueries() {
     }));
   };
 
-  const isRequiredFieldEmpty = !(school && admissionYear && major);
+  const isRequiredFieldEmpty = !(univ && admissionYear && major);
 
   return {
-    school,
+    univ,
     admissionYear,
     major,
     minor,
