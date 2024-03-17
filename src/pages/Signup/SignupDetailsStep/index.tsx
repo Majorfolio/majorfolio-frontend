@@ -126,18 +126,13 @@ export default function SignupDetailsStep({
         <Dropdown
           category={CATEGORIES.ADMISSION_YEAR_STR}
           options={CATEGORY_OPTIONS.ADMISSION_YEARS}
-          borderColor={
-            areFieldsValid.admissionYear ? undefined : 'error/error_color'
-          }
-          borderColorOnFocus={
-            areFieldsValid.admissionYear ? undefined : 'error/error_color'
-          }
-          onFocus={() =>
-            setAreFieldsValid((previousAreFieldsValid) => ({
-              ...previousAreFieldsValid,
-              admissionYear: true,
-            }))
-          }
+          hasError={!areFieldsValid.admissionYear}
+          // onFocus={() =>
+          //   setAreFieldsValid((previousAreFieldsValid) => ({
+          //     ...previousAreFieldsValid,
+          //     admissionYear: true,
+          //   }))
+          // }
           icon={areFieldsValid.admissionYear ? undefined : <HelperCancelIcon />}
           searchQuery={admissionYear}
           onSearchQueryUpdate={createSearchQueryUpdater('admissionYear')}
