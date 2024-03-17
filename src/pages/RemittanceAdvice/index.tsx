@@ -132,7 +132,7 @@ const RemittanceAdvice = () => {
           </MarginBottom4>
           <Text weight="bold" lineHeight="sm" color="gray/gray900">
             {' '}
-            {buyInfo?.materialNameResponseList[0].assignmentName}{' '}
+            {buyInfo?.titleList[0].title}{' '}
           </Text>
           <Text size={12} color="gray/gray500">
             14일 이내로 송금해주세요 (요청일 : {buyInfo?.createDate})<br />
