@@ -413,7 +413,7 @@ const MaterialBox = () => {
                                   infoContent={material.updateDate
                                     .split('T')[0]
                                     .replace(/-/g, '. ')}
-                                  infoName="구매"
+                                  infoName="판매"
                                   memberId={material.memberId}
                                 />
                               }

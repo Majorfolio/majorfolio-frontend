@@ -38,6 +38,7 @@ import UploadGuideline from './My/UploadGuideline';
 import Caution from './My/Caution';
 import My from './My';
 import Seller from './Home/Seller';
+import SellerMaterialDetail from './HomeMaterialDetail/SellerMaterialDetail';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -68,6 +69,14 @@ const Router = () => {
         {
           path: '/assignment/:materialId/detail',
           element: <HomeMaterialDetail />,
+        },
+        {
+          path: '/assignment/my/:materialId/detail/:memberId',
+          element: <SellerMaterialDetail />,
+        },
+        {
+          path: '/assignment/my/:materialId/detail',
+          element: <SellerMaterialDetail />,
         },
         {
           path: '/assignment/:materialId/preview',

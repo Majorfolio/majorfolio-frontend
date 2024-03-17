@@ -45,7 +45,7 @@ const Landing = () => {
         </S.Text1>
 
         <S.BtnCheck onClick={handleNavigateHome}>
-          <S.Text2>확인하러 가기</S.Text2>
+          <S.Text2>홈으로 이동</S.Text2>
           <S.WhiteRightChevron />
         </S.BtnCheck>
         <S.ChevronWrapper>
