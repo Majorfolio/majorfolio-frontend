@@ -182,6 +182,58 @@ export const getMaterialDetail = async (
   return data;
 };
 
+export const getMyMaterialDetail = async (
+  materialId: number,
+  accessToken?: string,
+  refreshPayload?: RetryPayload,
+) => {
+  if (accessToken && refreshPayload) {
+    const requestOptions = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+
+    const data = await fetchWithTokenRetry(
+      `https://majorfolio-server.shop/assignment/my/${materialId}/detail/info`,
+      requestOptions,
+      refreshPayload,
+    );
+
+    return data;
+  }
+
+  const response = await fetch(
+    `https://majorfolio-server.shop/assignment/my/${materialId}/detail/info`,
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getMyMaterialDetailStats = async (
+  materialId: number,
+  accessToken?: string,
+  refreshPayload?: RetryPayload,
+) => {
+  if (accessToken && refreshPayload) {
+    const requestOptions = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+
+    const data = await fetchWithTokenRetry(
+      `https://majorfolio-server.shop/assignment/my/${materialId}/detail/stats`,
+      requestOptions,
+      refreshPayload,
+    );
+
+    return data;
+  }
+
+  const response = await fetch(
+    `https://majorfolio-server.shop/assignment/my/${materialId}/detail/stats`,
+  );
+  const data = await response.json();
+  return data;
+};
+
 export const getPreviewImages = async (materialId: number) => {
   const response = await fetch(
     `https://majorfolio-server.shop/assignment/${materialId}/previews`,

@@ -199,73 +199,24 @@ const Home = () => {
         />
         <AllDivider />
 
-        {!loading &&
-        homeMaterials?.newUpload &&
-        homeMaterials?.best &&
-        (homeMaterials.newUpload.length !== 0 ||
+        { !loading &&
+          homeMaterials?.newUpload &&
+          homeMaterials?.best &&
+          (homeMaterials.newUpload.length !== 0 ||
           homeMaterials.best.length !== 0 ||
           recentMaterials.length !== 0) ? (
           <ContentPageContainer>
             <HomeContentPageTitle title={title} />
 
-            {homeMaterials.newUpload.length !== 0
-              ? (console.log(
-                  homeMaterials.newUpload.filter(
-                    (material) => material.nickName !== myNickName,
-                  ),
-                ),
-                console.log(myNickName),
-                console.log(title),
-                (
-                  <>
-                    <HomeTagCardTitle
-                      title="신규 등록 자료"
-                      tag="new"
-                      category={currentCategory}
-                    />
-                    <HomeMaterialCardWrapper>
-                      {homeMaterials.newUpload
-                        .filter((material) => material.nickName !== myNickName)
-                        .map((material: Material) => {
-                          return (
-                            <HomeMaterialCard
-                              key={material.id}
-                              isBig={false}
-                              id={material.id}
-                              memberId={material.memberId}
-                              imageUrl={material.imageUrl}
-                              nickName={material.nickName}
-                              className={material.className}
-                              univ={material.univ}
-                              major={material.major}
-                              semester={material.semester}
-                              professor={material.professor}
-                              like={material.like}
-                              header={
-                                <MaterialSellerProfile
-                                  nickName={material.nickName}
-                                  hasReaction={false}
-                                  memberId={material.memberId}
-                                />
-                              }
-                            />
-                          );
-                        })}
-                    </HomeMaterialCardWrapper>
-                  </>
-                ))
-              : null}
-
-            {homeMaterials.best.length !== 0 && (
+            { homeMaterials?.newUpload.length !== 0 && (
               <>
                 <HomeTagCardTitle
-                  title="베스트 자료"
-                  tag="hot"
+                  title="신규 등록 자료"
+                  tag="new"
                   category={currentCategory}
                 />
                 <HomeMaterialCardWrapper>
-                  {homeMaterials.best
-                    .filter((material) => material.nickName !== myNickName)
+                  {homeMaterials?.newUpload
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -291,8 +242,46 @@ const Home = () => {
                         />
                       );
                     })}
-                </HomeMaterialCardWrapper>
+                </HomeMaterialCardWrapper>              
               </>
+            )}
+
+            { homeMaterials?.best.length !== 0 && (
+              <>
+                <HomeTagCardTitle
+                  title="베스트 자료"
+                  tag="hot"
+                  category={currentCategory}
+                />
+	              <HomeMaterialCardWrapper>
+	                {homeMaterials?.best
+	                  .map((material: Material) => {
+	                    return (
+	                      <HomeMaterialCard
+	                        key={material.id}
+	                        isBig={false}
+	                        id={material.id}
+	                        memberId={material.memberId}
+	                        imageUrl={material.imageUrl}
+	                        nickName={material.nickName}
+	                        className={material.className}
+	                        univ={material.univ}
+	                        major={material.major}
+	                        semester={material.semester}
+	                        professor={material.professor}
+	                        like={material.like}
+	                        header={
+	                          <MaterialSellerProfile
+	                            nickName={material.nickName}
+	                            hasReaction={false}
+	                            memberId={material.memberId}
+	                          />
+	                        }
+	                      />
+	                    );
+	                 })}
+	              </HomeMaterialCardWrapper>
+	            </>
             )}
 
             {recentMaterials.length !== 0 && (
@@ -303,7 +292,6 @@ const Home = () => {
                 />
                 <HomeMaterialCardWrapper>
                   {recentMaterials
-                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -332,6 +320,7 @@ const Home = () => {
                 </HomeMaterialCardWrapper>
               </>
             )}
+
           </ContentPageContainer>
         ) : (
           <div>

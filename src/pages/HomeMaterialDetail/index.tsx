@@ -33,6 +33,7 @@ import MainLeftBoxTop from '../../components/common/MainLeftBoxTop';
 import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 import useAuthStore, { AuthLevel } from '../../store/useAuthStore';
 import useRefreshPayload from '../../hooks/common/useRefreshPayload';
+import MaterialPostStatisticsDescription from '../../components/home/MaterialPostStatisticsDescription';
 
 const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
@@ -63,6 +64,7 @@ const HomeMaterialDetail = () => {
   const reactions = likes + bookmarks;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (authLevel === AuthLevel.Member && materialId) {
       getMaterialDetail(
         parseInt(materialId, 10),
@@ -232,6 +234,16 @@ const HomeMaterialDetail = () => {
   ) : (
     // skeleton
     <HomeMaterialDetailContainer>
+      <SecondaryTopbar
+        transition={
+          <button type="button" onClick={() => navigate(-1)} aria-label="prev">
+            <ArrowBackDefaultIcon />
+          </button>
+        }
+        title=""
+        icons={["", "",]}
+      />
+
       <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
