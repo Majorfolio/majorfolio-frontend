@@ -284,7 +284,7 @@ export default function UploadInProgresStep() {
         }
       />
       {hasTitleError && (
-        <HelperText type="error">잘못된 언어입니다.</HelperText>
+        <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
       )}
     </Column>
   );
@@ -336,7 +336,7 @@ export default function UploadInProgresStep() {
           }
         />
         {hasMajorError && (
-          <HelperText type="error">잘못된 언어입니다.</HelperText>
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
         )}
       </Column>
       <Column gap={4}>
@@ -388,7 +388,7 @@ export default function UploadInProgresStep() {
           }
         />
         {hasSemesterError && (
-          <HelperText type="error">잘못된 언어입니다.</HelperText>
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
         )}
       </Column>
       <Column gap={4}>
@@ -422,14 +422,14 @@ export default function UploadInProgresStep() {
           }
         />
         {hasClassNameError && (
-          <HelperText type="error">잘못된 언어입니다.</HelperText>
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
         )}
       </Column>
       <Column gap={4}>
         <TextField
           id="title"
           type="text"
-          placeholder="교수명 (선택)"
+          placeholder="교수명 (필수)"
           text={professor}
           onTextChange={(event) => {
             if (event.target.value.length <= 15) {
@@ -456,7 +456,7 @@ export default function UploadInProgresStep() {
           }
         />
         {hasProfessorError && (
-          <HelperText type="error">잘못된 언어입니다.</HelperText>
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
         )}
       </Column>
       <Column gap={4}>
@@ -501,7 +501,7 @@ export default function UploadInProgresStep() {
           }
         />
         {hasGradeError && (
-          <HelperText type="error">잘못된 언어입니다.</HelperText>
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
         )}
       </Column>
       <ScoreRow>
@@ -534,7 +534,7 @@ export default function UploadInProgresStep() {
             }
           />
           {hasScoreError && (
-            <HelperText type="error">잘못된 언어입니다.</HelperText>
+            <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
           )}
         </Column>
         <Column gap={4}>
@@ -566,7 +566,7 @@ export default function UploadInProgresStep() {
             }
           />
           {hasFullScoreError && (
-            <HelperText type="error">잘못된 언어입니다.</HelperText>
+            <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
           )}
         </Column>
       </ScoreRow>
@@ -611,7 +611,7 @@ export default function UploadInProgresStep() {
           hasError={hasDescriptionError}
         />
         {hasDescriptionError ? (
-          <HelperText type="error">잘못된 언어입니다.</HelperText>
+          <HelperText type="error">입력한 정보를 확인해주세요.</HelperText>
         ) : (
           <HelperText type="info">80자 이내로 작성해주세요.</HelperText>
         )}

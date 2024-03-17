@@ -113,6 +113,7 @@ function TransactionModal({
           onClick={() => {
             closeModal();
           }}
+          disabled
         >
           <Text size={16} weight="bold" lineHeight="sm">
             환불 요청
