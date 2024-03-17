@@ -173,6 +173,7 @@ export const MODAL_TEXTS = {
     TITLE: '메이저폴리오를 탈퇴하시겠어요?',
     BODY: '메이저폴리오를 떠나시겠어요?',
     FOOTER: ['나중에', '탈퇴하기'],
+  },
   SALE_RESUME: {
     TITLE: '이 자료는 판매 중지된 자료입니다.',
     BODY: '상세페이지 하단의 판매 재개 버튼을 통해 언제든지 다시 판매할 수 있습니다.',
@@ -199,12 +200,6 @@ export function ModalCard({
   if (!category) {
     return <span />;
   }
-
-  const {
-    TITLE: titleText,
-    BODY: bodyText,
-    FOOTER: footerTexts,
-  } = MODAL_TEXTS[category];
 
   const title = (
     <Text color="gray/gray900" size={16} weight="bold" lineHeight="sm">
