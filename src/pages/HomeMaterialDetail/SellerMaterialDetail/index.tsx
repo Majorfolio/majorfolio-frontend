@@ -15,8 +15,8 @@ import MaterialDetailPost from '../../../components/home/MaterialDetailPost';
 import MaterialDetailInfo from '../../../components/home/MaterialDetailInfo';
 import AllDivider from '../../../components/common/AllDivider';
 import AllDividerThin from '../../../components/common/AllDividerThin';
-import { getMaterialDetail, getMyMaterialDetail, getMyMaterialDetailStats } from '../../../apis/materials';
-import { MaterialDetail, MyMaterialDetail, MyMaterialStats } from '../../../components/home/Material/index.types';
+import { getMyMaterialDetail, getMyMaterialDetailStats } from '../../../apis/materials';
+import { MyMaterialDetail, MyMaterialStats } from '../../../components/home/Material/index.types';
 import MaterialPostStatisticsNumber, { SellerMaterialPostStatisticsNumber } from '../../../components/home/MaterialPostStatisticsNumber';
 import BottomPaymentAmount from '../../../components/home/BottomPaymentAmount';
 import Button from '../../../components/common/Button';
@@ -99,6 +99,7 @@ const SellerMaterialDetail = () => {
     }
   }, []);
 
+  // TODO: 페이지 넘어왔을 때 모달 열리도록 수정해야 함 (현재: 무한렌더링문제)
   // if (materialDetail?.status) {
   //   switch (materialDetail.status) {
   //     case "reviewing":

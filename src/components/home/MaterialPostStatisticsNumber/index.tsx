@@ -65,7 +65,7 @@ export function SellerMaterialPostStatisticsNumber({
   reaction,
 }: SellerMaterialPostStatisticsNumberPropsType) {
   return (
-    <StyledMyProfileNumberContainer>
+    <NumbersContainer>
       <NumberWrapper>
         <Text size={18} weight="bold" lineHeight="sm">
           {' '}
@@ -95,7 +95,7 @@ export function SellerMaterialPostStatisticsNumber({
           반응
         </Text>
       </NumberWrapper>
-    </StyledMyProfileNumberContainer>
+    </NumbersContainer>
   );
 }
 

@@ -209,7 +209,6 @@ const Home = () => {
               <HomeMaterialCardWrapper>
                 {homeMaterials?.newUpload ? (
                   homeMaterials.newUpload
-                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -256,7 +255,6 @@ const Home = () => {
               <HomeMaterialCardWrapper>
                 {homeMaterials?.best ? (
                   homeMaterials.best
-                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard
@@ -302,7 +300,6 @@ const Home = () => {
               <HomeMaterialCardWrapper>
                 {recentMaterials ? (
                   recentMaterials
-                    .filter((material) => material.nickName !== myNickName)
                     .map((material: Material) => {
                       return (
                         <HomeMaterialCard

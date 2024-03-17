@@ -26,4 +26,6 @@ export const StickyBottom = styled.section`
 
 export const ButtonWrapper = styled.div`
   padding: 8px 20px;
+  display: flex;
+  gap: 12px;
 `;
