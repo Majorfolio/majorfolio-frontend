@@ -12,6 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: yarn install && yarn build
+        env:
+          DISABLE_ESLINT_PLUGIN: true
+          REACT_APP_BASE_URL: http://localhost:3000
+          REACT_APP_API_URL: https://majorfolio-server.shop
+          REACT_APP_CLIENT_ID: '${{ secrets.REACT_APP_CLIENT_ID }}'
+          REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID: '${{ secrets.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID }}'
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
