@@ -78,7 +78,7 @@ export const changeProfileImage = async (
   accessToken: string,
 ) => {
   const body = {
-    profile_image: imageIndex,
+    profileImage: String(imageIndex),
   };
 
   const requestOptions = {
@@ -104,11 +104,11 @@ export interface Profile {
   major2: string;
   studentId: number;
   phoneNumber: string;
-  profile_image: number | string;
+  profileImage: string;
 }
 
 export const editProfile = async (
-  profile: Partial<Omit<Profile, 'profile_image'>>,
+  profile: Partial<Omit<Profile, 'profileImage'>>,
   accessToken: string,
   refreshPayload: RetryPayload,
 ) => {

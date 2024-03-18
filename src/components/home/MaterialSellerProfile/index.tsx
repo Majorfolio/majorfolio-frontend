@@ -28,6 +28,7 @@ import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../common/Modal';
+import { SmallPortrait } from '../../common/Portrait';
 
 interface MaterialSellerProfileProps {
   id?: number;
@@ -42,6 +43,7 @@ interface MaterialSellerProfileProps {
   toggleLike?: () => void;
   toggleBookmark?: () => void;
   memberId?: number;
+  profileImage: string;
 }
 
 function MaterialSellerProfile({
@@ -57,6 +59,7 @@ function MaterialSellerProfile({
   infoContent,
   infoName,
   memberId,
+  profileImage,
 }: MaterialSellerProfileProps) {
   const accessToken = useAuthStore((state) => state.accessToken)!;
   const authLevel = useAuthStore((state) => state.authLevel);
@@ -131,7 +134,7 @@ function MaterialSellerProfile({
             }}
           >
             <ProfileImageWrapper>
-              <CharacterSmall1Icon />
+              <SmallPortrait index={profileImage} />
             </ProfileImageWrapper>
             <Text size={14} weight="bold" color="gray/gray900">
               {' '}
@@ -142,7 +145,7 @@ function MaterialSellerProfile({
         {!memberId && (
           <SellerInfoWrapper>
             <ProfileImageWrapper>
-              <CharacterSmall1Icon />
+              <SmallPortrait index={profileImage} />
             </ProfileImageWrapper>
             <Text size={14} weight="bold" color="gray/gray900">
               {' '}

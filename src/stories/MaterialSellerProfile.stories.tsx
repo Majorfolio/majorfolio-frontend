@@ -22,6 +22,7 @@ export const HasReactionFalse: Story = {
   args: {
     nickName: '사용자 1',
     hasReaction: false,
+    profileImage: '4',
   },
 };
 
@@ -29,6 +30,7 @@ export const HasReactionTrue: Story = {
   args: {
     nickName: '사용자 2',
     hasReaction: true,
+    profileImage: '3',
   },
 };
 
@@ -38,5 +40,6 @@ export const HasInfo: Story = {
     hasReaction: false,
     infoContent: '2023. 11. 15',
     infoName: '판매',
+    profileImage: '2',
   },
 };

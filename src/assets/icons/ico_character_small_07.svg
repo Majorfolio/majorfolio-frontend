@@ -1,29 +1,29 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.00195312" width="24" height="24" rx="12" fill="#232629"/>
-<path d="M18.2632 6.95899L5.6153 6.95898C5.18295 6.95898 4.84809 7.33735 4.90064 7.76649L5.98104 16.5898C6.02525 16.9509 6.3319 17.2223 6.6957 17.2223H17.1284C17.4906 17.2223 17.7964 16.9533 17.8425 16.5941L18.9773 7.77084C19.0327 7.34028 18.6973 6.95899 18.2632 6.95899Z" fill="#A3ABB3"/>
-<path d="M15.9927 6.95906L5.6153 6.95899C5.18295 6.95899 4.84809 7.33735 4.90064 7.7665L5.98104 16.5898C6.02525 16.9509 6.3319 17.2223 6.6957 17.2223H14.961C15.3263 17.2223 15.6337 16.9487 15.6762 16.5859L16.7078 7.76268C16.7578 7.33481 16.4235 6.95907 15.9927 6.95906Z" fill="#DCE2E7"/>
-<ellipse cx="10.5683" cy="12.5304" rx="1.15828" ry="1.59264" transform="rotate(-180 10.5683 12.5304)" fill="white"/>
-<ellipse cx="7.99016" cy="12.5304" rx="1.15828" ry="1.59264" transform="rotate(-180 7.99016 12.5304)" fill="white"/>
-<mask id="mask0_1876_15026" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="11" width="3" height="4">
-<ellipse cx="10.5683" cy="12.5787" rx="1.15828" ry="1.54437" transform="rotate(-180 10.5683 12.5787)" fill="white"/>
+<rect width="24" height="24" rx="12" fill="#232629"/>
+<path d="M18.2613 6.95899L5.61335 6.95898C5.18099 6.95898 4.84613 7.33735 4.89868 7.76649L5.97908 16.5898C6.0233 16.9509 6.32994 17.2223 6.69375 17.2223H17.1265C17.4886 17.2223 17.7944 16.9533 17.8406 16.5941L18.9754 7.77084C19.0308 7.34028 18.6954 6.95899 18.2613 6.95899Z" fill="#A3ABB3"/>
+<path d="M15.9907 6.95906L5.61335 6.95899C5.181 6.95899 4.84614 7.33735 4.89868 7.7665L5.97908 16.5898C6.0233 16.9509 6.32994 17.2223 6.69375 17.2223H14.9591C15.3244 17.2223 15.6318 16.9487 15.6742 16.5859L16.7058 7.76268C16.7559 7.33481 16.4215 6.95907 15.9907 6.95906Z" fill="#DCE2E7"/>
+<ellipse cx="10.5663" cy="12.5304" rx="1.15828" ry="1.59264" transform="rotate(-180 10.5663 12.5304)" fill="white"/>
+<ellipse cx="7.9882" cy="12.5304" rx="1.15828" ry="1.59264" transform="rotate(-180 7.9882 12.5304)" fill="white"/>
+<mask id="mask0_1646_7742" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="11" width="3" height="4">
+<ellipse cx="10.5663" cy="12.5787" rx="1.15828" ry="1.54437" transform="rotate(-180 10.5663 12.5787)" fill="white"/>
 </mask>
-<g mask="url(#mask0_1876_15026)">
-<ellipse cx="10.9544" cy="13.1578" rx="0.772187" ry="0.965233" transform="rotate(-180 10.9544 13.1578)" fill="url(#paint0_linear_1876_15026)"/>
+<g mask="url(#mask0_1646_7742)">
+<ellipse cx="10.9524" cy="13.1578" rx="0.772187" ry="0.965233" transform="rotate(-180 10.9524 13.1578)" fill="url(#paint0_linear_1646_7742)"/>
 </g>
-<mask id="mask1_1876_15026" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="11" width="4" height="4">
-<ellipse cx="7.99016" cy="12.5787" rx="1.15828" ry="1.54437" transform="rotate(-180 7.99016 12.5787)" fill="white"/>
+<mask id="mask1_1646_7742" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="11" width="4" height="4">
+<ellipse cx="7.9882" cy="12.5787" rx="1.15828" ry="1.54437" transform="rotate(-180 7.9882 12.5787)" fill="white"/>
 </mask>
-<g mask="url(#mask1_1876_15026)">
-<ellipse cx="8.37625" cy="13.1578" rx="0.772187" ry="0.965233" transform="rotate(-180 8.37625 13.1578)" fill="url(#paint1_linear_1876_15026)"/>
+<g mask="url(#mask1_1646_7742)">
+<ellipse cx="8.3743" cy="13.1578" rx="0.772187" ry="0.965233" transform="rotate(-180 8.3743 13.1578)" fill="url(#paint1_linear_1646_7742)"/>
 </g>
-<ellipse cx="7.99107" cy="12.8696" rx="0.414901" ry="0.207451" fill="white"/>
-<ellipse cx="10.619" cy="12.8696" rx="0.414901" ry="0.207451" fill="white"/>
+<ellipse cx="7.98912" cy="12.8696" rx="0.414901" ry="0.207451" fill="white"/>
+<ellipse cx="10.617" cy="12.8696" rx="0.414901" ry="0.207451" fill="white"/>
 <defs>
-<linearGradient id="paint0_linear_1876_15026" x1="10.6757" y1="12.616" x2="11.5055" y2="13.8607" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_1646_7742" x1="10.6737" y1="12.616" x2="11.5035" y2="13.8607" gradientUnits="userSpaceOnUse">
 <stop/>
 <stop offset="1" stop-opacity="0.53"/>
 </linearGradient>
-<linearGradient id="paint1_linear_1876_15026" x1="8.06293" y1="12.616" x2="8.89273" y2="13.8607" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint1_linear_1646_7742" x1="8.06097" y1="12.616" x2="8.89078" y2="13.8607" gradientUnits="userSpaceOnUse">
 <stop/>
 <stop offset="1" stop-opacity="0.53"/>
 </linearGradient>

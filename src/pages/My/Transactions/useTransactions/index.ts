@@ -8,7 +8,7 @@ import { RetryPayload } from '../../../../apis/member';
 
 export type TransactionMaterial = Pick<
   Material,
-  'id' | 'className' | 'univ' | 'major'
+  'id' | 'className' | 'univ' | 'major' | 'profileImage'
 > & {
   price: number;
   updateAt: string;

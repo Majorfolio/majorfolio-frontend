@@ -1,29 +1,29 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.00195312" width="24" height="24" rx="12" fill="white"/>
-<path d="M18.2883 6.95898H5.82607C5.40427 6.95898 5.07281 7.31995 5.10868 7.74023L5.82576 16.1402C5.85756 16.5128 6.16924 16.799 6.54315 16.799H17.4688C17.8394 16.799 18.1494 16.5177 18.1854 16.1489L19.0049 7.7489C19.0462 7.32563 18.7136 6.95898 18.2883 6.95898Z" fill="#232629"/>
-<path d="M18.2879 6.95898H8.33613C7.91779 6.95898 7.58752 7.3143 7.61805 7.73153L8.23269 16.1315C8.26022 16.5078 8.57351 16.799 8.95077 16.799H17.4683C17.8389 16.799 18.149 16.5177 18.1849 16.1489L19.0045 7.7489C19.0458 7.32563 18.7131 6.95898 18.2879 6.95898Z" fill="#4B535A"/>
-<ellipse cx="12.8497" cy="11.4245" rx="1.3272" ry="1.82489" fill="white"/>
-<ellipse cx="15.7432" cy="11.4245" rx="1.3272" ry="1.82489" fill="white"/>
-<mask id="mask0_1876_15028" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="11" y="9" width="4" height="5">
-<ellipse cx="12.8487" cy="11.3692" rx="1.3272" ry="1.76959" fill="white"/>
+<rect width="24" height="24" rx="12" fill="white"/>
+<path d="M18.2864 6.95898H5.82412C5.40231 6.95898 5.07085 7.31995 5.10673 7.74023L5.8238 16.1402C5.85561 16.5128 6.16729 16.799 6.5412 16.799H17.4669C17.8374 16.799 18.1475 16.5177 18.1835 16.1489L19.003 7.7489C19.0443 7.32563 18.7117 6.95898 18.2864 6.95898Z" fill="#232629"/>
+<path d="M18.2859 6.95898H8.33418C7.91584 6.95898 7.58557 7.3143 7.6161 7.73153L8.23073 16.1315C8.25826 16.5078 8.57155 16.799 8.94881 16.799H17.4664C17.837 16.799 18.147 16.5177 18.183 16.1489L19.0025 7.7489C19.0438 7.32563 18.7112 6.95898 18.2859 6.95898Z" fill="#4B535A"/>
+<ellipse cx="12.8477" cy="11.4245" rx="1.3272" ry="1.82489" fill="white"/>
+<ellipse cx="15.7413" cy="11.4245" rx="1.3272" ry="1.82489" fill="white"/>
+<mask id="mask0_1646_7743" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="11" y="9" width="4" height="5">
+<ellipse cx="12.8467" cy="11.3692" rx="1.3272" ry="1.76959" fill="white"/>
 </mask>
-<g mask="url(#mask0_1876_15028)">
-<ellipse cx="12.4063" cy="10.7056" rx="0.884797" ry="1.106" fill="url(#paint0_linear_1876_15028)"/>
+<g mask="url(#mask0_1646_7743)">
+<ellipse cx="12.4043" cy="10.7056" rx="0.884797" ry="1.106" fill="url(#paint0_linear_1646_7743)"/>
 </g>
-<mask id="mask1_1876_15028" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="14" y="9" width="4" height="5">
-<ellipse cx="15.7442" cy="11.3692" rx="1.3272" ry="1.76959" fill="white"/>
+<mask id="mask1_1646_7743" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="14" y="9" width="4" height="5">
+<ellipse cx="15.7422" cy="11.3692" rx="1.3272" ry="1.76959" fill="white"/>
 </mask>
-<g mask="url(#mask1_1876_15028)">
-<ellipse cx="15.3018" cy="10.7056" rx="0.884797" ry="1.106" fill="url(#paint1_linear_1876_15028)"/>
+<g mask="url(#mask1_1646_7743)">
+<ellipse cx="15.2998" cy="10.7056" rx="0.884797" ry="1.106" fill="url(#paint1_linear_1646_7743)"/>
 </g>
-<ellipse cx="15.7424" cy="11.0357" rx="0.475408" ry="0.237704" transform="rotate(180 15.7424 11.0357)" fill="white"/>
-<ellipse cx="12.7912" cy="11.0357" rx="0.475408" ry="0.237704" transform="rotate(180 12.7912 11.0357)" fill="white"/>
+<ellipse cx="15.7404" cy="11.0357" rx="0.475408" ry="0.237704" transform="rotate(180 15.7404 11.0357)" fill="white"/>
+<ellipse cx="12.7892" cy="11.0357" rx="0.475408" ry="0.237704" transform="rotate(180 12.7892 11.0357)" fill="white"/>
 <defs>
-<linearGradient id="paint0_linear_1876_15028" x1="12.087" y1="10.0848" x2="13.0378" y2="11.511" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_1646_7743" x1="12.085" y1="10.0848" x2="13.0358" y2="11.511" gradientUnits="userSpaceOnUse">
 <stop/>
 <stop offset="1" stop-opacity="0.53"/>
 </linearGradient>
-<linearGradient id="paint1_linear_1876_15028" x1="14.9428" y1="10.0848" x2="15.8936" y2="11.511" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint1_linear_1646_7743" x1="14.9408" y1="10.0848" x2="15.8916" y2="11.511" gradientUnits="userSpaceOnUse">
 <stop/>
 <stop offset="1" stop-opacity="0.53"/>
 </linearGradient>

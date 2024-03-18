@@ -1,4 +1,10 @@
-import React, { useRef, useState, MouseEvent, ReactNode, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  MouseEvent,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -29,7 +35,7 @@ interface HomeMaterialCardProps {
   isBig?: boolean;
   id: number;
   memberId: number;
-  imageUrl: string;
+  profileImage: string;
   nickName: string;
   className: string;
   univ: string;
@@ -46,7 +52,7 @@ function HomeMaterialCard({
   isBig = true,
   id,
   memberId,
-  imageUrl,
+  profileImage,
   nickName,
   className,
   univ,
@@ -111,7 +117,7 @@ function HomeMaterialCard({
       const materialObj = {
         id,
         memberId,
-        imageUrl,
+        profileImage,
         nickName,
         className,
         univ,
@@ -124,11 +130,10 @@ function HomeMaterialCard({
 
       // navigate(`/assignment/my/8/detail/5`); // 테스트용
 
-
       if (nickName !== myNickName) {
-        navigate(`/assignment/${id}/detail/${memberId}`);
+        navigate(`/assignment/${id}/detail/${memberId}/${profileImage}`);
       } else {
-        navigate(`/assignment/my/${id}/detail/${memberId}`);
+        navigate(`/assignment/my/${id}/detail/${memberId}/${profileImage}`);
       }
     }
   };
@@ -136,7 +141,10 @@ function HomeMaterialCard({
   useEffect(() => {
     const asyncEffect = async () => {
       if (authLevel === AuthLevel.Member && accessToken) {
-        const { nickName: fetchedNickName } = await getMy(accessToken, refreshPayload);
+        const { nickName: fetchedNickName } = await getMy(
+          accessToken,
+          refreshPayload,
+        );
         setMyNickName(fetchedNickName);
       }
     };

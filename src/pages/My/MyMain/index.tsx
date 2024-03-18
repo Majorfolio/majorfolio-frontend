@@ -22,9 +22,10 @@ import Row from '../../../components/common/Row';
 import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useModal from '../../../hooks/common/useModal';
 import Modal from '../../../components/common/Modal';
+import Portrait from '../../../components/common/Portrait';
 
 export default function MyMain() {
-  const { nickName, univ, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, profileImage, upload, sell, follower } =
     useMyProfile();
   const navigate = useNavigate();
   const authLevel = useAuthStore((state) => state.authLevel);
@@ -126,7 +127,7 @@ export default function MyMain() {
           <StyledProfileIntro>
             <StyledWelcomeSection>
               <Row justify="center" pt={32}>
-                {welcomeText} <StyledPortrait />
+                {welcomeText} <Portrait index={profileImage} />
               </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
