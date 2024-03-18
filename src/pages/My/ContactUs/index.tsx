@@ -12,6 +12,8 @@ import { KakaoButton } from '../../../components/common/Button';
 import StyledRow from './index.styles';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import RowButton from '../../../components/common/RowButton';
+import useModal from '../../../hooks/common/useModal';
+import Modal from '../../../components/common/Modal';
 
 const KAKAOTALK_CHANNEL_URL = 'http://pf.kakao.com/_NexmfG/chat';
 
@@ -24,6 +26,8 @@ const openInNewTab = (url: string) => {
 
 export default function ContactUs() {
   const navigate = useNavigate();
+  const { activateModal, closePrimarily, closeSecondarily, ...modalProps } =
+    useModal();
 
   return (
     <>
@@ -52,8 +56,21 @@ export default function ContactUs() {
           </KakaoButton>
         </StyledRow>
         <StyledRow>
-          <RowButton text="FAQ" onClick={() => navigate('../FAQ')} />
+          <RowButton
+            text="FAQ"
+            onClick={() => {
+              activateModal('TO_BE_UPDATED', {
+                primaryAction: () => {},
+              });
+              // navigate('../FAQ');
+            }}
+          />
         </StyledRow>
+        <Modal
+          {...modalProps}
+          onPrimaryAction={closePrimarily}
+          onSecondaryAction={closeSecondarily}
+        />
       </StyledPageContainer>
     </>
   );
