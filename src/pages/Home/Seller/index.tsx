@@ -28,12 +28,13 @@ import HomeMaterialCard from '../../../components/home/HomeMaterialCard';
 import MaterialSellerProfile from '../../../components/home/MaterialSellerProfile';
 import HomeMaterialCardSkeleton from '../../../components/home/HomeMaterialCardSkeleton';
 import Row from '../../../components/common/Row';
+import Portrait from '../../../components/common/Portrait';
 
 interface SellerProfile {
   nickName: string;
   univ: string;
   major: string;
-  image_url: string;
+  profileImage: string;
   upload: number;
   sell: number;
   follower: number;
@@ -44,7 +45,7 @@ interface SellerMaterial {
   sellList: {
     id: number;
     memberId: number;
-    imageUrl: string;
+    profileImage: string;
     nickName: string;
     name: string;
     univ: string;
@@ -60,7 +61,7 @@ const initialProfile = {
   nickName: '',
   univ: '',
   major: '',
-  image_url: '',
+  profileImage: '',
   upload: 0,
   sell: 0,
   follower: 0,
@@ -77,7 +78,7 @@ export default function Seller() {
   );
   const navigate = useNavigate();
 
-  const { nickName, univ, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, profileImage, upload, sell, follower } =
     sellerProfile!;
 
   useEffect(() => {
@@ -200,7 +201,7 @@ export default function Seller() {
             <StyledWelcomeSection>
               <Row justify="space-between" pt={32}>
                 {welcomeText}
-                <StyledPortrait />
+                <Portrait index={profileImage} />
               </Row>
               <StyledTagSection>{tags}</StyledTagSection>
             </StyledWelcomeSection>
@@ -220,7 +221,7 @@ export default function Seller() {
                     isBig
                     id={material.id}
                     memberId={material.memberId}
-                    imageUrl={material.imageUrl}
+                    profileImage={material.profileImage}
                     nickName={material.nickName}
                     className={material.title as string}
                     univ={material.univ}
@@ -233,6 +234,7 @@ export default function Seller() {
                         nickName={material.nickName}
                         hasReaction={false}
                         memberId={material.memberId}
+                        profileImage={material.profileImage}
                       />
                     }
                   />

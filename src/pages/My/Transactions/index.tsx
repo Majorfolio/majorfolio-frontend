@@ -313,7 +313,10 @@ export default function Transactions() {
     });
   };
 
-  const handleDownloadCompleteClick = (currentMaterialId: number) => {
+  const handleDownloadCompleteClick = (
+    currentMaterialId: number,
+    currentProfileImage: string,
+  ) => {
     activateModal('DOWNLOAD_PURCHASED_MATERIAL', {
       primaryAction: () => {
         downloadFile(currentMaterialId, accessToken, refreshPayload)
@@ -330,7 +333,9 @@ export default function Transactions() {
           });
       },
       secondaryAction: () => {
-        navigate(`/assignment/${currentMaterialId}/detail`);
+        navigate(
+          `/assignment/${currentMaterialId}/detail/${currentProfileImage}`,
+        );
       },
     });
   };
@@ -442,7 +447,10 @@ export default function Transactions() {
                 category="isDown"
                 material={purchase}
                 onClick={() => {
-                  handleDownloadCompleteClick(purchase.id);
+                  handleDownloadCompleteClick(
+                    purchase.id,
+                    purchase.profileImage,
+                  );
                 }}
               />
             </CardsWrapper>
@@ -460,7 +468,11 @@ export default function Transactions() {
               <TransactionCard
                 category="cancel"
                 material={purchase}
-                onClick={() => navigate(`/assignment/${purchase.id}/detail`)}
+                onClick={() =>
+                  navigate(
+                    `/assignment/${purchase.id}/detail/${purchase.profileImage}`,
+                  )
+                }
               />
             </CardsWrapper>
           ))}
@@ -470,7 +482,11 @@ export default function Transactions() {
               <TransactionCard
                 category="afterRefund"
                 material={purchase}
-                onClick={() => navigate(`/assignment/${purchase.id}/detail`)}
+                onClick={() =>
+                  navigate(
+                    `/assignment/${purchase.id}/detail/${purchase.profileImage}`,
+                  )
+                }
               />
             </CardsWrapper>
           ))}

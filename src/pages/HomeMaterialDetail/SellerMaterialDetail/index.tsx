@@ -15,9 +15,17 @@ import MaterialDetailPost from '../../../components/home/MaterialDetailPost';
 import MaterialDetailInfo from '../../../components/home/MaterialDetailInfo';
 import AllDivider from '../../../components/common/AllDivider';
 import AllDividerThin from '../../../components/common/AllDividerThin';
-import { getMyMaterialDetail, getMyMaterialDetailStats } from '../../../apis/materials';
-import { MyMaterialDetail, MyMaterialStats } from '../../../components/home/Material/index.types';
-import MaterialPostStatisticsNumber, { SellerMaterialPostStatisticsNumber } from '../../../components/home/MaterialPostStatisticsNumber';
+import {
+  getMyMaterialDetail,
+  getMyMaterialDetailStats,
+} from '../../../apis/materials';
+import {
+  MyMaterialDetail,
+  MyMaterialStats,
+} from '../../../components/home/Material/index.types';
+import MaterialPostStatisticsNumber, {
+  SellerMaterialPostStatisticsNumber,
+} from '../../../components/home/MaterialPostStatisticsNumber';
 import BottomPaymentAmount from '../../../components/home/BottomPaymentAmount';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
@@ -33,12 +41,16 @@ import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
 import { SelectableTapMenu } from '../../../components/common/TapMenu';
 import MaterialPostStatisticsDescription from '../../../components/home/MaterialPostStatisticsDescription';
+import useMyProfile from '../../My/MyMain/useMyProfile';
 
 const SellerMaterialDetail = () => {
+  const { profileImage } = useMyProfile();
   const [materialDetail, setMaterialDetail] = useState<null | MyMaterialDetail>(
     null,
   );
-  const [materialStats, setMaterialStats] = useState<null | MyMaterialStats>(null,);
+  const [materialStats, setMaterialStats] = useState<null | MyMaterialStats>(
+    null,
+  );
   const { materialId, memberId } = useParams();
   const navigate = useNavigate();
   const {
@@ -82,13 +94,13 @@ const SellerMaterialDetail = () => {
       getMyMaterialDetailStats(
         parseInt(materialId, 10),
         accessToken,
-        refreshPayload,      
+        refreshPayload,
       ).then((data) => {
         const { result } = data;
         if (result) {
           setMaterialStats(result);
         }
-      })
+      });
     } else if (materialId) {
       getMyMaterialDetail(parseInt(materialId, 10)).then((data) => {
         const { result } = data;
@@ -197,6 +209,7 @@ const SellerMaterialDetail = () => {
                 );
               }}
               memberId={Number(memberId)}
+              profileImage={profileImage}
             />
           </ProfileWrapper>
           <AllDividerThin />
@@ -215,7 +228,7 @@ const SellerMaterialDetail = () => {
             onItemClick={(index) => setSelectedTab(index)}
           />
 
-          { selectedTab === 0 && (
+          {selectedTab === 0 && (
             <MaterialDetailInfo
               title={materialDetail.title}
               univ={materialDetail.univ}
@@ -228,7 +241,7 @@ const SellerMaterialDetail = () => {
               pages={materialDetail.pages}
             />
           )}
-          { selectedTab === 1 && (
+          {selectedTab === 1 && (
             <>
               <StatisticsNumberWrapper>
                 <SellerMaterialPostStatisticsNumber
@@ -239,29 +252,27 @@ const SellerMaterialDetail = () => {
               </StatisticsNumberWrapper>
 
               <AllDivider />
-              
-              <MaterialPostStatisticsDescription 
-                title='판매'
+
+              <MaterialPostStatisticsDescription
+                title="판매"
                 total={materialStats?.saleStat.totalSale}
                 weekly={materialStats?.saleStat.weeklySale}
                 today={materialStats?.saleStat.todaySale}
               />
-              <MaterialPostStatisticsDescription 
-                title='조회'
+              <MaterialPostStatisticsDescription
+                title="조회"
                 total={materialStats?.viewStat.totalView}
                 weekly={materialStats?.viewStat.weeklyView}
-                today={materialStats?.viewStat.todayView}                
+                today={materialStats?.viewStat.todayView}
               />
-              <MaterialPostStatisticsDescription 
-                title='반응'
+              <MaterialPostStatisticsDescription
+                title="반응"
                 total={materialStats?.bookmarkStat.totalBookmark}
                 weekly={materialStats?.bookmarkStat.weeklyBookmark}
                 today={materialStats?.bookmarkStat.todayBookmark}
-              />                            
+              />
             </>
           )}
-
-
         </HomeMaterialDetailContainer>
       </DetailContainer>
 
@@ -274,7 +285,7 @@ const SellerMaterialDetail = () => {
             onClick={() => {
               activateModal('TO_BE_UPDATED', {
                 primaryAction: () => {},
-              })
+              });
             }}
           >
             <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
@@ -282,43 +293,35 @@ const SellerMaterialDetail = () => {
             </Text>
           </Button>
 
-          { materialDetail.status === "active" &&
+          {materialDetail.status === 'active' && (
             <Button
               type="button"
               category="primary"
               onClick={() => {
                 activateModal('TO_BE_UPDATED', {
                   primaryAction: () => {},
-                })
+                });
               }}
             >
               <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
                 판매 중지
               </Text>
-            </Button>            
-          }
-          { materialDetail.status === "reviewing" &&
-            <Button
-              type="button"
-              category="primary"
-              disabled
-            >
+            </Button>
+          )}
+          {materialDetail.status === 'reviewing' && (
+            <Button type="button" category="primary" disabled>
               <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
                 판매 검토중
               </Text>
             </Button>
-          }
-          { materialDetail.status === "ben" &&
-            <Button
-              type="button"
-              category="primary"
-              disabled
-            >
+          )}
+          {materialDetail.status === 'ben' && (
+            <Button type="button" category="primary" disabled>
               <Text color="gray/grayBG" size={16} weight="bold" lineHeight="sm">
                 판매 보류
               </Text>
             </Button>
-          }
+          )}
         </ButtonWrapper>
       </StickyBottom>
     </>
@@ -332,13 +335,17 @@ const SellerMaterialDetail = () => {
           </button>
         }
         title=""
-        icons={["", "",]}
+        icons={['', '']}
       />
 
       <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
-        <MaterialSellerProfile nickName="-" hasReaction={false} />
+        <MaterialSellerProfile
+          nickName="-"
+          hasReaction={false}
+          profileImage="0"
+        />
       </ProfileWrapper>
       <AllDividerThin />
 

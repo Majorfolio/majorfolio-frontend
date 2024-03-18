@@ -1,7 +1,7 @@
 export default interface Material {
   id: number;
   memberId: number;
-  imageUrl: string;
+  profileImage: string;
   nickName: string;
   className: string;
   univ: string;
@@ -70,18 +70,18 @@ export interface MyMaterialDetail {
 
 export interface MyMaterialStats {
   saleStat: {
-    totalSale: number,
-    weeklySale: number,
-    todaySale: number,
-  },
+    totalSale: number;
+    weeklySale: number;
+    todaySale: number;
+  };
   viewStat: {
-    totalView: number,
-    weeklyView: 3,
-    todayView: 3,
-  },
+    totalView: number;
+    weeklyView: 3;
+    todayView: 3;
+  };
   bookmarkStat: {
-    totalBookmark: 1,
-    weeklyBookmark: 1,
-    todayBookmark: 0
-  }
+    totalBookmark: 1;
+    weeklyBookmark: 1;
+    todayBookmark: 0;
+  };
 }

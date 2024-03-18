@@ -287,7 +287,7 @@ const HomeViewAll = () => {
                   isBig
                   id={material.id}
                   memberId={material.memberId}
-                  imageUrl={material.imageUrl}
+                  profileImage={material.profileImage}
                   nickName={material.nickName}
                   className={material.className}
                   univ={material.univ}
@@ -300,6 +300,7 @@ const HomeViewAll = () => {
                       nickName={material.nickName}
                       hasReaction={false}
                       memberId={material.memberId}
+                      profileImage={material.profileImage}
                     />
                   }
                 />

@@ -22,6 +22,7 @@ export const Default: Story = {
       price: 4700,
       updateAt: '2023-01-01',
       buyInfoId: 0,
+      profileImage: '5',
     },
   },
 };

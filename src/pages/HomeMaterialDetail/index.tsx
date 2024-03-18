@@ -39,7 +39,7 @@ const HomeMaterialDetail = () => {
   const [materialDetail, setMaterialDetail] = useState<null | MaterialDetail>(
     null,
   );
-  const { materialId, memberId } = useParams();
+  const { materialId, memberId, profileImage } = useParams();
   const navigate = useNavigate();
   const {
     modalRef,
@@ -177,6 +177,7 @@ const HomeMaterialDetail = () => {
                 );
               }}
               memberId={Number(memberId)}
+              profileImage={profileImage || '0'}
             />
           </ProfileWrapper>
           <AllDividerThin />
@@ -241,13 +242,17 @@ const HomeMaterialDetail = () => {
           </button>
         }
         title=""
-        icons={["", "",]}
+        icons={['', '']}
       />
 
       <MaterialDetailPreview image="" materialId={0} />
 
       <ProfileWrapper>
-        <MaterialSellerProfile nickName="-" hasReaction={false} />
+        <MaterialSellerProfile
+          nickName="-"
+          hasReaction={false}
+          profileImage="0"
+        />
       </ProfileWrapper>
       <AllDividerThin />
 

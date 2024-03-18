@@ -7,7 +7,7 @@ interface MyProfileType {
   nickName: string;
   univ: string;
   major: string;
-  image_url: string;
+  profileImage: string;
   upload: null | number;
   sell: null | number;
   follower: null | number;
@@ -18,7 +18,7 @@ export default function useMyProfile() {
     nickName: '',
     univ: '',
     major: '',
-    image_url: '',
+    profileImage: '',
     upload: null,
     sell: null,
     follower: null,
@@ -34,7 +34,15 @@ export default function useMyProfile() {
 
     asyncEffect();
   }, []);
-  const { nickName, univ, major, image_url, upload, sell, follower } =
+  const { nickName, univ, major, profileImage, upload, sell, follower } =
     myProfile;
-  return { nickName, univ, major, image_url, upload, sell, follower };
+  return {
+    nickName,
+    univ,
+    major,
+    profileImage,
+    upload,
+    sell,
+    follower,
+  };
 }

@@ -29,7 +29,7 @@ import EmptyMaterialWrapper from '../../components/common/EmptyContentWrapper';
 interface PurchasedItemType {
   id: number;
   memberId: number;
-  imageUrl: string;
+  profileImage: string;
   nickName: string;
   className: string;
   univ: string;
@@ -93,7 +93,10 @@ const MaterialBox = () => {
     });
   };
 
-  const handleDownloadCompleteClick = (materialId: number) => {
+  const handleDownloadCompleteClick = (
+    materialId: number,
+    profileImage: string,
+  ) => {
     activateModal('DOWNLOAD_PURCHASED_MATERIAL', {
       primaryAction: () => {
         downloadFile(materialId, accessToken, refreshPayload)
@@ -110,7 +113,7 @@ const MaterialBox = () => {
           });
       },
       secondaryAction: () => {
-        navigate(`/assignment/${materialId}/detail`);
+        navigate(`/assignment/${materialId}/detail/${profileImage}`);
       },
     });
   };
@@ -221,7 +224,7 @@ const MaterialBox = () => {
                             isBig
                             id={material.id}
                             memberId={material.memberId}
-                            imageUrl={material.imageUrl}
+                            profileImage={material.profileImage}
                             nickName={material.nickName}
                             className={material.className}
                             univ={material.univ}
@@ -238,6 +241,7 @@ const MaterialBox = () => {
                                   .replace(/-/g, '. ')}
                                 infoName="구매"
                                 memberId={material.memberId}
+                                profileImage={material.profileImage}
                               />
                             }
                             onClick={() =>
@@ -262,7 +266,7 @@ const MaterialBox = () => {
                             isBig
                             id={material.id}
                             memberId={material.memberId}
-                            imageUrl={material.imageUrl}
+                            profileImage={material.profileImage}
                             nickName={material.nickName}
                             className={material.className}
                             univ={material.univ}
@@ -279,6 +283,7 @@ const MaterialBox = () => {
                                   .replace(/-/g, '. ')}
                                 infoName="판매"
                                 memberId={material.memberId}
+                                profileImage={material.profileImage}
                               />
                             }
                             onClick={() => handleAfterPayClick(material.id)}
@@ -301,7 +306,7 @@ const MaterialBox = () => {
                             isBig
                             id={material.id}
                             memberId={material.memberId}
-                            imageUrl={material.imageUrl}
+                            profileImage={material.profileImage}
                             nickName={material.nickName}
                             className={material.className}
                             univ={material.univ}
@@ -318,10 +323,14 @@ const MaterialBox = () => {
                                   .replace(/-/g, '. ')}
                                 infoName="판매"
                                 memberId={material.memberId}
+                                profileImage={material.profileImage}
                               />
                             }
                             onClick={() =>
-                              handleDownloadCompleteClick(material.id)
+                              handleDownloadCompleteClick(
+                                material.id,
+                                material.profileImage,
+                              )
                             }
                           />
                         ))}
@@ -358,7 +367,7 @@ const MaterialBox = () => {
                             isBig
                             id={material.id}
                             memberId={material.memberId}
-                            imageUrl={material.imageUrl}
+                            profileImage={material.profileImage}
                             nickName={material.nickName}
                             className={material.className}
                             univ={material.univ}
@@ -375,6 +384,7 @@ const MaterialBox = () => {
                                   .replace(/-/g, '. ')}
                                 infoName="판매"
                                 memberId={material.memberId}
+                                profileImage={material.profileImage}
                               />
                             }
                             onClick={handleStopListClick}
@@ -398,7 +408,7 @@ const MaterialBox = () => {
                               isBig
                               id={material.id}
                               memberId={material.memberId}
-                              imageUrl={material.imageUrl}
+                              profileImage={material.profileImage}
                               nickName={material.nickName}
                               className={material.className}
                               univ={material.univ}
@@ -415,6 +425,7 @@ const MaterialBox = () => {
                                     .replace(/-/g, '. ')}
                                   infoName="판매"
                                   memberId={material.memberId}
+                                  profileImage={material.profileImage}
                                 />
                               }
                               onClick={handleOnSaleListClick}

@@ -63,11 +63,11 @@ const Router = () => {
           element: <HomeViewAll />,
         },
         {
-          path: '/assignment/:materialId/detail/:memberId',
+          path: '/assignment/:materialId/detail/:memberId/:profileImage',
           element: <HomeMaterialDetail />,
         },
         {
-          path: '/assignment/:materialId/detail',
+          path: '/assignment/:materialId/detail/:profileImage',
           element: <HomeMaterialDetail />,
         },
         {

@@ -29,7 +29,7 @@ import EmptyMaterialWrapper from '../../../components/common/EmptyContentWrapper
 interface MyBookmarkType {
   materialId: number;
   nickName: string;
-  profileUrl: string;
+  profileImage: string;
   className: string;
   univ: string;
   major: string;
@@ -184,7 +184,7 @@ export default function Bookmarks() {
                       key={index}
                       isBig
                       nickName={material.nickName}
-                      imageUrl={material.profileUrl}
+                      profileImage={material.profileImage}
                       className={material.className}
                       univ={material.univ}
                       major={material.major}
@@ -196,10 +196,13 @@ export default function Bookmarks() {
                         <MaterialSellerProfile
                           nickName={material.nickName}
                           hasReaction={false}
+                          profileImage={material.profileImage}
                         />
                       }
                       onClick={() =>
-                        navigate(`/assignment/${material.materialId}/detail`)
+                        navigate(
+                          `/assignment/${material.materialId}/detail/${material.profileImage}`,
+                        )
                       }
                     />
                   );
