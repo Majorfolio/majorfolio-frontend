@@ -1,3 +1,4 @@
+import fetchWithEnvironment from '.';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
@@ -90,7 +91,7 @@ export const changeProfileImage = async (
     body: JSON.stringify(body),
   };
 
-  const data = await fetch(
+  const data = await fetchWithEnvironment(
     `${process.env.REACT_APP_API_URL}${MY_API_PATH_SEGEMENTS.CHANGE_PROFILE_IMAGE}`,
     requestOptions,
   );

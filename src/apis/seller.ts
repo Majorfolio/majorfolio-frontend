@@ -1,3 +1,4 @@
+import fetchWithEnvironment from '.';
 import Material from '../components/home/Material/index.types';
 import { MaterialType } from '../store/useMaterialStore';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
@@ -14,7 +15,7 @@ export const getSellerProfile = async (sellerId: number) => {
   const searchParams = new URLSearchParams({
     memberId: sellerId.toString(),
   });
-  return fetch(
+  return fetchWithEnvironment(
     `${process.env.REACT_APP_API_URL}${ASSIGNMENT_API_SEGMENTS.PROFILE}?${searchParams}`,
   ).then((response) => response.json());
 };
@@ -30,7 +31,7 @@ export const getSellerMaterial = async (
     size: size.toString(),
   });
 
-  return fetch(
+  return fetchWithEnvironment(
     `${process.env.REACT_APP_API_URL}${ASSIGNMENT_API_SEGMENTS.ASSIGNMENT}?${searchParams}`,
   ).then((response) => response.json());
 };

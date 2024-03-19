@@ -1,3 +1,4 @@
+import fetchWithEnvironment from '.';
 import { UserStateType } from '../store/useUserStore';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 
@@ -37,7 +38,7 @@ export const reissueAccessToken = async (refreshToken: string) => {
     body: JSON.stringify({}),
   };
 
-  const response = await fetch(
+  const response = await fetchWithEnvironment(
     `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.REMAKE_TOKEN}`,
     requestOptions,
   );
@@ -59,7 +60,7 @@ export async function fetchWithTokenRetry(
 ) {
   const { refreshToken, onRetrySuccess, onRetryFail } = retryPayload;
 
-  const response = await fetch(url, options);
+  const response = await fetchWithEnvironment(url, options);
   const data = await response.json();
   const { code } = data;
   if (code !== 4005) {
@@ -82,7 +83,7 @@ export async function fetchWithTokenRetry(
 
   onRetrySuccess(reissuedAccessToken, reissuedRefreshToken);
 
-  return fetch(url, {
+  return fetchWithEnvironment(url, {
     ...options,
     headers: {
       ...options.headers,
@@ -119,7 +120,7 @@ export const getAuth = async (idToken: string) => {
       throw new Error('에러 발생');
     }
 
-    const response = await fetch(
+    const response = await fetchWithEnvironment(
       `${process.env.REACT_APP_API_URL}${MEMBER_API_PATHS.LOGIN}`,
       {
         method: HTTP_METHODS.POST,
@@ -238,7 +239,7 @@ export const getMy = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/my/`,
+    `${process.env.REACT_APP_API_URL}/my/`,
     requestOptions,
     refreshPayload,
   );

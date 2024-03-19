@@ -2,9 +2,12 @@ import { access } from 'fs';
 import useRefreshPayload from '../hooks/common/useRefreshPayload';
 import { HTTP_HEADERS, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
+import fetchWithEnvironment from '.';
 
 export const getAllUniv = async () => {
-  const response = await fetch(`https://majorfolio-server.shop/home/all/univ`);
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/home/all/univ`,
+  );
   const data = await response.json();
   return data;
 };
@@ -21,7 +24,7 @@ export const getMyUniv = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/home/my/univ`,
+    `${process.env.REACT_APP_API_URL}/home/my/univ`,
     requestOptions,
     retrypayload,
   );
@@ -41,7 +44,7 @@ export const getMyMajor = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/home/my/major`,
+    `${process.env.REACT_APP_API_URL}/home/my/major`,
     requestOptions,
     refreshPayload,
   );
@@ -53,16 +56,16 @@ export const getAllUnivNewlyViewAll = async (
   page: number,
   pageSize: number,
 ) => {
-  const response = await fetch(
-    `https://majorfolio-server.shop/home/all/univ/newly-upload?page=${page}&pageSize=${pageSize}`,
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/home/all/univ/newly-upload?page=${page}&pageSize=${pageSize}`,
   );
   const data = await response.json();
   return data;
 };
 
 export const getAllUnivBestViewAll = async (page: number, pageSize: number) => {
-  const response = await fetch(
-    `https://majorfolio-server.shop/home/all/univ/likes?page=${page}&pageSize=${pageSize}`,
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/home/all/univ/likes?page=${page}&pageSize=${pageSize}`,
   );
   const data = await response.json();
   return data;
@@ -82,7 +85,7 @@ export const getMyUnivNewlyViewAll = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/home/my/univ/newly-upload?page=${page}&pageSize=${pageSize}`,
+    `${process.env.REACT_APP_API_URL}/home/my/univ/newly-upload?page=${page}&pageSize=${pageSize}`,
     requestOptions,
     refreshPayload,
   );
@@ -104,7 +107,7 @@ export const getMyUnivBestViewAll = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/home/my/univ/likes?page=${page}&pageSize=${pageSize}`,
+    `${process.env.REACT_APP_API_URL}/home/my/univ/likes?page=${page}&pageSize=${pageSize}`,
     requestOptions,
     refreshPayload,
   );
@@ -126,7 +129,7 @@ export const getMyMajorNewlyViewAll = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/home/my/major/newly-upload?page=${page}&pageSize=${pageSize}`,
+    `${process.env.REACT_APP_API_URL}/home/my/major/newly-upload?page=${page}&pageSize=${pageSize}`,
     requestOptions,
     refreshPayload,
   );
@@ -148,7 +151,7 @@ export const getMyMajorBestViewAll = async (
   };
 
   const data = await fetchWithTokenRetry(
-    `https://majorfolio-server.shop/home/my/major/likes?page=${page}&pageSize=${pageSize}`,
+    `${process.env.REACT_APP_API_URL}/home/my/major/likes?page=${page}&pageSize=${pageSize}`,
     requestOptions,
     refreshPayload,
   );
@@ -167,7 +170,7 @@ export const getMaterialDetail = async (
     };
 
     const data = await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/assignment/${materialId}/detail`,
+      `${process.env.REACT_APP_API_URL}/assignment/${materialId}/detail`,
       requestOptions,
       refreshPayload,
     );
@@ -175,8 +178,8 @@ export const getMaterialDetail = async (
     return data;
   }
 
-  const response = await fetch(
-    `https://majorfolio-server.shop/assignment/${materialId}/detail`,
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/assignment/${materialId}/detail`,
   );
   const data = await response.json();
   return data;
@@ -193,7 +196,7 @@ export const getMyMaterialDetail = async (
     };
 
     const data = await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/assignment/my/${materialId}/detail/info`,
+      `${process.env.REACT_APP_API_URL}/assignment/my/${materialId}/detail/info`,
       requestOptions,
       refreshPayload,
     );
@@ -201,8 +204,8 @@ export const getMyMaterialDetail = async (
     return data;
   }
 
-  const response = await fetch(
-    `https://majorfolio-server.shop/assignment/my/${materialId}/detail/info`,
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/assignment/my/${materialId}/detail/info`,
   );
   const data = await response.json();
   return data;
@@ -219,7 +222,7 @@ export const getMyMaterialDetailStats = async (
     };
 
     const data = await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/assignment/my/${materialId}/detail/stats`,
+      `${process.env.REACT_APP_API_URL}/assignment/my/${materialId}/detail/stats`,
       requestOptions,
       refreshPayload,
     );
@@ -227,16 +230,16 @@ export const getMyMaterialDetailStats = async (
     return data;
   }
 
-  const response = await fetch(
-    `https://majorfolio-server.shop/assignment/my/${materialId}/detail/stats`,
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/assignment/my/${materialId}/detail/stats`,
   );
   const data = await response.json();
   return data;
 };
 
 export const getPreviewImages = async (materialId: number) => {
-  const response = await fetch(
-    `https://majorfolio-server.shop/assignment/${materialId}/previews`,
+  const response = await fetchWithEnvironment(
+    `${process.env.REACT_APP_API_URL}/assignment/${materialId}/previews`,
   );
   const data = await response.json();
   return data;
@@ -257,7 +260,7 @@ export const updateLike = async (
       body: JSON.stringify({}),
     };
     return await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/my/${materialId}/like`,
+      `${process.env.REACT_APP_API_URL}/my/${materialId}/like`,
       requestOptions,
       refreshPayload,
     );
@@ -281,7 +284,7 @@ export const updateBookmark = async (
       body: JSON.stringify({}),
     };
     return await fetchWithTokenRetry(
-      `https://majorfolio-server.shop/my/${materialId}/bookmark`,
+      `${process.env.REACT_APP_API_URL}/my/${materialId}/bookmark`,
       requestOptions,
       refreshPayload,
     );
