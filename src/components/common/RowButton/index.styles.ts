@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { ArrowRightDefaultIcon } from '../../../assets/icons';
+import Text from '../Text';
 
 const StyledRowButton = styled.button`
   display: flex;
@@ -12,6 +13,10 @@ const StyledRowButton = styled.button`
 export const StyledNextIcon = styled(ArrowRightDefaultIcon)`
   box-sizing: content-box;
   padding: 10px;
+`;
+
+export const StyledAlignedText = styled(Text)`
+  text-align: start;
 `;
 
 export default StyledRowButton;
