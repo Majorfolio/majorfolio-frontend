@@ -8,6 +8,7 @@ export const StyledLargeTag = styled(Text)<TagPropsType>`
   background-color: ${(props) => theme.color[props.backgroundColor]};
   padding: 4px 8px;
   border-radius: 4px;
+  white-space: nowrap;
 `;
 
 export const StyledSmallTag = styled(Text)<TagPropsType>`

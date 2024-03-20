@@ -1,5 +1,8 @@
 import React, { ComponentPropsWithoutRef, ReactNode } from 'react';
-import StyledRowButton, { StyledNextIcon } from './index.styles';
+import StyledRowButton, {
+  StyledAlignedText,
+  StyledNextIcon,
+} from './index.styles';
 import Text from '../Text';
 import { GappedRow } from '../Row';
 
@@ -18,9 +21,9 @@ export default function RowButton({
     <StyledRowButton type="button" onClick={onClick} {...props}>
       <GappedRow gap={8}>
         {tag}
-        <Text color="gray/gray900" size={16}>
+        <StyledAlignedText color="gray/gray900" size={16}>
           {text}
-        </Text>
+        </StyledAlignedText>
       </GappedRow>
       <StyledNextIcon />
     </StyledRowButton>
