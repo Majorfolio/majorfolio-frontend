@@ -1,6 +1,6 @@
 import fetchWithEnvironment from '.';
 import { UserStateType } from '../store/useUserStore';
-import { HTTP_HEADERS, HTTP_METHODS } from './constants';
+import { HTTP_HEADERS, HTTP_HEADERS_VALUES, HTTP_METHODS } from './constants';
 
 const MEMBER_API_COMMON_SEGMENT = '/member';
 
@@ -33,7 +33,7 @@ export const reissueAccessToken = async (refreshToken: string) => {
     method: HTTP_METHODS.POST,
     headers: {
       [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${refreshToken}`,
-      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+      [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
     },
     body: JSON.stringify({}),
   };
@@ -153,7 +153,7 @@ export const sendCodeToEmail = async (
       method: HTTP_METHODS.POST,
       headers: {
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
       },
       body: JSON.stringify({
         email,
@@ -194,7 +194,7 @@ export const sendNewUser = async (
       method: HTTP_METHODS.POST,
       headers: {
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
       },
       body: JSON.stringify(user),
     },
@@ -257,7 +257,7 @@ export const sendContact = async (
       method: HTTP_METHODS.POST,
       headers: {
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
       },
       body: JSON.stringify(phoneNumber),
     },
@@ -275,7 +275,7 @@ export const deleteAccount = async (
     method: HTTP_METHODS.POST,
     headers: {
       [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
-      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+      [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
     },
   };
 

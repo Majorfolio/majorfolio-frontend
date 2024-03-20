@@ -1,5 +1,5 @@
 import fetchWithEnvironment from '.';
-import { HTTP_HEADERS, HTTP_METHODS } from './constants';
+import { HTTP_HEADERS, HTTP_HEADERS_VALUES, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
 const MY_API_COMMON_SEGMENT = '/my';
@@ -85,7 +85,7 @@ export const changeProfileImage = async (
   const requestOptions = {
     method: HTTP_METHODS.PATCH,
     headers: {
-      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+      [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
       [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(body),
@@ -116,7 +116,7 @@ export const editProfile = async (
   const requestOptions = {
     method: HTTP_METHODS.PATCH,
     headers: {
-      [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+      [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
       [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(profile),

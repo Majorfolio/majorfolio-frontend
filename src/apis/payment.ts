@@ -1,6 +1,6 @@
 import { access } from 'fs';
 import { Order } from '../components/home/Payment/index.types';
-import { HTTP_HEADERS, HTTP_METHODS } from './constants';
+import { HTTP_HEADERS, HTTP_HEADERS_VALUES, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 
 const PAYMENT_API_PATHS = {
@@ -19,7 +19,7 @@ export const updateBuyInfo = async (
     const requestOptions = {
       method: HTTP_METHODS.POST,
       headers: {
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify(buyInfo),
@@ -65,7 +65,7 @@ export const updateCancel = async (
     const requestOptions = {
       method: HTTP_METHODS.POST,
       headers: {
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify({}),
@@ -136,7 +136,7 @@ export const cancelPayment = async (
       method: HTTP_METHODS.POST,
       headers: {
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`,
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
       },
       body: JSON.stringify({}),
     },

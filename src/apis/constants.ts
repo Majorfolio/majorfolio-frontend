@@ -12,3 +12,7 @@ export const HTTP_HEADERS = {
   STATE: 'state',
   NONCE: 'nonce',
 };
+
+export const HTTP_HEADERS_VALUES = {
+  JSON: 'application/json',
+};

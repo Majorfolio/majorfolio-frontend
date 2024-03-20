@@ -1,6 +1,6 @@
 import { access } from 'fs';
 import useRefreshPayload from '../hooks/common/useRefreshPayload';
-import { HTTP_HEADERS, HTTP_METHODS } from './constants';
+import { HTTP_HEADERS, HTTP_HEADERS_VALUES, HTTP_METHODS } from './constants';
 import { RetryPayload, fetchWithTokenRetry } from './member';
 import fetchWithEnvironment from '.';
 
@@ -254,7 +254,7 @@ export const updateLike = async (
     const requestOptions = {
       method: 'POST',
       headers: {
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify({}),
@@ -278,7 +278,7 @@ export const updateBookmark = async (
     const requestOptions = {
       method: HTTP_METHODS.POST,
       headers: {
-        [HTTP_HEADERS.CONTENT_TYPE]: 'application/json',
+        [HTTP_HEADERS.CONTENT_TYPE]: HTTP_HEADERS_VALUES.JSON,
         [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${authStore}`,
       },
       body: JSON.stringify({}),
