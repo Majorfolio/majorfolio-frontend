@@ -6,11 +6,7 @@ import useGoogleTagManager from './hooks/useGoogleTagManager';
 
 function App() {
   useGoogleTagManager();
-  const { isSigninDone } = useAutoSignin();
-
-  if (!isSigninDone) {
-    return <span />;
-  }
+  useAutoSignin();
 
   return (
     <>

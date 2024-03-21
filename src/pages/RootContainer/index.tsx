@@ -10,16 +10,12 @@ import MainLeftBoxBottom from '../../components/common/MainLeftBoxBottom';
 import RouteChangeTracker from '../../components/RouteChangeTracker';
 import useScrollToTop from '../../hooks/common/useScrollToTop';
 import useDraftStore from '../../store/useDraftStore';
+import useClearGarbage from '../../hooks/useClearGarbage';
 
 export default function RootContainer() {
   RouteChangeTracker();
   useScrollToTop();
-
-  const resetFile = useDraftStore((state) => state.resetFile);
-
-  useEffect(() => {
-    resetFile();
-  }, []);
+  useClearGarbage();
 
   return (
     <PageContainer>

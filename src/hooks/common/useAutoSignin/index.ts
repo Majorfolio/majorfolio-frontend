@@ -5,12 +5,8 @@ import useAuthStore, { AuthLevel } from '../../../store/useAuthStore';
 // TODO if someone has access token, load it to global state and raise auth level to member
 
 export default function useAutoSignin() {
-  const [isSigninDone, setIsSigninDone] = useState(false);
   const restoreCredentials = useAuthStore((state) => state.restoreCredentials);
   useEffect(() => {
     restoreCredentials();
-    setIsSigninDone(true);
-  }, [restoreCredentials, setIsSigninDone]);
-
-  return { isSigninDone };
+  }, [restoreCredentials]);
 }
