@@ -11,6 +11,7 @@ import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 import useAuthStore from '../../../store/useAuthStore';
 import { deleteAccount } from '../../../apis/member';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import { notify } from '../../RootContainer';
 
 export default function MyViewMore() {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ export default function MyViewMore() {
       activateModal('SIGNOUT', {
         primaryAction: () => {
           signout();
+          notify('메이저폴리오를 로그아웃했어요.', 'with-bottom-bar');
           navigate('/');
         },
         secondaryAction: () => {},
@@ -88,6 +90,7 @@ export default function MyViewMore() {
         primaryAction: async () => {
           await deleteAccount(accessToken, refreshPayload);
           signout();
+          notify('메이저폴리오를 탈퇴했어요', 'without-bottom-bar');
           navigate('/signin');
         },
         secondaryAction: () => {},

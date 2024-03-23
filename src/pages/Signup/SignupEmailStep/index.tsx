@@ -13,6 +13,7 @@ import { CancelDefaultIcon, ErrorDefaultIcon } from '../../../assets/icons';
 import Tag from '../../../components/common/Tag';
 import useEmail from './useEmail';
 import useFormSubmission from '../../../hooks/common/useFormSubmission';
+import { notify } from '../../RootContainer';
 
 interface SignupPropsType {
   onNext: () => void;
@@ -35,6 +36,7 @@ export default function SignupEmailStep({
   const { isSubmitting, handleSubmit } = useFormSubmission(async () => {
     const isSubmissionSuccessful = await submitEmail();
     if (isSubmissionSuccessful) {
+      notify('학교 인증메일을 보낼게요.', 'without-bottom-bar');
       onNext();
     }
   });

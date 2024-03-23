@@ -12,6 +12,7 @@ import UploadRoutes from '../../index.types';
 import { sendContact } from '../../../apis/member';
 import useAuthStore from '../../../store/useAuthStore';
 import useRefreshPayload from '../../../hooks/common/useRefreshPayload';
+import { notify } from '../../RootContainer';
 
 const validateContact = (phoneNumber: string): boolean => {
   const phoneNumberRegex = /^010[0-9]{4}[0-9]{4}$/;
@@ -69,6 +70,7 @@ export default function UploadCollectPhoneNumberStep() {
       category="primary"
       onClick={async () => {
         await saveContact();
+        notify('전화번호가 저장되었어요.', 'with-bottom-bar');
         navigate(`/upload/${UploadRoutes.Guideline}`, { replace: true });
       }}
       disabled={!isContactValid}
