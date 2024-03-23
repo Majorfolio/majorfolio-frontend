@@ -59,10 +59,7 @@ export default function ContactUs() {
           <RowButton
             text="FAQ"
             onClick={() => {
-              activateModal('TO_BE_UPDATED', {
-                primaryAction: () => {},
-              });
-              // navigate('../FAQ');
+              navigate('../FAQ');
             }}
           />
         </StyledRow>
