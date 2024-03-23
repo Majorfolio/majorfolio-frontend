@@ -101,8 +101,8 @@ const FAQContents = {
         진행해주세요.
       </p>
       <p>
-        2. 필요 금액보다 많이 송금한 경우: 고객센터에 계좌정보와 함께 문의주시면
-        초과된 만큼 환불해 도와드리겠습니다.
+        2. <strong>필요 금액보다 많이 송금한 경우</strong>: 고객센터에
+        계좌정보와 함께 문의주시면 초과된 만큼 환불해 도와드리겠습니다.
       </p>{' '}
       <br />
       <p>
@@ -232,7 +232,7 @@ export default function FAQList() {
               업로드
             </LargeTag>
           }
-          text="업로드하면 안되는 자료가 있나요?"
+          text="업로드하면 안 되는 자료가 있나요?"
           onClick={() =>
             setOpenedFAQ(
               openedFAQ === FAQs.ForbiddenContent
@@ -289,7 +289,7 @@ export default function FAQList() {
               lineHeight="sm"
               color="gray/gray900"
             >
-              구매, 결제
+              구매/결제
             </LargeTag>
           }
           text="송금할 때 식별 코드는 무엇이며 입력해야하는 이유가 무엇인가요?"
@@ -317,7 +317,7 @@ export default function FAQList() {
               lineHeight="sm"
               color="gray/gray900"
             >
-              구매, 결제
+              구매/결제
             </LargeTag>
           }
           text="주문을 잘못했어요. 결제하지 않고 취소할 수 있나요?"
@@ -345,7 +345,7 @@ export default function FAQList() {
               lineHeight="sm"
               color="gray/gray900"
             >
-              구매, 결제
+              구매/결제
             </LargeTag>
           }
           text="금액을 잘못 입력하고 송금했어요. 어떻게 해야하나요?"
