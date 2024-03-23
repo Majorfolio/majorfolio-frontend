@@ -317,7 +317,7 @@ export default function FAQList() {
               lineHeight="sm"
               color="gray/gray900"
             >
-              구매, 결제
+              구매/결제
             </LargeTag>
           }
           text="주문을 잘못했어요. 결제하지 않고 취소할 수 있나요?"
@@ -345,7 +345,7 @@ export default function FAQList() {
               lineHeight="sm"
               color="gray/gray900"
             >
-              구매, 결제
+              구매/결제
             </LargeTag>
           }
           text="금액을 잘못 입력하고 송금했어요. 어떻게 해야하나요?"
