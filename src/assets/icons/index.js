@@ -97,3 +97,4 @@ export { ReactComponent as ViewMoreIcon } from './ico_more.svg';
 export { ReactComponent as ContactUsYellowCharacter } from './ico_contact_us_character1.svg';
 export { ReactComponent as ContactUsBlueCharacter } from './ico_contact_us_character2.svg';
 export { ReactComponent as FilePrimaryIcon } from './ico_file_upload.svg';
+export { ReactComponent as ToastCheckIcon } from './ico_check_small.svg';

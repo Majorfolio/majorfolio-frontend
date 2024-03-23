@@ -5,6 +5,7 @@ export const PageContainer = styled.div`
   display: flex;
   height: 100%;
   justify-content: center;
+  position: relative;
   &::after {
     content: ' ';
     width: 100%;
