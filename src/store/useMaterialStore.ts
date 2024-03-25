@@ -28,7 +28,7 @@ const initialState = {
   description: '',
 };
 
-const useMaterialStore = create<MaterialStateType>((set, get) => ({
+const useMaterialStore = create<MaterialStateType>()((set, get) => ({
   ...initialState,
 
   updateMaterial(material) {

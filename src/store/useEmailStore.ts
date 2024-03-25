@@ -10,7 +10,7 @@ interface EmailStateType {
   resetEmail: () => void;
 }
 
-const useEmailStore = create<EmailStateType>((set, get) => ({
+const useEmailStore = create<EmailStateType>()((set, get) => ({
   ...initialState,
 
   setEmail(currentEmailId) {

@@ -31,7 +31,7 @@ const initialState = {
   emailId: null,
 };
 
-const useUserStore = create<UserStateType>((set, get) => ({
+const useUserStore = create<UserStateType>()((set, get) => ({
   ...initialState,
 
   updateEmail(newEmailId) {
