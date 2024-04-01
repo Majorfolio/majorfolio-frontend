@@ -31,3 +31,10 @@ yarn.lock
 
 # storybook
 storybook-static
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# playwright
+/playwright/.auth
