@@ -35,8 +35,16 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*/.storybook/**/*.*", "**/*.stories.*"]
+        "devDependencies": [
+          "**/*/.storybook/**/*.*",
+          "**/*.stories.*",
+          "**/*/mocks/**/*.*",
+          "**/*/__mocks__/**/*.*",
+          "**/tests/**/*.*",
+          "playwright.config.ts"
+        ]
       }
-    ]
+    ],
+    "import/prefer-default-export": "off"
   }
 }
