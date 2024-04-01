@@ -16,5 +16,12 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", ".storybook"]
+  "include": [
+    "src",
+    ".storybook",
+    "jest.config.ts",
+    "jest.polyfills.ts",
+    "tests",
+    "playwright.config.ts"
+  ]
 }
