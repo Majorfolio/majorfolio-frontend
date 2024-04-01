@@ -1,12 +1,15 @@
-import { test as setup } from './test';
+import { expect, test as setup } from './test';
 
 const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
   await page.goto('/signin');
-
+  await expect(page.getByRole('button', { name: /카카오/ })).toBeVisible();
   await page.getByRole('button', { name: /카카오/ }).click();
   await page.waitForURL(/https:\/\/accounts.kakao.com\/login/);
+  await expect(
+    page.getByRole('textbox', { name: /account information|메일/i }),
+  ).toBeVisible();
   await page
     .getByRole('textbox', { name: /account information|메일/i })
     .fill(`${process.env.SIGNIN_VIA_KAKAO_USERNAME}`);
