@@ -27,8 +27,8 @@ const signinViaKakao = () => {
   const state = generateUniqueRandomValue();
   const nonce = generateUniqueRandomValue();
 
-  sessionStorage.setItem('oauth_state', state);
-  sessionStorage.setItem('openid_nonce', nonce);
+  localStorage.setItem('oauth_state', state);
+  localStorage.setItem('openid_nonce', nonce);
 
   const queryString = new URLSearchParams({
     client_id: 'de13e7d19e639ae838e4735a0cf14614',
