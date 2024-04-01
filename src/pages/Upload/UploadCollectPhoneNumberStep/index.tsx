@@ -61,6 +61,7 @@ export default function UploadCollectPhoneNumberStep() {
       placeholder="전화번호 (-없이)"
       text={phoneNumber}
       onTextChange={onPhoneNumberChange}
+      data-testid="phone-number-input"
     />
   );
 

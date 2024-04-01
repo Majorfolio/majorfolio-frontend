@@ -98,6 +98,7 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
             name="bottomBar"
             checked={currentPage === Path.Home}
             onChange={() => handleNavigationClick(Path.Home)}
+            aria-label="home"
           />
           <CustomRadioNavigation
             type="radio"
@@ -105,6 +106,7 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
             name="bottomBar"
             checked={currentPage === Path.MaterialBox}
             onChange={() => handleNavigationClick(Path.MaterialBox)}
+            aria-label="material-box"
           />
           <CustomRadioNavigation
             type="radio"
@@ -112,6 +114,7 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
             name="bottomBar"
             checked={currentPage === Path.Upload}
             onChange={() => handleNavigationClick(Path.Upload)}
+            aria-label="upload"
           />
           <CustomRadioNavigation
             type="radio"
@@ -119,6 +122,7 @@ export default function BottomBar({ currentPath }: BottomBarProps) {
             name="bottomBar"
             checked={currentPage === Path.My}
             onChange={() => handleNavigationClick(Path.My)}
+            aria-label="my"
           />
         </RadioNavigationWrapper>
 
