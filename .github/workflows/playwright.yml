@@ -20,6 +20,10 @@ jobs:
       - name: Run Playwright tests
         run: yarn playwright test
         env:
+          DISABLE_ESLINT_PLUGIN: true
+          REACT_APP_BASE_URL: http://localhost:3000
+          REACT_APP_API_URL: https://majorfolio-server.shop
+          REACT_APP_CLIENT_ID: '${{ secrets.REACT_APP_CLIENT_ID }}'
           SIGNIN_VIA_KAKAO_USERNAME: ${{secrets.SIGNIN_VIA_KAKAO_USERNAME}}
           SIGNIN_VIA_KAKAO_PASSWORD: ${{secrets.SIGNIN_VIA_KAKAO_PASSWORD}}
       - uses: actions/upload-artifact@v4
