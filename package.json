@@ -30,7 +30,8 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "deploy-storybook": "gh-pages -d storybook-static"
+    "deploy-storybook": "gh-pages -d storybook-static",
+    "playwright-tests": "docker build -t playwright-tests . && docker run --rm --ipc=host --env-file .env playwright-tests"
   },
   "eslintConfig": {
     "extends": [

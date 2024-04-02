@@ -13,19 +13,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - name: Install dependencies
-        run: npm install -g yarn && yarn
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
-      - name: Run Playwright tests
-        run: yarn playwright test
-        env:
-          DISABLE_ESLINT_PLUGIN: true
-          REACT_APP_BASE_URL: http://localhost:3000
-          REACT_APP_API_URL: https://majorfolio-server.shop
-          REACT_APP_CLIENT_ID: '${{ secrets.REACT_APP_CLIENT_ID }}'
-          SIGNIN_VIA_KAKAO_USERNAME: ${{secrets.SIGNIN_VIA_KAKAO_USERNAME}}
-          SIGNIN_VIA_KAKAO_PASSWORD: ${{secrets.SIGNIN_VIA_KAKAO_PASSWORD}}
+      - name: Build Docker image
+        run: docker build -t playwright-tests .
+      - name: Run Playwright tests on Docker
+        run: |
+          docker run \
+          --rm \
+          --ipc=host \
+          -e CI=${{ env.CI }} \
+          -e DISABLE_ESLINT_PLUGIN=true \
+          -e REACT_APP_BASE_URL=${{ vars.REACT_APP_BASE_URL }} \
+          -e REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} \
+          -e REACT_APP_CLIENT_ID=${{ secrets.REACT_APP_CLIENT_ID }} \
+          -e SIGNIN_VIA_KAKAO_USERNAME=${{ secrets.SIGNIN_VIA_KAKAO_USERNAME }} \
+          -e SIGNIN_VIA_KAKAO_PASSWORD=${{ secrets.SIGNIN_VIA_KAKAO_PASSWORD }} \
+          playwright-tests
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
