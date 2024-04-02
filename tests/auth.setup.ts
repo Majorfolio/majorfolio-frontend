@@ -4,7 +4,7 @@ const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
   await page.goto('/signin');
-  await page.getByRole('button', { name: /카카오/ }).click({ force: true });
+  await page.getByRole('button', { name: /카카오/ }).click();
   await page.waitForURL(/https:\/\/accounts.kakao.com\/login/);
   await expect(
     page.getByRole('textbox', { name: /account information|메일/i }),
