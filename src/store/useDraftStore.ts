@@ -23,7 +23,7 @@ type MyPersist = (
   options: PersistOptions<DraftSlice>,
 ) => StateCreator<DraftSlice>;
 
-const initialState: DraftSlice = {
+const initialState = {
   file: null,
   title: '',
   major: '',
@@ -34,15 +34,11 @@ const initialState: DraftSlice = {
   fullScore: '',
   score: '',
   description: '',
-  updateDraft: () => undefined,
-  reset: () => undefined,
-  updateDraftProp: () => undefined,
-  resetFile: () => undefined,
 };
 
-const useDraftStore = create<DraftSlice>(
-  (persist as MyPersist)(
-    (set): DraftSlice => ({
+const useDraftStore = create<DraftSlice>()(
+  persist(
+    (set) => ({
       ...initialState,
       updateDraft: (draft: Partial<DraftSlice>) => {
         set((state) => ({

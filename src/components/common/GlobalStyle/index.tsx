@@ -74,6 +74,29 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1;
     height: fit-content;
   }
+
+  
+
+
+  .Toastify__toast {
+    padding: 0;
+    margin: 0 0 8px 0;
+    min-height: fit-content;
+  }
+
+  .Toastify__toast-body {    
+    padding: 0;
+    margin: 0;
+  }
+
+  :root{
+    --toastify-color-dark: ${theme.color['gray/gray500']};
+    --toastify-icon-color-success: ${theme.color['sub_color/green/p']};
+    --toastify-color-success: ${theme.color['sub_color/green/p']};
+    --toastify-spinner-color: ${theme.color['sub_color/green/p']};
+    --toasity-toast-min-height: 32px;
+    --toastify-toast-bd-radius: 6px;
+  }
 `;
 
 export default GlobalStyle;

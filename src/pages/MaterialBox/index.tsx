@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { upload } from '@testing-library/user-event/dist/upload';
+
 import {
   CardTitleWrapper,
   CardsWrapper,

@@ -109,9 +109,11 @@ export type AuthResultType = GetAuthResponseType['result'];
 
 export const getAuth = async (idToken: string) => {
   try {
-    const state = sessionStorage.getItem('oauth_state');
-    const nonce = sessionStorage.getItem('openid_nonce');
+    const state = localStorage.getItem('oauth_state');
+    const nonce = localStorage.getItem('openid_nonce');
 
+    console.log(state);
+    console.log(nonce);
     if (!state) {
       throw new Error('에러 발생');
     }

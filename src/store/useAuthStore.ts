@@ -36,7 +36,7 @@ type AuthStateType = {
   elevateAuthLevel: () => void;
 };
 
-const useAuthStore = create<AuthStateType>((set, get) => ({
+const useAuthStore = create<AuthStateType>()((set, get) => ({
   ...initialState,
 
   refresh(accessToken: string, refreshToken: string) {
