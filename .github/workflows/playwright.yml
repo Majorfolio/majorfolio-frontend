@@ -20,7 +20,7 @@ jobs:
           docker run \
           --rm \
           --ipc=host \
-          -e CI=${{ env.CI }} \
+          -e CI=$CI \
           -e DISABLE_ESLINT_PLUGIN=true \
           -e REACT_APP_BASE_URL=${{ vars.REACT_APP_BASE_URL }} \
           -e REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} \
