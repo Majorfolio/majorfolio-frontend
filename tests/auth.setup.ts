@@ -23,7 +23,8 @@ setup('authenticate', async ({ page }) => {
   // await page.reload();
 
   // await page.waitForURL('http://localhost:3000/home');
-  await page.waitForURL(/https:\/\/kauth.kakao.com\/oauth\/authorize/);
+
+  await page.reload();
   await page.waitForURL(/http:\/\/localhost:3000\/callback/);
   await page.waitForURL(/http:\/\/localhost:3000\/home/);
 
