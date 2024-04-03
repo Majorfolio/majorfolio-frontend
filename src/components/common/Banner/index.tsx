@@ -1,31 +1,43 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import Text from '../Text'
 import { BannerWrapper, ContentWrapper, ImgWrapper, TagWrapper, TextWrapper } from './index.styles'
 import AllTagBig from '../AllTagBig'
 import bellIcon from '../../../assets/images/landing/landing-bell.png';
+import theme, { ColorType } from '../theme'
 
+interface BannerPropsType {
+  titleText: React.ReactNode;
+  subtitleText: string;
+  titleColor?: ColorType;
+  subtitleColor?: ColorType;
+  backgroundColor?: ColorType;
+  bannerIcon?: string;
+  onClick?: () => void;
+}
 
-function Banner() {
-  const navigate = useNavigate();
-  const handleBannerClick = () => {
-    navigate(`/landing`);
-  }
-
+function Banner({ 
+  titleText, 
+  subtitleText, 
+  titleColor='gray/white', 
+  subtitleColor='gray/white', 
+  backgroundColor='main_color/blue_p', 
+  bannerIcon=bellIcon, 
+  onClick 
+}: BannerPropsType) {
   return (
-    <BannerWrapper onClick={handleBannerClick}>
+    <BannerWrapper backgroundColor={backgroundColor} onClick={onClick} >
       <TagWrapper>
         <AllTagBig text='공지사항' color='dark' />
       </TagWrapper>
 
       <ContentWrapper>
         <TextWrapper>
-          <Text size={22} weight='bold' lineHeight='lg' color='gray/white'>사전예약하고<br/>3가지 혜택 받자!</Text>
-          <Text size={14} lineHeight='sm' color='gray/white'>헤택을 확인해보세요!</Text>
+          <Text size={22} weight='bold' lineHeight='lg' color={titleColor}> {titleText} </Text>
+          <Text size={14} lineHeight='sm' color={subtitleColor}> {subtitleText} </Text>
         </TextWrapper>
 
-        <ImgWrapper src={bellIcon} alt='아이콘' width={100} />
+        <ImgWrapper src={bannerIcon} alt='아이콘' width={100} />
       </ContentWrapper>
       
     </BannerWrapper>

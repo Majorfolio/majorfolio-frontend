@@ -188,9 +188,26 @@ const Home = () => {
       />
       <HomeContainer>
         <BannerContainer>
-          <Banner />
-          <Banner />
-          <Banner />
+          <Banner
+            titleText={<>사전예약하고<br/>3가지 혜택 받자!</>}
+            subtitleText='헤택을 확인해보세요!'
+            titleColor='gray/white'
+            subtitleColor='sub_color/indigo/s'
+            backgroundColor='main_color/blue_p'
+            bannerIcon='assets/images/banner/landing-bell.png'
+            onClick={() => {
+              navigate(`/landing`);
+            }}
+          />
+          <Banner 
+            titleText={<>현재 PDF 파일만<br/>이용할 수 있어요</>}
+            subtitleText='업로드, 다운로드에 참고하세요'
+            titleColor='gray/gray900'
+            subtitleColor='gray/gray500'
+            backgroundColor='gray/grayBG'
+            bannerIcon='assets/images/banner/folder.png'
+            onClick={() => {}}            
+          />
         </BannerContainer>
 
         <HomeCategoryButtonSection
