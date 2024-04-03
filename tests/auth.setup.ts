@@ -17,7 +17,6 @@ setup('authenticate', async ({ page }) => {
     .fill(`${process.env.SIGNIN_VIA_KAKAO_PASSWORD}`);
   await page.getByRole('button', { name: /^(log in|로그인)$/i }).click();
 
-  await page.waitForURL(/https:\/\/accounts.kakao.com/);
   await page.waitForURL(/https:\/\/logins.daum.net/);
   await page.reload();
   await page.waitForURL('http://localhost:3000/home');
