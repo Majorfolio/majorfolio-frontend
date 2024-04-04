@@ -5,6 +5,7 @@ const authFile = 'playwright/.auth/user.json';
 setup('authenticate', async ({ page }) => {
   await page.goto('/signin');
   await page.getByRole('button', { name: /카카오/ }).click();
+  console.log(await page.url());
 
   // real-world application workflow
   // await page.waitForURL(/https:\/\/accounts.kakao.com\/login/);
@@ -25,8 +26,11 @@ setup('authenticate', async ({ page }) => {
   // await page.waitForURL('http://localhost:3000/home');
 
   await page.reload();
+  console.log(await page.url());
   await page.waitForURL(/http:\/\/localhost:3000\/callback/);
+  console.log(await page.url());
   await page.waitForURL(/http:\/\/localhost:3000\/home/);
+  console.log(await page.url());
 
   await page.context().storageState({ path: authFile });
 });
