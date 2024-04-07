@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SecondaryTopbar } from '../../../components/common/TopBar';
 import { CloseDefaultIcon } from '../../../assets/icons';
 import Text from '../../../components/common/Text';
@@ -61,11 +61,7 @@ export default function MyViewMore() {
         secondaryAction: () => {},
       }),
     () => {
-      activateModal('TO_BE_UPDATED', {
-        primaryAction: () => {},
-        secondaryAction: () => {},
-      });
-      // navigate('../notice-list');
+      navigate('../notice-list');
     },
     () => {
       activateModal('TO_BE_UPDATED', {
