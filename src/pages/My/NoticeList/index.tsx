@@ -10,8 +10,10 @@ import Text from '../../../components/common/Text';
 import StyledPageContainer from '../../Upload/UploadDefaultStep/index.styles';
 
 export enum Notices {
-  PersonalInfoPolicy,
-  PreOrder,
+  TermsAndConditions,
+  PersonalInformation,
+  Marketing,
+  Open,
 }
 
 export default function NoticeList() {
@@ -38,25 +40,57 @@ export default function NoticeList() {
             공지
           </LargeTag>
         }
-        text="개인정보처리방침 개정 안내"
+        text="서비스 이용약관 안내"
         onClick={() =>
-          navigate(`../notice-detail/${Notices.PersonalInfoPolicy}`)
+          navigate(`../notice-detail/${Notices.TermsAndConditions}`)
         }
       />
       <RowButton
         tag={
           <LargeTag
-            backgroundColor="sub_color/yellow/c"
+            backgroundColor="gray/gray100"
             size={12}
             weight="bold"
             lineHeight="sm"
-            color="main_color/yellow_s"
+            color="gray/gray900"
           >
-            혜택
+            공지
           </LargeTag>
         }
-        text="사전예약 시 혜택을 살펴보세요"
-        onClick={() => navigate(`../notice-detail/${Notices.PreOrder}`)}
+        text="개인정보 처리방침 안내"
+        onClick={() =>
+          navigate(`../notice-detail/${Notices.PersonalInformation}`)
+        }
+      />
+      <RowButton
+        tag={
+          <LargeTag
+            backgroundColor="gray/gray100"
+            size={12}
+            weight="bold"
+            lineHeight="sm"
+            color="gray/gray900"
+          >
+            공지
+          </LargeTag>
+        }
+        text="마케팅 수신 동의"
+        onClick={() => navigate(`../notice-detail/${Notices.Marketing}`)}
+      />
+      <RowButton
+        tag={
+          <LargeTag
+            backgroundColor="gray/gray100"
+            size={12}
+            weight="bold"
+            lineHeight="sm"
+            color="gray/gray900"
+          >
+            공지
+          </LargeTag>
+        }
+        text="서비스 오픈 안내"
+        onClick={() => navigate(`../notice-detail/${Notices.Open}`)}
       />
     </>
   );
